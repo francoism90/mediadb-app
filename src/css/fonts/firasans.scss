@@ -1,0 +1,16 @@
+.container {
+  flex-grow: 1;
+  max-width: $breakpoint-md;
+  margin: 0 auto;
+  padding-left: $space-base * 2.5 !important;
+  padding-right: $space-base * 2.5 !important;
+
+  @media (max-width: $breakpoint-sm-max) {
+    padding-left: $space-base * 1.5 !important;
+    padding-right: $space-base * 1.5 !important;
+  }
+
+  &.fluid {
+    max-width: 100%;
+  }
+}

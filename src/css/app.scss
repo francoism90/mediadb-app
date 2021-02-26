@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+// Import quasar variables
+@import "quasar.variables.scss";
+
+// Import fonts
+// @import "fonts/firasans.scss";
+
+// Import our styles
+@import "base/_all.scss";
+@import "components/_all.scss";
+@import "elements/_all.scss";
+@import "partials/_all.scss";

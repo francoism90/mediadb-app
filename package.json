@@ -1,0 +1,53 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A Quasar Framework app",
+  "author": "francoism90 <f.menning@pm.me>",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts,.vue ./",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "dependencies": {
+    "@quasar/extras": "^1.9.17",
+    "axios": "^0.21.1",
+    "core-js": "^3.9.0",
+    "quasar": "^2.0.0-beta.7",
+    "vue-api-query": "^1.9.0",
+    "vue-i18n": "^9.0.0-beta.0",
+    "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "devDependencies": {
+    "@quasar/app": "^3.0.0-beta.7",
+    "@quasar/quasar-app-extension-dotenv": "^1.1.0",
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^7.20.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-vue": "^7.6.0",
+    "stylelint-config-standard": "^20.0.0",
+    "workbox-webpack-plugin": "^6.1.1"
+  },
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  },
+  "productName": "LibreAPI"
+}
