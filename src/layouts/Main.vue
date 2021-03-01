@@ -75,39 +75,21 @@ const linksList = [
     exact: true
   },
   {
-    title: 'Docs',
+    title: 'Favorites',
+    caption: 'Our API Docs',
+    icon: 'favorite',
+    link: { name: 'settings' }
+  },
+  {
+    title: 'Watchlist',
+    caption: 'Our API Docs',
+    icon: 'bookmarks',
+    link: { name: 'settings' }
+  },
+  {
+    title: 'Tags',
     caption: 'Our API Docs',
     icon: 'school',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Code',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
     link: { name: 'settings' }
   }
 ]
