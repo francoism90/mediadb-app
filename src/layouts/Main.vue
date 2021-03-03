@@ -14,7 +14,38 @@
 
         <q-space />
 
-        <global-search />
+        <q-form
+          class="q-mx-md md-search"
+          @submit.prevent
+        >
+          <q-input
+            debounce="900"
+            type="search"
+            placeholder="Search"
+            clearable
+            square
+            borderless
+            class="md-search-q q-px-md"
+            input-class="text-grey-1"
+            hide-bottom-space
+          >
+            <template #prepend>
+              <q-icon
+                name="search"
+                color="grey-5"
+                class="cursor-pointer"
+              />
+            </template>
+
+            <template #append>
+              <q-icon
+                name="filter_list"
+                color="grey-5"
+                class="cursor-pointer"
+              />
+            </template>
+          </q-input>
+        </q-form>
 
         <div class="q-gutter-x-xs row no-wrap items-center">
           <q-btn
@@ -42,13 +73,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import GlobalSearch from 'components/toolbar/GlobalSearch.vue'
 
 export default defineComponent({
-  name: 'Main',
-
-  components: {
-    GlobalSearch
-  }
+  name: 'Main'
 })
 </script>
