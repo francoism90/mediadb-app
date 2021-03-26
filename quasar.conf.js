@@ -144,8 +144,8 @@ module.exports = configure(function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'LibreAPI',
-        short_name: 'LibreAPI',
+        name: 'MediaDB',
+        short_name: 'MediaDB',
         description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',
