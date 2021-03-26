@@ -1,6 +1,12 @@
 import { boot } from 'quasar/wrappers'
-import { key } from 'src/services/store'
+import { InjectionKey } from 'vue'
+import { StoreState } from 'src/interfaces/store'
+import { Store } from 'vuex'
+
+const storeKey: InjectionKey<Store<StoreState>> = Symbol('vuex')
 
 export default boot(({ app, store }) => {
-  app.provide(key, store)
+  app.provide(storeKey, store)
 })
+
+export { storeKey }

@@ -1,12 +1,6 @@
 import { boot } from 'quasar/wrappers'
-import axios, { AxiosInstance, AxiosError } from 'axios'
+import axios, { AxiosError } from 'axios'
 import { getAuthToken } from 'src/services/auth'
-
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $axios: AxiosInstance;
-  }
-}
 
 const api = axios.create({
   baseURL: process.env.API_URL,

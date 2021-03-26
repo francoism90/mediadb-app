@@ -1,9 +1,6 @@
-import { StoreState } from 'src/interfaces/store'
-import { InjectionKey } from 'vue'
-import { useStore as baseUseStore, Store } from 'vuex'
-
-export const key: InjectionKey<Store<StoreState>> = Symbol('vuex')
+import { storeKey } from 'src/boot/store'
+import { useStore as baseUseStore } from 'vuex'
 
 export function useStore () {
-  return baseUseStore(key)
+  return baseUseStore(storeKey)
 }
