@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import { InjectionKey } from 'vue'
-import { StoreState } from 'src/interfaces/store'
 import { Store } from 'vuex'
+import { StoreState } from 'src/interfaces/store'
 
 const storeKey: InjectionKey<Store<StoreState>> = Symbol('vuex')
 
