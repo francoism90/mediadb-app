@@ -1,5 +1,6 @@
 import { store } from 'quasar/wrappers'
-import { createStore } from 'vuex'
+import { InjectionKey } from 'vue'
+import { createStore, Store as VuexStore, useStore as vuexUseStore } from 'vuex'
 import { StoreState } from 'src/interfaces/store'
 import createPersistedState from 'vuex-persistedstate'
 import session from './session'
@@ -13,6 +14,8 @@ const persistedState = createPersistedState({
   overwrite: true
 })
 
+export const storeKey: InjectionKey<VuexStore<StoreState>> = Symbol('vuex-key')
+
 export default store(function (/* { ssrContext } */) {
   const Store = createStore<StoreState>({
     modules: {
@@ -24,3 +27,7 @@ export default store(function (/* { ssrContext } */) {
 
   return Store
 })
+
+export function useStore () {
+  return vuexUseStore(storeKey)
+}

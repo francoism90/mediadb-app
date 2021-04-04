@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { useStore } from 'src/services/store'
+import { useStore } from 'src/store/index'
 
 export default defineComponent({
   name: 'PageIndex',
