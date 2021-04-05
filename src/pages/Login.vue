@@ -16,6 +16,14 @@
           type="email"
         />
 
+        <q-input
+          v-model="form.password"
+          dark
+          filled
+          label="Your password"
+          type="password"
+        />
+
         <q-btn
           label="Submit"
           type="submit"

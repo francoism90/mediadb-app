@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios'
 import { CsrfCookie, PostLoginForm, Profile } from 'src/interfaces/session'
 import { Store } from 'vuex'
 import { StoreState } from 'src/interfaces/store'
-import { FormResponse } from 'src/interfaces/form'
+import { ApiValidationResponse } from 'src/interfaces/api'
 
 export async function setCsrfCookie (): Promise<CsrfCookie> {
   const response = await api.get<CsrfCookie, AxiosResponse<CsrfCookie>>('sanctum/csrf-cookie')
@@ -17,8 +17,8 @@ export async function getUser (): Promise<Profile> {
   return response.data
 }
 
-export async function loginUser (form: PostLoginForm): Promise<FormResponse> {
-  const response = await api.post<FormResponse, AxiosResponse<FormResponse>>('auth/login', {
+export async function loginUser (form: PostLoginForm): Promise<ApiValidationResponse> {
+  const response = await api.post<ApiValidationResponse, AxiosResponse<ApiValidationResponse>>('auth/login', {
     email: form.email,
     password: form.password,
     device_name: form.deviceName,
