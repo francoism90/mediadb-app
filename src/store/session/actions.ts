@@ -10,7 +10,9 @@ const actions: ActionTree<SessionState, StoreState> = {
   },
 
   setUser (context, payload: UserResponse): void {
-    console.log(payload)
+    // const obj: Record<User> = JSON.parse(String(payload.user))
+
+    console.log(payload.user)
 
     context.commit('setToken', payload.token || '')
     context.commit('setUser', payload.user || <User>{})

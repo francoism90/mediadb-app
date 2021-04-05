@@ -1,5 +1,5 @@
 import { boot } from 'quasar/wrappers'
-import { getUser } from 'src/services/auth'
+// import { getUser } from 'src/services/auth'
 import { Store } from 'vuex'
 import { StoreState } from 'src/interfaces/store'
 
@@ -12,9 +12,9 @@ async function checkUser (store: Store<StoreState>): Promise<boolean> {
     }
 
     // Returns 401 when token is invalid
-    const response = await getUser()
+    // const response = await getUser()
 
-    await store.dispatch('session/setUser', response)
+    // await store.dispatch('session/setUser', response)
 
     return true
   } catch {

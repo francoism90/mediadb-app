@@ -17,6 +17,8 @@ export default defineComponent({
     const twiceTheCounter = computed(() => $store.state.session.user)
 
     console.log(twiceTheCounter.value)
+    console.log($store.state.session.token)
+    console.log($store.state.session.user.id)
 
     // const test = store.dispatch('foo/bar')
 

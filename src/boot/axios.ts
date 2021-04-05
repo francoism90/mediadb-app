@@ -18,7 +18,7 @@ export default boot(({ app, store, urlPath }) => {
   api.interceptors.request.use((config) => {
     config.headers = {
       Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
+      // Accept: 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     }
 
