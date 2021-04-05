@@ -10,6 +10,8 @@ const actions: ActionTree<SessionState, StoreState> = {
   },
 
   setUser (context, payload: UserResponse): void {
+    console.log(payload)
+
     context.commit('setToken', payload.token || '')
     context.commit('setUser', payload.user || <User>{})
     context.commit('setTimestamp', Date.now())

@@ -34,12 +34,14 @@
 </template>
 
 <script lang="ts">
-import { ValidationResponse } from 'src/interfaces/response'
 import { AxiosError } from 'axios'
 import { defineComponent, reactive, ref } from 'vue'
 import { loginUser } from 'src/services/auth'
 import { PostLoginForm } from 'src/interfaces/session'
+import { router } from 'src/router'
 import { useQuasar } from 'quasar'
+import { useStore } from 'src/store'
+import { ValidationResponse } from 'src/interfaces/response'
 import useFormValidation from 'src/composables/useFormValidation'
 
 export default defineComponent({
@@ -47,6 +49,10 @@ export default defineComponent({
 
   setup () {
     const $q = useQuasar()
+    const $router = router
+    const $store = useStore()
+
+    // $router.go('/')
 
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
@@ -60,7 +66,10 @@ export default defineComponent({
 
     const onSubmit = async () => {
       try {
-        await loginUser(form)
+        const response = await loginUser(form)
+
+        await $store.dispatch('session/setUser', response)
+        await $router.push('home')
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>
 

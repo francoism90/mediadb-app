@@ -12,11 +12,11 @@ export default defineComponent({
   name: 'PageIndex',
 
   setup () {
-    const store = useStore()
+    const $store = useStore()
 
-    const twiceTheCounter = computed(() => store.state.session.timestamp)
+    const twiceTheCounter = computed(() => $store.state.session.user)
 
-    console.log(twiceTheCounter)
+    console.log(twiceTheCounter.value)
 
     // const test = store.dispatch('foo/bar')
 
