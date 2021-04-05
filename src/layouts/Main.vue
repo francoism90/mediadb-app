@@ -5,12 +5,21 @@
       height-hint="58"
     >
       <q-toolbar class="container fluid">
-        <router-link
-          :to="{ name: 'home' }"
-          class="q-pr-xs text-weight-medium text-grey-5"
-        >
-            MediaDB
-        </router-link>
+        <div class="q-gutter-x-xs row no-wrap items-center">
+          <q-btn
+            dense
+            color="grey-10"
+            icon="chevron_left"
+            aria-label="Back"
+          />
+
+          <q-btn
+            dense
+            color="grey-10"
+            icon="chevron_right"
+            aria-label="Forward"
+          />
+        </div>
 
         <q-space />
 
@@ -49,17 +58,10 @@
 
         <div class="q-gutter-x-xs row no-wrap items-center">
           <q-btn
-            flat
             dense
-            icon="notifications"
-            aria-label="Menu"
-          />
-
-          <q-btn
-            flat
-            dense
-            icon="account_circle"
-            aria-label="Menu"
+            color="grey-10"
+            icon="account_box"
+            aria-label="Account"
           />
         </div>
       </q-toolbar>
