@@ -31,6 +31,7 @@ import { PostLoginForm } from 'src/interfaces/session'
 import { loginUser } from 'src/services/auth'
 import { AxiosError } from 'axios'
 import { FormResponse } from 'src/interfaces/form'
+import useFormValidation from 'src/composables/useFormValidation'
 
 export default defineComponent({
   name: 'LoginPage',
@@ -39,7 +40,6 @@ export default defineComponent({
     const $q = useQuasar()
 
     const formRef = ref<HTMLFormElement | null>(null)
-
     const form = reactive<PostLoginForm>({
       email: '',
       password: '',
@@ -54,7 +54,10 @@ export default defineComponent({
         const error = e as AxiosError<FormResponse>
 
         if (error.response) {
+          const { validationErrors } = useFormValidation(error.response.data)
+
           console.log(error.message)
+          console.log(validationErrors)
 
           return
         }

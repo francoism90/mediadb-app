@@ -1,9 +1,11 @@
 export interface FieldError {
-  [index: number]: { message: string | number }
+  [index: number]: string | number
 }
 
 export interface FormResponse {
-  errors?: FieldError[],
+  errors?: {
+    [key: string]: FieldError
+  },
   message?: string,
   success?: boolean
 }
