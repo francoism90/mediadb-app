@@ -26,12 +26,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
-import { useQuasar } from 'quasar'
-import { PostLoginForm } from 'src/interfaces/session'
-import { loginUser } from 'src/services/auth'
+import { ApiValidationResponse } from 'src/interfaces/api'
 import { AxiosError } from 'axios'
-import { FormResponse } from 'src/interfaces/form'
+import { defineComponent, reactive, ref } from 'vue'
+import { loginUser } from 'src/services/auth'
+import { PostLoginForm } from 'src/interfaces/session'
+import { useQuasar } from 'quasar'
 import useFormValidation from 'src/composables/useFormValidation'
 
 export default defineComponent({
@@ -48,16 +48,17 @@ export default defineComponent({
       remember: true
     })
 
+    const { getError, setResponse } = useFormValidation()
+
     const onSubmit = async () => {
       try {
         await loginUser(form)
       } catch (e: unknown) {
-        const error = e as AxiosError<FormResponse>
+        const error = e as AxiosError<ApiValidationResponse>
 
         if (error.response) {
-          const { getError, errors } = useFormValidation(error.response.data)
+          setResponse(error.response.data)
 
-          console.log(errors)
           console.log(getError('email'))
 
           return

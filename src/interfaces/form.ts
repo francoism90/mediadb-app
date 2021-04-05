@@ -2,7 +2,7 @@ export interface FieldError {
   [index: number]: string | number
 }
 
-export interface FormResponse {
+export interface FormValidator {
   errors?: {
     [key: string]: FieldError[]
   },
