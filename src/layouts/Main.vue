@@ -59,8 +59,9 @@
         <div class="row no-wrap items-center">
           <q-btn
             dense
+            round
             color="grey-10"
-            icon="account_box"
+            icon="account_circle"
             aria-label="Account"
           />
         </div>
