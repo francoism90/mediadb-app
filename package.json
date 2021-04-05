@@ -23,13 +23,13 @@
     "@quasar/extras": "^1.10.2",
     "axios": "^0.21.1",
     "core-js": "^3.10.0",
-    "quasar": "^2.0.0-beta.11",
+    "quasar": "^2.0.0-beta.12",
     "vue-api-query": "^1.9.0",
     "vue-i18n": "^9.0.0",
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
-    "@quasar/app": "^3.0.0-beta.10",
+    "@quasar/app": "^3.0.0-beta.11",
     "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "@types/node": "^14.14.37",
     "@typescript-eslint/eslint-plugin": "^4.20.0",

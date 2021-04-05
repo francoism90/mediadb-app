@@ -10,8 +10,7 @@ const persistedState = createPersistedState({
   paths: [
     'session.token',
     'session.timestamp'
-  ],
-  overwrite: true
+  ]
 })
 
 export const storeKey: InjectionKey<VuexStore<StoreState>> = Symbol('vuex-key')
