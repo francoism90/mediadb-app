@@ -4,7 +4,7 @@
       class="md-header row items-center content-center no-wrap"
       height-hint="58"
     >
-      <q-toolbar class="container fluid">
+      <q-toolbar class="q-px-md">
         <div class="q-gutter-x-xs row no-wrap items-center">
           <q-btn
             dense
@@ -56,7 +56,7 @@
           </q-input>
         </q-form>
 
-        <div class="q-gutter-x-xs row no-wrap items-center">
+        <div class="row no-wrap items-center">
           <q-btn
             dense
             color="grey-10"
