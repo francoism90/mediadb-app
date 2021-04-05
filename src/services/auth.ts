@@ -1,8 +1,9 @@
 import { api } from 'boot/axios'
 import { AxiosResponse } from 'axios'
-import { CsrfCookie, Profile } from 'src/interfaces/session'
+import { CsrfCookie, PostLoginForm, Profile } from 'src/interfaces/session'
 import { Store } from 'vuex'
 import { StoreState } from 'src/interfaces/store'
+import { FormResponse } from 'src/interfaces/form'
 
 export async function getUser (): Promise<Profile> {
   const response = await api.get<Profile, AxiosResponse<Profile>>('auth/user')
@@ -35,6 +36,17 @@ export async function loggedIn (store: Store<StoreState>): Promise<boolean> {
 
     return false
   }
+}
+
+export async function loginUser (form: PostLoginForm): Promise<FormResponse> {
+  const response = await api.post<FormResponse, AxiosResponse<FormResponse>>('auth/login', {
+    email: form.email,
+    password: form.password,
+    device_name: form.deviceName,
+    remember_me: form.remember
+  })
+
+  return response.data
 }
 
 export function getAuthToken (store: Store<StoreState>): string | null {
