@@ -6,6 +6,5 @@ export interface FormValidator {
   errors?: {
     [key: string]: FieldError[]
   },
-  message?: string,
-  success?: boolean
+  message?: string
 }

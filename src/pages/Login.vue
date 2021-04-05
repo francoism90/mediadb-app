@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { ApiValidationResponse } from 'src/interfaces/api'
+import { ValidationResponse } from 'src/interfaces/response'
 import { AxiosError } from 'axios'
 import { defineComponent, reactive, ref } from 'vue'
 import { loginUser } from 'src/services/auth'
@@ -62,7 +62,7 @@ export default defineComponent({
       try {
         await loginUser(form)
       } catch (e: unknown) {
-        const error = e as AxiosError<ApiValidationResponse>
+        const error = e as AxiosError<ValidationResponse>
 
         if (error.response) {
           setResponse(error.response.data)

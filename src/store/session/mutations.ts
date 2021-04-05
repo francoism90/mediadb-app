@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex'
-import { Profile } from 'src/interfaces/session'
 import { SessionState } from 'src/interfaces/store'
 import defaultState from './state'
+import { User } from 'src/interfaces/user'
 
 const mutation: MutationTree<SessionState> = {
   resetStore (state: SessionState) {
@@ -16,7 +16,7 @@ const mutation: MutationTree<SessionState> = {
     state.timestamp = payload
   },
 
-  setUser (state: SessionState, payload: Profile) {
+  setUser (state: SessionState, payload: User) {
     Object.assign(state.user, payload)
   }
 }

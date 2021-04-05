@@ -1,9 +1,9 @@
-import { Profile } from './session'
+import { User } from './user'
 
 export interface SessionState {
   timestamp: Date | null;
   token: string | null;
-  user: Profile;
+  user: User;
 }
 
 export interface StoreState {

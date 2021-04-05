@@ -1,6 +1,7 @@
 import { ActionTree } from 'vuex'
 import { StoreState, SessionState } from 'src/interfaces/store'
-import { Profile } from 'src/interfaces/session'
+import { UserResponse } from 'src/interfaces/response'
+import { User } from 'src/interfaces/user'
 
 const actions: ActionTree<SessionState, StoreState> = {
   reset (context): void {
@@ -8,8 +9,9 @@ const actions: ActionTree<SessionState, StoreState> = {
     context.commit('setTimestamp', Date.now())
   },
 
-  setUser (context, payload: { user: Profile }): void {
-    context.commit('setUser', payload.user)
+  setUser (context, payload: UserResponse): void {
+    context.commit('setToken', payload.token || '')
+    context.commit('setUser', payload.user || <User>{})
     context.commit('setTimestamp', Date.now())
   }
 }

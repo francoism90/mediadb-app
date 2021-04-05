@@ -1,11 +1,16 @@
 import { boot } from 'quasar/wrappers'
+import { Store } from 'vuex'
+import { StoreState } from 'src/interfaces/store'
 import axios, { AxiosError } from 'axios'
-import { getAuthToken } from 'src/services/auth'
 
 const api = axios.create({
   baseURL: process.env.API_URL,
   withCredentials: true
 })
+
+function getAuthToken (store: Store<StoreState>): string | null {
+  return store.state.session.token
+}
 
 export default boot(({ app, store, urlPath }) => {
   const token = getAuthToken(store) || ''

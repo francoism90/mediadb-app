@@ -1,11 +1,11 @@
 import { FieldError, FormValidator } from 'src/interfaces/form'
 import { get, has } from 'lodash'
-import { ApiValidationResponse } from 'src/interfaces/api'
+import { ValidationResponse } from 'src/interfaces/response'
 
 export default function useFormValidation () {
   let validator = <FormValidator>{}
 
-  const setResponse = (response: ApiValidationResponse) => {
+  const setResponse = (response: ValidationResponse) => {
     validator = response
   }
 
