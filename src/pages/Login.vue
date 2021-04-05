@@ -5,6 +5,7 @@
       dark
     >
       <q-form
+        greedy
         @submit="onSubmit"
       >
         <q-input
@@ -54,17 +55,13 @@ export default defineComponent({
         const error = e as AxiosError<FormResponse>
 
         if (error.response) {
-          const { validationErrors } = useFormValidation(error.response.data)
+          const { getError, errors } = useFormValidation(error.response.data)
 
-          console.log(error.message)
-          console.log(validationErrors)
+          console.log(errors)
+          console.log(getError('email'))
 
           return
         }
-
-        // if (e && e.response) {
-        //   console.log(e.response)
-        // }
 
         throw error
       }

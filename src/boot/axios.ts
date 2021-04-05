@@ -14,7 +14,6 @@ export default boot(({ app, store, urlPath }) => {
     config.headers = {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
       'X-Requested-With': 'XMLHttpRequest'
     }
 

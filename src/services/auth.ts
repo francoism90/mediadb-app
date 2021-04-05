@@ -46,6 +46,8 @@ export async function loginUser (form: PostLoginForm): Promise<FormResponse> {
     remember_me: form.remember
   })
 
+  console.log(response)
+
   return response.data
 }
 
