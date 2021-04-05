@@ -4,7 +4,7 @@ export interface FieldError {
 
 export interface FormResponse {
   errors?: {
-    [key: string]: FieldError
+    [key: string]: FieldError[]
   },
   message?: string,
   success?: boolean
