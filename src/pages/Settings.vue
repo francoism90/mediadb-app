@@ -8,6 +8,6 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'PageSettings'
+  name: 'SettingsPage'
 })
 </script>
