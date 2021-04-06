@@ -1,35 +1,64 @@
 <template>
   <q-page class="container fluid">
-    <q-card
-      style="width: 400px; max-width: 100vw;"
-      dark
-    >
-      <q-form
-        greedy
-        @submit="onSubmit"
+    <template v-if="token">
+      already logged
+    </template>
+
+    <template v-else>
+      <q-card
+        class="bg-grey-10 fixed-center"
+        style="width: 400px; max-width: 100vw;"
+        dark
+        square
       >
-        <q-input
-          v-model="form.email"
-          dark
-          filled
-          label="Your email"
-          type="email"
-        />
+        <q-form
+          greedy
+          @submit="onSubmit"
+        >
+          <q-card-section class="row no-wrap justify-between items-center content-center">
+            <div class="col text-h6 ellipsis">
+              Sign In to MediaDB
+            </div>
+          </q-card-section>
 
-        <q-input
-          v-model="form.password"
-          dark
-          filled
-          label="Your password"
-          type="password"
-        />
+          <q-separator dark />
 
-        <q-btn
-          label="Submit"
-          type="submit"
-        />
-      </q-form>
-    </q-card>
+          <q-card-section class="q-px-xl q-gutter-sm">
+            <q-input
+              v-model="form.email"
+              :error-message="getError('email')"
+              :error="hasError('email')"
+              dark
+              label="Your email"
+              type="email"
+            />
+
+            <q-input
+              v-model="form.password"
+              :error-message="getError('password')"
+              :error="hasError('password')"
+              dark
+              label="Your password"
+              type="password"
+            />
+          </q-card-section>
+
+          <q-card-actions
+            align="center"
+            class="q-pb-lg"
+          >
+            <q-btn
+              no-caps
+              unelevated
+              rounded
+              class="btn-outline btn-primary btn-stretch"
+              type="submit"
+              label="Sign In"
+            />
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </template>
   </q-page>
 </template>
 
@@ -39,10 +68,10 @@ import { defineComponent, reactive, ref } from 'vue'
 import { loginUser, setCsrfCookie } from 'src/services/auth'
 import { PostLoginForm } from 'src/interfaces/session'
 import { router } from 'src/router'
+import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 import { useQuasar } from 'quasar'
 import { ValidationResponse } from 'src/interfaces/response'
 import useFormValidation from 'src/composables/useFormValidation'
-import { useNamespacedActions, useNamespacedGetters } from 'vuex-composition-helpers'
 
 export default defineComponent({
   name: 'LoginPage',
@@ -50,6 +79,10 @@ export default defineComponent({
   setup () {
     const $q = useQuasar()
     const $router = router
+
+    const { redirectPath } = useNamespacedGetters('session', ['redirectPath'])
+    const { setToken } = useNamespacedActions('session', ['setToken'])
+    const { token } = useNamespacedState('session', ['token'])
 
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
@@ -59,10 +92,7 @@ export default defineComponent({
       remember: true
     })
 
-    const { getError, setResponse } = useFormValidation()
-
-    const { setToken } = useNamespacedActions('session', ['setToken'])
-    const { redirectPath } = useNamespacedGetters('session', ['redirectPath'])
+    const { getError, hasError, setResponse } = useFormValidation()
 
     const onSubmit = async () => {
       try {
@@ -80,9 +110,6 @@ export default defineComponent({
 
         if (error.response) {
           setResponse(error.response.data)
-
-          console.log(getError('email'))
-
           return
         }
 
@@ -91,9 +118,12 @@ export default defineComponent({
     }
 
     return {
+      getError,
+      hasError,
       formRef,
       form,
-      onSubmit
+      onSubmit,
+      token
     }
   }
 })
