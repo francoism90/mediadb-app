@@ -28,6 +28,8 @@
               v-model="form.email"
               :error-message="getError('email')"
               :error="hasError('email')"
+              :rules="[val => !!val || 'Field is required']"
+              autofocus
               dark
               label="Your email"
               type="email"
@@ -37,6 +39,7 @@
               v-model="form.password"
               :error-message="getError('password')"
               :error="hasError('password')"
+              :rules="[val => !!val || 'Field is required']"
               dark
               label="Your password"
               type="password"
@@ -51,7 +54,7 @@
               no-caps
               unelevated
               rounded
-              class="btn-outline btn-primary btn-stretch"
+              class="btn-outline btn-primary"
               type="submit"
               label="Sign In"
             />

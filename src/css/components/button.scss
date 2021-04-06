@@ -1,9 +1,5 @@
 .btn-outline {
-  padding: 0;
-
-  .q-btn__wrapper {
-    padding: 8px 24px;
-  }
+  padding: 8px 24px !important;
 
   .q-btn__wrapper::before {
     border: 2px solid transparent;
@@ -47,10 +43,6 @@
   background: transparent;
   color: $grey-8;
 
-  .q-btn__wrapper::before {
-    border-color: $grey-8;
-  }
-
   .q-focus-helper::before {
     background: transparent !important;
   }
@@ -65,11 +57,5 @@
     > .q-focus-helper {
       opacity: 1 !important;
     }
-  }
-}
-
-.btn-stretch {
-  .q-btn__wrapper {
-    padding: 8px 48px;
   }
 }
