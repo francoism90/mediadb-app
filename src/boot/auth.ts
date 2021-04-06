@@ -5,9 +5,6 @@ import { StoreState } from 'src/interfaces/store'
 
 async function checkUser (store: Store<StoreState>, redirectPath: string | null): Promise<boolean> {
   try {
-    // Redirect to path after login
-    store.commit('session/setRedirectPath', redirectPath)
-
     // Validate current token
     const sessionToken = store.state.session.token
 
@@ -23,6 +20,9 @@ async function checkUser (store: Store<StoreState>, redirectPath: string | null)
     return true
   } catch {
     await store.dispatch('session/reset')
+
+    // Redirect after successful login
+    store.commit('session/setRedirectPath', redirectPath)
 
     return false
   }

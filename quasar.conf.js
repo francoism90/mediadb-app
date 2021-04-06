@@ -57,12 +57,12 @@ module.exports = configure(function (/* ctx */) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
 
-      // transpile: false,
+      transpile: true,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
       // Applies only if "transpile" is set to true.
-      // transpileDependencies: [],
+      transpileDependencies: [/vuex-composition-helpers/],
 
       // rtl: false, // https://quasar.dev/options/rtl-support
       // preloadChunks: true,
@@ -86,13 +86,13 @@ module.exports = configure(function (/* ctx */) {
       port: 8000,
       host: 'localhost',
       open: true,
-      https: true,
-      proxy: {
-        '/api': {
-          target: 'https://localhost:3001',
-          secure: false
-        }
-      }
+      https: false,
+      // proxy: {
+      //   '/api': {
+      //     target: 'https://localhost:3001',
+      //     secure: false
+      //   }
+      // }
     },
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

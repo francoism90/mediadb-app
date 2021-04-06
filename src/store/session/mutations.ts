@@ -10,6 +10,9 @@ const mutation: MutationTree<SessionState> = {
 
   setRedirectPath (state: SessionState, payload: string | null) {
     state.redirectPath = payload
+
+    console.log(`state: ${state.redirectPath || ''}`)
+    // console.log(state)
   },
 
   setToken (state: SessionState, payload: string) {

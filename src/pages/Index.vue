@@ -5,20 +5,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from 'src/store/index'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'PageIndex',
 
   setup () {
-    const $store = useStore()
+    // const $store = useStore()
 
-    const twiceTheCounter = computed(() => $store.state.session.user)
+    // const twiceTheCounter = computed(() => $store.state.session.user)
 
-    console.log(twiceTheCounter.value)
-    console.log($store.state.session.token)
-    console.log($store.state.session.user.id)
+    // console.log(twiceTheCounter.value)
+    // console.log($store.state.session.token)
+    // console.log($store.state.session.user.id)
 
     // const test = store.dispatch('foo/bar')
 

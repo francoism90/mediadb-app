@@ -8,6 +8,7 @@ import session from './session'
 const persistedState = createPersistedState({
   key: 'persist',
   paths: [
+    'session.redirectPath',
     'session.token',
     'session.timestamp'
   ]

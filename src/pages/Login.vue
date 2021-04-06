@@ -40,9 +40,9 @@ import { loginUser, setCsrfCookie } from 'src/services/auth'
 import { PostLoginForm } from 'src/interfaces/session'
 import { router } from 'src/router'
 import { useQuasar } from 'quasar'
-import { useStore } from 'src/store'
 import { ValidationResponse } from 'src/interfaces/response'
 import useFormValidation from 'src/composables/useFormValidation'
+import { useNamespacedActions, useNamespacedGetters } from 'vuex-composition-helpers'
 
 export default defineComponent({
   name: 'LoginPage',
@@ -50,7 +50,6 @@ export default defineComponent({
   setup () {
     const $q = useQuasar()
     const $router = router
-    const $store = useStore()
 
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
@@ -62,6 +61,9 @@ export default defineComponent({
 
     const { getError, setResponse } = useFormValidation()
 
+    const { setToken } = useNamespacedActions('session', ['setToken'])
+    const { redirectPath } = useNamespacedGetters('session', ['redirectPath'])
+
     const onSubmit = async () => {
       try {
         if (!$q.platform.is.cordova && !$q.platform.is.capacitor) {
@@ -70,8 +72,9 @@ export default defineComponent({
 
         const response = await loginUser(form)
 
-        await $store.dispatch('session/setToken', response)
-        await $router.push('/')
+        await setToken(response)
+
+        await $router.push(redirectPath.value)
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>
 
@@ -92,15 +95,6 @@ export default defineComponent({
       form,
       onSubmit
     }
-  },
-
-  computed: {
-    // mix the getters into computed with object spread operator
-    ...mapGetters([
-      'doneTodosCount',
-      'anotherGetter'
-      // ...
-    ])
   }
 })
 </script>
