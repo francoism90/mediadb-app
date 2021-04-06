@@ -8,6 +8,10 @@ const mutation: MutationTree<SessionState> = {
     Object.assign(state, defaultState())
   },
 
+  setRedirectPath (state: SessionState, payload: string | null) {
+    state.redirectPath = payload
+  },
+
   setToken (state: SessionState, payload: string) {
     state.token = payload
   },

@@ -12,12 +12,12 @@ const getters: GetterTree<SessionState, StoreState> = {
     return Math.abs((lastDate - currentDate) / 1000)
   },
 
-  loggedIn (state: SessionState): boolean {
-    if (!state.token || state.token.length === 0) {
-      return false
+  redirectPath (state: SessionState): string {
+    if (!state.redirectPath || state.redirectPath.length === 0) {
+      return '/'
     }
 
-    return true
+    return state.redirectPath
   }
 }
 

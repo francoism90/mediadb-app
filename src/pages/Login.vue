@@ -36,7 +36,7 @@
 <script lang="ts">
 import { AxiosError } from 'axios'
 import { defineComponent, reactive, ref } from 'vue'
-import { loginUser } from 'src/services/auth'
+import { loginUser, setCsrfCookie } from 'src/services/auth'
 import { PostLoginForm } from 'src/interfaces/session'
 import { router } from 'src/router'
 import { useQuasar } from 'quasar'
@@ -52,8 +52,6 @@ export default defineComponent({
     const $router = router
     const $store = useStore()
 
-    // $router.go('/')
-
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
       email: '',
@@ -66,10 +64,14 @@ export default defineComponent({
 
     const onSubmit = async () => {
       try {
+        if (!$q.platform.is.cordova && !$q.platform.is.capacitor) {
+          await setCsrfCookie()
+        }
+
         const response = await loginUser(form)
 
-        await $store.dispatch('session/setUser', response)
-        await $router.push('home')
+        await $store.dispatch('session/setToken', response)
+        await $router.push('/')
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>
 
@@ -90,6 +92,15 @@ export default defineComponent({
       form,
       onSubmit
     }
+  },
+
+  computed: {
+    // mix the getters into computed with object spread operator
+    ...mapGetters([
+      'doneTodosCount',
+      'anotherGetter'
+      // ...
+    ])
   }
 })
 </script>

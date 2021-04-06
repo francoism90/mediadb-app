@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex'
 import { StoreState, SessionState } from 'src/interfaces/store'
-import { UserResponse } from 'src/interfaces/response'
+import { AuthResponse, UserResponse } from 'src/interfaces/response'
 import { User } from 'src/interfaces/user'
 
 const actions: ActionTree<SessionState, StoreState> = {
@@ -9,12 +9,12 @@ const actions: ActionTree<SessionState, StoreState> = {
     context.commit('setTimestamp', Date.now())
   },
 
-  setUser (context, payload: UserResponse): void {
-    // const obj: Record<User> = JSON.parse(String(payload.user))
-
-    console.log(payload.user)
-
+  setToken (context, payload: AuthResponse): void {
     context.commit('setToken', payload.token || '')
+    context.commit('setTimestamp', Date.now())
+  },
+
+  setUser (context, payload: UserResponse): void {
     context.commit('setUser', payload.user || <User>{})
     context.commit('setTimestamp', Date.now())
   }

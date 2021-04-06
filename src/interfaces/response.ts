@@ -3,12 +3,10 @@ import { User } from './user'
 
 export interface AuthResponse {
   token?: string
-  user?: User,
 }
 
 export interface UserResponse {
-  token?: string
-  user?: User,
+  user?: User
 }
 
 export interface ValidationResponse {

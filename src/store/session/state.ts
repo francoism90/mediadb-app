@@ -3,6 +3,7 @@ import { User } from 'src/interfaces/user'
 
 function state (): SessionState {
   return {
+    redirectPath: null,
     timestamp: null,
     token: null,
     user: <User>{}

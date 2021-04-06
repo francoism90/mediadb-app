@@ -1,10 +1,14 @@
 import { boot } from 'quasar/wrappers'
-// import { getUser } from 'src/services/auth'
+import { getUser } from 'src/services/auth'
 import { Store } from 'vuex'
 import { StoreState } from 'src/interfaces/store'
 
-async function checkUser (store: Store<StoreState>): Promise<boolean> {
+async function checkUser (store: Store<StoreState>, redirectPath: string | null): Promise<boolean> {
   try {
+    // Redirect to path after login
+    store.commit('session/setRedirectPath', redirectPath)
+
+    // Validate current token
     const sessionToken = store.state.session.token
 
     if (!sessionToken || sessionToken.length === 0) {
@@ -12,9 +16,9 @@ async function checkUser (store: Store<StoreState>): Promise<boolean> {
     }
 
     // Returns 401 when token is invalid
-    // const response = await getUser()
+    const response = await getUser()
 
-    // await store.dispatch('session/setUser', response)
+    await store.dispatch('session/setUser', response)
 
     return true
   } catch {
@@ -27,13 +31,10 @@ async function checkUser (store: Store<StoreState>): Promise<boolean> {
 export default boot(({ router, store }) => {
   router.beforeEach(async (to, from, next) => {
     if (to.matched.some((record) => record.meta?.auth)) {
-      const isAuthenticated = await checkUser(store)
+      const isAuthenticated = await checkUser(store, to.fullPath)
 
       if (!isAuthenticated) {
-        next({
-          path: '/login',
-          query: { redirect: to.fullPath }
-        })
+        next({ path: '/login' })
       } else {
         next()
       }
