@@ -1,6 +1,5 @@
-import { FieldError, FormValidator } from 'src/interfaces/form'
+import { FieldError, FormValidator, ValidationResponse } from 'src/interfaces/form'
 import { get, has } from 'lodash'
-import { ValidationResponse } from 'src/interfaces/response'
 import { ref } from 'vue'
 
 export default function useFormValidation () {

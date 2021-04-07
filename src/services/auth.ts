@@ -1,7 +1,7 @@
 import { api } from 'boot/axios'
 import { AxiosResponse } from 'axios'
-import { CsrfCookie, PostLoginForm } from 'src/interfaces/session'
-import { AuthResponse, UserResponse } from 'src/interfaces/response'
+import { AuthResponse, CsrfCookie, PostLoginForm } from 'src/interfaces/session'
+import { UserResponse } from 'src/interfaces/user'
 
 export async function setCsrfCookie (): Promise<CsrfCookie> {
   const response = await api.get<CsrfCookie, AxiosResponse<CsrfCookie>>('sanctum/csrf-cookie')

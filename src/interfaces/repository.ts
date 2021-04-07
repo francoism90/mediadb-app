@@ -1,3 +1,12 @@
+export interface Model {
+  id: string | number,
+  uuid?: string | number | null,
+  slug?: string | number | null,
+  name?: string | number | null,
+  description?: string | null,
+  'created_at'?: Date | null,
+  'updated_at'?: Date | null,
+}
 export interface RepositoryMeta {
   'current_page': number,
   'last_page': number,
@@ -19,8 +28,4 @@ export interface RepositoryParameters {
   sort?: string | number | null,
   page?: number,
   limit?: number,
-}
-
-export interface VideosParameters extends RepositoryParameters {
-  query?: string | number | null
 }

@@ -71,7 +71,7 @@ import { PostLoginForm } from 'src/interfaces/session'
 import { router } from 'src/router'
 import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 import { useQuasar } from 'quasar'
-import { ValidationResponse } from 'src/interfaces/response'
+import { ValidationResponse } from 'src/interfaces/form'
 import useFormValidation from 'src/composables/useFormValidation'
 
 export default defineComponent({

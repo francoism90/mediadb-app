@@ -8,3 +8,7 @@ export interface PostLoginForm {
   deviceName: string,
   remember: boolean
 }
+
+export interface AuthResponse {
+  token?: string
+}

@@ -1,7 +1,6 @@
 import { api } from 'boot/axios'
 import { AxiosResponse } from 'axios'
-import { VideoResponse, VideosResponse } from 'src/interfaces/response'
-import { VideosParameters } from 'src/interfaces/repository'
+import { VideoResponse, VideosParameters, VideosResponse } from 'src/interfaces/video'
 
 export async function find (id: string | number): Promise<VideoResponse> {
   const response = await api.get<VideoResponse, AxiosResponse<VideoResponse>>(

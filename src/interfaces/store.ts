@@ -1,17 +1,17 @@
-import { BaseModel, UserModel } from './model'
-import { RepositoryMeta, RepositoryOption } from './repository'
+import { Model, RepositoryMeta, RepositoryOption } from './repository'
+import { User } from './user'
 
 export interface SessionState {
   redirectPath: string | null;
   timestamp: Date | null;
   token: string | null;
-  user: UserModel;
+  user: User;
 }
 
 export interface RepositoryState {
   id: number | string | null,
   ready: boolean,
-  data: BaseModel[] | null,
+  data: Model[] | null,
   meta: RepositoryMeta | null,
   options?: RepositoryOption[] | null
 }

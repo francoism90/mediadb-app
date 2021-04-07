@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'IndexPage',
 
   setup () {
-    const { models, meta } = useVideos({ page: 1 })
+    const { models, meta } = useVideos({})
 
     console.log(models.value)
     console.log(meta.value)

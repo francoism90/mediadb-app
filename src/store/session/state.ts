@@ -1,4 +1,4 @@
-import { UserModel } from 'src/interfaces/model'
+import { User } from 'src/interfaces/user'
 import { SessionState } from 'src/interfaces/store'
 
 function state (): SessionState {
@@ -6,7 +6,7 @@ function state (): SessionState {
     redirectPath: null,
     timestamp: null,
     token: null,
-    user: <UserModel>{}
+    user: <User>{}
   }
 }
 
