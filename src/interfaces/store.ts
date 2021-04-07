@@ -1,3 +1,4 @@
+import { PaginateFilter, PaginateEntity, PaginateMeta } from './paginate'
 import { User } from './user'
 
 export interface SessionState {
@@ -5,6 +6,14 @@ export interface SessionState {
   timestamp: Date | null;
   token: string | null;
   user: User;
+}
+
+export interface PaginateState {
+  id: number | string | null,
+  ready: boolean,
+  data: PaginateEntity[],
+  meta: PaginateMeta,
+  filters?: PaginateFilter[]
 }
 
 export interface StoreState {

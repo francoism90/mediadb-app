@@ -74,12 +74,12 @@ export default defineComponent({
   name: 'LoginPage',
 
   setup () {
-    const $q = useQuasar()
-    const $router = router
-
     const { redirectPath } = useNamespacedGetters('session', ['redirectPath'])
     const { setToken } = useNamespacedActions('session', ['setToken'])
     const { token } = useNamespacedState('session', ['token'])
+
+    const $q = useQuasar()
+    const $router = router
 
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
