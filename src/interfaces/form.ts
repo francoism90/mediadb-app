@@ -3,8 +3,6 @@ export interface FieldError {
 }
 
 export interface FormValidator {
-  errors?: {
-    [key: string]: FieldError[]
-  },
+  errors?: FieldError[],
   message?: string
 }

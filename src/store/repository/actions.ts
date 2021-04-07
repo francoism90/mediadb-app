@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex'
-import { StoreState, PaginateState } from 'src/interfaces/store'
+import { StoreState, RepositoryState } from 'src/interfaces/store'
 
-const actions: ActionTree<PaginateState, StoreState> = {
+const actions: ActionTree<RepositoryState, StoreState> = {
   reset (context): void {
     context.commit('resetStore')
     context.commit('setTimestamp', Date.now())

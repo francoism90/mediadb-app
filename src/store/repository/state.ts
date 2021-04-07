@@ -1,6 +1,6 @@
-import { PaginateState } from 'src/interfaces/store'
+import { RepositoryState } from 'src/interfaces/store'
 
-function state (): PaginateState {
+function state (): RepositoryState {
   return {
     id: null,
     ready: false,

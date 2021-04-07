@@ -16,15 +16,11 @@ export interface VideoResponse {
 }
 
 export interface VideosResponse {
-  data?: {
-    [index: number]: VideoModel[],
-  },
+  data?: VideoModel[],
   meta?: null
 }
 
 export interface ValidationResponse {
-  errors?: {
-    [key: string]: FieldError[]
-  },
+  errors?: FieldError[],
   message?: string
 }

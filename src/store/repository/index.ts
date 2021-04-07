@@ -1,11 +1,11 @@
 import { Module } from 'vuex'
-import { StoreState, PaginateState } from 'src/interfaces/store'
+import { StoreState, RepositoryState } from 'src/interfaces/store'
 import state from './state'
 import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 
-const paginateModule: Module<PaginateState, StoreState> = {
+const repositoryModule: Module<RepositoryState, StoreState> = {
   namespaced: true,
   actions,
   getters,
@@ -13,4 +13,4 @@ const paginateModule: Module<PaginateState, StoreState> = {
   state
 }
 
-export default paginateModule
+export default repositoryModule

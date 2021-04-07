@@ -25,7 +25,9 @@
 
           <q-card-section class="q-px-xl q-gutter-sm">
             <q-input
-              v-model="form.email"
+              v-model.trim="form.email"
+              :error-message="getError('email')"
+              :error="hasError('email')"
               autofocus
               dark
               label="Your email"
@@ -33,7 +35,9 @@
             />
 
             <q-input
-              v-model="form.password"
+              v-model.trim="form.password"
+              :error-message="getError('password')"
+              :error="hasError('password')"
               dark
               label="Your password"
               type="password"
