@@ -1,12 +1,24 @@
 import { FieldError } from './form'
-import { User } from './user'
+import { UserModel, VideoModel } from './model'
 
 export interface AuthResponse {
   token?: string
 }
 
 export interface UserResponse {
-  data?: User,
+  data?: UserModel,
+  meta?: null
+}
+
+export interface VideoResponse {
+  data?: VideoModel,
+  meta?: null
+}
+
+export interface VideosResponse {
+  data?: {
+    [index: number]: VideoModel[],
+  },
   meta?: null
 }
 

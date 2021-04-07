@@ -1,11 +1,11 @@
 import { Module } from 'vuex'
-import { StoreState, SessionState } from 'src/interfaces/store'
+import { StoreState, PaginateState } from 'src/interfaces/store'
 import state from './state'
 import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 
-const sessionModule: Module<SessionState, StoreState> = {
+const paginateModule: Module<PaginateState, StoreState> = {
   namespaced: true,
   actions,
   getters,
@@ -13,4 +13,4 @@ const sessionModule: Module<SessionState, StoreState> = {
   state
 }
 
-export default sessionModule
+export default paginateModule

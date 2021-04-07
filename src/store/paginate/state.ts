@@ -1,12 +1,11 @@
-import { SessionState } from 'src/interfaces/store'
-import { User } from 'src/interfaces/user'
+import { PaginateState } from 'src/interfaces/store'
 
-function state (): SessionState {
+function state (): PaginateState {
   return {
-    redirectPath: null,
-    timestamp: null,
-    token: null,
-    user: <User>{}
+    id: null,
+    ready: false,
+    data: null,
+    meta: null
   }
 }
 

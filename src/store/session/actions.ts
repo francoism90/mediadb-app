@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex'
 import { StoreState, SessionState } from 'src/interfaces/store'
 import { AuthResponse, UserResponse } from 'src/interfaces/response'
-import { User } from 'src/interfaces/user'
+import { UserModel } from 'src/interfaces/model'
 
 const actions: ActionTree<SessionState, StoreState> = {
   reset (context): void {
@@ -16,7 +16,7 @@ const actions: ActionTree<SessionState, StoreState> = {
 
   setUser (context, payload: UserResponse): void {
     context.commit('setRedirectPath', null)
-    context.commit('setUser', payload.data || <User>{})
+    context.commit('setUser', payload.data || <UserModel>{})
     context.commit('setTimestamp', Date.now())
   }
 }
