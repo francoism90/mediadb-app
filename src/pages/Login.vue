@@ -26,9 +26,6 @@
           <q-card-section class="q-px-xl q-gutter-sm">
             <q-input
               v-model="form.email"
-              :error-message="getError('email')"
-              :error="hasError('email')"
-              :rules="[val => !!val || 'Field is required']"
               autofocus
               dark
               label="Your email"
@@ -37,9 +34,6 @@
 
             <q-input
               v-model="form.password"
-              :error-message="getError('password')"
-              :error="hasError('password')"
-              :rules="[val => !!val || 'Field is required']"
               dark
               label="Your password"
               type="password"
@@ -99,14 +93,18 @@ export default defineComponent({
 
     const onSubmit = async () => {
       try {
+        // CSRF is only useful on PWA/SPA
         if (!$q.platform.is.cordova && !$q.platform.is.capacitor) {
           await setCsrfCookie()
         }
 
+        // Try to login
         const response = await loginUser(form)
 
+        // Set (new) token
         await setToken(response)
 
+        // Redirect to previous location or just '/'
         await $router.push(redirectPath.value)
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>

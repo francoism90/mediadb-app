@@ -6,7 +6,8 @@ export interface AuthResponse {
 }
 
 export interface UserResponse {
-  user?: User
+  data?: User,
+  meta?: null
 }
 
 export interface ValidationResponse {

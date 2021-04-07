@@ -16,7 +16,7 @@ const actions: ActionTree<SessionState, StoreState> = {
 
   setUser (context, payload: UserResponse): void {
     context.commit('setRedirectPath', null)
-    context.commit('setUser', payload.user || <User>{})
+    context.commit('setUser', payload.data || <User>{})
     context.commit('setTimestamp', Date.now())
   }
 }
