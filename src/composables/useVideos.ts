@@ -1,9 +1,9 @@
 import { VideoModel } from 'src/interfaces/model'
-import { RepositoryVideosParams } from 'src/interfaces/repository'
+import { VideosParameters } from 'src/interfaces/repository'
 import { findAll } from 'src/repositories/video'
 import { ref, onMounted } from 'vue'
 
-export default function useVideoRepositories (params: RepositoryVideosParams) {
+export default function useVideos (params: VideosParameters) {
   const repositories = ref<VideoModel[]>([])
 
   const getVideos = async () => {

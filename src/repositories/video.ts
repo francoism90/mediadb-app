@@ -1,7 +1,7 @@
 import { api } from 'boot/axios'
 import { AxiosResponse } from 'axios'
 import { VideoResponse, VideosResponse } from 'src/interfaces/response'
-import { RepositoryVideosParams } from 'src/interfaces/repository'
+import { VideosParameters } from 'src/interfaces/repository'
 
 export async function find (id: string | number): Promise<VideoResponse> {
   const response = await api.get<VideoResponse, AxiosResponse<VideoResponse>>(
@@ -11,7 +11,7 @@ export async function find (id: string | number): Promise<VideoResponse> {
   return response.data
 }
 
-export async function findAll (params: RepositoryVideosParams): Promise<VideosResponse> {
+export async function findAll (params: VideosParameters): Promise<VideosResponse> {
   const response = await api.get<VideosResponse, AxiosResponse<VideosResponse>>(
     'videos', { params }
   )

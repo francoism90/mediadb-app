@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts">
-import useVideoRepositories from 'src/composables/useVideoRepositories'
+import useVideos from 'src/composables/useVideos'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'IndexPage',
 
   setup () {
-    const { repositories } = useVideoRepositories({ page: 1 })
+    const { repositories } = useVideos({ page: 1 })
 
     // console.log(videos)
     console.log(repositories.value)

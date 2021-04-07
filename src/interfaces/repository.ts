@@ -12,7 +12,7 @@ export interface RepositoryOption {
   [key: string]: string | number | null
 }
 
-export interface RepositoryParams {
+export interface RepositoryParameters {
   include?: string | null,
   fields?: string | null,
   append?: string | null,
@@ -21,6 +21,6 @@ export interface RepositoryParams {
   limit?: number,
 }
 
-export interface RepositoryVideosParams extends RepositoryParams {
+export interface VideosParameters extends RepositoryParameters {
   query?: string | number | null
 }
