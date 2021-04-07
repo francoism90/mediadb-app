@@ -1,5 +1,5 @@
 import { BaseModel, UserModel } from './model'
-import { RepositoryFilter, RepositoryMeta } from './repository'
+import { RepositoryMeta, RepositoryOption } from './repository'
 
 export interface SessionState {
   redirectPath: string | null;
@@ -13,7 +13,7 @@ export interface RepositoryState {
   ready: boolean,
   data: BaseModel[] | null,
   meta: RepositoryMeta | null,
-  filters?: RepositoryFilter[] | null
+  options?: RepositoryOption[] | null
 }
 
 export interface StoreState {

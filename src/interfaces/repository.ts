@@ -1,11 +1,19 @@
-export interface RepositoryFilter {
+export interface RepositoryOption {
+  [key: string]: string | number | null
+}
+
+export interface RepositoryWhere {
   [key: string]: string | number | null
 }
 
 export interface RepositoryParams {
-  where?: RepositoryFilter[],
+  where?: RepositoryWhere[],
+  include?: string | null,
+  select?: string | null,
+  append?: string | null,
+  orderBy?: string | number | null,
   page?: number,
-  sorter?: string | number | null,
+  limit?: number,
 }
 
 export interface RepositoryMeta {
