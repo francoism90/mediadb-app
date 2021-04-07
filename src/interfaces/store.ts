@@ -17,5 +17,6 @@ export interface RepositoryState {
 }
 
 export interface StoreState {
-  session: SessionState;
+  session: SessionState,
+  videos: RepositoryState
 }

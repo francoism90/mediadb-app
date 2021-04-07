@@ -1,7 +1,7 @@
 import { Video, VideosParameters } from 'src/interfaces/video'
 import { RepositoryMeta } from 'src/interfaces/repository'
 import { findAll } from 'src/repositories/video'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 export default function useVideos (params: VideosParameters) {
   const models = ref<Video[]>([])
@@ -15,6 +15,10 @@ export default function useVideos (params: VideosParameters) {
   }
 
   onMounted(async () => {
+    await getVideos()
+  })
+
+  watch(params, async () => {
     await getVideos()
   })
 
