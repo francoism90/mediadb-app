@@ -1,6 +1,6 @@
 <template>
   <q-page class="container">
-    {{ repositories }}
+    {{ models }}
   </q-page>
 </template>
 
@@ -12,13 +12,13 @@ export default defineComponent({
   name: 'IndexPage',
 
   setup () {
-    const { repositories } = useVideos({ page: 1 })
+    const { models, meta } = useVideos({ page: 1 })
 
-    // console.log(videos)
-    console.log(repositories.value)
+    console.log(models.value)
+    console.log(meta.value)
 
     return {
-      repositories
+      models
     }
   }
 })
