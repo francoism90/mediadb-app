@@ -1,6 +1,11 @@
 <template>
   <q-page class="container">
-    {{ models }}
+    <div
+      v-for="(model, index) in models"
+      :key="index"
+    >
+      {{ model.name }}
+    </div>
   </q-page>
 </template>
 
