@@ -1,29 +1,45 @@
 <template>
   <q-page class="container">
-    <div
-      v-for="(model, index) in models"
-      :key="index"
-    >
-      {{ model.name }}
-    </div>
+    {{ data }}
   </q-page>
 </template>
 
 <script lang="ts">
+import { defineComponent, onMounted } from 'vue'
+import { useStore } from 'src/store'
+import repositoryModule from 'src/store/repository'
 import useVideos from 'src/composables/useVideos'
-import { defineComponent } from 'vue'
+import useRepository from 'src/composables/useRepository'
 
 export default defineComponent({
   name: 'IndexPage',
 
   setup () {
-    const { models, meta } = useVideos({})
+    const store = useStore()
 
-    console.log(models.value)
-    console.log(meta.value)
+    if (!store.hasModule('videos')) {
+      store.registerModule('videos', repositoryModule)
+    }
+
+    const { getVideos, foo, meta } = useVideos({})
+    const { setResponse, data } = useRepository('videos')
+
+    onMounted(async () => {
+      await getVideos()
+      await setResponse({ data: foo.value, meta: meta.value })
+    })
+
+    console.log('index:', foo.value)
+    console.log('index:', data)
+    console.log('index:', meta)
+
+    // console.log(data.value)
+    // console.log(meta.value)
 
     return {
-      models
+      foo,
+      data,
+      meta
     }
   }
 })

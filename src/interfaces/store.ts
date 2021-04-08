@@ -1,4 +1,4 @@
-import { Model, RepositoryMeta, RepositoryOption } from './repository'
+import { Model, RepositoryMeta } from './repository'
 import { User } from './user'
 
 export interface SessionState {
@@ -8,15 +8,17 @@ export interface SessionState {
   user: User;
 }
 
+export interface RepositoryOption {
+  [key: string]: string | number | null
+}
+
 export interface RepositoryState {
   id: number | string | null,
-  ready: boolean,
   data: Model[] | null,
   meta: RepositoryMeta | null,
-  options?: RepositoryOption[] | null
+  options: RepositoryOption[] | null
 }
 
 export interface StoreState {
   session: SessionState,
-  videos: RepositoryState
 }
