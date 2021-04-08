@@ -2,10 +2,11 @@ import { useNamespacedActions, useNamespacedState } from 'vuex-composition-helpe
 
 export default function useRepository (store: string) {
   const { setResponse } = useNamespacedActions(store, ['setResponse'])
-  const { data } = useNamespacedState(store, ['data'])
+  const { data, meta } = useNamespacedState(store, ['data', 'meta'])
 
   return {
     setResponse,
-    data
+    data,
+    meta
   }
 }

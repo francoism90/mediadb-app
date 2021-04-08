@@ -21,23 +21,23 @@ export default defineComponent({
       store.registerModule('videos', repositoryModule)
     }
 
-    const { getVideos, foo, meta } = useVideos({})
-    const { setResponse, data } = useRepository('videos')
+    const { getVideos } = useVideos({})
+    const { setResponse, data, meta } = useRepository('videos')
 
     onMounted(async () => {
-      await getVideos()
-      await setResponse({ data: foo.value, meta: meta.value })
+      const response = await getVideos()
+
+      await setResponse(response)
     })
 
-    console.log('index:', foo.value)
-    console.log('index:', data)
-    console.log('index:', meta)
+    // console.log('index:', foo.value)
+    // console.log('index:', data)
+    // console.log('index:', meta)
 
     // console.log(data.value)
     // console.log(meta.value)
 
     return {
-      foo,
       data,
       meta
     }
