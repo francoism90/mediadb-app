@@ -1,18 +1,38 @@
 <template>
   <q-page class="container">
-    {{ data }}
+    <q-pull-to-refresh
+      :key="id"
+    >
+      <q-infinite-scroll
+        class="row wrap justify-start items-start content-start q-col-gutter-md"
+        @load="onLoad"
+      >
+        <q-intersection
+          v-for="(item, index) in data"
+          :key="index"
+          class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 video-item"
+        >
+          <item :video="item" />
+        </q-intersection>
+      </q-infinite-scroll>
+    </q-pull-to-refresh>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue'
 import { useStore } from 'src/store'
+import Item from 'src/components/videos/Item.vue'
 import repositoryModule from 'src/store/repository'
-import useVideos from 'src/composables/useVideos'
 import useRepository from 'src/composables/useRepository'
+import useVideos from 'src/composables/useVideos'
 
 export default defineComponent({
   name: 'IndexPage',
+
+  components: {
+    Item
+  },
 
   setup () {
     const store = useStore()
@@ -22,13 +42,17 @@ export default defineComponent({
     }
 
     const { getVideos } = useVideos({})
-    const { setResponse, data, meta } = useRepository('videos')
+    const { setResponse, id, data, meta } = useRepository('videos')
 
     onMounted(async () => {
       const response = await getVideos()
 
       await setResponse(response)
     })
+
+    const onLoad = async () => {
+      //
+    }
 
     // console.log('index:', foo.value)
     // console.log('index:', data)
@@ -38,8 +62,10 @@ export default defineComponent({
     // console.log(meta.value)
 
     return {
+      id,
       data,
-      meta
+      meta,
+      onLoad
     }
   }
 })
