@@ -21,7 +21,7 @@
       </div>
 
       <div class="q-py-xs text-overline text-grey-5 video-item-description">
-        <span>{{ formatTimestamp(video.duration) }}</span>
+        <span>{{ timestamp }}</span>
         <span class="q-px-sm">•</span>
         <span>{{ video.resolution }}</span>
       </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import { Video } from 'src/interfaces/video'
 import useFilters from 'src/composables/useFilters'
 
@@ -49,11 +49,13 @@ export default defineComponent({
     }
   },
 
-  setup () {
+  setup (props) {
     const { formatTimestamp } = useFilters()
 
+    const timestamp = computed(() => formatTimestamp(props.video?.duration || 0))
+
     return {
-      formatTimestamp
+      timestamp
     }
   }
 })
