@@ -20,8 +20,10 @@
         {{ video.name }}
       </div>
 
-      <div class="q-py-sm video-item-description">
-        {{ formatTimestamp(video.duration) }}
+      <div class="q-py-xs text-overline text-grey-5 video-item-description">
+        <span>{{ formatTimestamp(video.duration) }}</span>
+        <span class="q-px-sm">•</span>
+        <span>{{ video.resolution }}</span>
       </div>
     </q-card-section>
   </q-card>

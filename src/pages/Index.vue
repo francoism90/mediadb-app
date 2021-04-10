@@ -39,7 +39,7 @@ export default defineComponent({
       store.registerModule('videos', repositoryModule)
     }
 
-    const { getVideos } = useVideos({ append: 'duration' })
+    const { getVideos } = useVideos({ append: 'duration,resolution' })
     const { setResponse, id, data, meta } = useRepository('videos')
 
     const onLoad = async () => {
