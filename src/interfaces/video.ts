@@ -11,9 +11,12 @@ export interface Video extends Model {
   'episode_number'?: number | null,
 }
 
+export interface VideoProps {
+  id: string,
+  slug: string | null
+}
 export interface VideoResponse extends ModelResponse {
   data: Video,
-  meta: null
 }
 
 export interface VideosResponse extends RepositoryResponse {

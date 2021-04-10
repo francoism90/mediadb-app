@@ -4,7 +4,7 @@ import { VideoResponse, VideosParameters, VideosResponse } from 'src/interfaces/
 
 export async function find (id: string | number): Promise<VideoResponse> {
   const response = await api.get<VideoResponse, AxiosResponse<VideoResponse>>(
-    `video/${id}`
+    `videos/${id}`
   )
 
   return response.data

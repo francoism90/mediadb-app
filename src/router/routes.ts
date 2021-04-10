@@ -8,7 +8,21 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'home',
-        component: () => import('pages/Index.vue')
+        component: () => import('pages/Index.vue'),
+        meta: { auth: true }
+      }
+    ]
+  },
+  {
+    path: '/video',
+    component: () => import('layouts/Main.vue'),
+    children: [
+      {
+        path: ':id/:slug?',
+        name: 'video',
+        component: () => import('pages/Video.vue'),
+        props: true,
+        meta: { auth: true }
       }
     ]
   },

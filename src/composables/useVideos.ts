@@ -1,8 +1,8 @@
 import { VideosResponse, VideosParameters } from 'src/interfaces/video'
 import { findAll } from 'src/repositories/video'
 
-export default function useVideos (params: VideosParameters) {
-  const getVideos = async (): Promise<VideosResponse> => {
+export default function useVideos () {
+  const findVideos = async (params: VideosParameters): Promise<VideosResponse> => {
     return await findAll(params)
   }
 
@@ -11,6 +11,6 @@ export default function useVideos (params: VideosParameters) {
   // })
 
   return {
-    getVideos
+    findVideos
   }
 }

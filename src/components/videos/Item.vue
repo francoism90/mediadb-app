@@ -6,14 +6,16 @@
     flat
     square
   >
-    <q-img
-      :alt="video.name"
-      class="video-item-placeholder cursor-pointer"
-      height="160"
-      width="100%"
-      img-class="video-item-cover"
-      src="https://cdn.quasar.dev/img/mountains.jpg"
-    />
+    <router-link :to="{ name: 'video', params: { id: video.id, slug: video.slug }}">
+      <q-img
+        :alt="video.name"
+        :src="video.clip?.thumbnail_url"
+        class="video-item-placeholder cursor-pointer"
+        height="160"
+        width="100%"
+        img-class="video-item-cover"
+      />
+    </router-link>
 
     <q-card-section class="q-px-none q-py-dm">
       <div class="video-item-title">
