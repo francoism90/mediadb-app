@@ -25,8 +25,6 @@ const mutation: MutationTree<RepositoryState> = {
   },
 
   setData (state: RepositoryState, payload: Model[] | null) {
-    console.log(payload)
-
     state.data = payload
   },
 

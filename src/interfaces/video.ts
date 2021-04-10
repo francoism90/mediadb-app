@@ -19,6 +19,5 @@ export interface VideosResponse extends RepositoryResponse {
 }
 
 export interface VideosParameters extends RepositoryParameters {
-  'filter[id]'?: string | number | null,
   query?: string | null
 }
