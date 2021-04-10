@@ -10,9 +10,14 @@
 }
 
 .video-item-placeholder {
+  height: 160px;
+  min-height: 160px;
+  max-height: 160px;
+}
+
+.video-item-cover {
   background-position: left top !important;
   background-size: 100% 100% !important;
-  height: 160px;
 }
 
 .video-item-title {

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="container">
+  <q-page class="container q-py-xl">
     <q-pull-to-refresh
       :key="id"
     >

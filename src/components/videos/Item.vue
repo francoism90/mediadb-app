@@ -8,10 +8,10 @@
   >
     <q-img
       :alt="video.name"
-      class="cursor-pointer"
+      class="video-item-placeholder cursor-pointer"
       height="160"
       width="100%"
-      img-class="video-item-placeholder"
+      img-class="video-item-cover"
       src="https://cdn.quasar.dev/img/mountains.jpg"
     />
 
