@@ -16,12 +16,13 @@
     />
 
     <q-card-section class="q-px-none q-py-dm">
-      <div class="video-item-title">{{ video.name }}</div>
-      <div class="q-py-sm video-item-description">by John Doe</div>
-    </q-card-section>
+      <div class="video-item-title">
+        {{ video.name }}
+      </div>
 
-    <q-card-section class="q-pt-none">
-      {{ lorem }}
+      <div class="q-py-sm video-item-description">
+        {{ formatTimestamp(video.duration) }}
+      </div>
     </q-card-section>
   </q-card>
 </template>
@@ -29,6 +30,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { Video } from 'src/interfaces/video'
+import useFilters from 'src/composables/useFilters'
 
 export default defineComponent({
   name: 'VideoItem',
@@ -45,10 +47,11 @@ export default defineComponent({
     }
   },
 
-  setup (props) {
-    console.log(props.video)
-    console.log('setup')
+  setup () {
+    const { formatTimestamp } = useFilters()
+
     return {
+      formatTimestamp
     }
   }
 })

@@ -1,8 +1,6 @@
 <template>
-  <q-page class="container q-py-xl">
-    <q-pull-to-refresh
-      :key="id"
-    >
+  <q-page :key="id" class="container q-py-xl">
+    <q-pull-to-refresh>
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
         @load="onLoad"
@@ -20,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'src/store'
 import Item from 'src/components/videos/Item.vue'
 import repositoryModule from 'src/store/repository'
@@ -41,25 +39,14 @@ export default defineComponent({
       store.registerModule('videos', repositoryModule)
     }
 
-    const { getVideos } = useVideos({})
+    const { getVideos } = useVideos({ append: 'duration' })
     const { setResponse, id, data, meta } = useRepository('videos')
 
-    onMounted(async () => {
+    const onLoad = async () => {
       const response = await getVideos()
 
       await setResponse(response)
-    })
-
-    const onLoad = async () => {
-      //
     }
-
-    // console.log('index:', foo.value)
-    // console.log('index:', data)
-    // console.log('index:', meta)
-
-    // console.log(data.value)
-    // console.log(meta.value)
 
     return {
       id,
