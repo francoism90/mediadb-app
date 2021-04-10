@@ -1,3 +1,9 @@
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
+}
+
 body.body--light,
 body.body-dark {
   background: #030303;

@@ -4,13 +4,13 @@
       :key="id"
     >
       <q-infinite-scroll
-        class="row wrap justify-start items-start content-start q-col-gutter-md"
+        class="row wrap justify-start items-start content-start q-col-gutter-lg"
         @load="onLoad"
       >
         <q-intersection
           v-for="(item, index) in data"
           :key="index"
-          class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 video-item"
+          class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
         >
           <item :video="item" />
         </q-intersection>

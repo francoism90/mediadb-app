@@ -1,0 +1,26 @@
+.video-item {
+  height: 340px;
+  min-height: 340px;
+  min-width: 200px;
+
+  @media (max-width: $breakpoint-xs-max) {
+    height: 270px;
+    min-height: 270px;
+  }
+}
+
+.video-item-placeholder {
+  background-position: left top !important;
+  background-size: 100% 100% !important;
+  height: 160px;
+}
+
+.video-item-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.video-item-description {
+  font-size: 14px;
+}
