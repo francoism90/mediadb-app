@@ -5,7 +5,7 @@
       class="header row items-center content-center no-wrap"
       height-hint="58"
     >
-      <q-toolbar class="q-px-md">
+      <q-toolbar class="container fluid">
         <div class="q-gutter-x-xs row no-wrap items-center">
           <q-btn
             dense
@@ -76,6 +76,7 @@
       class="drawer"
       side="right"
       bordered
+      dark
       overlay
       :width="260"
     >
