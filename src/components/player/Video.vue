@@ -1,11 +1,6 @@
 <template>
   <div ref="container" class="player-container window-width overflow-hidden">
     <Player
-      ref="player"
-      crossorigin="use-credentials"
-      playsinline
-      preload="metadata"
-      autoPictureInPicture
       class="relative-position window-width"
       controls
       :height="video.clip?.height || 480"
@@ -13,8 +8,8 @@
     >
       <Dash
         :src="video.clip?.stream_url"
+        crossOrigin="use-credentials"
         version="latest"
-        poster="/media/poster.png"
       />
 
       <Ui>
