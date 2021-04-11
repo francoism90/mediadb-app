@@ -10,15 +10,15 @@
       <q-img
         :alt="video.name"
         :src="video.clip?.thumbnail_url"
-        class="video-item-placeholder cursor-pointer"
-        height="160"
+        height="100%"
         width="100%"
+        class="video-item-placeholder cursor-pointer"
         img-class="video-item-cover"
       />
     </router-link>
 
     <q-card-section class="q-px-none q-py-dm">
-      <div class="video-item-title">
+      <div class="text-weight-medium video-item-title">
         {{ video.name }}
       </div>
 

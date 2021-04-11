@@ -1,7 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header
-      class="md-header row items-center content-center no-wrap"
+      bordered
+      class="header row items-center content-center no-wrap"
       height-hint="58"
     >
       <q-toolbar class="q-px-md">
@@ -24,7 +25,7 @@
         <q-space />
 
         <q-form
-          class="q-mx-md md-search"
+          class="q-mx-md search"
           @submit.prevent
         >
           <q-input
@@ -34,7 +35,7 @@
             clearable
             square
             borderless
-            class="md-search-q q-px-md"
+            class="search-q q-px-md"
             input-class="text-grey-1"
             hide-bottom-space
           >
@@ -63,10 +64,26 @@
             color="grey-10"
             icon="account_circle"
             aria-label="Account"
+            @click="toggleDrawer"
           />
         </div>
       </q-toolbar>
     </q-header>
+
+    <q-drawer
+      v-model="drawer"
+      behavior="mobile"
+      class="drawer"
+      side="right"
+      bordered
+      overlay
+      :width="250"
+    >
+      <q-scroll-area class="fit">
+        <q-list>
+        </q-list>
+      </q-scroll-area>
+    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -75,9 +92,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'MainLayout'
+  name: 'MainLayout',
+
+  setup () {
+    const drawer = ref(false)
+
+    const toggleDrawer = () => {
+      drawer.value = !drawer.value
+    }
+
+    return {
+      drawer,
+      toggleDrawer
+    }
+  }
 })
 </script>
