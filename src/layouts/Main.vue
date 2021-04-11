@@ -5,8 +5,16 @@
       class="header row items-center content-center no-wrap"
       height-hint="58"
     >
-      <q-toolbar class="container fluid">
-        <div class="q-gutter-x-xs row no-wrap items-center">
+      <q-toolbar class="header-container">
+        <div class="row items-center content-center no-wrap">
+          <q-icon
+            name="o_menu"
+            class="cursor-pointer q-mr-md"
+            size="24px"
+            aria-label="Account"
+            @click="toggleDrawer"
+          />
+
           <q-btn
             dense
             color="grey-10"
@@ -19,6 +27,7 @@
             color="grey-10"
             icon="chevron_right"
             aria-label="Forward"
+            class="q-ml-xs"
           />
         </div>
 
@@ -74,7 +83,6 @@
       v-model="drawer"
       behavior="mobile"
       class="drawer"
-      side="right"
       bordered
       dark
       overlay

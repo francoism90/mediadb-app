@@ -3,6 +3,11 @@
   height: 58px;
 }
 
+.header-container {
+  padding-left: $space-base;
+  padding-right: $space-base;
+}
+
 .search {
   width: 60vw;
   max-width: 450px;
