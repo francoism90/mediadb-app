@@ -1,3 +1,4 @@
+import { PlayerStatus } from './player'
 import { Model, RepositoryMeta } from './repository'
 import { User } from './user'
 
@@ -17,6 +18,16 @@ export interface RepositoryState {
   data: Model[] | null,
   meta: RepositoryMeta | null,
   options: RepositoryOption[] | null
+}
+export interface PlayerState {
+  id: number | string | null,
+  controls: boolean,
+  fullscreen: boolean,
+  playbackRate: number,
+  tracks: null,
+  requestTime: number | null,
+  lastSync: number,
+  status: PlayerStatus
 }
 
 export interface StoreState {

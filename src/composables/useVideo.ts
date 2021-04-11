@@ -2,11 +2,11 @@ import { ref, Ref, onMounted, watch } from 'vue'
 import { Video } from 'src/interfaces/video'
 import { find } from 'src/repositories/video'
 
-interface ComponentProps {
+interface Props {
   id: Ref<string>
 }
 
-export default function useVideo (props: ComponentProps) {
+export default function useVideo (props: Props) {
   const video = ref(<Video>{})
 
   const fetchVideo = async (): Promise<void> => {

@@ -13,8 +13,12 @@
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue'
 import useVideo from 'src/composables/useVideo'
-import Player from 'src/components/player/Test.vue'
-import { VideoProps } from 'src/interfaces/video'
+import Player from 'src/components/player/Video.vue'
+
+export interface Props {
+  id: string,
+  slug?: string | null
+}
 
 export default defineComponent({
   name: 'VideoPage',
@@ -35,7 +39,7 @@ export default defineComponent({
     }
   },
 
-  setup (props: VideoProps) {
+  setup (props: Props) {
     const { id } = toRefs(props)
     const { video } = useVideo({ id })
 
