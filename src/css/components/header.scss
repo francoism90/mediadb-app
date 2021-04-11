@@ -1,11 +1,9 @@
 .header {
   background: #030303;
-  border-bottom: 1px solid #333;
   height: 58px;
 }
 
 .search {
-  background: #212121;
   width: 60vw;
   max-width: 450px;
 
@@ -14,6 +12,6 @@
   }
 }
 
-.search-q {
-  height: 57px;
+.search-input {
+  border-top: $layout-border;
 }

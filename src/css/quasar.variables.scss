@@ -150,7 +150,7 @@ $info: #f44336;
 $warning: #f2c037;
 
 $separator-color: $grey-2;
-$separator-dark-color: $grey-9;
+$separator-dark-color: $grey-10;
 
 $generic-border-radius: 4px;
 $typography-font-family: 'Inter', -apple-system, 'BlinkMacSystemFont',
@@ -173,7 +173,7 @@ $toolbar-title-font-weight: map-get($text-weights, 'medium');
 $toolbar-title-letter-spacing: 0;
 $toolbar-title-padding: 0;
 
-$layout-border: $grey-5;
+$layout-border: 1px solid $grey-10;
 
 $menu-background: white;
 $menu-box-shadow: none;

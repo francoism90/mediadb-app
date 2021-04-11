@@ -9,6 +9,18 @@ const getters: GetterTree<SessionState, StoreState> = {
     return Math.abs((lastDate - currentDate) / 1000)
   },
 
+  isAuthenticated (state: SessionState): boolean {
+    if (!state.token || state.token.length === 0) {
+      return false
+    }
+
+    if (!state.user || !state.user.id) {
+      return false
+    }
+
+    return true
+  },
+
   redirectPath (state: SessionState): string {
     if (!state.redirectPath || state.redirectPath.length === 0) {
       return '/'

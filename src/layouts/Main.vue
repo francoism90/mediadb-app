@@ -35,7 +35,7 @@
             clearable
             square
             borderless
-            class="search-q q-px-md"
+            class="bg-grey-11 search-query q-px-md"
             input-class="text-grey-1"
             hide-bottom-space
           >
@@ -77,12 +77,9 @@
       side="right"
       bordered
       overlay
-      :width="250"
+      :width="260"
     >
-      <q-scroll-area class="fit">
-        <q-list>
-        </q-list>
-      </q-scroll-area>
+      <drawer />
     </q-drawer>
 
     <q-page-container>
@@ -93,9 +90,14 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import Drawer from 'src/components/layout/Drawer.vue'
 
 export default defineComponent({
   name: 'MainLayout',
+
+  components: {
+    Drawer
+  },
 
   setup () {
     const drawer = ref(false)
