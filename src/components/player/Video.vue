@@ -8,6 +8,8 @@
     >
       <Dash
         :src="video.clip?.stream_url"
+        :mediaTitle="video.clip?.name"
+        :poster="video.clip?.thumbnail_url"
         crossOrigin="use-credentials"
         version="latest"
       />
