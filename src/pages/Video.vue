@@ -1,27 +1,41 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    {{ video }}
+  <q-page>
+    <template v-if="!video">
+      Loading ..
+    </template>
+
+    <template v-else>
+      <player :video="video" />
+    </template>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue'
 import useVideo from 'src/composables/useVideo'
-// import Item from 'src/components/videos/Item.vue'
+import Player from 'src/components/player/Test.vue'
+import { VideoProps } from 'src/interfaces/video'
 
 export default defineComponent({
   name: 'VideoPage',
 
-  // components: {
-  //   Item
-  // },
-
-  props: {
-    id: { type: String, required: true },
-    slug: { type: String, required: false }
+  components: {
+    Player
   },
 
-  setup (props) {
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+
+    slug: {
+      type: String,
+      required: false
+    }
+  },
+
+  setup (props: VideoProps) {
     const { id } = toRefs(props)
     const { video } = useVideo({ id })
 

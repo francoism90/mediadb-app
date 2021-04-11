@@ -13,7 +13,7 @@ export interface Video extends Model {
 
 export interface VideoProps {
   id: string,
-  slug: string | null
+  slug?: string | null
 }
 export interface VideoResponse extends ModelResponse {
   data: Video,

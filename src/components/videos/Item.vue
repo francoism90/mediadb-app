@@ -45,10 +45,7 @@ export default defineComponent({
   // },
 
   props: {
-    video: {
-      type: Object as PropType<Video>,
-      required: true
-    }
+    video: { type: Object as PropType<Video>, required: true }
   },
 
   setup (props) {

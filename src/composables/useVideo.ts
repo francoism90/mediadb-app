@@ -7,7 +7,7 @@ interface ComponentProps {
 }
 
 export default function useVideo (props: ComponentProps) {
-  const video = ref<Video | null>(null)
+  const video = ref(<Video>{})
 
   const fetchVideo = async (): Promise<void> => {
     const response = await find(props.id.value)
