@@ -20,7 +20,8 @@ export default defineComponent({
   props: {
     tags: {
       type: Array as PropType<Tag[]>,
-      required: false
+      required: false,
+      default: () => (<Tag[]>[])
     }
   },
 

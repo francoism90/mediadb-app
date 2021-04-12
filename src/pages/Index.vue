@@ -1,5 +1,8 @@
 <template>
-  <q-page :key="id" class="container q-py-xl">
+  <q-page
+    :key="id"
+    class="container q-py-xl"
+  >
     <q-pull-to-refresh>
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"

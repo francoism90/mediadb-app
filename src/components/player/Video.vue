@@ -1,5 +1,8 @@
 <template>
-  <div ref="container" class="player-container window-width overflow-hidden">
+  <div
+    ref="container"
+    class="player-container window-width overflow-hidden"
+  >
     <Player
       class="relative-position window-width"
       controls
@@ -8,9 +11,9 @@
     >
       <Dash
         :src="video.clip?.stream_url"
-        :mediaTitle="video.clip?.name"
+        :media-title="video.clip?.name"
         :poster="video.clip?.thumbnail_url"
-        crossOrigin="use-credentials"
+        cross-origin="use-credentials"
         version="latest"
       />
 

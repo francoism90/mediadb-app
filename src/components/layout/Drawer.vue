@@ -15,12 +15,18 @@
 
     <q-separator dark />
 
-    <q-list dark padding>
-      <template v-for="(menuItem, index) in menuList" :key="index">
+    <q-list
+      dark
+      padding
+    >
+      <template
+        v-for="(menuItem, index) in menuList"
+        :key="index"
+      >
         <q-item
+          v-ripple
           :to="menuItem.route"
           active-class="bg-grey-10"
-          v-ripple
           clickable
           dark
         >
