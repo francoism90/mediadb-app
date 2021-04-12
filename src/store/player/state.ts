@@ -9,15 +9,7 @@ function state (): PlayerState {
     tracks: null,
     requestTime: null,
     lastSync: 0,
-    status: {
-      buffered: null,
-      currentTime: 0,
-      duration: 0,
-      paused: true,
-      playable: false,
-      playing: false,
-      waiting: true
-    }
+    props: null
   }
 }
 

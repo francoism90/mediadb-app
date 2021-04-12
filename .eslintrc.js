@@ -7,7 +7,7 @@ module.exports = {
   root: true,
 
   // https://eslint.vuejs.org/user-guide/#how-to-use-custom-parser
-  // Must use parserOptions instead of "parser" to allow vue-eslint-parser to keep working
+  // Must use parserOptions instead of 'parser' to allow vue-eslint-parser to keep working
   // `parser: 'vue-eslint-parser'` is already included with any 'plugin:vue/**' config and should be omitted
   parserOptions: {
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#configuration
@@ -55,6 +55,8 @@ module.exports = {
     // required to lint *.vue files
     'vue',
 
+    // https://github.com/lydell/eslint-plugin-simple-import-sort
+    'simple-import-sort'
   ],
 
   globals: {
@@ -86,7 +88,8 @@ module.exports = {
     'import/default': 'error',
     'import/export': 'error',
     'import/extensions': 'off',
-    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
+    'import/order': ['error', {'groups': ['object', 'index', 'sibling', 'parent', 'internal', 'external', 'builtin']}],
     'import/no-extraneous-dependencies': 'off',
     'prefer-promise-reject-errors': 'off',
 
@@ -96,6 +99,10 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+
+    // sort imports/exports
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error'
   }
 }

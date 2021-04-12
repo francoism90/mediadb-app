@@ -1,4 +1,4 @@
-import { PlayerStatus } from './player'
+import { PlayerProps } from '@vime/vue-next'
 import { Model, RepositoryMeta } from './repository'
 import { User } from './user'
 
@@ -27,7 +27,7 @@ export interface PlayerState {
   tracks: null,
   requestTime: number | null,
   lastSync: number,
-  status: PlayerStatus
+  props: PlayerProps | null
 }
 
 export interface StoreState {

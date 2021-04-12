@@ -4,10 +4,10 @@
     class="player-container window-width overflow-hidden"
   >
     <Player
-      class="relative-position window-width"
+      ref="player"
+      playsinline
+      autoplay
       controls
-      :height="video.clip?.height || 480"
-      :width="video.clip?.width || 320"
     >
       <Dash
         :src="video.clip?.stream_url"
@@ -17,21 +17,19 @@
         cross-origin="use-credentials"
       />
 
-      <Ui>
-      <!-- UI components are placed here. -->
-      </Ui>
+      <DefaultUi>
+        <TapSidesToSeek />
+      </DefaultUi>
     </Player>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { useStore } from 'src/store'
-import { Player, Dash, Ui } from '@vime/vue-next'
-import { Video } from 'src/interfaces/video'
+import { Dash, DefaultUi, Player } from '@vime/vue-next'
 import dashjs from 'dashjs'
-import playerModule from 'src/store/player'
-import usePlayer from 'src/composables/usePlayer'
+import TapSidesToSeek from 'src/components/player/TapSidesToSeek.vue'
+import { Video } from 'src/interfaces/video'
+import { defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
   name: 'VideoItem',
@@ -39,7 +37,8 @@ export default defineComponent({
   components: {
     Player,
     Dash,
-    Ui
+    DefaultUi,
+    TapSidesToSeek
   },
 
   props: {
@@ -50,17 +49,11 @@ export default defineComponent({
   },
 
   setup () {
-    const store = useStore()
-
-    if (!store.hasModule('video-player')) {
-      store.registerModule('video-player', playerModule)
-    }
-
-    const { id } = usePlayer('video-player')
+    const player = ref<HTMLDivElement | null>(null)
 
     return {
-      id,
-      dashjs
+      dashjs,
+      player
     }
   }
 })

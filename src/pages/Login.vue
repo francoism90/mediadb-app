@@ -65,14 +65,14 @@
 
 <script lang="ts">
 import { AxiosError } from 'axios'
-import { defineComponent, reactive, ref } from 'vue'
-import { loginUser, setCsrfCookie } from 'src/services/auth'
+import { useQuasar } from 'quasar'
+import useFormValidation from 'src/composables/useFormValidation'
+import { ValidationResponse } from 'src/interfaces/form'
 import { PostLoginForm } from 'src/interfaces/session'
 import { router } from 'src/router'
+import { loginUser, setCsrfCookie } from 'src/services/auth'
+import { defineComponent, reactive, ref } from 'vue'
 import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
-import { useQuasar } from 'quasar'
-import { ValidationResponse } from 'src/interfaces/form'
-import useFormValidation from 'src/composables/useFormValidation'
 
 export default defineComponent({
   name: 'LoginPage',
