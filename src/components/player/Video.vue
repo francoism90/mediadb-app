@@ -13,8 +13,8 @@
         :src="video.clip?.stream_url"
         :media-title="video.clip?.name"
         :poster="video.clip?.thumbnail_url"
+        :version="dashjs.version"
         cross-origin="use-credentials"
-        version="latest"
       />
 
       <Ui>
@@ -29,6 +29,7 @@ import { defineComponent, PropType } from 'vue'
 import { useStore } from 'src/store'
 import { Player, Dash, Ui } from '@vime/vue-next'
 import { Video } from 'src/interfaces/video'
+import dashjs from 'dashjs'
 import playerModule from 'src/store/player'
 import usePlayer from 'src/composables/usePlayer'
 
@@ -58,7 +59,8 @@ export default defineComponent({
     const { id } = usePlayer('video-player')
 
     return {
-      id
+      id,
+      dashjs
     }
   }
 })
