@@ -27,7 +27,7 @@
     "core-js": "^3.10.1",
     "lodash": "^4.17.21",
     "quasar": "^2.0.0-beta.12",
-    "vue-i18n": "^9.0.0",
+    "vue-i18n": "^9.1.4",
     "vuex-composition-helpers": "^2.0.0",
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
@@ -44,7 +44,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-vue": "^7.8.0",
+    "eslint-plugin-vue": "^7.9.0",
     "stylelint-config-standard": "^21.0.0",
     "workbox-webpack-plugin": "^6.1.2"
   },
