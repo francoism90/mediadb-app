@@ -1,7 +1,7 @@
-import { MutationTree } from 'vuex'
-import { RepositoryState } from 'src/interfaces/store'
-import defaultState from './state'
 import { Model, RepositoryMeta } from 'src/interfaces/repository'
+import { RepositoryState } from 'src/interfaces/store'
+import defaultState from 'src/store/repository/state'
+import { MutationTree } from 'vuex'
 
 const mutation: MutationTree<RepositoryState> = {
   resetStore (state: RepositoryState) {

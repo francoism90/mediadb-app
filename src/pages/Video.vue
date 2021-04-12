@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue'
-import useVideo from 'src/composables/useVideo'
 import Player from 'src/components/player/Video.vue'
+import useVideo from 'src/composables/useVideo'
+import { defineComponent, toRefs } from 'vue'
 
 export interface Props {
   id: string,

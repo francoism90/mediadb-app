@@ -1,5 +1,5 @@
-import { api } from 'boot/axios'
 import { AxiosResponse } from 'axios'
+import { api } from 'boot/axios'
 import { VideoResponse, VideosParameters, VideosResponse } from 'src/interfaces/video'
 
 export async function find (id: string | number): Promise<VideoResponse> {

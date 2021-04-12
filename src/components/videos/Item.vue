@@ -32,9 +32,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
-import { Video } from 'src/interfaces/video'
 import useFilters from 'src/composables/useFilters'
+import { Video } from 'src/interfaces/video'
+import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'VideoItem',

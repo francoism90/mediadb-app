@@ -1,6 +1,6 @@
-import { ActionTree } from 'vuex'
-import { StoreState, RepositoryState, RepositoryOption } from 'src/interfaces/store'
 import { RepositoryResponse } from 'src/interfaces/repository'
+import { RepositoryOption, RepositoryState, StoreState } from 'src/interfaces/store'
+import { ActionTree } from 'vuex'
 
 const actions: ActionTree<RepositoryState, StoreState> = {
   reset (context): void {

@@ -1,9 +1,10 @@
+
+import { SessionState, StoreState } from 'src/interfaces/store'
+import actions from 'src/store/session/actions'
+import getters from 'src/store/session/getters'
+import mutations from 'src/store/session/mutations'
+import state from 'src/store/session/state'
 import { Module } from 'vuex'
-import { StoreState, SessionState } from 'src/interfaces/store'
-import state from './state'
-import actions from './actions'
-import getters from './getters'
-import mutations from './mutations'
 
 const sessionModule: Module<SessionState, StoreState> = {
   namespaced: true,

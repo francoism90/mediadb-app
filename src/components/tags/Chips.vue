@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
 import { Tag } from 'src/interfaces/tag'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'TagChips',

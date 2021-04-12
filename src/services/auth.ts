@@ -1,5 +1,5 @@
-import { api } from 'boot/axios'
 import { AxiosResponse } from 'axios'
+import { api } from 'boot/axios'
 import { AuthResponse, CsrfCookie, PostLoginForm } from 'src/interfaces/session'
 import { UserResponse } from 'src/interfaces/user'
 

@@ -1,6 +1,6 @@
-import { ref, Ref, onMounted, watch } from 'vue'
 import { Video } from 'src/interfaces/video'
 import { find } from 'src/repositories/video'
+import { onMounted, Ref, ref, watch } from 'vue'
 
 interface Props {
   id: Ref<string>

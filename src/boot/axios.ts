@@ -1,7 +1,7 @@
-import { boot } from 'quasar/wrappers'
-import { Store } from 'vuex'
-import { StoreState } from 'src/interfaces/store'
 import axios, { AxiosError } from 'axios'
+import { boot } from 'quasar/wrappers'
+import { StoreState } from 'src/interfaces/store'
+import { Store } from 'vuex'
 
 const api = axios.create({
   baseURL: process.env.API_URL,
@@ -42,4 +42,4 @@ export default boot(({ app, store, urlPath }) => {
   app.config.globalProperties.$api = api
 })
 
-export { axios, api }
+export { api, axios }

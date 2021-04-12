@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
+import { StoreState } from 'src/interfaces/store'
 import { getUser } from 'src/services/auth'
 import { Store } from 'vuex'
-import { StoreState } from 'src/interfaces/store'
 
 async function checkUser (store: Store<StoreState>, redirectPath: string | null): Promise<boolean> {
   try {

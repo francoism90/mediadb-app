@@ -21,12 +21,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useStore } from 'src/store'
 import Item from 'src/components/videos/Item.vue'
-import repositoryModule from 'src/store/repository'
 import useRepository from 'src/composables/useRepository'
 import useVideos from 'src/composables/useVideos'
+import { useStore } from 'src/store'
+import repositoryModule from 'src/store/repository'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'IndexPage',

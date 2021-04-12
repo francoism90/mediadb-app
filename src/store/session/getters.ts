@@ -1,5 +1,5 @@
+import { SessionState, StoreState } from 'src/interfaces/store'
 import { GetterTree } from 'vuex'
-import { StoreState, SessionState } from 'src/interfaces/store'
 
 const getters: GetterTree<SessionState, StoreState> = {
   getTimestampDiff (state: SessionState): number {

@@ -1,9 +1,9 @@
 import { store } from 'quasar/wrappers'
+import { StoreState } from 'src/interfaces/store'
+import session from 'src/store/session'
 import { InjectionKey } from 'vue'
 import { createStore, Store as VuexStore, useStore as vuexUseStore } from 'vuex'
-import { StoreState } from 'src/interfaces/store'
 import createPersistedState from 'vuex-persistedstate'
-import session from './session'
 
 const persistedState = createPersistedState({
   key: 'persist',

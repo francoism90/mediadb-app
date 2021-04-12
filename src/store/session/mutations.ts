@@ -1,7 +1,7 @@
-import { MutationTree } from 'vuex'
 import { SessionState } from 'src/interfaces/store'
-import defaultState from './state'
 import { User } from 'src/interfaces/user'
+import defaultState from 'src/store/session/state'
+import { MutationTree } from 'vuex'
 
 const mutation: MutationTree<SessionState> = {
   resetStore (state: SessionState) {

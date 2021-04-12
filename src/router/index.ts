@@ -1,12 +1,12 @@
 import { route } from 'quasar/wrappers'
+import { StoreState } from 'src/interfaces/store'
+import routes from 'src/router/routes'
 import {
   createMemoryHistory,
   createRouter,
   createWebHashHistory,
   createWebHistory
 } from 'vue-router'
-import { StoreState } from 'src/interfaces/store'
-import routes from './routes'
 
 /*
  * If not building with SSR mode, you can

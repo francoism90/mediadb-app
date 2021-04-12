@@ -1,7 +1,7 @@
-import { ActionTree } from 'vuex'
-import { StoreState, SessionState } from 'src/interfaces/store'
-import { User, UserResponse } from 'src/interfaces/user'
 import { AuthResponse } from 'src/interfaces/session'
+import { SessionState, StoreState } from 'src/interfaces/store'
+import { User, UserResponse } from 'src/interfaces/user'
+import { ActionTree } from 'vuex'
 
 const actions: ActionTree<SessionState, StoreState> = {
   reset (context): void {

@@ -1,6 +1,7 @@
+
 import { PlayerProps } from '@vime/vue-next'
-import { Model, RepositoryMeta } from './repository'
-import { User } from './user'
+import { Model, RepositoryMeta } from 'src/interfaces/repository'
+import { User } from 'src/interfaces/user'
 
 export interface SessionState {
   redirectPath: string | null;

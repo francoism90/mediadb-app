@@ -46,8 +46,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 import useSession from 'src/composables/useSession'
+import { defineComponent } from 'vue'
 
 const menuList = [
   {

@@ -1,4 +1,4 @@
-import { VideosResponse, VideosParameters } from 'src/interfaces/video'
+import { VideosParameters, VideosResponse } from 'src/interfaces/video'
 import { findAll } from 'src/repositories/video'
 
 export default function useVideos () {

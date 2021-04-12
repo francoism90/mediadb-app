@@ -1,9 +1,9 @@
+import { RepositoryState, StoreState } from 'src/interfaces/store'
+import actions from 'src/store/repository/actions'
+import getters from 'src/store/repository/getters'
+import mutations from 'src/store/repository/mutations'
+import state from 'src/store/repository/state'
 import { Module } from 'vuex'
-import { StoreState, RepositoryState } from 'src/interfaces/store'
-import state from './state'
-import actions from './actions'
-import getters from './getters'
-import mutations from './mutations'
 
 const repositoryModule: Module<RepositoryState, StoreState> = {
   namespaced: true,
