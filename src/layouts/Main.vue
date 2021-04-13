@@ -84,15 +84,14 @@ export default defineComponent({
 
   setup () {
     const drawer = ref(false)
-
-    const toggleDrawer = () => {
-      drawer.value = !drawer.value
-    }
-
     const $router = router
 
     const historyBack = () => $router.back()
     const historyForward = () => $router.forward()
+
+    const toggleDrawer = () => {
+      drawer.value = !drawer.value
+    }
 
     return {
       drawer,
