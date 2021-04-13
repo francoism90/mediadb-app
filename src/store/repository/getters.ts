@@ -15,6 +15,12 @@ const getters: GetterTree<RepositoryState, StoreState> = {
       state.meta.current_page !== state.meta.last_page &&
       state.meta.current_page < state.meta.last_page
     )
+  },
+
+  nextPage (state: RepositoryState): number {
+    const currentPage = state.meta.current_page || 1
+
+    return currentPage + 1
   }
 }
 

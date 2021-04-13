@@ -63,7 +63,7 @@ export default defineComponent({
     }
 
     const { findTags } = useTags()
-    const { setResponse, isLoadable, data, meta } = useRepository(`${props.store}-tags`)
+    const { setResponse, isLoadable, nextPage, data, meta } = useRepository(`${props.store}-tags`)
 
     const fetchTags = async (): Promise<void> => {
       // console.log(isLoadable.value)
@@ -75,14 +75,12 @@ export default defineComponent({
     }
 
     const tagsScroll = async (args: scrollArgs): Promise<void> => {
-      const currentPage = meta.value.current_page || 0
-      const lastPage = meta.value.last_page || 1
-      const nextPage = currentPage + 1
+      const pageNumber = nextPage.value as number
 
-      if (loading.value !== true && nextPage < lastPage) {
+      if (loading.value !== true && isLoadable.value) {
         loading.value = true
 
-        const response = await findTags({ 'page[size]': 5, 'page[number]': nextPage })
+        const response = await findTags({ 'page[size]': 5, 'page[number]': pageNumber })
 
         await setResponse(response)
 
