@@ -23,7 +23,7 @@
       </div>
 
       <div class="q-py-xs text-overline text-grey-5 video-item-description">
-        <span>{{ timestamp }}</span>
+        <span>{{ clipDuration }}</span>
         <span class="q-px-sm">•</span>
         <span>{{ video.clip?.resolution }}</span>
       </div>
@@ -54,10 +54,10 @@ export default defineComponent({
   setup (props) {
     const { formatTimestamp } = useFilters()
 
-    const timestamp = computed(() => formatTimestamp(props.video.clip?.duration || 0))
+    const clipDuration = computed(() => formatTimestamp(props.video.clip?.duration || 0))
 
     return {
-      timestamp
+      clipDuration
     }
   }
 })

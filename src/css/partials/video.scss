@@ -27,3 +27,15 @@
 .video-item-description {
   font-size: 0.875rem;
 }
+
+.video-details-label {
+  width: 175px;
+  max-width: 175px;
+}
+
+.video-details-list {
+  &.q-list--dense > .q-item,
+  &.q-item--dense {
+    padding-left: 0;
+  }
+}

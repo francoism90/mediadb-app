@@ -1,7 +1,7 @@
 <template>
   <div
     ref="container"
-    class="player-container window-width overflow-hidden"
+    class="player-container full-width overflow-hidden"
   >
     <div class="player-video">
       <Player
