@@ -51,8 +51,8 @@ import { defineComponent } from 'vue'
 
 const menuList = [
   {
-    icon: 'o_home',
-    label: 'Home',
+    icon: 'o_video_library',
+    label: 'Videos',
     route: { name: 'home' }
   },
   {

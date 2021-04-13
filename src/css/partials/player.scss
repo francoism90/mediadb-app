@@ -1,0 +1,16 @@
+.player-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.player-video {
+  width: 100%;
+  max-width: 1152px;
+
+  @media (max-width: $breakpoint-xs-max) {
+    min-width: 100px;
+    max-width: $breakpoint-xs-max;
+  }
+}

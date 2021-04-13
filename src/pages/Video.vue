@@ -5,13 +5,15 @@
     </template>
 
     <template v-else>
-      <player :video="video" />
+      <video-player :video="video" />
+      <video-details :video="video" />
     </template>
   </q-page>
 </template>
 
 <script lang="ts">
-import Player from 'src/components/player/Video.vue'
+import VideoPlayer from 'src/components/player/Video.vue'
+import VideoDetails from 'src/components/video/Details.vue'
 import useVideo from 'src/composables/useVideo'
 import { defineComponent, toRefs } from 'vue'
 
@@ -24,7 +26,8 @@ export default defineComponent({
   name: 'VideoPage',
 
   components: {
-    Player
+    VideoDetails,
+    VideoPlayer
   },
 
   props: {
