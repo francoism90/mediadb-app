@@ -20,6 +20,7 @@
             color="grey-10"
             icon="chevron_left"
             aria-label="Back"
+            @click="historyBack"
           />
 
           <q-btn
@@ -28,6 +29,7 @@
             icon="chevron_right"
             aria-label="Forward"
             class="q-ml-xs"
+            @click="historyForward"
           />
         </div>
 
@@ -69,6 +71,7 @@
 <script lang="ts">
 import Drawer from 'src/components/layout/Drawer.vue'
 import Search from 'src/components/layout/Search.vue'
+import { router } from 'src/router'
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
@@ -86,9 +89,16 @@ export default defineComponent({
       drawer.value = !drawer.value
     }
 
+    const $router = router
+
+    const historyBack = () => $router.back()
+    const historyForward = () => $router.forward()
+
     return {
       drawer,
-      toggleDrawer
+      toggleDrawer,
+      historyBack,
+      historyForward
     }
   }
 })
