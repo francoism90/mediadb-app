@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page :key="id">
     <template v-if="!video">
       Loading ..
     </template>

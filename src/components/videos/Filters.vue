@@ -2,10 +2,20 @@
   <q-toolbar>
     <q-select
       v-model="model"
-      dark
       :options="data"
       :loading="loading"
-      label="Tags"
+      :input-debounce="650"
+      :max-values="5"
+      :virtual-scroll-slice-size="10"
+      option-value="name"
+      option-label="name"
+      dropdown-icon="o_expand_more"
+      display-value="Tags"
+      dark
+
+      multiple
+      options-dark
+      use-input
       @virtual-scroll="tagsScroll"
     >
       <template #option="scope">
@@ -52,9 +62,8 @@ export default defineComponent({
   },
 
   setup (props) {
-    const model = ref(null)
-    const loading = ref(false)
-    const tags = ref<Tag[] | null>(null)
+    const model = ref<Tag[]>([]) // TODO: move to store
+    const loading = ref(false) // TODO: move to store?
 
     const store = useStore()
 
@@ -66,11 +75,13 @@ export default defineComponent({
     const { setResponse, isLoadable, nextPage, data, meta } = useRepository(`${props.store}-tags`)
 
     const fetchTags = async (): Promise<void> => {
-      // console.log(isLoadable.value)
       if (loading.value !== true && isLoadable.value) {
-        const response = await findTags({ 'page[size]': 5 })
+        loading.value = true
 
+        const response = await findTags({ 'page[size]': 5 })
         await setResponse(response)
+
+        loading.value = false
       }
     }
 
@@ -81,7 +92,6 @@ export default defineComponent({
         loading.value = true
 
         const response = await findTags({ 'page[size]': 5, 'page[number]': pageNumber })
-
         await setResponse(response)
 
         await nextTick(() => {
@@ -94,7 +104,6 @@ export default defineComponent({
     onMounted(fetchTags)
 
     return {
-      tags,
       loading,
       model,
       data,
