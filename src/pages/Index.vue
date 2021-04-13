@@ -3,6 +3,8 @@
     :key="id"
     class="container q-py-xl"
   >
+    <filters store="videos" />
+
     <q-pull-to-refresh>
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
@@ -21,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import Filters from 'src/components/videos/Filters.vue'
 import Item from 'src/components/videos/Item.vue'
 import useRepository from 'src/composables/useRepository'
 import useVideos from 'src/composables/useVideos'
@@ -30,7 +33,8 @@ export default defineComponent({
   name: 'IndexPage',
 
   components: {
-    Item
+    Item,
+    Filters
   },
 
   setup () {

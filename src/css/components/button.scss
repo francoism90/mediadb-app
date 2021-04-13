@@ -1,9 +1,6 @@
 .btn-outline {
-  padding: 8px 24px !important;
-
-  .q-btn__wrapper::before {
-    border: 2px solid transparent;
-  }
+  padding: 4px 12px;
+  border-radius: 0;
 
   .q-btn__content {
     color: white;
@@ -18,7 +15,8 @@
 }
 
 .btn-primary {
-  background: $primary;
+  background: white;
+  border: 1px solid $primary;
   color: $primary;
 
   .q-focus-helper::before {

@@ -6,10 +6,6 @@ export default function useVideos () {
     return await findAll(params)
   }
 
-  // watch(params, async () => {
-  //   await getVideos()
-  // })
-
   return {
     findVideos
   }

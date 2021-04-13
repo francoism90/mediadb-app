@@ -37,6 +37,16 @@
 
       <q-item class="text-body2">
         <q-item-section class="text-grey-1 text-weight-medium video-details-label">
+          Cast :
+        </q-item-section>
+
+        <q-item-section class="text-white">
+          English
+        </q-item-section>
+      </q-item>
+
+      <q-item class="text-body2">
+        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
           Genre :
         </q-item-section>
 
@@ -48,16 +58,6 @@
       <q-item class="text-body2">
         <q-item-section class="text-grey-1 text-weight-medium video-details-label">
           Studio :
-        </q-item-section>
-
-        <q-item-section class="text-white">
-          English
-        </q-item-section>
-      </q-item>
-
-      <q-item class="text-body2">
-        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
-          Actor :
         </q-item-section>
 
         <q-item-section class="text-white">

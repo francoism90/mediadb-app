@@ -16,9 +16,9 @@ export interface RepositoryOption {
 
 export interface RepositoryState {
   id: number | string | null,
-  data: Model[] | null,
-  meta: RepositoryMeta | null,
-  options: RepositoryOption[] | null
+  data: Model[],
+  meta: RepositoryMeta,
+  options: RepositoryOption[]
 }
 export interface PlayerState {
   id: number | string | null,
