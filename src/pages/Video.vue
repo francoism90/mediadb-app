@@ -26,7 +26,7 @@ import VideoPlayer from 'src/components/player/Video.vue'
 import VideoDetails from 'src/components/video/Details.vue'
 import VideoRelated from 'src/components/video/Related.vue'
 import useVideo from 'src/composables/useVideo'
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, PropType, toRefs } from 'vue'
 
 export interface Props {
   id: string,
@@ -44,12 +44,12 @@ export default defineComponent({
 
   props: {
     id: {
-      type: String,
+      type: String as PropType<string>,
       required: true
     },
 
     slug: {
-      type: String,
+      type: String as PropType<string>,
       required: false,
       default: null
     }
