@@ -37,8 +37,8 @@
     "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.37",
-    "@typescript-eslint/eslint-plugin": "^4.21.0",
-    "@typescript-eslint/parser": "^4.21.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^7.24.0",
     "eslint-config-standard": "^16.0.2",
@@ -48,7 +48,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-vue": "^7.9.0",
     "stylelint-config-standard": "^21.0.0",
-    "workbox-webpack-plugin": "^6.1.2"
+    "workbox-webpack-plugin": "^6.1.5"
   },
   "engines": {
     "node": ">= 10.18.1",
