@@ -6,7 +6,17 @@
 
     <template v-else>
       <video-player :video="video" />
-      <video-details :video="video" />
+
+      <div class="container">
+        <video-details :video="video" />
+
+        <q-separator
+          color="primary"
+          size="3px"
+        />
+
+        <video-related :video="video" />
+      </div>
     </template>
   </q-page>
 </template>
@@ -14,6 +24,7 @@
 <script lang="ts">
 import VideoPlayer from 'src/components/player/Video.vue'
 import VideoDetails from 'src/components/video/Details.vue'
+import VideoRelated from 'src/components/video/Related.vue'
 import useVideo from 'src/composables/useVideo'
 import { defineComponent, toRefs } from 'vue'
 
@@ -27,7 +38,8 @@ export default defineComponent({
 
   components: {
     VideoDetails,
-    VideoPlayer
+    VideoPlayer,
+    VideoRelated
   },
 
   props: {
