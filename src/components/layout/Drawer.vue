@@ -78,7 +78,7 @@ const menuList = [
 ]
 
 export default defineComponent({
-  name: 'MainDrawer',
+  name: 'AppDrawer',
 
   setup () {
     const { user } = useSession()

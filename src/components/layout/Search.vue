@@ -1,5 +1,6 @@
 <template>
   <q-form
+    v-if="visible"
     class="q-mx-md search"
     @submit.prevent
   >
@@ -21,14 +22,37 @@
           class="cursor-pointer"
         />
       </template>
-
-      <template #append>
-        <q-icon
-          name="filter_list"
-          color="grey-5"
-          class="cursor-pointer"
-        />
-      </template>
     </q-input>
   </q-form>
 </template>
+
+<script lang="ts">
+import { router } from 'src/router'
+import { computed, defineComponent } from 'vue'
+
+const searchable = [
+  {
+    placeholder: 'Search videos',
+    route: { name: 'home' },
+    store: 'videos'
+  }
+]
+
+export default defineComponent({
+  name: 'AppSearch',
+
+  setup () {
+    const $router = router
+
+    const visible = computed(() => {
+      const currentRoute = $router.currentRoute.value
+
+      return searchable.find(x => x.route.name === currentRoute.name)
+    })
+
+    return {
+      visible
+    }
+  }
+})
+</script>
