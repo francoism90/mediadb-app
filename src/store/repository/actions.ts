@@ -8,7 +8,6 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   },
 
   setResponse (context, payload: RepositoryResponse): void {
-    console.log('action: ', payload.data)
     context.commit('setData', payload.data)
     context.commit('setMeta', payload.meta)
   },

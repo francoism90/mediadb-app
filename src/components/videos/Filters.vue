@@ -4,6 +4,7 @@
       v-model="model"
       dark
       :options="data"
+      :loading="loading"
       label="Tags"
       @virtual-scroll="tagsScroll"
     >
@@ -33,7 +34,7 @@ import useTags from 'src/composables/useTags'
 import { Tag } from 'src/interfaces/tag'
 import { useStore } from 'src/store'
 import repositoryModule from 'src/store/repository'
-import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { defineComponent, nextTick, onMounted, PropType, ref } from 'vue'
 
 interface scrollArgs {
   to: number,
@@ -52,6 +53,7 @@ export default defineComponent({
 
   setup (props) {
     const model = ref(null)
+    const loading = ref(false)
     const tags = ref<Tag[] | null>(null)
 
     const store = useStore()
@@ -61,36 +63,41 @@ export default defineComponent({
     }
 
     const { findTags } = useTags()
-    const { setResponse, id, data, meta } = useRepository(`${props.store}-tags`)
+    const { setResponse, isLoadable, data, meta } = useRepository(`${props.store}-tags`)
 
     const fetchTags = async (): Promise<void> => {
-      const response = await findTags({ 'page[size]': 5 })
+      // console.log(isLoadable.value)
+      if (loading.value !== true && isLoadable.value) {
+        const response = await findTags({ 'page[size]': 5 })
 
-      await setResponse(response)
-
-      // console.log(update)
+        await setResponse(response)
+      }
     }
 
     const tagsScroll = async (args: scrollArgs): Promise<void> => {
-      const lastIndex = data.value.length - 1
+      const currentPage = meta.value.current_page || 0
+      const lastPage = meta.value.last_page || 1
+      const nextPage = currentPage + 1
 
-      console.log(args.to)
-      // console.log(args.ref)
-      console.log(lastIndex)
+      if (loading.value !== true && nextPage < lastPage) {
+        loading.value = true
 
-      const response = await findTags({ 'page[size]': 5 })
+        const response = await findTags({ 'page[size]': 5, 'page[number]': nextPage })
 
-      await setResponse(response)
+        await setResponse(response)
 
-      // // console.log(update)
-      // args.ref.refresh()
+        await nextTick(() => {
+          args.ref.refresh()
+          loading.value = false
+        })
+      }
     }
 
     onMounted(fetchTags)
 
     return {
       tags,
-      id,
+      loading,
       model,
       data,
       meta,

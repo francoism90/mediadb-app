@@ -25,7 +25,7 @@ const mutation: MutationTree<RepositoryState> = {
   },
 
   setData (state: RepositoryState, payload: Model[]) {
-    state.data = payload
+    state.data = state.data.concat(payload)
   },
 
   setMeta (state: RepositoryState, payload: RepositoryMeta) {

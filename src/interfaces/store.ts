@@ -16,6 +16,7 @@ export interface RepositoryOption {
 
 export interface RepositoryState {
   id: number | string | null,
+  autoload: boolean,
   data: Model[],
   meta: RepositoryMeta,
   options: RepositoryOption[]
