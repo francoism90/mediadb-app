@@ -30,6 +30,17 @@ const mutation: MutationTree<RepositoryState> = {
 
   setMeta (state: RepositoryState, payload: RepositoryMeta) {
     state.meta = payload
+  },
+
+  setOptions (state: RepositoryState, payload: RepositoryOption[]) {
+    const currentOptions = state.options
+    const finalOptions = { ...currentOptions, ...payload }
+
+    state.options = Object.assign({}, state.options, finalOptions)
+  },
+
+  setTimestamp (state: RepositoryState, payload: Date) {
+    state.timestamp = payload
   }
 }
 

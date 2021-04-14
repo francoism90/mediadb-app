@@ -14,11 +14,11 @@ export default function useFormValidation () {
   }
 
   const getError = (field: string): FieldError => {
-    return get(validator.value.errors, `${field}[0]`, <FieldError>{}) as FieldError
+    return get(validator.value.errors, field, <FieldError>{}) as FieldError
   }
 
   const hasMessage = (): boolean => {
-    return validator.value.message.length === 0
+    return validator.value.message !== ''
   }
 
   const getMessage = (): string => {

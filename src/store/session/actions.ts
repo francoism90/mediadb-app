@@ -4,7 +4,7 @@ import { User, UserResponse } from 'src/interfaces/user'
 import { ActionTree } from 'vuex'
 
 const actions: ActionTree<SessionState, StoreState> = {
-  reset (context): void {
+  resetStore (context): void {
     context.commit('resetStore')
     context.commit('setTimestamp', Date.now())
   },

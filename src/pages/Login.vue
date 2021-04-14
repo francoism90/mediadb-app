@@ -26,7 +26,7 @@
           <q-card-section class="q-px-xl q-gutter-sm">
             <q-input
               v-model.trim="form.email"
-              :error-message="getError('email')"
+              :error-message="getError('email')[0]"
               :error="hasError('email')"
               autofocus
               dark
@@ -36,7 +36,7 @@
 
             <q-input
               v-model.trim="form.password"
-              :error-message="getError('password')"
+              :error-message="getError('password')[0]"
               :error="hasError('password')"
               dark
               label="Your password"
@@ -94,6 +94,8 @@ export default defineComponent({
     })
 
     const { getError, hasError, setResponse } = useFormValidation()
+
+    console.log(getError('email'))
 
     const onSubmit = async () => {
       try {

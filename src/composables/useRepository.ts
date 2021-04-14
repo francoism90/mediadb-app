@@ -1,20 +1,33 @@
+import { RepositoryProps } from 'src/interfaces/repository'
 import { RepositoryState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
 import repositoryModule from 'src/store/repository'
 import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 
-export default function useRepository (store: string) {
+export default function useRepository (props: RepositoryProps) {
   const $store = useStore()
 
-  if (!$store.hasModule(store)) {
-    $store.registerModule(store, repositoryModule)
+  if (!$store.hasModule(props.name)) {
+    $store.registerModule(props.name, repositoryModule)
   }
 
-  const { setResponse } = useNamespacedActions(store, ['setResponse'])
-  const { isLoadable, nextPage } = useNamespacedGetters(store, ['isLoadable', 'nextPage'])
-  const { id, options, data, meta } = useNamespacedState<RepositoryState>(store, ['id', 'options', 'data', 'meta'])
+  const { resetStore, initialize, setResponse } = useNamespacedActions(props.name, [
+    'resetStore', 'initialize', 'setResponse'
+  ])
+
+  const { isLoadable, nextPage } = useNamespacedGetters(props.name, [
+    'isLoadable', 'nextPage'
+  ])
+
+  const { id, options, data, meta } = useNamespacedState<RepositoryState>(props.name, [
+    'id', 'options', 'data', 'meta'
+  ])
+
+  // Populate the store
+  initialize(props)
 
   return {
+    resetStore,
     setResponse,
     isLoadable,
     nextPage,

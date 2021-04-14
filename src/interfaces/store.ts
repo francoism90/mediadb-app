@@ -17,10 +17,12 @@ export interface RepositoryOption {
 export interface RepositoryState {
   id: number | string | null,
   autoload: boolean,
+  timestamp: Date | null,
   data: Model[],
   meta: RepositoryMeta,
   options: RepositoryOption[]
 }
+
 export interface PlayerState {
   id: number | string | null,
   controls: boolean,

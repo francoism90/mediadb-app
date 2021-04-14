@@ -42,9 +42,9 @@ export default defineComponent({
     }
   },
 
-  setup () {
+  setup (props) {
     const { fetchVideos } = useVideos()
-    const { setResponse, id, data, meta } = useRepository('videos-related')
+    const { setResponse, id, data, meta } = useRepository({ name: 'videos-related', id: props.video.id })
 
     const onLoad = async (): Promise<void> => {
       const response = await fetchVideos({ append: 'clip' })

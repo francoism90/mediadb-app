@@ -19,7 +19,7 @@ async function checkUser (store: Store<StoreState>, redirectPath: string | null)
 
     return true
   } catch {
-    await store.dispatch('session/reset')
+    await store.dispatch('session/resetStore')
 
     // Redirect after successful login
     store.commit('session/setRedirectPath', redirectPath)

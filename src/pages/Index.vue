@@ -39,7 +39,7 @@ export default defineComponent({
 
   setup () {
     const { fetchVideos } = useVideos()
-    const { setResponse, isLoadable, id, data, meta } = useRepository('videos')
+    const { setResponse, isLoadable, id, data, meta } = useRepository({ name: 'videos' })
 
     const onLoad = async () => {
       const nextPage = isLoadable.value as boolean

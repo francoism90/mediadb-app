@@ -1,3 +1,5 @@
+import { RepositoryOption } from 'src/interfaces/store'
+
 export interface Model {
   id: string | number,
   uuid?: string | number | null,
@@ -20,6 +22,14 @@ export interface RepositoryMeta {
   path?: string,
   to?: number,
   total?: number,
+}
+
+export interface RepositoryProps {
+  name: string,
+  id?: number | string | null,
+  autoload?: boolean,
+  timestamp?: Date,
+  options?: RepositoryOption[]
 }
 
 export interface RepositoryResponse {

@@ -65,14 +65,14 @@ export default defineComponent({
     const model = ref<Tag[]>([]) // TODO: move to store
     const loading = ref(false) // TODO: move to store?
 
-    const { findTags } = useTags()
-    const { setResponse, isLoadable, nextPage, data, meta } = useRepository(`${props.store}-tags`)
+    const { fetchTags } = useTags()
+    const { setResponse, isLoadable, nextPage, data, meta } = useRepository({ name: `${props.store}-tags` })
 
-    const fetchTags = async (): Promise<void> => {
+    const preloadTags = async (): Promise<void> => {
       if (loading.value !== true && isLoadable.value) {
         loading.value = true
 
-        const response = await findTags({ 'page[size]': 5 })
+        const response = await fetchTags({ 'page[size]': 5 })
         await setResponse(response)
 
         loading.value = false
@@ -85,7 +85,7 @@ export default defineComponent({
       if (loading.value !== true && isLoadable.value) {
         loading.value = true
 
-        const response = await findTags({ 'page[size]': 5, 'page[number]': pageNumber })
+        const response = await fetchTags({ 'page[size]': 5, 'page[number]': pageNumber })
         await setResponse(response)
 
         await nextTick(() => {
@@ -95,7 +95,7 @@ export default defineComponent({
       }
     }
 
-    onMounted(fetchTags)
+    onMounted(preloadTags)
 
     return {
       loading,
