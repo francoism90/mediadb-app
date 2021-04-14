@@ -3,7 +3,9 @@
     :key="id"
     class="container q-py-xl"
   >
-    <filters />
+    <q-toolbar>
+      <filter-tags />
+    </q-toolbar>
 
     <q-pull-to-refresh>
       <q-infinite-scroll
@@ -23,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import Filters from 'src/components/videos/FilterTags.vue'
+import FilterTags from 'src/components/videos/FilterTags.vue'
 import Item from 'src/components/videos/Item.vue'
 import useVideos from 'src/composables/useVideos'
 import { VideosParameters } from 'src/interfaces/video'
@@ -34,7 +36,7 @@ export default defineComponent({
 
   components: {
     Item,
-    Filters
+    FilterTags
   },
 
   setup () {

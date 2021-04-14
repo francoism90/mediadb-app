@@ -3,7 +3,6 @@
     <q-select
       v-model="model"
       :options="data"
-      :loading="loading"
       :input-debounce="650"
       :max-values="5"
       :virtual-scroll-slice-size="10"
@@ -46,7 +45,6 @@ export default defineComponent({
 
   setup () {
     const model = ref<Tag[]>([]) // TODO: move to store
-    const loading = ref(false) // TODO: move to store?
 
     const { fetchTags, scrollTags, id, data, meta } = useTags({
       repository: {
@@ -61,7 +59,6 @@ export default defineComponent({
       fetchTags,
       scrollTags,
       model,
-      loading,
       id,
       data,
       meta

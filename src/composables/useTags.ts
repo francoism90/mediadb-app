@@ -18,7 +18,7 @@ export default function useTags (props: TagsProps) {
 
     if (fetch) {
       // Increase page number
-      await setParams({ 'page[number]': pageNumber || 1 })
+      await setParams({ 'page[number]': pageNumber })
 
       // Set response
       const response = await findAll(params.value)
