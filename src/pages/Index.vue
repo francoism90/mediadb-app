@@ -38,7 +38,7 @@ export default defineComponent({
   },
 
   setup () {
-    const { findVideos } = useVideos()
+    const { fetchVideos } = useVideos()
     const { setResponse, isLoadable, id, data, meta } = useRepository('videos')
 
     const onLoad = async () => {
@@ -46,7 +46,7 @@ export default defineComponent({
 
       // TODO: add const loading
       if (nextPage) {
-        const response = await findVideos({ append: 'clip' })
+        const response = await fetchVideos({ append: 'clip' })
 
         await setResponse(response)
       }

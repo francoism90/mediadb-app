@@ -26,8 +26,6 @@ import Item from 'src/components/videos/Item.vue'
 import useRepository from 'src/composables/useRepository'
 import useVideos from 'src/composables/useVideos'
 import { Video } from 'src/interfaces/video'
-import { useStore } from 'src/store'
-import repositoryModule from 'src/store/repository'
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
@@ -45,17 +43,11 @@ export default defineComponent({
   },
 
   setup () {
-    const store = useStore()
-
-    if (!store.hasModule('videos-related')) {
-      store.registerModule('videos-related', repositoryModule)
-    }
-
-    const { findVideos } = useVideos()
+    const { fetchVideos } = useVideos()
     const { setResponse, id, data, meta } = useRepository('videos-related')
 
-    const onLoad = async () => {
-      const response = await findVideos({ append: 'clip' })
+    const onLoad = async (): Promise<void> => {
+      const response = await fetchVideos({ append: 'clip' })
 
       await setResponse(response)
     }

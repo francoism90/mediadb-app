@@ -3,8 +3,8 @@ export interface FieldError {
 }
 
 export interface FormValidator {
-  errors?: FieldError[],
-  message?: string
+  errors: FieldError[],
+  message: string
 }
 
 export interface ValidationResponse {

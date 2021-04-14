@@ -18,7 +18,7 @@ export default function useFormValidation () {
   }
 
   const hasMessage = (): boolean => {
-    return validator.value.message !== ''
+    return validator.value.message.length === 0
   }
 
   const getMessage = (): string => {

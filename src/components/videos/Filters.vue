@@ -65,12 +65,6 @@ export default defineComponent({
     const model = ref<Tag[]>([]) // TODO: move to store
     const loading = ref(false) // TODO: move to store?
 
-    const store = useStore()
-
-    if (!store.hasModule(`${props.store}-tags`)) {
-      store.registerModule(`${props.store}-tags`, repositoryModule)
-    }
-
     const { findTags } = useTags()
     const { setResponse, isLoadable, nextPage, data, meta } = useRepository(`${props.store}-tags`)
 
