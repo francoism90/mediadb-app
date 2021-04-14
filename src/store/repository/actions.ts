@@ -14,10 +14,12 @@ const actions: ActionTree<RepositoryState, StoreState> = {
     }
   },
 
-  setParams (context, payload: RepositoryParameter[]): void {
+  resetModels (context): void {
     context.commit('resetData')
     context.commit('resetMeta')
+  },
 
+  setParams (context, payload: RepositoryParameter[]): void {
     context.commit('setParams', payload)
     context.commit('setId', Date.now())
   },

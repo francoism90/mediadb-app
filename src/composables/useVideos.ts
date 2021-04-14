@@ -7,9 +7,9 @@ export default function useVideos (props: VideosProps) {
 
   const fetchVideos = async (): Promise<void> => {
     // const pageNumber = nextPage.value as number
-    const fetchable = isLoadable.value as boolean
+    const fetch = isLoadable.value as boolean
 
-    if (fetchable) {
+    if (fetch) {
       // 'page[number]': pageNumber || 1
 
       const response = await findAll(props.repository.params)
@@ -17,8 +17,6 @@ export default function useVideos (props: VideosProps) {
       await setResponse(response)
     }
   }
-
-  console.log(id)
 
   return {
     fetchVideos,

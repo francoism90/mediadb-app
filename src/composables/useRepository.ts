@@ -11,12 +11,11 @@ export default function useRepository (props: RepositoryProps) {
     $store.registerModule(props.module, repositoryModule)
   }
 
-  const { id, params, data, meta, lastFetch } = useNamespacedState<RepositoryState>(props.module, [
+  const { id, params, data, meta } = useNamespacedState<RepositoryState>(props.module, [
     'id',
     'params',
     'data',
-    'meta',
-    'lastFetch'
+    'meta'
   ])
 
   const { isLoadable, nextPage } = useNamespacedGetters(props.module, [
@@ -24,9 +23,11 @@ export default function useRepository (props: RepositoryProps) {
     'nextPage'
   ])
 
-  const { resetStore, initialize, setResponse } = useNamespacedActions(props.module, [
+  const { resetStore, resetModels, initialize, setParams, setResponse } = useNamespacedActions(props.module, [
     'resetStore',
+    'resetModels',
     'initialize',
+    'setParams',
     'setResponse'
   ])
 
@@ -37,8 +38,9 @@ export default function useRepository (props: RepositoryProps) {
     params,
     data,
     meta,
-    lastFetch,
+    resetModels,
     resetStore,
+    setParams,
     setResponse,
     isLoadable,
     nextPage
