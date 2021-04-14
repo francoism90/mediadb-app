@@ -1,40 +1,66 @@
 <template>
   <q-form
     v-if="visible"
-    class="q-mx-md search"
+    class="q-mx-md header-search"
     @submit.prevent
   >
-    <q-input
-      debounce="900"
-      type="search"
+    <q-select
+      v-model="model"
+      :options="data"
+      :input-debounce="650"
+      :virtual-scroll-slice-size="5"
+      class="full-height full-width"
+      option-value="name"
+      option-label="name"
       placeholder="Search videos"
       clearable
-      square
-      borderless
-      class="bg-grey-11 search-query q-px-md"
-      input-class="text-grey-1"
       hide-bottom-space
+      filled
+      square
+      dark
+      fill-input
+      options-dark
+      use-input
+      @filter="filterTags"
     >
       <template #prepend>
         <q-icon
           name="search"
           color="grey-5"
-          class="cursor-pointer"
+          class="q-mx-none cursor-pointer"
         />
       </template>
-    </q-input>
+
+      <template #option="scope">
+        <q-item
+          v-bind="scope.itemProps"
+        >
+          <q-item-section>
+            <q-item-label>
+              {{ scope.opt.name }}
+            </q-item-label>
+
+            <q-item-label caption>
+              {{ scope.opt.type }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </template>
+    </q-select>
   </q-form>
 </template>
 
 <script lang="ts">
+import useTags from 'src/composables/useTags'
+import { TagsParameters } from 'src/interfaces/tag'
 import { router } from 'src/router'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 const searchable = [
   {
     placeholder: 'Search videos',
     route: { name: 'home' },
-    store: 'videos'
+    module: 'videos'
   }
 ]
 
@@ -50,8 +76,31 @@ export default defineComponent({
       return searchable.find(x => x.route.name === currentRoute.name)
     })
 
+    const model = ref('')
+
+    const { fetchTags, data } = useTags({
+      repository: {
+        module: 'videos-tags',
+        params: <TagsParameters>{ sort: 'name', 'page[number]': 1, 'page[size]': 5 }
+      }
+    })
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
+      if (val.length < 2) {
+        abort()
+        return
+      }
+
+      await fetchTags()
+      await update()
+    }
+
     return {
-      visible
+      visible,
+      model,
+      filterTags,
+      data
     }
   }
 })

@@ -45,3 +45,7 @@ export interface RepositoryProps {
   id?: string | number,
   params: RepositoryParameters,
 }
+
+export interface RepositoryParamsProps {
+  module: string,
+}

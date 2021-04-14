@@ -8,15 +8,11 @@
   padding-right: $space-base;
 }
 
-.search {
+.header-search {
   width: 60vw;
   max-width: 450px;
 
   @media (max-width: $breakpoint-xs-max) {
     width: 100vw;
   }
-}
-
-.search-input {
-  border-top: $layout-border;
 }
