@@ -95,8 +95,6 @@ export default defineComponent({
 
     const { getError, hasError, setResponse } = useFormValidation()
 
-    console.log(getError('email'))
-
     const onSubmit = async () => {
       try {
         // CSRF is only useful on PWA/SPA

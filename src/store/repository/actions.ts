@@ -8,9 +8,9 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   },
 
   initialize (context, payload: RepositoryProps): void {
-    if (payload.id && context.state.id !== payload.id) {
+    if (context.state.name !== payload.name) {
       context.commit('resetStore')
-      context.commit('setId', payload.id || null)
+      context.commit('setName', payload.name)
       context.commit('setAutoload', payload.autoload || true)
       context.commit('setOptions', payload.options || [])
     }
@@ -22,15 +22,10 @@ const actions: ActionTree<RepositoryState, StoreState> = {
     context.commit('setTimestamp', Date.now())
   },
 
-  setOption (context, payload: RepositoryOption): void {
-    // Clear current results
+  setOptions (context, payload: RepositoryOption[]): void {
     context.commit('resetData')
     context.commit('resetMeta')
-
-    // Set option
     context.commit('setOptions', payload)
-
-    // Reset id
     context.commit('setId', +new Date())
   }
 }

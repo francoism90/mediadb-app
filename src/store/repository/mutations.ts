@@ -20,8 +20,16 @@ const mutation: MutationTree<RepositoryState> = {
     state.options = <RepositoryOption[]>[]
   },
 
+  setName (state: RepositoryState, payload: string) {
+    state.name = payload
+  },
+
   setId (state: RepositoryState, payload: number | string | null) {
     state.id = payload
+  },
+
+  setAutoload (state: RepositoryState, payload: boolean) {
+    state.autoload = payload
   },
 
   setData (state: RepositoryState, payload: Model[]) {

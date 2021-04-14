@@ -15,6 +15,7 @@ export interface RepositoryOption {
 }
 
 export interface RepositoryState {
+  name: string,
   id: number | string | null,
   autoload: boolean,
   timestamp: Date | null,
