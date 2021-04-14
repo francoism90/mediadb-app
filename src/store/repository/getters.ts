@@ -18,7 +18,7 @@ const getters: GetterTree<RepositoryState, StoreState> = {
   },
 
   nextPage (state: RepositoryState): number {
-    const currentPage = state.meta.current_page || 1
+    const currentPage = state.meta.current_page || 0
 
     return currentPage + 1
   }

@@ -16,12 +16,11 @@ export interface RepositoryOption {
 
 export interface RepositoryState {
   name: string,
-  id: number | string | null,
   autoload: boolean,
-  timestamp: Date | null,
   data: Model[],
   meta: RepositoryMeta,
-  options: RepositoryOption[]
+  options: RepositoryOption[],
+  updatedAt: Date | null,
 }
 
 export interface PlayerState {

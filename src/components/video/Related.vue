@@ -1,5 +1,8 @@
 <template>
-  <div class="video-details q-py-md">
+  <div
+    :key="updatedAt"
+    class="video-details q-py-md"
+  >
     <h1 class="text-h3 text-white ellipsis">
       More Like This
     </h1>
@@ -44,18 +47,29 @@ export default defineComponent({
 
   setup (props) {
     const { fetchVideos } = useVideos()
-    const { setResponse, id, data, meta } = useRepository({ name: 'videos-related', id: props.video.id })
+    const { setResponse, data, meta, isLoadable, nextPage, updatedAt } = useRepository({
+      store: 'videos-related',
+      name: props.video.id
+    })
 
     const onLoad = async (): Promise<void> => {
-      const response = await fetchVideos({ append: 'clip' })
+      const pageNumber = nextPage.value as number
+      const peformFetch = isLoadable.value as boolean
 
-      await setResponse(response)
+      if (peformFetch) {
+        const response = await fetchVideos({
+          append: 'clip',
+          'page[number]': pageNumber || 1
+        })
+
+        await setResponse(response)
+      }
     }
 
     return {
-      id,
       data,
       meta,
+      updatedAt,
       onLoad
     }
   }

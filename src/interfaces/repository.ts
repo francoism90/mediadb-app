@@ -25,10 +25,9 @@ export interface RepositoryMeta {
 }
 
 export interface RepositoryProps {
-  name: string,
-  id?: number | string | null,
+  store: string,
+  name?: string | number,
   autoload?: boolean,
-  timestamp?: Date,
   options?: RepositoryOption[]
 }
 

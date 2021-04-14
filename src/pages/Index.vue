@@ -1,6 +1,6 @@
 <template>
   <q-page
-    :key="id"
+    :key="updatedAt"
     class="container q-py-xl"
   >
     <filters store="videos" />
@@ -39,23 +39,26 @@ export default defineComponent({
 
   setup () {
     const { fetchVideos } = useVideos()
-    const { setResponse, isLoadable, id, data, meta } = useRepository({ name: 'videos' })
+    const { setResponse, data, meta, isLoadable, nextPage, updatedAt } = useRepository({ store: 'videos' })
 
-    const onLoad = async () => {
-      const nextPage = isLoadable.value as boolean
+    const onLoad = async (): Promise<void> => {
+      const pageNumber = nextPage.value as number
+      const peformFetch = isLoadable.value as boolean
 
-      // TODO: add const loading
-      if (nextPage) {
-        const response = await fetchVideos({ append: 'clip' })
+      if (peformFetch) {
+        const response = await fetchVideos({
+          append: 'clip',
+          'page[number]': pageNumber || 1
+        })
 
         await setResponse(response)
       }
     }
 
     return {
-      id,
       data,
       meta,
+      updatedAt,
       onLoad
     }
   }

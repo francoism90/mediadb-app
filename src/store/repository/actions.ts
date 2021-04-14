@@ -8,8 +8,9 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   },
 
   initialize (context, payload: RepositoryProps): void {
-    if (context.state.name !== payload.name) {
+    if (payload.name && (context.state.name !== payload.name)) {
       context.commit('resetStore')
+
       context.commit('setName', payload.name)
       context.commit('setAutoload', payload.autoload || true)
       context.commit('setOptions', payload.options || [])
@@ -19,14 +20,15 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   setResponse (context, payload: RepositoryResponse): void {
     context.commit('setData', payload.data)
     context.commit('setMeta', payload.meta)
-    context.commit('setTimestamp', Date.now())
+    context.commit('setUpdatedAt', Date.now())
   },
 
   setOptions (context, payload: RepositoryOption[]): void {
     context.commit('resetData')
     context.commit('resetMeta')
+
     context.commit('setOptions', payload)
-    context.commit('setId', +new Date())
+    context.commit('setUpdatedAt', Date.now())
   }
 }
 

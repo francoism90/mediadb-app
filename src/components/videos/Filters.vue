@@ -42,8 +42,6 @@ import { QSelect } from 'quasar'
 import useRepository from 'src/composables/useRepository'
 import useTags from 'src/composables/useTags'
 import { Tag } from 'src/interfaces/tag'
-import { useStore } from 'src/store'
-import repositoryModule from 'src/store/repository'
 import { defineComponent, nextTick, onMounted, PropType, ref } from 'vue'
 
 interface scrollArgs {
@@ -66,7 +64,9 @@ export default defineComponent({
     const loading = ref(false) // TODO: move to store?
 
     const { fetchTags } = useTags()
-    const { setResponse, isLoadable, nextPage, data, meta } = useRepository({ name: `${props.store}-tags` })
+    const { setResponse, isLoadable, nextPage, data, meta } = useRepository({
+      store: `${props.store}-tags`
+    })
 
     const preloadTags = async (): Promise<void> => {
       if (loading.value !== true && isLoadable.value) {

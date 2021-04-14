@@ -24,10 +24,6 @@ const mutation: MutationTree<RepositoryState> = {
     state.name = payload
   },
 
-  setId (state: RepositoryState, payload: number | string | null) {
-    state.id = payload
-  },
-
   setAutoload (state: RepositoryState, payload: boolean) {
     state.autoload = payload
   },
@@ -47,8 +43,8 @@ const mutation: MutationTree<RepositoryState> = {
     state.options = Object.assign({}, state.options, finalOptions)
   },
 
-  setTimestamp (state: RepositoryState, payload: Date) {
-    state.timestamp = payload
+  setUpdatedAt (state: RepositoryState, payload: Date) {
+    state.updatedAt = payload
   }
 }
 

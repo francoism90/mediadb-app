@@ -7,20 +7,20 @@ import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from '
 export default function useRepository (props: RepositoryProps) {
   const $store = useStore()
 
-  if (!$store.hasModule(props.name)) {
-    $store.registerModule(props.name, repositoryModule)
+  if (!$store.hasModule(props.store)) {
+    $store.registerModule(props.store, repositoryModule)
   }
 
-  const { resetStore, initialize, setResponse } = useNamespacedActions(props.name, [
+  const { resetStore, initialize, setResponse } = useNamespacedActions(props.store, [
     'resetStore', 'initialize', 'setResponse'
   ])
 
-  const { isLoadable, nextPage } = useNamespacedGetters(props.name, [
+  const { isLoadable, nextPage } = useNamespacedGetters(props.store, [
     'isLoadable', 'nextPage'
   ])
 
-  const { id, options, data, meta } = useNamespacedState<RepositoryState>(props.name, [
-    'id', 'options', 'data', 'meta'
+  const { options, data, meta, updatedAt } = useNamespacedState<RepositoryState>(props.store, [
+    'options', 'data', 'meta', 'updatedAt'
   ])
 
   // Populate the store
@@ -31,9 +31,9 @@ export default function useRepository (props: RepositoryProps) {
     setResponse,
     isLoadable,
     nextPage,
-    id,
     options,
     data,
-    meta
+    meta,
+    updatedAt
   }
 }
