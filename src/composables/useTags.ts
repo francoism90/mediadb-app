@@ -37,9 +37,6 @@ export default function useTags (props: TagsProps) {
         args.ref.refresh()
       })
     }
-
-    console.log(args.to)
-    console.log(args.ref)
   }
 
   return {

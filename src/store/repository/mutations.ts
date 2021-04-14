@@ -37,6 +37,10 @@ const mutation: MutationTree<RepositoryState> = {
     const finalParams = { ...currentParams, ...payload }
 
     state.params = Object.assign({}, state.params, finalParams)
+  },
+
+  setReady (state: RepositoryState, payload: boolean) {
+    state.ready = payload
   }
 }
 
