@@ -12,7 +12,6 @@
       dropdown-icon="o_expand_more"
       display-value="Tags"
       dark
-
       multiple
       options-dark
       use-input

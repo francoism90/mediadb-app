@@ -23,7 +23,7 @@ export default function useRepository (props: RepositoryProps) {
     'options', 'data', 'meta', 'updatedAt'
   ])
 
-  // Populate the store
+  // Populate store
   initialize(props)
 
   return {
