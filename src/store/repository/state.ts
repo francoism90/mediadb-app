@@ -1,13 +1,14 @@
+import { RepositoryParameters } from 'src/interfaces/repository'
 import { RepositoryState } from 'src/interfaces/store'
 
 function state (): RepositoryState {
   return {
-    name: '',
-    autoload: true,
+    ready: false,
+    id: '',
+    params: <RepositoryParameters>{},
     data: [],
     meta: {},
-    options: [],
-    updatedAt: null
+    lastFetch: null
   }
 }
 

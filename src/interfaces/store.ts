@@ -1,6 +1,6 @@
 
 import { PlayerProps } from '@vime/vue-next'
-import { Model, RepositoryMeta } from 'src/interfaces/repository'
+import { Model, RepositoryMeta, RepositoryParameters } from 'src/interfaces/repository'
 import { User } from 'src/interfaces/user'
 
 export interface SessionState {
@@ -10,17 +10,13 @@ export interface SessionState {
   user: User;
 }
 
-export interface RepositoryOption {
-  [key: string]: string | number | null
-}
-
 export interface RepositoryState {
-  name: string,
-  autoload: boolean,
+  ready: boolean,
+  id: string,
+  params: RepositoryParameters,
   data: Model[],
   meta: RepositoryMeta,
-  options: RepositoryOption[],
-  updatedAt: Date | null,
+  lastFetch: Date | null,
 }
 
 export interface PlayerState {

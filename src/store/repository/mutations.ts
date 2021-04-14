@@ -1,5 +1,5 @@
-import { Model, RepositoryMeta } from 'src/interfaces/repository'
-import { RepositoryOption, RepositoryState } from 'src/interfaces/store'
+import { Model, RepositoryMeta, RepositoryParameters } from 'src/interfaces/repository'
+import { RepositoryState } from 'src/interfaces/store'
 import defaultState from 'src/store/repository/state'
 import { MutationTree } from 'vuex'
 
@@ -16,16 +16,12 @@ const mutation: MutationTree<RepositoryState> = {
     state.meta = <RepositoryMeta>{}
   },
 
-  resetOptions (state: RepositoryState) {
-    state.options = <RepositoryOption[]>[]
+  resetParams (state: RepositoryState) {
+    state.params = <RepositoryParameters>{}
   },
 
-  setName (state: RepositoryState, payload: string) {
-    state.name = payload
-  },
-
-  setAutoload (state: RepositoryState, payload: boolean) {
-    state.autoload = payload
+  setId (state: RepositoryState, payload: string) {
+    state.id = payload
   },
 
   setData (state: RepositoryState, payload: Model[]) {
@@ -36,15 +32,11 @@ const mutation: MutationTree<RepositoryState> = {
     state.meta = payload
   },
 
-  setOptions (state: RepositoryState, payload: RepositoryOption[]) {
-    const currentOptions = state.options
-    const finalOptions = { ...currentOptions, ...payload }
+  setParams (state: RepositoryState, payload: RepositoryParameters) {
+    const currentParams = state.params
+    const finalParams = { ...currentParams, ...payload }
 
-    state.options = Object.assign({}, state.options, finalOptions)
-  },
-
-  setUpdatedAt (state: RepositoryState, payload: Date) {
-    state.updatedAt = payload
+    state.params = Object.assign({}, state.params, finalParams)
   }
 }
 

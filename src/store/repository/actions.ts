@@ -1,5 +1,5 @@
-import { RepositoryProps, RepositoryResponse } from 'src/interfaces/repository'
-import { RepositoryOption, RepositoryState, StoreState } from 'src/interfaces/store'
+import { RepositoryParameter, RepositoryProps, RepositoryResponse } from 'src/interfaces/repository'
+import { RepositoryState, StoreState } from 'src/interfaces/store'
 import { ActionTree } from 'vuex'
 
 const actions: ActionTree<RepositoryState, StoreState> = {
@@ -8,27 +8,23 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   },
 
   initialize (context, payload: RepositoryProps): void {
-    if (payload.name && (context.state.name !== payload.name)) {
+    if (!context.state.ready) {
       context.commit('resetStore')
-
-      context.commit('setName', payload.name)
-      context.commit('setAutoload', payload.autoload || true)
-      context.commit('setOptions', payload.options || [])
+      context.commit('setParams', payload.params || [])
     }
+  },
+
+  setParams (context, payload: RepositoryParameter[]): void {
+    context.commit('resetData')
+    context.commit('resetMeta')
+
+    context.commit('setParams', payload)
+    context.commit('setId', Date.now())
   },
 
   setResponse (context, payload: RepositoryResponse): void {
     context.commit('setData', payload.data)
     context.commit('setMeta', payload.meta)
-    context.commit('setUpdatedAt', Date.now())
-  },
-
-  setOptions (context, payload: RepositoryOption[]): void {
-    context.commit('resetData')
-    context.commit('resetMeta')
-
-    context.commit('setOptions', payload)
-    context.commit('setUpdatedAt', Date.now())
   }
 }
 

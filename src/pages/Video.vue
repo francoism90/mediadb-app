@@ -14,8 +14,6 @@
           color="primary"
           size="3px"
         />
-
-        <video-related :video="video" />
       </div>
     </template>
   </q-page>
@@ -24,7 +22,7 @@
 <script lang="ts">
 import VideoPlayer from 'src/components/player/Video.vue'
 import VideoDetails from 'src/components/video/Details.vue'
-import VideoRelated from 'src/components/video/Related.vue'
+// import VideoRelated from 'src/components/video/Related.save'
 import useVideo from 'src/composables/useVideo'
 import { defineComponent, PropType, toRefs } from 'vue'
 
@@ -38,8 +36,8 @@ export default defineComponent({
 
   components: {
     VideoDetails,
-    VideoPlayer,
-    VideoRelated
+    VideoPlayer
+    // VideoRelated
   },
 
   props: {

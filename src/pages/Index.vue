@@ -1,14 +1,12 @@
 <template>
   <q-page
-    :key="updatedAt"
+    :key="id"
     class="container q-py-xl"
   >
-    <filters store="videos" />
-
     <q-pull-to-refresh>
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
-        @load="onLoad"
+        @load="fetchVideos"
       >
         <q-intersection
           v-for="(item, index) in data"
@@ -23,43 +21,33 @@
 </template>
 
 <script lang="ts">
-import Filters from 'src/components/videos/Filters.vue'
+// import Filters from 'src/components/videos/Filters.vue'
 import Item from 'src/components/videos/Item.vue'
-import useRepository from 'src/composables/useRepository'
 import useVideos from 'src/composables/useVideos'
+import { VideosParameters } from 'src/interfaces/video'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'IndexPage',
 
   components: {
-    Item,
-    Filters
+    Item
+    // Filters
   },
 
   setup () {
-    const { fetchVideos } = useVideos()
-    const { setResponse, data, meta, isLoadable, nextPage, updatedAt } = useRepository({ store: 'videos' })
-
-    const onLoad = async (): Promise<void> => {
-      const pageNumber = nextPage.value as number
-      const peformFetch = isLoadable.value as boolean
-
-      if (peformFetch) {
-        const response = await fetchVideos({
-          append: 'clip',
-          'page[number]': pageNumber || 1
-        })
-
-        await setResponse(response)
+    const { fetchVideos, id, data, meta } = useVideos({
+      repository: {
+        module: 'videos',
+        params: <VideosParameters>{ append: 'clip', sort: 'created_at', 'page[number]': 1 }
       }
-    }
+    })
 
     return {
+      fetchVideos,
+      id,
       data,
-      meta,
-      updatedAt,
-      onLoad
+      meta
     }
   }
 })
