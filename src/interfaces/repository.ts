@@ -17,6 +17,7 @@ export interface RepositoryParams {
   fields?: string | null,
   append?: string | null,
   sort?: string | number | null,
+  'filter[query]'?: string | null,
   'page[number]'?: number | null,
   'page[size]'?: number | null,
 }

@@ -54,8 +54,9 @@
 </template>
 
 <script lang="ts">
+import useRepository from 'src/composables/useRepository'
+import useRepositoryGetters from 'src/composables/useRepositoryGetters'
 import useTags from 'src/composables/useTags'
-import useVideos from 'src/composables/useVideos'
 import { TagsParameters } from 'src/interfaces/tag'
 import { router } from 'src/router'
 import { computed, defineComponent, ref } from 'vue'
@@ -75,21 +76,20 @@ export default defineComponent({
     const model = ref('')
     const $router = router
 
-    const visible = computed(() => {
-      const currentRoute = $router.currentRoute.value
+    const currentRoute = $router.currentRoute.value
+    const currentModule = 'videos'
 
+    const visible = computed(() => {
       return searchable.find(x => x.route.name === currentRoute.name)
     })
 
-    const {
-      getParam: getVideosParam,
-      setParams: setVideosParams
-    } = useVideos({ module: 'videos' })
+    const { setParams: setModuleParams } = useRepository({ module: currentModule })
+    const { getParam: getModuleParam } = useRepositoryGetters(currentModule)
 
-    model.value = getVideosParam('filter[query]') as string
+    model.value = getModuleParam('filter[query]') as string
 
     const setModel = async (val: string): Promise<void> => {
-      await setVideosParams({
+      await setModuleParams({
         params: { 'filter[query]': val, 'page[number]': 1 },
         reset: true
       })
@@ -98,7 +98,7 @@ export default defineComponent({
     }
 
     const { fetchTags, setParams, data } = useTags({
-      module: 'videos-tags',
+      module: 'search-tags',
       params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
     })
 

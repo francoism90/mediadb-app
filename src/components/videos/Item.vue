@@ -37,7 +37,7 @@ import { Video } from 'src/interfaces/video'
 import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-  name: 'VideoItem',
+  name: 'VideosItem',
 
   // components: {
   // NavigationLink,
