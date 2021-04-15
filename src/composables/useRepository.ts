@@ -19,7 +19,8 @@ export default function useRepository (props: RepositoryProps) {
     'meta'
   ])
 
-  const { isLoadable, nextPage } = useNamespacedGetters(props.module, [
+  const { getParams, isLoadable, nextPage } = useNamespacedGetters(props.module, [
+    'getParams',
     'isLoadable',
     'nextPage'
   ])
@@ -32,11 +33,9 @@ export default function useRepository (props: RepositoryProps) {
     'setResponse'
   ])
 
-  console.log(props.module, props.params)
-
   initialize(props)
 
-  const getParams = (key: string | number): string | number | null => {
+  const getParam = (key: string | number): string | number | null => {
     return get(params.value, key, null) as string | number | null
   }
 
@@ -47,6 +46,7 @@ export default function useRepository (props: RepositoryProps) {
     meta,
     resetModels,
     resetStore,
+    getParam,
     getParams,
     setParams,
     setResponse,

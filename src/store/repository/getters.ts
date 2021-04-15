@@ -1,3 +1,4 @@
+import { RepositoryParameters } from 'src/interfaces/repository'
 import { RepositoryState, StoreState } from 'src/interfaces/store'
 import { GetterTree } from 'vuex'
 
@@ -11,6 +12,10 @@ const getters: GetterTree<RepositoryState, StoreState> = {
       state.meta.current_page !== state.meta.last_page &&
       state.meta.current_page < state.meta.last_page
     )
+  },
+
+  getParams (state: RepositoryState): RepositoryParameters {
+    return state.params
   },
 
   nextPage (state: RepositoryState): number {

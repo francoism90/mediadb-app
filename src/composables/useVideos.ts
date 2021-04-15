@@ -3,18 +3,20 @@ import { VideosParameters, VideosProps } from 'src/interfaces/video'
 import { findAll } from 'src/repositories/video'
 
 export default function useVideos (props: VideosProps) {
-  const { id, isLoadable, params, data, meta, nextPage, resetModels, getParams, setParams, setResponse } = useRepository(props.repository)
+  const { id, isLoadable, data, meta, nextPage, resetModels, getParam, getParams, setParams, setResponse } = useRepository(props.repository)
 
   const fetchVideos = async (): Promise<void> => {
     const fetch = isLoadable.value as boolean
 
     if (fetch) {
       const pageNumber = nextPage.value as number
-      const pageParams = { ...{ 'page[number]': pageNumber }, ...params } as VideosParameters
+      const pageParams = { ...{ 'page[number]': pageNumber }, ...getParams.value } as VideosParameters
+
+      console.log(getParams.value)
 
       await setParams(pageParams)
 
-      const response = await findAll(params.value)
+      const response = await findAll(pageParams)
       await setResponse(response)
     }
   }
@@ -22,7 +24,7 @@ export default function useVideos (props: VideosProps) {
   return {
     fetchVideos,
     resetModels,
-    getParams,
+    getParam,
     setParams,
     isLoadable,
     id,

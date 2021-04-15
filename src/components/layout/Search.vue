@@ -87,7 +87,7 @@ export default defineComponent({
       }
     })
 
-    const { getParams, setParams, resetModels } = useVideos({
+    const { getParam, setParams, resetModels } = useVideos({
       repository: {
         module: 'videos'
       }
@@ -104,7 +104,7 @@ export default defineComponent({
       await update()
     }
 
-    model.value = getParams('filter[query]') as string
+    model.value = getParam('filter[query]') as string
 
     const setModel = async (val: string): Promise<void> => {
       console.log('setModel')
