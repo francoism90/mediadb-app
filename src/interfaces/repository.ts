@@ -12,7 +12,7 @@ export interface ModelResponse {
   data: Model,
 }
 
-export interface RepositoryParameters {
+export interface RepositoryParams {
   include?: string | null,
   fields?: string | null,
   append?: string | null,
@@ -38,9 +38,10 @@ export interface RepositoryResponse {
 
 export interface RepositoryProps {
   module: string,
-  params?: RepositoryParameters,
+  params?: RepositoryParams,
 }
 
-export interface RepositoryParamsProps {
-  module: string,
+export interface RepositoryParameters {
+  params?: RepositoryParams,
+  reset?: boolean,
 }

@@ -1,4 +1,4 @@
-import { Model, RepositoryMeta, RepositoryParameters } from 'src/interfaces/repository'
+import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository'
 import { RepositoryState } from 'src/interfaces/store'
 import defaultState from 'src/store/repository/state'
 import { MutationTree } from 'vuex'
@@ -17,7 +17,7 @@ const mutation: MutationTree<RepositoryState> = {
   },
 
   resetParams (state: RepositoryState) {
-    state.params = <RepositoryParameters>{}
+    state.params = <RepositoryParams>{}
   },
 
   setId (state: RepositoryState, payload: string | number | null) {
@@ -32,7 +32,7 @@ const mutation: MutationTree<RepositoryState> = {
     state.meta = payload
   },
 
-  setParams (state: RepositoryState, payload: RepositoryParameters) {
+  setParams (state: RepositoryState, payload: RepositoryParams) {
     const currentParams = state.params
     const finalParams = { ...currentParams, ...payload }
 

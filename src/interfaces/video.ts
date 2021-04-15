@@ -1,5 +1,5 @@
 import { Media } from './media'
-import { Model, ModelResponse, RepositoryMeta, RepositoryParameters, RepositoryResponse } from './repository'
+import { Model, ModelResponse, RepositoryMeta, RepositoryParams, RepositoryResponse } from './repository'
 
 export interface Video extends Model {
   overview?: string | null,
@@ -20,6 +20,6 @@ export interface VideosResponse extends RepositoryResponse {
   meta: RepositoryMeta
 }
 
-export interface VideosParameters extends RepositoryParameters {
+export interface VideosParameters extends RepositoryParams {
   'filter[query]'?: string | null
 }

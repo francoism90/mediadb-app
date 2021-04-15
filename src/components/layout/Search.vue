@@ -79,7 +79,23 @@ export default defineComponent({
       return searchable.find(x => x.route.name === currentRoute.name)
     })
 
-    const { fetchTags, resetModels, setParams, data } = useTags({
+    const {
+      getParam: getVideosParam,
+      setParams: setVideosParams
+    } = useVideos({ module: 'videos' })
+
+    model.value = getVideosParam('filter[query]') as string
+
+    const setModel = async (val: string): Promise<void> => {
+      await setVideosParams({
+        params: { 'filter[query]': val, 'page[number]': 1 },
+        reset: true
+      })
+
+      model.value = val
+    }
+
+    const { fetchTags, setParams, data } = useTags({
       module: 'videos-tags',
       params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
     })
@@ -91,26 +107,13 @@ export default defineComponent({
         return
       }
 
-      await setParams({ 'filter[query]': val, 'page[number]': 1 })
-      await resetModels()
+      await setParams({
+        params: { 'filter[query]': val, 'page[number]': 1 },
+        reset: true
+      })
+
       await fetchTags()
-
       await update()
-    }
-
-    const {
-      getParam: getVideosParam,
-      setParams: setVideosParams,
-      resetModels: resetVideosModels
-    } = useVideos({ module: 'videos' })
-
-    model.value = getVideosParam('filter[query]') as string
-
-    const setModel = async (val: string): Promise<void> => {
-      await setVideosParams({ 'filter[query]': val, 'page[number]': 1 })
-      await resetVideosModels()
-
-      model.value = val
     }
 
     return {

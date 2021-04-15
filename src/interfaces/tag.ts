@@ -1,4 +1,4 @@
-import { Model, ModelResponse, RepositoryMeta, RepositoryParameters, RepositoryResponse } from './repository'
+import { Model, ModelResponse, RepositoryMeta, RepositoryParams, RepositoryResponse } from './repository'
 
 export interface Tag extends Model {
   overview?: string | null,
@@ -17,6 +17,6 @@ export interface TagsResponse extends RepositoryResponse {
   meta: RepositoryMeta
 }
 
-export interface TagsParameters extends RepositoryParameters {
+export interface TagsParameters extends RepositoryParams {
   'filter[query]'?: string | null
 }
