@@ -10,16 +10,17 @@
       :input-debounce="750"
       behavior="menu"
       class="full-height full-width"
-      option-value="name"
-      option-label="name"
-      placeholder="Search videos"
-      hide-bottom-space
-      filled
-      square
       dark
       fill-input
-      options-dark
+      filled
+      hide-bottom-space
+      hide-dropdown-icon
       hide-selected
+      option-label="name"
+      option-value="name"
+      options-dark
+      placeholder="Search videos"
+      square
       use-input
       @input-value="setModel"
       @filter="filterTags"
