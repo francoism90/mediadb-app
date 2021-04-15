@@ -1,20 +1,16 @@
 import useRepository from 'src/composables/useRepository'
-import { VideosParameters, VideosProps } from 'src/interfaces/video'
+import useRepositoryGetters from 'src/composables/useRepositoryGetters'
+import useRepositoryState from 'src/composables/useRepositoryState'
+import { RepositoryProps } from 'src/interfaces/repository'
+import { VideosParameters } from 'src/interfaces/video'
 import { findAll } from 'src/repositories/video'
 
-export default function useVideos (props: VideosProps) {
-  const {
-    id,
-    isLoadable,
-    data,
-    meta,
-    nextPage,
-    resetModels,
-    getParam,
-    getParams,
-    setParams,
-    setResponse
-  } = useRepository(props.repository)
+export default function useVideos (props: RepositoryProps) {
+  const { resetModels, setParams, setResponse } = useRepository(props)
+
+  const { getParam, getParams, isLoadable, nextPage } = useRepositoryGetters(props.module)
+
+  const { id, data, meta } = useRepositoryState(props.module)
 
   const fetchVideos = async (): Promise<void> => {
     const fetch = isLoadable.value as boolean
@@ -37,7 +33,6 @@ export default function useVideos (props: VideosProps) {
     resetModels,
     getParam,
     setParams,
-    isLoadable,
     id,
     data,
     meta

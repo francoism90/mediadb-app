@@ -1,41 +1,40 @@
 import useRepository from 'src/composables/useRepository'
-import { TagsParameters, TagsProps } from 'src/interfaces/tag'
+import useRepositoryGetters from 'src/composables/useRepositoryGetters'
+import useRepositoryState from 'src/composables/useRepositoryState'
+import { RepositoryProps } from 'src/interfaces/repository'
+import { TagsParameters } from 'src/interfaces/tag'
 import { findAll } from 'src/repositories/tag'
 
-export default function useTags (props: TagsProps) {
-  const {
-    isLoadable, params, nextPage, data, meta, resetModels, setParams, setResponse
-  } = useRepository(props.repository)
+export default function useTags (props: RepositoryProps) {
+  const { resetModels, setParams, setResponse } = useRepository(props)
+
+  const { getParam, getParams, isLoadable, nextPage } = useRepositoryGetters(props.module)
+
+  const { id, data, meta } = useRepositoryState(props.module)
 
   const fetchTags = async (): Promise<void> => {
     const fetch = isLoadable.value as boolean
 
     if (fetch) {
-      const response = await findAll(params.value)
+      // Merge page parameters
+      const pageNumber = nextPage.value as number
+      const pageParams = { ...{ 'page[number]': pageNumber }, ...getParams.value } as TagsParameters
+
+      await setParams(pageParams)
+
+      // Set response
+      const response = await findAll(pageParams)
       await setResponse(response)
-    }
-  }
-
-  const loadTags = async (params: TagsParameters, reset?: boolean, update?: boolean): Promise<void> => {
-    const pageNumber = nextPage.value as number
-    const pageParams = { ...{ 'page[number]': pageNumber, ...params } } as TagsParameters
-
-    await setParams(pageParams)
-
-    if (reset) {
-      await resetModels()
-    }
-
-    if (update || update === undefined) {
-      await fetchTags()
     }
   }
 
   return {
     fetchTags,
-    loadTags,
+    resetModels,
+    getParam,
+    setParams,
+    id,
     data,
-    meta,
-    params
+    meta
   }
 }

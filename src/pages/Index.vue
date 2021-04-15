@@ -36,10 +36,8 @@ export default defineComponent({
 
   setup () {
     const { fetchVideos, id, data, meta } = useVideos({
-      repository: {
-        module: 'videos',
-        params: <VideosParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
-      }
+      module: 'videos',
+      params: <VideosParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
     })
 
     // eslint-disable-next-line @typescript-eslint/ban-types

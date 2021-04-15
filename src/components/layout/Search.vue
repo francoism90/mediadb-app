@@ -71,7 +71,6 @@ export default defineComponent({
 
   setup () {
     const model = ref('')
-
     const $router = router
 
     const visible = computed(() => {
@@ -80,17 +79,9 @@ export default defineComponent({
       return searchable.find(x => x.route.name === currentRoute.name)
     })
 
-    const { loadTags, params, data } = useTags({
-      repository: {
-        module: 'videos-tags',
-        params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
-      }
-    })
-
-    const { getParam, setParams, resetModels } = useVideos({
-      repository: {
-        module: 'videos'
-      }
+    const { fetchTags, resetModels, setParams, data } = useTags({
+      module: 'videos-tags',
+      params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
     })
 
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -100,16 +91,24 @@ export default defineComponent({
         return
       }
 
-      await loadTags({ 'filter[query]': val, 'page[number]': 1 }, true)
+      await setParams({ 'filter[query]': val, 'page[number]': 1 })
+      await resetModels()
+      await fetchTags()
+
       await update()
     }
 
-    model.value = getParam('filter[query]') as string
+    const {
+      getParam: getVideosParam,
+      setParams: setVideosParams,
+      resetModels: resetVideosModels
+    } = useVideos({ module: 'videos' })
+
+    model.value = getVideosParam('filter[query]') as string
 
     const setModel = async (val: string): Promise<void> => {
-      console.log('setModel')
-      await setParams({ 'filter[query]': val, 'page[number]': 1 })
-      await resetModels()
+      await setVideosParams({ 'filter[query]': val, 'page[number]': 1 })
+      await resetVideosModels()
 
       model.value = val
     }
@@ -119,8 +118,7 @@ export default defineComponent({
       model,
       filterTags,
       setModel,
-      data,
-      params
+      data
     }
   }
 })
