@@ -42,7 +42,6 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
-      console.log('fetch')
       await loadVideos({})
       await done(true)
     }

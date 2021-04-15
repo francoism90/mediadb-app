@@ -1,3 +1,4 @@
+import { get } from 'lodash'
 import { RepositoryProps } from 'src/interfaces/repository'
 import { RepositoryState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
@@ -33,6 +34,10 @@ export default function useRepository (props: RepositoryProps) {
 
   initialize(props)
 
+  const getParams = (key: string | number): string | number | null => {
+    return get(params.value, key, null) as string | number | null
+  }
+
   return {
     id,
     params,
@@ -40,6 +45,7 @@ export default function useRepository (props: RepositoryProps) {
     meta,
     resetModels,
     resetStore,
+    getParams,
     setParams,
     setResponse,
     isLoadable,
