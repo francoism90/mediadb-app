@@ -5,22 +5,23 @@
     @submit.prevent
   >
     <q-select
-      v-model="model"
+      :model-value="model"
       :options="data"
-      :input-debounce="650"
-      :virtual-scroll-slice-size="5"
+      :input-debounce="750"
+      behavior="menu"
       class="full-height full-width"
       option-value="name"
       option-label="name"
       placeholder="Search videos"
-      clearable
       hide-bottom-space
       filled
       square
       dark
       fill-input
       options-dark
+      hide-selected
       use-input
+      @input-value="setModel"
       @filter="filterTags"
     >
       <template #prepend>
@@ -78,7 +79,7 @@ export default defineComponent({
 
     const model = ref('')
 
-    const { loadTags, data } = useTags({
+    const { loadTags, params, data } = useTags({
       repository: {
         module: 'videos-tags',
         params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
@@ -96,11 +97,17 @@ export default defineComponent({
       await update()
     }
 
+    const setModel = (val: string): void => {
+      model.value = val
+    }
+
     return {
       visible,
       model,
       filterTags,
-      data
+      setModel,
+      data,
+      params
     }
   }
 })

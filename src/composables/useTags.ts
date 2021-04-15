@@ -34,6 +34,7 @@ export default function useTags (props: TagsProps) {
     loadTags,
     id,
     data,
-    meta
+    meta,
+    params
   }
 }
