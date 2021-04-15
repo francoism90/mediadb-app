@@ -2,10 +2,10 @@
   <div class="drawer-container">
     <div class="drawer-avatar q-py-lg text-center">
       <q-icon
-        color="white"
-        size="56px"
         class="q-mb-sm"
+        color="white"
         name="account_circle"
+        size="56px"
       />
 
       <div class="text-body1 text-weight-bold text-white ellipsis">
@@ -54,6 +54,11 @@ const menuList = [
     icon: 'o_video_library',
     label: 'Videos',
     route: { name: 'home' }
+  },
+  {
+    icon: 'o_tag',
+    label: 'Tags',
+    route: { name: 'settings' }
   },
   {
     icon: 'o_bookmarks',

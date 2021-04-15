@@ -27,6 +27,7 @@
     >
       <template #prepend>
         <q-icon
+          aria-label="Search"
           name="search"
           color="grey-5"
           class="q-mx-none cursor-pointer"
