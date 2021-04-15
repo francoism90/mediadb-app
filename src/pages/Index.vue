@@ -2,6 +2,8 @@
   <q-page class="container q-py-xl">
     <q-toolbar />
 
+    <span class="text-white">{{ id }}</span>
+
     <q-pull-to-refresh>
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
@@ -33,7 +35,7 @@ export default defineComponent({
   },
 
   setup () {
-    const { loadVideos, id, data, meta } = useVideos({
+    const { fetchVideos, id, data, meta } = useVideos({
       repository: {
         module: 'videos',
         params: <VideosParameters>{ append: 'clip', sort: 'created_at', 'page[number]': 1 }
@@ -42,8 +44,8 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
-      await loadVideos({})
-      await done(true)
+      await fetchVideos()
+      await done()
     }
 
     return {

@@ -9,6 +9,7 @@ const actions: ActionTree<RepositoryState, StoreState> = {
 
   initialize (context, payload: RepositoryProps): void {
     if (!context.state.ready) {
+      context.commit('setId', Date.now())
       context.commit('setParams', payload.params || [])
       context.commit('setReady', true)
     }
@@ -17,12 +18,11 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   resetModels (context): void {
     context.commit('resetData')
     context.commit('resetMeta')
+    context.commit('setId', Date.now())
   },
 
   setParams (context, payload: RepositoryParameter[]): void {
-    console.log('set')
     context.commit('setParams', payload)
-    context.commit('setId', Date.now())
   },
 
   setResponse (context, payload: RepositoryResponse): void {

@@ -4,7 +4,7 @@ import { RepositoryState } from 'src/interfaces/store'
 function state (): RepositoryState {
   return {
     ready: false,
-    id: '',
+    id: null,
     params: <RepositoryParameters>{},
     data: [],
     meta: {},
