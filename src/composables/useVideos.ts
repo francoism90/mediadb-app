@@ -12,8 +12,6 @@ export default function useVideos (props: VideosProps) {
       const pageNumber = nextPage.value as number
       const pageParams = { ...{ 'page[number]': pageNumber }, ...getParams.value } as VideosParameters
 
-      console.log(getParams.value)
-
       await setParams(pageParams)
 
       const response = await findAll(pageParams)
