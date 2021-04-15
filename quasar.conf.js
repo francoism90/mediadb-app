@@ -87,7 +87,6 @@ module.exports = configure(function (/* ctx */) {
       plugins: [
         'Dialog',
         'Loading',
-        'LoadingBar',
         'Meta',
         'Notify',
       ],

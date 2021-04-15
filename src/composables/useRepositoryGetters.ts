@@ -13,8 +13,8 @@ export default function useRepositoryGetters (module: string) {
     'nextPage'
   ])
 
-  const getParam = (key: string): string | number | null => {
-    return get(params.value, key, null) as string | number | null
+  const getParam = (key: string, defaultValue?: string | number | null) => {
+    return get(params.value, key, defaultValue || null) as string | number | null
   }
 
   return {

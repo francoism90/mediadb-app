@@ -1,6 +1,6 @@
 <template>
   <q-form
-    v-show="search"
+    v-show="currentSearch"
     class="q-mx-md header-search"
     @submit.prevent
   >
@@ -8,7 +8,7 @@
       :model-value="model"
       :options="data"
       :input-debounce="500"
-      :placeholder="search.label"
+      :placeholder="currentSearch?.label || 'Search'"
       behavior="menu"
       class="full-height full-width"
       dark
@@ -58,12 +58,18 @@ import useRepositoryGetters from 'src/composables/useRepositoryGetters'
 import useTags from 'src/composables/useTags'
 import { TagsParameters } from 'src/interfaces/tag'
 import { router } from 'src/router'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref, watch } from 'vue'
+
+interface Searchable {
+  label: string,
+  route: string,
+  module: string
+}
 
 const searchable = [
   {
     label: 'Search videos',
-    route: { name: 'home' },
+    route: 'home',
     module: 'videos'
   }
 ]
@@ -72,16 +78,18 @@ export default defineComponent({
   name: 'AppSearch',
 
   setup () {
-    const $router = router
-    const currentRoute = $router.currentRoute.value
-
+    const currentSearch = ref<Searchable>()
     const model = ref('')
-    const search = ref(searchable.find(x => x.route.name === currentRoute.name))
 
-    const { setParams: setModuleParams } = useRepository({ module: search?.value?.module || 'videos' })
-    const { getParam: getModuleParam } = useRepositoryGetters(search?.value?.module || 'videos')
+    const setCurrentSearch = () => {
+      currentSearch.value = searchable.find(x => x.route === router.currentRoute.value.name)
+    }
 
-    model.value = getModuleParam('filter[query]') as string
+    onMounted(setCurrentSearch)
+    watch(router.currentRoute, setCurrentSearch)
+
+    const { setParams: setModuleParams } = useRepository({ module: 'videos' })
+    const { getParam: getModuleParam } = useRepositoryGetters('videos')
 
     const setModel = debounce(async (val: string): Promise<void> => {
       model.value = val
@@ -113,8 +121,10 @@ export default defineComponent({
       await update()
     }
 
+    model.value = getModuleParam('filter[query]') as string
+
     return {
-      search,
+      currentSearch,
       model,
       filterTags,
       setModel,
