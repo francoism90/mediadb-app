@@ -18,7 +18,7 @@ export interface TagsResponse extends RepositoryResponse {
 }
 
 export interface TagsParameters extends RepositoryParameters {
-  query?: string | null
+  'filter[query]'?: string | null
 }
 
 export interface TagsProps {

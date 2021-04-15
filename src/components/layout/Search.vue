@@ -92,7 +92,7 @@ export default defineComponent({
         return
       }
 
-      await loadTags({ query: val, 'page[number]': 1 }, true)
+      await loadTags({ 'filter[query]': val, 'page[number]': 1 }, true)
       await update()
     }
 
