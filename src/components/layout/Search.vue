@@ -7,7 +7,7 @@
     <q-select
       :model-value="model"
       :options="data"
-      :input-debounce="900"
+      :input-debounce="500"
       :placeholder="search.label"
       behavior="menu"
       class="full-height full-width"
@@ -52,6 +52,7 @@
 </template>
 
 <script lang="ts">
+import { debounce } from 'quasar'
 import useRepository from 'src/composables/useRepository'
 import useRepositoryGetters from 'src/composables/useRepositoryGetters'
 import useTags from 'src/composables/useTags'
@@ -82,14 +83,14 @@ export default defineComponent({
 
     model.value = getModuleParam('filter[query]') as string
 
-    const setModel = async (val: string): Promise<void> => {
+    const setModel = debounce(async (val: string): Promise<void> => {
+      model.value = val
+
       await setModuleParams({
         params: { 'filter[query]': val, 'page[number]': 1 },
         reset: true
       })
-
-      model.value = val
-    }
+    }, 500)
 
     const { fetchTags, setParams, data } = useTags({
       module: 'search-tags',
