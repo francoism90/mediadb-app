@@ -38,7 +38,7 @@ export default defineComponent({
     const { fetchVideos, id, data, meta } = useVideos({
       repository: {
         module: 'videos',
-        params: <VideosParameters>{ append: 'clip', sort: 'created_at', 'page[number]': 1 }
+        params: <VideosParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
       }
     })
 

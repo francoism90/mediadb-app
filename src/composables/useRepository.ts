@@ -32,6 +32,8 @@ export default function useRepository (props: RepositoryProps) {
     'setResponse'
   ])
 
+  console.log(props.module, props.params)
+
   initialize(props)
 
   const getParams = (key: string | number): string | number | null => {
