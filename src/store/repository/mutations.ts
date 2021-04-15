@@ -20,7 +20,7 @@ const mutation: MutationTree<RepositoryState> = {
     state.params = <RepositoryParameters>{}
   },
 
-  setId (state: RepositoryState, payload: string) {
+  setId (state: RepositoryState, payload: string | number | null) {
     state.id = payload
   },
 

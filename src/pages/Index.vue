@@ -1,14 +1,11 @@
 <template>
-  <q-page
-    :key="id"
-    class="container q-py-xl"
-  >
+  <q-page class="container q-py-xl">
     <q-toolbar />
 
     <q-pull-to-refresh>
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
-        @load="fetchVideos"
+        @load="onLoad"
       >
         <q-intersection
           v-for="(item, index) in data"
@@ -36,15 +33,22 @@ export default defineComponent({
   },
 
   setup () {
-    const { fetchVideos, id, data, meta } = useVideos({
+    const { loadVideos, id, data, meta } = useVideos({
       repository: {
         module: 'videos',
         params: <VideosParameters>{ append: 'clip', sort: 'created_at', 'page[number]': 1 }
       }
     })
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const onLoad = async (index: number, done: Function): Promise<void> => {
+      console.log('fetch')
+      await loadVideos({})
+      await done(true)
+    }
+
     return {
-      fetchVideos,
+      onLoad,
       id,
       data,
       meta

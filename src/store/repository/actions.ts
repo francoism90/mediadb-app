@@ -20,6 +20,7 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   },
 
   setParams (context, payload: RepositoryParameter[]): void {
+    console.log('set')
     context.commit('setParams', payload)
     context.commit('setId', Date.now())
   },

@@ -15,14 +15,14 @@ export default function useTags (props: TagsProps) {
   }
 
   const loadTags = async (params: TagsParameters, reset?: boolean, update?: boolean): Promise<void> => {
-    if (reset) {
-      await resetModels()
-    }
-
     const pageNumber = nextPage.value as number
     const pageParams = { ...{ 'page[number]': pageNumber, ...params } } as TagsParameters
 
     await setParams(pageParams)
+
+    if (reset) {
+      await resetModels()
+    }
 
     if (update || update === undefined) {
       await fetchTags()

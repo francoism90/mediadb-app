@@ -12,7 +12,7 @@ export interface SessionState {
 
 export interface RepositoryState {
   ready: boolean,
-  id: string,
+  id: string | number | null,
   params: RepositoryParameters,
   data: Model[],
   meta: RepositoryMeta,
