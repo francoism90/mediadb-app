@@ -3,7 +3,9 @@ import { TagsParameters, TagsProps } from 'src/interfaces/tag'
 import { findAll } from 'src/repositories/tag'
 
 export default function useTags (props: TagsProps) {
-  const { isLoadable, params, nextPage, data, meta, resetModels, setParams, setResponse } = useRepository(props.repository)
+  const {
+    isLoadable, params, nextPage, data, meta, resetModels, setParams, setResponse
+  } = useRepository(props.repository)
 
   const fetchTags = async (): Promise<void> => {
     const fetch = isLoadable.value as boolean

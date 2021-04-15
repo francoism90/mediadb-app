@@ -3,7 +3,18 @@ import { VideosParameters, VideosProps } from 'src/interfaces/video'
 import { findAll } from 'src/repositories/video'
 
 export default function useVideos (props: VideosProps) {
-  const { id, isLoadable, data, meta, nextPage, resetModels, getParam, getParams, setParams, setResponse } = useRepository(props.repository)
+  const {
+    id,
+    isLoadable,
+    data,
+    meta,
+    nextPage,
+    resetModels,
+    getParam,
+    getParams,
+    setParams,
+    setResponse
+  } = useRepository(props.repository)
 
   const fetchVideos = async (): Promise<void> => {
     const fetch = isLoadable.value as boolean
