@@ -9,11 +9,13 @@ export default function useVideos (props: VideosProps) {
     const fetch = isLoadable.value as boolean
 
     if (fetch) {
+      // Merge page parameters
       const pageNumber = nextPage.value as number
       const pageParams = { ...{ 'page[number]': pageNumber }, ...getParams.value } as VideosParameters
 
       await setParams(pageParams)
 
+      // Set response
       const response = await findAll(pageParams)
       await setResponse(response)
     }

@@ -42,7 +42,6 @@ export interface RepositoryResponse {
 
 export interface RepositoryProps {
   module: string,
-  id?: string | number,
   params?: RepositoryParameters,
 }
 

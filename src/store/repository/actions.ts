@@ -10,7 +10,7 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   initialize (context, payload: RepositoryProps): void {
     if (!context.state.ready) {
       context.commit('setId', Date.now())
-      context.commit('setParams', payload.params || [])
+      context.commit('setParams', payload.params)
       context.commit('setReady', true)
     }
   },
