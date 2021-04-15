@@ -1,4 +1,4 @@
-import { RepositoryParameter, RepositoryProps, RepositoryResponse } from 'src/interfaces/repository'
+import { RepositoryParameters, RepositoryProps, RepositoryResponse } from 'src/interfaces/repository'
 import { RepositoryState, StoreState } from 'src/interfaces/store'
 import { ActionTree } from 'vuex'
 
@@ -21,7 +21,7 @@ const actions: ActionTree<RepositoryState, StoreState> = {
     context.commit('setId', Date.now())
   },
 
-  setParams (context, payload: RepositoryParameter[]): void {
+  setParams (context, payload: RepositoryParameters): void {
     context.commit('setParams', payload)
   },
 

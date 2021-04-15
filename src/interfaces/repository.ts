@@ -12,10 +12,6 @@ export interface ModelResponse {
   data: Model,
 }
 
-export interface RepositoryParameter {
-  [key: string]: string | number | null
-}
-
 export interface RepositoryParameters {
   include?: string | null,
   fields?: string | null,

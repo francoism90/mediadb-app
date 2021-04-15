@@ -37,7 +37,7 @@ export default function useRepository (props: RepositoryProps) {
     initialize(props)
   }
 
-  const getParam = (key: string | number): string | number | null => {
+  const getParam = (key: string): string | number | null => {
     return get(params.value, key, null) as string | number | null
   }
 
