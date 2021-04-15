@@ -1,13 +1,14 @@
 <template>
   <q-form
-    v-show="visible"
+    v-show="search"
     class="q-mx-md header-search"
     @submit.prevent
   >
     <q-select
       :model-value="model"
       :options="data"
-      :input-debounce="750"
+      :input-debounce="900"
+      :placeholder="search.label"
       behavior="menu"
       class="full-height full-width"
       dark
@@ -19,7 +20,6 @@
       option-label="name"
       option-value="name"
       options-dark
-      placeholder="Search videos"
       square
       use-input
       @input-value="setModel"
@@ -59,11 +59,11 @@ import useRepositoryGetters from 'src/composables/useRepositoryGetters'
 import useTags from 'src/composables/useTags'
 import { TagsParameters } from 'src/interfaces/tag'
 import { router } from 'src/router'
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 const searchable = [
   {
-    placeholder: 'Search videos',
+    label: 'Search videos',
     route: { name: 'home' },
     module: 'videos'
   }
@@ -73,18 +73,14 @@ export default defineComponent({
   name: 'AppSearch',
 
   setup () {
-    const model = ref('')
     const $router = router
-
     const currentRoute = $router.currentRoute.value
-    const currentModule = 'videos'
 
-    const visible = computed(() => {
-      return searchable.find(x => x.route.name === currentRoute.name)
-    })
+    const model = ref('')
+    const search = ref(searchable.find(x => x.route.name === currentRoute.name))
 
-    const { setParams: setModuleParams } = useRepository({ module: currentModule })
-    const { getParam: getModuleParam } = useRepositoryGetters(currentModule)
+    const { setParams: setModuleParams } = useRepository({ module: search?.value?.module || 'videos' })
+    const { getParam: getModuleParam } = useRepositoryGetters(search?.value?.module || 'videos')
 
     model.value = getModuleParam('filter[query]') as string
 
@@ -119,7 +115,7 @@ export default defineComponent({
     }
 
     return {
-      visible,
+      search,
       model,
       filterTags,
       setModel,
