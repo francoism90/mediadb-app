@@ -35,9 +35,7 @@
       </template>
 
       <template #option="scope">
-        <q-item
-          v-bind="scope.itemProps"
-        >
+        <q-item v-bind="scope.itemProps">
           <q-item-section>
             <q-item-label>
               {{ scope.opt.name }}
