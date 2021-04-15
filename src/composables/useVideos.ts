@@ -1,25 +1,30 @@
 import useRepository from 'src/composables/useRepository'
-import { VideosProps } from 'src/interfaces/video'
+import { VideosParameters, VideosProps } from 'src/interfaces/video'
 import { findAll } from 'src/repositories/video'
 
 export default function useVideos (props: VideosProps) {
-  const { id, isLoadable, data, meta, setResponse } = useRepository(props.repository)
+  const { id, isLoadable, params, nextPage, data, meta, setParams, setResponse } = useRepository(props.repository)
 
   const fetchVideos = async (): Promise<void> => {
-    // const pageNumber = nextPage.value as number
     const fetch = isLoadable.value as boolean
 
     if (fetch) {
-      // 'page[number]': pageNumber || 1
-
-      const response = await findAll(props.repository.params)
-
+      const response = await findAll(params.value)
       await setResponse(response)
     }
   }
 
+  const loadVideos = async (payload: VideosParameters): Promise<void> => {
+    const pageNumber = nextPage.value as number
+    const pageParams = { ...{ 'page[number]': pageNumber }, ...payload } as VideosParameters
+
+    await setParams(pageParams)
+    await fetchVideos()
+  }
+
   return {
     fetchVideos,
+    loadVideos,
     id,
     data,
     meta

@@ -78,21 +78,21 @@ export default defineComponent({
 
     const model = ref('')
 
-    const { fetchTags, data } = useTags({
+    const { loadTags, data } = useTags({
       repository: {
         module: 'videos-tags',
-        params: <TagsParameters>{ sort: 'name', 'page[number]': 1, 'page[size]': 5 }
+        params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
       }
     })
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
-      if (val.length < 2) {
+      if (val.length < 1) {
         abort()
         return
       }
 
-      await fetchTags()
+      await loadTags({ query: val, 'page[number]': 1 }, true)
       await update()
     }
 
