@@ -1,6 +1,6 @@
 <template>
   <q-form
-    v-if="visible"
+    v-show="visible"
     class="q-mx-md header-search"
     @submit.prevent
   >
