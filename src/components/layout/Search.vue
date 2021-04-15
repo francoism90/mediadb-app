@@ -53,6 +53,7 @@
 
 <script lang="ts">
 import useTags from 'src/composables/useTags'
+import useVideos from 'src/composables/useVideos'
 import { TagsParameters } from 'src/interfaces/tag'
 import { router } from 'src/router'
 import { computed, defineComponent, ref } from 'vue'
@@ -86,6 +87,12 @@ export default defineComponent({
       }
     })
 
+    const { loadVideos } = useVideos({
+      repository: {
+        module: 'videos'
+      }
+    })
+
     // eslint-disable-next-line @typescript-eslint/ban-types
     const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
       if (val.length < 1) {
@@ -97,7 +104,9 @@ export default defineComponent({
       await update()
     }
 
-    const setModel = (val: string): void => {
+    const setModel = async (val: string): Promise<void> => {
+      await loadVideos({ 'filter[query]': val, 'page[number]': 1 }, true)
+
       model.value = val
     }
 
