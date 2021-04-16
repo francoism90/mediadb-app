@@ -6,18 +6,20 @@
 
     <q-separator dark />
 
-    <q-infinite-scroll
-      class="q-py-lg row wrap justify-start items-start content-start q-col-gutter-lg"
-      @load="onLoad"
-    >
-      <q-intersection
-        v-for="(item, index) in data"
-        :key="index"
-        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
+    <q-pull-to-refresh :key="id">
+      <q-infinite-scroll
+        class="q-py-lg row wrap justify-start items-start content-start q-col-gutter-lg"
+        @load="onLoad"
       >
-        <item :video="item" />
-      </q-intersection>
-    </q-infinite-scroll>
+        <q-intersection
+          v-for="(item, index) in data"
+          :key="index"
+          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
+        >
+          <item :video="item" />
+        </q-intersection>
+      </q-infinite-scroll>
+    </q-pull-to-refresh>
   </div>
 </template>
 
@@ -43,9 +45,8 @@ export default defineComponent({
 
   setup (props) {
     const { video } = toRefs(props)
-    console.log(props.video.id)
 
-    const { fetchVideos, data, meta } = useVideos({
+    const { fetchVideos, isLoadable, id, data, meta } = useVideos({
       module: 'video-related',
       params: <VideosParameters>{
         sort: 'recommended',
@@ -57,12 +58,19 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
-      await fetchVideos()
-      await done()
+      try {
+        await fetchVideos()
+        await done(!isLoadable.value)
+      } catch {
+        //
+      } finally {
+        //
+      }
     }
 
     return {
       onLoad,
+      id,
       data,
       meta
     }

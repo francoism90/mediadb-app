@@ -4,7 +4,7 @@
       <sorter module="videos" />
     </q-toolbar>
 
-    <q-pull-to-refresh>
+    <q-pull-to-refresh :key="id">
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
         @load="onLoad"
@@ -26,7 +26,7 @@ import Item from 'src/components/videos/Item.vue'
 import Sorter from 'src/components/videos/Sorter.vue'
 import useVideos from 'src/composables/useVideos'
 import { VideosParameters } from 'src/interfaces/video'
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'IndexPage',
@@ -37,9 +37,13 @@ export default defineComponent({
   },
 
   setup () {
-    const { fetchVideos, isLoadable, data, meta } = useVideos({
+    const { fetchVideos, isLoadable, id, data, meta } = useVideos({
       module: 'videos',
-      params: <VideosParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
+      params: <VideosParameters>{
+        sort: 'recommended',
+        'page[number]': 1,
+        'page[size]': 5
+      }
     })
 
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -56,6 +60,7 @@ export default defineComponent({
 
     return {
       onLoad,
+      id,
       data,
       meta
     }
