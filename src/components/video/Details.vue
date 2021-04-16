@@ -4,7 +4,7 @@
       {{ video.name }}
     </h1>
 
-    <div class="q-gutter-sm">
+    <div class="q-gutter-sm text-white">
       <q-chip
         color="transparent"
         icon="visibility"
@@ -90,7 +90,6 @@
 
 <script lang="ts">
 import useFilters from 'src/composables/useFilters'
-import useSession from 'src/composables/useSession'
 import { Video } from 'src/interfaces/video'
 import { computed, defineComponent, PropType } from 'vue'
 
@@ -107,10 +106,6 @@ export default defineComponent({
   setup (props) {
     const { formatTimestamp } = useFilters()
     const timestamp = computed(() => formatTimestamp(props.video.clip?.duration || 0))
-
-    const { hasAnyRole } = useSession()
-
-    console.log(hasAnyRole('super-admin'))
 
     return {
       timestamp

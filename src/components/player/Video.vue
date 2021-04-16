@@ -1,16 +1,16 @@
 <template>
   <div
     ref="container"
-    class="player-container full-width overflow-hidden"
+    class="player-container full-width"
   >
     <div class="player-video">
-      <Player
+      <player
         ref="player"
         playsinline
         autoplay
-        controls
+        icons="material"
       >
-        <Dash
+        <dash
           :src="video.clip?.stream_url"
           :media-title="video.clip?.name"
           :poster="video.clip?.thumbnail_url"
@@ -18,29 +18,37 @@
           cross-origin="use-credentials"
         />
 
-        <Ui>
-          <TapSidesToSeek />
-        </Ui>
-      </Player>
+        <ui>
+          <controls
+            :active-duration="3500"
+            align="start"
+            full-width
+            full-height
+          >
+            <playback-control :video="video" />
+          </controls>
+        </ui>
+      </player>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Dash, Player, Ui } from '@vime/vue-next'
+import { Controls, Dash, Player, Ui } from '@vime/vue-next'
 import dashjs from 'dashjs'
-import TapSidesToSeek from 'src/components/player/TapSidesToSeek.vue'
+import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import { Video } from 'src/interfaces/video'
 import { defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
-  name: 'VideoItem',
+  name: 'VideoPlayer',
 
   components: {
-    Player,
+    Controls,
     Dash,
+    Player,
     Ui,
-    TapSidesToSeek
+    PlaybackControl
   },
 
   props: {

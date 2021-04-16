@@ -14,3 +14,11 @@
     max-width: $breakpoint-xs-max;
   }
 }
+
+/* stylelint-disable-next-line */
+vm-player {
+  --vm-control-scale: 1;
+  --vm-player-font-family: inherit;
+  --vm-control-focus-color: inherit;
+  --vm-control-focus-bg: transparent;
+}

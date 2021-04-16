@@ -6,6 +6,9 @@
 // Import fonts
 @import 'fonts/inter.scss';
 
+// Import vendors
+@import '~@vime/core/themes/default.css';
+
 // Import our styles
 @import 'base/_all.scss';
 @import 'components/_all.scss';
