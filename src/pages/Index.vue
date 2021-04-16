@@ -39,15 +39,21 @@ export default defineComponent({
   },
 
   setup () {
-    const { fetchVideos, data, meta } = useVideos({
+    const { fetchVideos, isLoadable, data, meta } = useVideos({
       module: 'videos',
       params: <VideosParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
     })
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
-      await fetchVideos()
-      await done()
+      try {
+        await fetchVideos()
+        await done(!isLoadable.value)
+      } catch {
+        //
+      } finally {
+        //
+      }
     }
 
     return {

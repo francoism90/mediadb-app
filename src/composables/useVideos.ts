@@ -30,6 +30,7 @@ export default function useVideos (props: RepositoryProps) {
     resetModels,
     getParam,
     setParams,
+    isLoadable,
     id,
     data,
     meta
