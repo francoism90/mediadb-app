@@ -90,8 +90,9 @@
 
 <script lang="ts">
 import useFilters from 'src/composables/useFilters'
+import useSession from 'src/composables/useSession'
 import { Video } from 'src/interfaces/video'
-import { computed, defineComponent, PropType, toRefs } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'VideoDetails',
@@ -104,12 +105,12 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { video } = toRefs(props)
-
-    console.log(video.value.name)
     const { formatTimestamp } = useFilters()
-
     const timestamp = computed(() => formatTimestamp(props.video.clip?.duration || 0))
+
+    const { hasAnyRole } = useSession()
+
+    console.log(hasAnyRole('super-admin'))
 
     return {
       timestamp
