@@ -4,8 +4,6 @@
       <sorter module="videos" />
     </q-toolbar>
 
-    <span class="text-white">{{ id }}</span>
-
     <q-pull-to-refresh>
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
@@ -28,7 +26,7 @@ import Item from 'src/components/videos/Item.vue'
 import Sorter from 'src/components/videos/Sorter.vue'
 import useVideos from 'src/composables/useVideos'
 import { VideosParameters } from 'src/interfaces/video'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'IndexPage',
