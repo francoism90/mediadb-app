@@ -1,20 +1,25 @@
 <template>
   <q-page :key="id">
-    <template v-if="!video">
-      Loading ..
-    </template>
-
-    <template v-else>
+    <template v-if="video && video.id">
       <video-player :video="video" />
 
       <div class="container">
-        <video-details :video="video" />
+        <video-details
+          v-if="video.id"
+          :video="video"
+        />
 
         <q-separator
           color="primary"
           size="3px"
         />
+
+        <video-related :video="video" />
       </div>
+    </template>
+
+    <template v-else>
+      Loading ..
     </template>
   </q-page>
 </template>
@@ -22,7 +27,7 @@
 <script lang="ts">
 import VideoPlayer from 'src/components/player/Video.vue'
 import VideoDetails from 'src/components/video/Details.vue'
-// import VideoRelated from 'src/components/video/Related.save'
+import VideoRelated from 'src/components/video/Related.vue'
 import useVideo from 'src/composables/useVideo'
 import { defineComponent, PropType, toRefs } from 'vue'
 
@@ -36,8 +41,8 @@ export default defineComponent({
 
   components: {
     VideoDetails,
-    VideoPlayer
-    // VideoRelated
+    VideoPlayer,
+    VideoRelated
   },
 
   props: {

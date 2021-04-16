@@ -91,7 +91,7 @@
 <script lang="ts">
 import useFilters from 'src/composables/useFilters'
 import { Video } from 'src/interfaces/video'
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType, toRefs } from 'vue'
 
 export default defineComponent({
   name: 'VideoDetails',
@@ -104,6 +104,9 @@ export default defineComponent({
   },
 
   setup (props) {
+    const { video } = toRefs(props)
+
+    console.log(video.value.name)
     const { formatTimestamp } = useFilters()
 
     const timestamp = computed(() => formatTimestamp(props.video.clip?.duration || 0))

@@ -1,8 +1,5 @@
 <template>
-  <div
-    :key="updatedAt"
-    class="video-details q-py-md"
-  >
+  <div class="video-related q-py-md">
     <h1 class="text-h3 text-white ellipsis">
       More Like This
     </h1>
@@ -26,10 +23,9 @@
 
 <script lang="ts">
 import Item from 'src/components/videos/Item.vue'
-import useRepository from 'src/composables/useRepository'
 import useVideos from 'src/composables/useVideos'
-import { Video } from 'src/interfaces/video'
-import { defineComponent, PropType } from 'vue'
+import { Video, VideosParameters } from 'src/interfaces/video'
+import { defineComponent, PropType, toRefs } from 'vue'
 
 export default defineComponent({
   name: 'VideoDetails',
@@ -46,31 +42,29 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { fetchVideos } = useVideos()
-    const { setResponse, data, meta, isLoadable, nextPage, updatedAt } = useRepository({
-      store: 'videos-related',
-      name: props.video.id
+    const { video } = toRefs(props)
+    console.log(props.video.id)
+
+    const { fetchVideos, data, meta } = useVideos({
+      module: 'video-related',
+      params: <VideosParameters>{
+        sort: 'recommended',
+        'filter[related]': video.value.id,
+        'page[number]': 1,
+        'page[size]': 5
+      }
     })
 
-    const onLoad = async (): Promise<void> => {
-      const pageNumber = nextPage.value as number
-      const peformFetch = isLoadable.value as boolean
-
-      if (peformFetch) {
-        const response = await fetchVideos({
-          append: 'clip',
-          'page[number]': pageNumber || 1
-        })
-
-        await setResponse(response)
-      }
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const onLoad = async (index: number, done: Function): Promise<void> => {
+      await fetchVideos()
+      await done()
     }
 
     return {
+      onLoad,
       data,
-      meta,
-      updatedAt,
-      onLoad
+      meta
     }
   }
 })

@@ -39,7 +39,7 @@ export default defineComponent({
   },
 
   setup () {
-    const { fetchVideos, id, data, meta } = useVideos({
+    const { fetchVideos, data, meta } = useVideos({
       module: 'videos',
       params: <VideosParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
     })
@@ -52,7 +52,6 @@ export default defineComponent({
 
     return {
       onLoad,
-      id,
       data,
       meta
     }
