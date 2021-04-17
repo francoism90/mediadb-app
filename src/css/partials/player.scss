@@ -1,30 +1,29 @@
 .player-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
   background: #000;
+  padding-left: 0;
+  padding-right: 0;
+  z-index: -10;
 }
 
 .player-video {
+  z-index: 10;
   width: 100%;
-  max-width: 1152px;
+  min-height: 640px;
+  max-height: 720px;
+  object-fit: contain;
+
+  @media (max-width: $breakpoint-sm-max) {
+    min-height: 240px;
+    max-height: 320px;
+  }
 
   @media (max-width: $breakpoint-xs-max) {
-    min-width: 100px;
-    max-width: $breakpoint-xs-max;
+    min-height: 240px;
+    max-height: 240px;
   }
 }
 
-/* stylelint-disable-next-line */
-vm-player {
-  --vm-player-font-family: inherit;
-  --vm-player-border-radius: 0;
-  --vm-controls-bg: transparent;
-  --vm-controls-border-radius: 0;
-  --vm-control-border-radius: 0;
-  --vm-control-spacing: $space-base;
-  --vm-control-padding: $space-base / 2;
-  --vm-control-scale: 1;
-  --vm-control-focus-color: inherit;
-  --vm-control-focus-bg: transparent;
+.player-controls {
+  z-index: 20;
 }

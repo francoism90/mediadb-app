@@ -9,6 +9,7 @@ export interface Media extends Model {
   height?: number | null,
   resolution?: string | null,
   'mime_type'?: string | null,
+  'stream_url'?: string | null,
   'thumbnail_url'?: string | null,
 }
 

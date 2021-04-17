@@ -1,62 +1,37 @@
 <template>
   <div
-    ref="container"
-    class="player-container full-width"
+    ref="videoContainer"
+    class="relative-position overflow-hidden container player-container"
   >
-    <div class="player-video">
-      <player
-        ref="player"
-        playsinline
-        autoplay
-        icons="material"
-      >
-        <dash
-          :src="video.clip?.stream_url"
-          :media-title="video.clip?.name"
-          :poster="video.clip?.thumbnail_url"
-          :version="dashjs.version"
-          cross-origin="use-credentials"
-        />
+    <video
+      ref="videoElement"
+      autoPictureInPicture
+      controls
+      crossorigin="use-credentials"
+      playsinline
+      preload="auto"
+      class="relative-position player-video"
+      :height="video.clip?.height || 360"
+      :width="video.clip?.width || 720"
+      :src="video.clip?.stream_url"
+    />
 
-        <ui>
-          <player-loading />
-          <captions />
-
-          <controls
-            :active-duration="3500"
-            align="start"
-            pin="topLeft"
-            full-height
-            full-width
-            hide-on-mouse-leave
-            wait-for-playback-start
-          >
-            <playback-control :video="video" />
-          </controls>
-        </ui>
-      </player>
+    <div class="absolute-full player-controls">
+      <playback-control />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Captions, Controls, Dash, Player, Ui } from '@vime/vue-next'
-import dashjs from 'dashjs'
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
-import PlayerLoading from 'src/components/player/PlayerLoading.vue'
+import usePlayer from 'src/composables/usePlayer'
 import { Video } from 'src/interfaces/video'
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, onMounted, PropType, ref } from 'vue'
 
 export default defineComponent({
   name: 'VideoPlayer',
 
   components: {
-    Controls,
-    Captions,
-    Dash,
-    Player,
-    PlayerLoading,
-    Ui,
     PlaybackControl
   },
 
@@ -67,11 +42,19 @@ export default defineComponent({
     }
   },
 
-  setup () {
-    const player = ref<HTMLDivElement | null>(null)
+  setup (props) {
+    const videoContainer = ref<HTMLDivElement | undefined>(undefined)
+    const videoElement = ref<HTMLDivElement | undefined>(undefined)
+
+    const { player, initPlayer } = usePlayer()
+
+    onMounted(() => {
+      initPlayer(videoElement.value, props.video.clip || null)
+    })
 
     return {
-      dashjs,
+      videoContainer,
+      videoElement,
       player
     }
   }
