@@ -1,8 +1,22 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs'
 import { Media } from 'src/interfaces/media'
-import { computed, ref, watch } from 'vue'
+import { PlayerProps } from 'src/interfaces/player'
+import { useStore } from 'src/store'
+import playerModule from 'src/store/player'
+import { ref } from 'vue'
+import { useNamespacedActions } from 'vuex-composition-helpers'
 
-export default function usePlayer () {
+export default function usePlayer (props: PlayerProps) {
+  const $store = useStore()
+
+  if (!$store.hasModule(props.module)) {
+    $store.registerModule(props.module, playerModule)
+  }
+
+  const { resetStore } = useNamespacedActions(props.module, [
+    'resetStore'
+  ])
+
   // eslint-disable-next-line no-undef
   const player = ref(<MediaPlayerClass | null>(null))
 
@@ -13,21 +27,9 @@ export default function usePlayer () {
     player.value = createPlayer
   }
 
-  const getDuration = () => {
-    console.log('clicked')
-    console.log(player.value?.duration())
-  }
-
-  const duration = computed(() => player.value?.duration())
-
-  watch(player, () => {
-    // console.log(value)
-  })
-
   return {
+    resetStore,
     initPlayer,
-    player,
-    duration,
-    getDuration
+    player
   }
 }

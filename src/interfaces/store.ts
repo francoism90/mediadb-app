@@ -1,5 +1,5 @@
-
-import { PlayerProps } from '@vime/vue-next'
+import { Media } from 'src/interfaces/media'
+import { StreamInfo } from 'src/interfaces/player'
 import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository'
 import { User } from 'src/interfaces/user'
 
@@ -19,14 +19,13 @@ export interface RepositoryState {
 }
 
 export interface PlayerState {
-  id: number | string | null,
   controls: boolean,
   fullscreen: boolean,
   playbackRate: number,
-  tracks: null,
+  tracks: Media[],
   requestTime: number | null,
-  lastSync: number,
-  props: PlayerProps | null
+  stream: StreamInfo | null
+  model: Model | null
 }
 
 export interface StoreState {
