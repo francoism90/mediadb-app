@@ -9,7 +9,7 @@
     >
       <q-icon
         :name="icon"
-        size="75px"
+        size="96px"
         color="white"
       />
     </control>
@@ -40,7 +40,7 @@ export default defineComponent({
     const player = usePlayer(domRef)
 
     const paused = usePlayerContext(domRef, 'paused', true)
-    const icon = computed(() => paused.value ? 'play_circle' : 'pause_circle')
+    const icon = computed(() => paused.value ? 'play_arrow' : 'pause')
 
     const onClick = () => {
       paused.value = !paused.value

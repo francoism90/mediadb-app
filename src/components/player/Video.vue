@@ -19,7 +19,7 @@
         />
 
         <ui>
-          <loading-screen />
+          <player-loading />
           <captions />
 
           <controls
@@ -40,9 +40,10 @@
 </template>
 
 <script lang="ts">
-import { Captions, Controls, Dash, LoadingScreen, Player, Ui } from '@vime/vue-next'
+import { Captions, Controls, Dash, Player, Ui } from '@vime/vue-next'
 import dashjs from 'dashjs'
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
+import PlayerLoading from 'src/components/player/PlayerLoading.vue'
 import { Video } from 'src/interfaces/video'
 import { defineComponent, PropType, ref } from 'vue'
 
@@ -54,7 +55,7 @@ export default defineComponent({
     Captions,
     Dash,
     Player,
-    LoadingScreen,
+    PlayerLoading,
     Ui,
     PlaybackControl
   },
