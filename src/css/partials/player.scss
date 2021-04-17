@@ -3,7 +3,6 @@
   background: #000;
   padding-left: 0;
   padding-right: 0;
-  z-index: -10;
 }
 
 .player-video {
@@ -25,5 +24,5 @@
 }
 
 .player-controls {
-  z-index: 20;
+  z-index: 90;
 }

@@ -14,10 +14,15 @@
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
+      @durationchange="foo"
     />
 
-    <div class="absolute-full player-controls">
-      <playback-control />
+    <div
+      class="absolute-full player-controls"
+    >
+      <playback-control
+        @click.prevent="getDuration"
+      />
     </div>
   </div>
 </template>
@@ -26,7 +31,7 @@
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { Video } from 'src/interfaces/video'
-import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -44,18 +49,27 @@ export default defineComponent({
 
   setup (props) {
     const videoContainer = ref<HTMLDivElement | undefined>(undefined)
-    const videoElement = ref<HTMLDivElement | undefined>(undefined)
+    const videoElement = ref<HTMLVideoElement | undefined>(undefined)
 
-    const { player, initPlayer } = usePlayer()
+    const { initPlayer, player } = usePlayer()
 
     onMounted(() => {
       initPlayer(videoElement.value, props.video.clip || null)
     })
 
+    console.log(videoElement.value)
+
+    watch(videoElement, (value) => {
+      console.log(value?.duration)
+    })
+
+    const foo = () => { console.log(videoElement.value?.duration) }
+
     return {
       videoContainer,
       videoElement,
-      player
+      player,
+      foo
     }
   }
 })
