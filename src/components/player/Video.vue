@@ -31,7 +31,7 @@
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { Video } from 'src/interfaces/video'
-import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
+import { defineComponent, onMounted, PropType, ref } from 'vue'
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -48,28 +48,25 @@ export default defineComponent({
   },
 
   setup (props) {
-    const videoContainer = ref<HTMLDivElement | undefined>(undefined)
-    const videoElement = ref<HTMLVideoElement | undefined>(undefined)
+    const videoContainer = ref<HTMLDivElement | null>(null)
+    const videoElement = ref<HTMLVideoElement | null>(null)
 
-    const { initPlayer, player } = usePlayer()
+    const { createPlayer, player } = usePlayer({
+      module: 'video-player',
+      model: props.video,
+      media: props.video.clip
+    })
 
     onMounted(() => {
-      initPlayer(videoElement.value, props.video.clip || null)
+      createPlayer(videoElement.value)
     })
 
-    console.log(videoElement.value)
-
-    watch(videoElement, (value) => {
-      console.log(value?.duration)
-    })
-
-    const foo = () => { console.log(videoElement.value?.duration) }
+    // console.log(videoElement.value)
 
     return {
       videoContainer,
       videoElement,
-      player,
-      foo
+      player
     }
   }
 })

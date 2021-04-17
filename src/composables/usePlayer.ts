@@ -1,5 +1,4 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs'
-import { Media } from 'src/interfaces/media'
 import { PlayerProps } from 'src/interfaces/player'
 import { useStore } from 'src/store'
 import playerModule from 'src/store/player'
@@ -13,23 +12,29 @@ export default function usePlayer (props: PlayerProps) {
     $store.registerModule(props.module, playerModule)
   }
 
-  const { resetStore } = useNamespacedActions(props.module, [
-    'resetStore'
+  const { resetStore, initialize } = useNamespacedActions(props.module, [
+    'resetStore',
+    'initialize'
   ])
+
+  if (props.module && props.media) {
+    initialize(props)
+  }
 
   // eslint-disable-next-line no-undef
   const player = ref(<MediaPlayerClass | null>(null))
 
-  const initPlayer = (dom: HTMLVideoElement | undefined, media: Media | null): void => {
-    const createPlayer = MediaPlayer().create()
-    createPlayer.initialize(dom || undefined, media?.stream_url || '')
+  const createPlayer = (dom: HTMLVideoElement | null): void => {
+    const mediaFactory = MediaPlayer().create()
+    mediaFactory.initialize(dom || undefined, props.media?.stream_url || '')
 
-    player.value = createPlayer
+    player.value = mediaFactory
   }
 
   return {
     resetStore,
-    initPlayer,
+    initialize,
+    createPlayer,
     player
   }
 }

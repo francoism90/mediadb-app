@@ -1,5 +1,10 @@
+import { Media } from 'src/interfaces/media'
+import { Model } from 'src/interfaces/repository'
+
 export interface PlayerProps {
   module: string,
+  media?: Media,
+  model?: Model,
 }
 
 export interface StreamInfo {
@@ -15,6 +20,5 @@ export interface StreamInfo {
   ready: boolean,
   seeking: boolean,
   textTracks: TextTrack[] | null,
-  type: 'video' | 'audio' | 'text',
   volume: number | null,
 }

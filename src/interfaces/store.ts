@@ -25,6 +25,7 @@ export interface PlayerState {
   tracks: Media[],
   requestTime: number | null,
   stream: StreamInfo | null
+  media: Media | null
   model: Model | null
 }
 
