@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { Control, usePlayerContext } from '@vime/vue-next'
+import { Control, usePlayer, usePlayerContext } from '@vime/vue-next'
 import { Video } from 'src/interfaces/video'
 import { computed, defineComponent, PropType, ref } from 'vue'
 
@@ -37,6 +37,7 @@ export default defineComponent({
 
   setup () {
     const domRef = ref<HTMLDivElement | null>(null)
+    const player = usePlayer(domRef)
 
     const paused = usePlayerContext(domRef, 'paused', true)
     const icon = computed(() => paused.value ? 'play_circle' : 'pause_circle')
@@ -47,6 +48,7 @@ export default defineComponent({
 
     return {
       domRef,
+      player,
       paused,
       onClick,
       icon

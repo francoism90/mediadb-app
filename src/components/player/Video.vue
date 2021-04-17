@@ -19,11 +19,17 @@
         />
 
         <ui>
+          <loading-screen />
+          <captions />
+
           <controls
             :active-duration="3500"
             align="start"
-            full-width
+            pin="topLeft"
             full-height
+            full-width
+            hide-on-mouse-leave
+            wait-for-playback-start
           >
             <playback-control :video="video" />
           </controls>
@@ -34,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { Controls, Dash, Player, Ui } from '@vime/vue-next'
+import { Captions, Controls, Dash, LoadingScreen, Player, Ui } from '@vime/vue-next'
 import dashjs from 'dashjs'
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import { Video } from 'src/interfaces/video'
@@ -45,8 +51,10 @@ export default defineComponent({
 
   components: {
     Controls,
+    Captions,
     Dash,
     Player,
+    LoadingScreen,
     Ui,
     PlaybackControl
   },

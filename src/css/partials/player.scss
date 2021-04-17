@@ -17,8 +17,14 @@
 
 /* stylelint-disable-next-line */
 vm-player {
-  --vm-control-scale: 1;
   --vm-player-font-family: inherit;
+  --vm-player-border-radius: 0;
+  --vm-controls-bg: transparent;
+  --vm-controls-border-radius: 0;
+  --vm-control-border-radius: 0;
+  --vm-control-spacing: $space-base;
+  --vm-control-padding: $space-base / 2;
+  --vm-control-scale: 1;
   --vm-control-focus-color: inherit;
   --vm-control-focus-bg: transparent;
 }
