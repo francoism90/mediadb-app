@@ -14,15 +14,26 @@
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
-      @durationchange="foo"
+      @canplay="setPlayable"
+      @durationchange="setMetadata"
+      @ended="setPlayable"
+      @error="setPlayable"
+      @loadedmetadata="setMetadata"
+      @pause="setPlayable"
+      @play="setPlayable"
+      @playing="setPlayable"
+      @progress="setMetadata"
+      @ratechange="setPlayable"
+      @seeked="setPlayable"
+      @stalled="setPlayable"
+      @timeupdate="setPlayable"
+      @waiting="setPlayable"
     />
 
     <div
       class="absolute-full player-controls"
     >
-      <playback-control
-        @click.prevent="getDuration"
-      />
+      <playback-control module="video-player" />
     </div>
   </div>
 </template>
@@ -51,7 +62,7 @@ export default defineComponent({
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
 
-    const { createPlayer, player } = usePlayer({
+    const { createPlayer, setMetadata, setPlayable, player } = usePlayer({
       module: 'video-player',
       model: props.video,
       media: props.video.clip
@@ -66,6 +77,8 @@ export default defineComponent({
     return {
       videoContainer,
       videoElement,
+      setMetadata,
+      setPlayable,
       player
     }
   }

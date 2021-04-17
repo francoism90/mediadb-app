@@ -1,9 +1,10 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs'
+import { pick } from 'lodash'
 import { PlayerProps } from 'src/interfaces/player'
 import { useStore } from 'src/store'
 import playerModule from 'src/store/player'
 import { ref } from 'vue'
-import { useNamespacedActions } from 'vuex-composition-helpers'
+import { useNamespacedActions, useNamespacedMutations } from 'vuex-composition-helpers'
 
 export default function usePlayer (props: PlayerProps) {
   const $store = useStore()
@@ -15,6 +16,10 @@ export default function usePlayer (props: PlayerProps) {
   const { resetStore, initialize } = useNamespacedActions(props.module, [
     'resetStore',
     'initialize'
+  ])
+
+  const { setStream } = useNamespacedMutations(props.module, [
+    'setStream'
   ])
 
   if (props.module && props.media) {
@@ -31,10 +36,41 @@ export default function usePlayer (props: PlayerProps) {
     player.value = mediaFactory
   }
 
+  const setMetadata = (event: Event | null): void => {
+    const target = event?.target as HTMLVideoElement
+
+    console.log(target)
+
+    setStream(pick(target, [
+      'buffered',
+      'currentSrc',
+      'duration',
+      'muted',
+      'paused',
+      'poster',
+      'textTracks'
+    ]))
+  }
+
+  const setPlayable = (event: Event | null): void => {
+    const target = event?.target as HTMLVideoElement
+
+    setStream(pick(target, [
+      'currentTime',
+      'ended',
+      'paused',
+      'played',
+      'readyState'
+    ]))
+  }
+
   return {
     resetStore,
     initialize,
     createPlayer,
+    setStream,
+    setMetadata,
+    setPlayable,
     player
   }
 }

@@ -1,13 +1,30 @@
 <template>
   <div class="absolute-center">
-    test
+    {{ stream.duration || 0 }}
+    {{ stream || 0 }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import usePlayerState from 'src/composables/usePlayerState'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-  name: 'PlaybackControl'
+  name: 'PlaybackControl',
+
+  props: {
+    module: {
+      type: String as PropType<string>,
+      required: true
+    }
+  },
+
+  setup (props) {
+    const { stream } = usePlayerState(props.module)
+
+    return {
+      stream
+    }
+  }
 })
 </script>
