@@ -41,8 +41,9 @@
 <script lang="ts">
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import usePlayer from 'src/composables/usePlayer'
+import usePlayerState from 'src/composables/usePlayerState'
 import { Video } from 'src/interfaces/video'
-import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -68,11 +69,27 @@ export default defineComponent({
       media: props.video.clip
     })
 
+    const { pause } = usePlayerState('video-player')
+
     onMounted(() => {
       createPlayer(videoElement.value)
     })
 
-    // console.log(videoElement.value)
+    watch(pause, async (): Promise<void> => {
+      console.log('click')
+      const dom = videoElement.value
+
+      if (!dom) {
+        return
+      }
+
+      if (dom.paused === true) {
+        await dom.play()
+        return
+      }
+
+      dom.pause()
+    })
 
     return {
       videoContainer,

@@ -21,6 +21,7 @@ export interface RepositoryState {
 export interface PlayerState {
   controls: boolean,
   fullscreen: boolean,
+  pause: boolean,
   playbackRate: number,
   tracks: Media[],
   requestTime: number | null,

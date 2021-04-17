@@ -10,6 +10,7 @@ function state (): PlayerState {
     media: <Media>{},
     model: <Model>{},
     playbackRate: 1.0,
+    pause: false,
     requestTime: null,
     stream: <StreamInfo>{},
     tracks: []

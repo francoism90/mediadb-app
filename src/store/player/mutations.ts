@@ -37,6 +37,10 @@ const mutation: MutationTree<PlayerState> = {
     state.playbackRate = payload
   },
 
+  setPause (state: PlayerState, payload: boolean) {
+    state.pause = payload
+  },
+
   setRequestTime (state: PlayerState, payload: number) {
     state.requestTime = payload
   },

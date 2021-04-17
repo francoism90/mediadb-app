@@ -18,8 +18,14 @@ export default function usePlayer (props: PlayerProps) {
     'initialize'
   ])
 
-  const { setStream } = useNamespacedMutations(props.module, [
-    'setStream'
+  const { setControls, setFullscreen, setPlaybackRate, setPause, setRequestTime, setStream, setTracks } = useNamespacedMutations(props.module, [
+    'setControls',
+    'setFullscreen',
+    'setPlaybackRate',
+    'setPause',
+    'setRequestTime',
+    'setStream',
+    'setTracks'
   ])
 
   if (props.module && props.media) {
@@ -66,8 +72,14 @@ export default function usePlayer (props: PlayerProps) {
     resetStore,
     initialize,
     createPlayer,
+    setControls,
+    setFullscreen,
+    setPlaybackRate,
+    setRequestTime,
+    setTracks,
     setStream,
     setMetadata,
+    setPause,
     setPlayable,
     player
   }
