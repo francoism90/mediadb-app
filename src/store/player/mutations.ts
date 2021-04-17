@@ -23,6 +23,26 @@ const mutation: MutationTree<PlayerState> = {
     const finalStreamInfo = { ...currentStreamInfo, ...payload }
 
     state.stream = Object.assign({}, state.stream, finalStreamInfo)
+  },
+
+  setControls (state: PlayerState, payload: boolean) {
+    state.controls = payload
+  },
+
+  setFullscreen (state: PlayerState, payload: boolean) {
+    state.fullscreen = payload
+  },
+
+  setPlaybackRate (state: PlayerState, payload: number) {
+    state.playbackRate = payload
+  },
+
+  setRequestTime (state: PlayerState, payload: number) {
+    state.requestTime = payload
+  },
+
+  setTracks (state: PlayerState, payload: Media[]) {
+    state.tracks = payload
   }
 }
 

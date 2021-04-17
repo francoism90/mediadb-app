@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import usePlayerState from 'src/composables/usePlayerState'
+import usePlayerState from 'src/composables/usePlayerControl'
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({

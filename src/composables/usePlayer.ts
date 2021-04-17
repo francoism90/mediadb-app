@@ -39,8 +39,6 @@ export default function usePlayer (props: PlayerProps) {
   const setMetadata = (event: Event | null): void => {
     const target = event?.target as HTMLVideoElement
 
-    console.log(target)
-
     setStream(pick(target, [
       'buffered',
       'currentSrc',
