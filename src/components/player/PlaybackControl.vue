@@ -2,9 +2,8 @@
   <div
     class="absolute-center"
   >
-    {{ request.pause }}
     <q-icon
-      name="play_arrow"
+      :name="icon"
       size="96px"
       color="white"
       @click="sendRequest({ pause: !request.pause })"
@@ -14,7 +13,7 @@
 
 <script lang="ts">
 import usePlayer from 'src/composables/usePlayer'
-import { defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'PlaybackControl',
@@ -27,14 +26,15 @@ export default defineComponent({
   },
 
   setup (props) {
-    // const pause = ref(false)
-
     const { request, stream, sendRequest } = usePlayer({ module: props.module })
+
+    const icon = computed(() => stream.value?.paused === true ? 'play_arrow' : 'pause')
 
     return {
       request,
       stream,
-      sendRequest
+      sendRequest,
+      icon
     }
   }
 })
