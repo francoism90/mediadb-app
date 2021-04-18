@@ -86,6 +86,11 @@ export default defineComponent({
       await dom.play()
     }
 
+    const setCurrentTime = (dom: HTMLVideoElement, value: number): void => {
+      // TODO: check duration?
+      dom.currentTime = value
+    }
+
     onMounted(() => {
       createPlayer(videoElement.value)
     })
@@ -98,6 +103,10 @@ export default defineComponent({
 
       if (value?.pause !== oldValue?.pause) {
         await togglePlay(videoElement.value, value?.pause || false)
+      }
+
+      if (value?.currentTime !== oldValue?.currentTime) {
+        setCurrentTime(videoElement.value, value?.currentTime || 0)
       }
     })
 
