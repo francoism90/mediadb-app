@@ -1,5 +1,8 @@
 <template>
-  <div class="absolute-center q-gutter-xs">
+  <div
+    v-if="stream && stream.readyState > 0"
+    class="absolute-center q-gutter-xs"
+  >
     <q-icon
       name="replay_10"
       class="cursor-pointer"

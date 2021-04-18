@@ -8,7 +8,6 @@
     <video
       ref="videoElement"
       autoPictureInPicture
-      controls
       crossorigin="use-credentials"
       playsinline
       preload="auto"
@@ -42,6 +41,7 @@
         class="absolute-full player-controls"
       >
         <playback-control module="video-player" />
+        <seek-control module="video-player" />
       </div>
     </transition>
   </div>
@@ -49,6 +49,7 @@
 
 <script lang="ts">
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
+import SeekControl from 'src/components/player/SeekControl.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { Video } from 'src/interfaces/video'
 import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
@@ -57,7 +58,8 @@ export default defineComponent({
   name: 'VideoPlayer',
 
   components: {
-    PlaybackControl
+    PlaybackControl,
+    SeekControl
   },
 
   props: {

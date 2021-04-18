@@ -53,7 +53,9 @@ export default function usePlayer (props: PlayerProps) {
       'muted',
       'paused',
       'poster',
-      'textTracks'
+      'seekable',
+      'textTracks',
+      'volume'
     ]))
   }
 
@@ -63,9 +65,11 @@ export default function usePlayer (props: PlayerProps) {
     setStream(pick(target, [
       'currentTime',
       'ended',
+      'error',
       'paused',
       'played',
-      'readyState'
+      'readyState',
+      'seeking'
     ]))
   }
 
