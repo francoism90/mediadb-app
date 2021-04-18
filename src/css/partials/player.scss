@@ -26,3 +26,30 @@
 .player-controls {
   z-index: 90;
 }
+
+.player-seeker {
+  .q-slider__track-container {
+    background: $grey-4;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: var(--buffer);
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: $grey-4;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: $grey-6;
+      z-index: -1;
+    }
+  }
+}
