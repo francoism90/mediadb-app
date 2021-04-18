@@ -77,13 +77,13 @@ export default defineComponent({
       media: props.video.clip
     })
 
-    const togglePlay = async (dom: HTMLVideoElement): Promise<void> => {
-      if (dom.paused === true) {
-        await dom.play()
+    const togglePlay = async (dom: HTMLVideoElement, value: boolean): Promise<void> => {
+      if (value === true) {
+        dom.pause()
         return
       }
 
-      dom.pause()
+      await dom.play()
     }
 
     onMounted(() => {
@@ -97,7 +97,7 @@ export default defineComponent({
       }
 
       if (value?.pause !== oldValue?.pause) {
-        await togglePlay(videoElement.value)
+        await togglePlay(videoElement.value, value?.pause || false)
       }
     })
 

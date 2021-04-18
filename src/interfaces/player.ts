@@ -28,10 +28,10 @@ export interface StreamInfo {
 }
 
 export interface PlayerRequest {
-  controls?: boolean,
+  controls?: boolean | null,
   currentTime?: number | null,
-  fullscreen?: boolean,
-  pause?: boolean,
+  fullscreen?: boolean | null,
+  pause?: boolean | null,
   playbackRate?: number | null,
   tracks?: Media[],
 }
