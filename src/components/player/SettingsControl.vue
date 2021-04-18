@@ -35,7 +35,7 @@
           />
 
           <q-icon
-            :name="stream.fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+            :name="request.fullscreen ? 'fullscreen_exit' : 'fullscreen'"
             color="white"
             class="cursor-pointer"
             size="32px"

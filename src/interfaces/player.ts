@@ -14,7 +14,6 @@ export interface StreamInfo {
   duration?: number | undefined,
   ended?: boolean,
   error?: string | null,
-  fullscreen?: boolean | null,
   muted?: boolean,
   networkState?: number,
   paused?: boolean,

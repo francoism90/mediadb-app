@@ -51,6 +51,7 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar'
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import ScrubberControl from 'src/components/player/ScrubberControl.vue'
 import SettingsControl from 'src/components/player/SettingsControl.vue'
@@ -75,10 +76,12 @@ export default defineComponent({
   },
 
   setup (props) {
+    const $q = useQuasar()
+
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
 
-    const { createPlayer, setMetadata, setPlayable, sendRequest, request, player, stream } = usePlayer({
+    const { createPlayer, setMetadata, setPlayable, sendRequest, request, player } = usePlayer({
       module: 'video-player',
       model: props.video,
       media: props.video.clip
@@ -98,8 +101,12 @@ export default defineComponent({
       dom.currentTime = value
     }
 
+    const setPlaybackRate = (dom: HTMLVideoElement, value: number): void => {
+      dom.playbackRate = value
+    }
+
     const toggleFullscreen = async (dom: HTMLDivElement | null): Promise<void> => {
-      const isActive = stream.value?.fullscreen || false
+      const isActive = $q.fullscreen.isActive || false
 
       if (dom && isActive) {
         await document.exitFullscreen()
@@ -128,6 +135,10 @@ export default defineComponent({
 
       if (value?.currentTime !== oldValue?.currentTime) {
         setCurrentTime(videoElement.value, value?.currentTime || 0)
+      }
+
+      if (value?.playbackRate !== oldValue?.playbackRate) {
+        setPlaybackRate(videoElement.value, value?.playbackRate || 1.0)
       }
     })
 

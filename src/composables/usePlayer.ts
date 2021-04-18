@@ -76,7 +76,6 @@ export default function usePlayer (props: PlayerProps) {
   }
 
   watch(() => $q.fullscreen.isActive, value => {
-    setStream({ fullscreen: value })
     sendRequest({ fullscreen: value })
   })
 
