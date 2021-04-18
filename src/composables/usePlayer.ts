@@ -1,10 +1,11 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs'
 import { pick } from 'lodash'
 import { PlayerProps } from 'src/interfaces/player'
+import { PlayerState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
 import playerModule from 'src/store/player'
 import { ref } from 'vue'
-import { useNamespacedActions, useNamespacedMutations } from 'vuex-composition-helpers'
+import { useNamespacedActions, useNamespacedMutations, useNamespacedState } from 'vuex-composition-helpers'
 
 export default function usePlayer (props: PlayerProps) {
   const $store = useStore()
@@ -13,19 +14,19 @@ export default function usePlayer (props: PlayerProps) {
     $store.registerModule(props.module, playerModule)
   }
 
+  const { request, stream } = useNamespacedState<PlayerState>(props.module, [
+    'request',
+    'stream'
+  ])
+
   const { resetStore, initialize } = useNamespacedActions(props.module, [
     'resetStore',
     'initialize'
   ])
 
-  const { setControls, setFullscreen, setPlaybackRate, setPause, setRequestTime, setStream, setTracks } = useNamespacedMutations(props.module, [
-    'setControls',
-    'setFullscreen',
-    'setPlaybackRate',
-    'setPause',
-    'setRequestTime',
-    'setStream',
-    'setTracks'
+  const { setRequest, setStream } = useNamespacedMutations(props.module, [
+    'setRequest',
+    'setStream'
   ])
 
   if (props.module && props.media) {
@@ -72,15 +73,12 @@ export default function usePlayer (props: PlayerProps) {
     resetStore,
     initialize,
     createPlayer,
-    setControls,
-    setFullscreen,
-    setPlaybackRate,
-    setRequestTime,
-    setTracks,
+    setRequest,
     setStream,
     setMetadata,
-    setPause,
     setPlayable,
-    player
+    player,
+    request,
+    stream
   }
 }

@@ -2,20 +2,19 @@
   <div
     class="absolute-center"
   >
-    {{ pause }}
+    {{ request.pause }}
     <q-icon
       name="play_arrow"
       size="96px"
       color="white"
-      @click="setPause(!pause)"
+      @click="setRequest({ pause: !request.pause })"
     />
   </div>
 </template>
 
 <script lang="ts">
 import usePlayer from 'src/composables/usePlayer'
-import usePlayerState from 'src/composables/usePlayerState'
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'PlaybackControl',
@@ -30,13 +29,12 @@ export default defineComponent({
   setup (props) {
     // const pause = ref(false)
 
-    const { setPause } = usePlayer({ module: props.module })
-    const { pause, stream } = usePlayerState(props.module)
+    const { request, stream, setRequest } = usePlayer({ module: props.module })
 
     return {
-      pause,
+      request,
       stream,
-      setPause
+      setRequest
     }
   }
 })

@@ -1,5 +1,5 @@
 import { Media } from 'src/interfaces/media'
-import { StreamInfo } from 'src/interfaces/player'
+import { PlayerRequest, StreamInfo } from 'src/interfaces/player'
 import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository'
 import { User } from 'src/interfaces/user'
 
@@ -19,15 +19,10 @@ export interface RepositoryState {
 }
 
 export interface PlayerState {
-  controls: boolean,
-  fullscreen: boolean,
-  pause: boolean,
-  playbackRate: number,
-  tracks: Media[],
-  requestTime: number | null,
-  stream: StreamInfo | null
+  request: PlayerRequest | null,
   media: Media | null
   model: Model | null
+  stream: StreamInfo | null
 }
 
 export interface StoreState {

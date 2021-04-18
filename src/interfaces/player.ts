@@ -26,3 +26,12 @@ export interface StreamInfo {
   textTracks?: TextTrack[] | null,
   volume?: number | null,
 }
+
+export interface PlayerRequest {
+  controls?: boolean,
+  currentTime?: number | null,
+  fullscreen?: boolean,
+  pause?: boolean,
+  playbackRate?: number | null,
+  tracks?: Media[],
+}
