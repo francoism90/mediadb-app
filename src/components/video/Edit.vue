@@ -18,14 +18,28 @@
           </div>
         </q-card-section>
 
-        <q-separator />
+        <q-separator color="grey-8" />
+
+        <q-card-section class="q-gutter-sm">
+          <q-input
+            v-model.trim="form.name"
+            :error-message="getError('name')[0]"
+            :error="hasError('name')"
+            :maxlength="255"
+            autofocus
+            counter
+            label="Title"
+            type="text"
+          />
+        </q-card-section>
 
         <q-card-actions align="right">
           <q-btn
             color="primary"
             label="OK"
-            @click="onOKClick"
+            @click="onSubmit"
           />
+
           <q-btn
             color="primary"
             label="Cancel"

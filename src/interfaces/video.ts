@@ -2,6 +2,7 @@ import { Media } from './media'
 import { Model, ModelResponse, RepositoryMeta, RepositoryParams, RepositoryResponse } from './repository'
 
 export interface Video extends Model {
+  status?: 'public' | 'private',
   overview?: string | null,
   type?: string | null,
   views?: number | null,
