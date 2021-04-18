@@ -82,8 +82,7 @@ export default defineComponent({
     }
 
     watch(request, async (value, oldValue): Promise<void> => {
-      // Ignore requests when element isn't ready
-      if (!videoElement.value) {
+      if (!player || !videoElement.value) {
         return
       }
 
