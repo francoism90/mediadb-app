@@ -8,14 +8,6 @@
         <div class="text-overline text-white">
           {{ currentTime }} / {{ duration }}
         </div>
-
-        <q-btn
-          v-if="stream.networkState === 2"
-          size="sm"
-          class="q-ml-sm"
-          dense
-          loading
-        />
       </div>
 
       <div class="col-auto">

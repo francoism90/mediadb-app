@@ -53,8 +53,10 @@ export default function usePlayer (props: PlayerProps) {
       'currentSrc',
       'duration',
       'muted',
+      'networkState',
       'paused',
       'poster',
+      'readyState',
       'seekable',
       'textTracks',
       'volume'
@@ -70,8 +72,8 @@ export default function usePlayer (props: PlayerProps) {
       'error',
       'networkState',
       'paused',
-      'played',
       'playbackRate',
+      'played',
       'readyState',
       'seeking'
     ]))

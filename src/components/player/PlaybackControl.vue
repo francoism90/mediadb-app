@@ -3,29 +3,38 @@
     v-if="stream && stream.readyState > 0"
     class="absolute-center q-gutter-xs"
   >
-    <q-icon
-      name="replay_10"
-      class="cursor-pointer"
-      color="white"
-      size="36px"
-      @click="decreaseTime"
-    />
+    <template v-if="stream && stream.readyState > 2">
+      <q-icon
+        name="replay_10"
+        class="cursor-pointer"
+        color="white"
+        size="36px"
+        @click="decreaseTime"
+      />
 
-    <q-icon
-      :name="icon"
-      class="cursor-pointer"
-      color="white"
-      size="96px"
-      @click="sendRequest({ pause: !request.pause })"
-    />
+      <q-icon
+        :name="icon"
+        class="cursor-pointer"
+        color="white"
+        size="96px"
+        @click="sendRequest({ pause: !request.pause })"
+      />
 
-    <q-icon
-      name="forward_10"
-      class="cursor-pointer"
-      color="white"
-      size="36px"
-      @click="increaseTime"
-    />
+      <q-icon
+        name="forward_10"
+        class="cursor-pointer"
+        color="white"
+        size="36px"
+        @click="increaseTime"
+      />
+    </template>
+
+    <template v-else>
+      <q-spinner-dots
+        color="white"
+        size="64px"
+      />
+    </template>
   </div>
 </template>
 
