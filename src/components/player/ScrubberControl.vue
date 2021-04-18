@@ -36,12 +36,13 @@ export default defineComponent({
       const buffered = stream.value?.buffered || <TimeRanges>{}
       const duration = stream.value?.duration || 0
 
-      const r = buffered
-      r.start(0)
+      if (buffered.length === 0) {
+        return 0
+      }
 
-      const end = r.end(0)
+      const bufferedSeconds = buffered.end(0) - buffered.start(0)
 
-      return Math.round((end / duration) * 100)
+      return Math.round((bufferedSeconds / duration) * 100)
     })
 
     const bufferedRemainingPct = computed(() => {
