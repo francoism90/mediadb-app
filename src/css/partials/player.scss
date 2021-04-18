@@ -52,7 +52,7 @@
   right: 16px;
 
   .q-slider__track-container {
-    background: $grey-4;
+    background: rgba(255, 255, 255, 0.25);
 
     &::before {
       content: '';
@@ -61,7 +61,7 @@
       top: 0;
       bottom: 0;
       right: 0;
-      background: $grey-4;
+      background: rgba(255, 255, 255, 0.25);
     }
 
     &::after {
@@ -71,7 +71,7 @@
       top: 0;
       bottom: 0;
       right: 0;
-      background: $grey-6;
+      background: rgba(255, 255, 255, 0.1);
       z-index: -1;
     }
   }
