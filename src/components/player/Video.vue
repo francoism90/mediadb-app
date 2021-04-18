@@ -108,10 +108,14 @@ export default defineComponent({
     const toggleFullscreen = async (dom: HTMLDivElement | null): Promise<void> => {
       const isActive = $q.fullscreen.isActive || false
 
-      if (dom && isActive) {
-        await document.exitFullscreen()
-      } else if (dom && !isActive) {
-        await dom.requestFullscreen()
+      try {
+        if (dom && isActive) {
+          await document.exitFullscreen()
+        } else if (dom && !isActive) {
+          await dom.requestFullscreen()
+        }
+      } catch {
+        //
       }
     }
 
