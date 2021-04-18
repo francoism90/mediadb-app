@@ -70,7 +70,7 @@ export default defineComponent({
   setup (props) {
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
-    const controls = ref(true)
+    const controls = ref(false)
 
     const { createPlayer, setMetadata, setPlayable, request, player } = usePlayer({
       module: 'video-player',
@@ -92,6 +92,7 @@ export default defineComponent({
     })
 
     watch(request, async (value, oldValue): Promise<void> => {
+      // Wait for player and the element to be ready
       if (!player || !videoElement.value) {
         return
       }
@@ -101,7 +102,7 @@ export default defineComponent({
       }
 
       if (value?.controls !== oldValue?.controls) {
-        console.log('toggleControls')
+        controls.value = value?.controls || false
       }
     })
 
