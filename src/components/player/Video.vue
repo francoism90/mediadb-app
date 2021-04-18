@@ -2,6 +2,8 @@
   <div
     ref="videoContainer"
     class="relative-position overflow-hidden container player-container"
+    @mouseover="controls = true"
+    @mouseleave="controls = false"
   >
     <video
       ref="videoElement"
@@ -30,11 +32,18 @@
       @waiting="setPlayable"
     />
 
-    <div
-      class="absolute-full player-controls"
+    <transition
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
     >
-      <playback-control module="video-player" />
-    </div>
+      <div
+        v-show="controls"
+        class="absolute-full player-controls"
+      >
+        <playback-control module="video-player" />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -61,15 +70,12 @@ export default defineComponent({
   setup (props) {
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
+    const controls = ref(true)
 
     const { createPlayer, setMetadata, setPlayable, request, player } = usePlayer({
       module: 'video-player',
       model: props.video,
       media: props.video.clip
-    })
-
-    onMounted(() => {
-      createPlayer(videoElement.value)
     })
 
     const togglePlay = async (dom: HTMLVideoElement) => {
@@ -80,6 +86,10 @@ export default defineComponent({
 
       dom.pause()
     }
+
+    onMounted(() => {
+      createPlayer(videoElement.value)
+    })
 
     watch(request, async (value, oldValue): Promise<void> => {
       if (!player || !videoElement.value) {
@@ -100,7 +110,8 @@ export default defineComponent({
       videoElement,
       setMetadata,
       setPlayable,
-      player
+      player,
+      controls
     }
   }
 })
