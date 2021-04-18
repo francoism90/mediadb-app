@@ -68,8 +68,10 @@ export default function usePlayer (props: PlayerProps) {
       'currentTime',
       'ended',
       'error',
+      'networkState',
       'paused',
       'played',
+      'playbackRate',
       'readyState',
       'seeking'
     ]))

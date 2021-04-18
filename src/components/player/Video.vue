@@ -16,10 +16,12 @@
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
       @canplay="setPlayable"
+      @cuechange="setMetadata"
       @durationchange="setMetadata"
       @ended="setPlayable"
       @error="setPlayable"
       @fullscreenchange="setPlayable"
+      @loadeddata="setMetadata"
       @loadedmetadata="setMetadata"
       @pause="setPlayable"
       @play="setPlayable"
@@ -30,6 +32,7 @@
       @seeked="setPlayable"
       @stalled="setPlayable"
       @timeupdate="setPlayable"
+      @volumechange="setMetadata"
       @waiting="setPlayable"
     />
 
