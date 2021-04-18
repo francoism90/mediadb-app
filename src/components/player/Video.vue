@@ -25,6 +25,7 @@
       @playing="setPlayable"
       @progress="setMetadata"
       @ratechange="setPlayable"
+      @seeking="setPlayable"
       @seeked="setPlayable"
       @stalled="setPlayable"
       @timeupdate="setPlayable"
@@ -41,7 +42,8 @@
         class="absolute-full player-controls"
       >
         <playback-control module="video-player" />
-        <seek-control module="video-player" />
+        <settings-control module="video-player" />
+        <scrubber-control module="video-player" />
       </div>
     </transition>
   </div>
@@ -49,7 +51,8 @@
 
 <script lang="ts">
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
-import SeekControl from 'src/components/player/SeekControl.vue'
+import ScrubberControl from 'src/components/player/ScrubberControl.vue'
+import SettingsControl from 'src/components/player/SettingsControl.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { Video } from 'src/interfaces/video'
 import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
@@ -59,7 +62,8 @@ export default defineComponent({
 
   components: {
     PlaybackControl,
-    SeekControl
+    ScrubberControl,
+    SettingsControl
   },
 
   props: {

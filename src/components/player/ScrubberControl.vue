@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="stream && stream.readyState > 0"
-    class="absolute-bottom container player-seeker"
+    class="absolute-bottom player-seeker"
   >
     <q-slider
       :model-value="stream.currentTime || 0"
@@ -20,7 +20,7 @@ import usePlayer from 'src/composables/usePlayer'
 import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-  name: 'PlaybackControl',
+  name: 'ScrubberControl',
 
   props: {
     module: {

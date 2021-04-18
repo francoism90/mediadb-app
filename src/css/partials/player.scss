@@ -24,10 +24,15 @@
 }
 
 .player-controls {
-  z-index: 90;
+  z-index: 30;
 }
 
 .player-seeker {
+  bottom: 8px;
+  left: 16px;
+  right: 16px;
+  z-index: 40;
+
   .q-slider__track-container {
     background: $grey-4;
 
@@ -52,4 +57,11 @@
       z-index: -1;
     }
   }
+}
+
+.player-settings {
+  bottom: 48px;
+  left: 16px;
+  right: 16px;
+  z-index: 40;
 }
