@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="stream && stream.readyState > 0"
-    class="absolute-top-right player-control player-settings"
-  >
+  <div class="absolute-top-right player-control player-settings">
     <q-icon
       name="more_vert"
       color="white"
@@ -17,11 +14,13 @@
           <q-item
             v-close-popup
             clickable
+            @click="editModel"
           >
             <q-item-section>Edit Model</q-item-section>
           </q-item>
 
           <q-item
+            v-if="stream && stream.readyState > 0"
             v-close-popup
             clickable
           >
@@ -34,9 +33,10 @@
 </template>
 
 <script lang="ts">
-import useFilters from 'src/composables/useFilters'
+import { useQuasar } from 'quasar'
+import VideoEdit from 'src/components/video/Edit.vue'
 import usePlayer from 'src/composables/usePlayer'
-import { computed, defineComponent, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'ShareControl',
@@ -49,18 +49,22 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { request, stream, sendRequest } = usePlayer({ module: props.module })
-    const { formatTimestamp } = useFilters()
+    const $q = useQuasar()
 
-    const currentTime = computed(() => formatTimestamp(stream.value?.currentTime || 0))
-    const duration = computed(() => formatTimestamp(stream.value?.duration || 0))
+    const { model, stream } = usePlayer({ module: props.module })
+
+    const editModel = (): void => {
+      $q.dialog({
+        component: VideoEdit,
+        componentProps: {
+          video: model.value
+        }
+      })
+    }
 
     return {
-      request,
       stream,
-      currentTime,
-      duration,
-      sendRequest
+      editModel
     }
   }
 })

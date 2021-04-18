@@ -16,7 +16,9 @@ export default function usePlayer (props: PlayerProps) {
     $store.registerModule(props.module, playerModule)
   }
 
-  const { request, stream } = useNamespacedState<PlayerState>(props.module, [
+  const { media, model, request, stream } = useNamespacedState<PlayerState>(props.module, [
+    'media',
+    'model',
     'request',
     'stream'
   ])
@@ -92,6 +94,8 @@ export default function usePlayer (props: PlayerProps) {
     setMetadata,
     setPlayable,
     player,
+    model,
+    media,
     request,
     stream
   }

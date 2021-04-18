@@ -8,11 +8,10 @@
       <q-card
         class="bg-grey-10 fixed-center"
         style="width: 400px; max-width: 100vw;"
-        dark
         square
       >
         <q-form
-          greedy
+          ref="formRef"
           @submit="onSubmit"
         >
           <q-card-section class="row no-wrap justify-between items-center content-center">
@@ -68,9 +67,10 @@ import { AxiosError } from 'axios'
 import { useQuasar } from 'quasar'
 import useFormValidation from 'src/composables/useFormValidation'
 import { ValidationResponse } from 'src/interfaces/form'
-import { PostLoginForm } from 'src/interfaces/session'
+import { LoginUser } from 'src/interfaces/session'
+import { loginUser } from 'src/repositories/user'
 import { router } from 'src/router'
-import { loginUser, setCsrfCookie } from 'src/services/auth'
+import { setCsrfCookie } from 'src/services/api'
 import { defineComponent, reactive, ref } from 'vue'
 import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 
@@ -86,7 +86,7 @@ export default defineComponent({
     const $router = router
 
     const formRef = ref<HTMLFormElement | null>(null)
-    const form = reactive<PostLoginForm>({
+    const form = reactive<LoginUser>({
       email: '',
       password: '',
       deviceName: $q.platform.userAgent,
@@ -95,20 +95,17 @@ export default defineComponent({
 
     const { getError, hasError, setResponse } = useFormValidation()
 
-    const onSubmit = async () => {
+    const onSubmit = async (): Promise<void> => {
       try {
         // CSRF is only useful on PWA/SPA
         if (!$q.platform.is.cordova && !$q.platform.is.capacitor) {
           await setCsrfCookie()
         }
 
-        // Try to login
         const response = await loginUser(form)
 
-        // Set (new) token
         await setToken(response)
 
-        // Redirect to previous location or just '/'
         await $router.push(redirectPath.value)
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>

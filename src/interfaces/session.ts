@@ -2,7 +2,7 @@ export interface CsrfCookie {
   message?: string
 }
 
-export interface PostLoginForm {
+export interface LoginUser {
   email: string,
   password: string,
   deviceName: string,
