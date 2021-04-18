@@ -11,7 +11,7 @@
       crossorigin="use-credentials"
       playsinline
       preload="auto"
-      class="relative-position player-video"
+      class="relative-position full-height full-width player-video"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"

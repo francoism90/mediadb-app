@@ -3,14 +3,8 @@
   background: #000;
   padding-left: 0;
   padding-right: 0;
-}
-
-.player-video {
-  z-index: 10;
-  width: 100%;
   min-height: 640px;
   max-height: 720px;
-  object-fit: contain;
 
   @media (max-width: $breakpoint-sm-max) {
     min-height: 240px;
@@ -21,6 +15,16 @@
     min-height: 240px;
     max-height: 240px;
   }
+
+  &:fullscreen {
+    min-height: 100%;
+    max-height: 100%;
+  }
+}
+
+.player-video {
+  z-index: 10;
+  object-fit: contain;
 }
 
 .player-controls {

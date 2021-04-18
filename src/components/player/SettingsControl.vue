@@ -74,8 +74,8 @@ export default defineComponent({
     const isFullscreen = computed(() => $q.fullscreen.isActive || false)
 
     // We need to force fullscreen changes
-    watch(() => $q.fullscreen.isActive, val => {
-      sendRequest({ fullscreen: val })
+    watch(() => $q.fullscreen.isActive, value => {
+      sendRequest({ fullscreen: value })
     })
 
     return {
