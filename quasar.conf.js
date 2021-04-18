@@ -85,6 +85,7 @@ module.exports = configure(function (/* ctx */) {
     framework: {
       // Quasar plugins
       plugins: [
+        'AppFullscreen',
         'Dialog',
         'Loading',
         'Meta',
