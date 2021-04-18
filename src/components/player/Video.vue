@@ -46,8 +46,8 @@
         class="absolute-full player-controls"
       >
         <playback-control module="video-player" />
-        <settings-control module="video-player" />
         <scrubber-control module="video-player" />
+        <settings-control module="video-player" />
       </div>
     </transition>
   </div>

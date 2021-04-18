@@ -29,13 +29,27 @@
 
 .player-controls {
   z-index: 30;
+
+  &::after {
+    background: rgba(0, 0, 0, 0.35);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 20;
+  }
 }
 
-.player-seeker {
-  bottom: 8px;
+.player-control {
+  z-index: 40;
+}
+
+.player-scrubber {
+  bottom: 16px;
   left: 16px;
   right: 16px;
-  z-index: 40;
 
   .q-slider__track-container {
     background: $grey-4;
@@ -64,8 +78,6 @@
 }
 
 .player-settings {
-  bottom: 48px;
-  left: 16px;
+  top: 16px;
   right: 16px;
-  z-index: 40;
 }

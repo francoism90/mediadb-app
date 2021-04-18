@@ -1,41 +1,35 @@
 <template>
   <div
     v-if="stream && stream.readyState > 0"
-    class="absolute-bottom player-settings"
+    class="absolute-top-right player-control player-settings"
   >
-    <div class="row no-wrap justify-between items-center content-center">
-      <div class="col">
-        <div class="text-overline text-white">
-          {{ currentTime }} / {{ duration }}
-        </div>
-      </div>
+    <q-icon
+      name="more_vert"
+      color="white"
+      class="cursor-pointer"
+      size="32px"
+    >
+      <q-menu
+        anchor="top left"
+        self="top left"
+      >
+        <q-list style="min-width: 150px;">
+          <q-item
+            v-close-popup
+            clickable
+          >
+            <q-item-section>Edit Model</q-item-section>
+          </q-item>
 
-      <div class="col-auto">
-        <div class="q-gutter-sm">
-          <q-icon
-            name="movie_creation"
-            color="white"
-            class="cursor-pointer hidden"
-            size="32px"
-          />
-
-          <q-icon
-            name="settings"
-            color="white"
-            class="cursor-pointer"
-            size="32px"
-          />
-
-          <q-icon
-            :name="request.fullscreen ? 'fullscreen_exit' : 'fullscreen'"
-            color="white"
-            class="cursor-pointer"
-            size="32px"
-            @click="sendRequest({ fullscreen: !request.fullscreen })"
-          />
-        </div>
-      </div>
-    </div>
+          <q-item
+            v-close-popup
+            clickable
+          >
+            <q-item-section>Set Thumbnail</q-item-section>
+          </q-item>
+        </q-list>
+      </q-menu>
+    </q-icon>
   </div>
 </template>
 
@@ -45,7 +39,7 @@ import usePlayer from 'src/composables/usePlayer'
 import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-  name: 'SettingsControl',
+  name: 'ShareControl',
 
   props: {
     module: {

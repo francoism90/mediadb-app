@@ -1,8 +1,21 @@
 <template>
   <div
     v-if="stream && stream.readyState > 0"
-    class="absolute-bottom player-seeker"
+    class="absolute-bottom player-control player-scrubber"
   >
+    <div class="row no-wrap justify-between items-center content-center">
+      <div class="col">
+        <time-progress :module="module" />
+      </div>
+
+      <div class="col-auto">
+        <div class="q-gutter-sm">
+          <caption-control :module="module" />
+          <fullscreen-control :module="module" />
+        </div>
+      </div>
+    </div>
+
     <q-slider
       :model-value="stream.currentTime || 0"
       :min="0.0"
@@ -16,11 +29,20 @@
 </template>
 
 <script lang="ts">
+import CaptionControl from 'src/components/player/CaptionControl.vue'
+import FullscreenControl from 'src/components/player/FullscreenControl.vue'
+import TimeProgress from 'src/components/player/TimeProgress.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'ScrubberControl',
+
+  components: {
+    TimeProgress,
+    FullscreenControl,
+    CaptionControl
+  },
 
   props: {
     module: {

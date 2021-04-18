@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="stream && stream.readyState > 0"
-    class="absolute-center q-gutter-xs"
+    class="absolute-center q-gutter-xs player-control"
   >
     <template v-if="stream && stream.readyState > 2">
       <q-icon
@@ -18,6 +18,7 @@
         color="white"
         size="96px"
         @click="sendRequest({ pause: !request.pause })"
+        @keyup.k="sendRequest({ pause: !request.pause })"
       />
 
       <q-icon
