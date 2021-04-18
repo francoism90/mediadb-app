@@ -19,13 +19,13 @@ export default function usePlayer (props: PlayerProps) {
     'stream'
   ])
 
-  const { resetStore, initialize } = useNamespacedActions(props.module, [
+  const { resetStore, initialize, sendRequest } = useNamespacedActions(props.module, [
     'resetStore',
-    'initialize'
+    'initialize',
+    'sendRequest'
   ])
 
-  const { setRequest, setStream } = useNamespacedMutations(props.module, [
-    'setRequest',
+  const { setStream } = useNamespacedMutations(props.module, [
     'setStream'
   ])
 
@@ -73,7 +73,7 @@ export default function usePlayer (props: PlayerProps) {
     resetStore,
     initialize,
     createPlayer,
-    setRequest,
+    sendRequest,
     setStream,
     setMetadata,
     setPlayable,

@@ -72,22 +72,28 @@ export default defineComponent({
       createPlayer(videoElement.value)
     })
 
-    watch(request, async (): Promise<void> => {
-      console.log(request.value)
+    const togglePlay = async (dom: HTMLVideoElement) => {
+      if (dom.paused === true) {
+        await dom.play()
+        return
+      }
 
-      // console.log('click')
-      // const dom = videoElement.value
+      dom.pause()
+    }
 
-      // if (!dom) {
-      //   return
-      // }
+    watch(request, async (value, oldValue): Promise<void> => {
+      // Ignore requests when element isn't ready
+      if (!videoElement.value) {
+        return
+      }
 
-      // if (dom.paused === true) {
-      //   await dom.play()
-      //   return
-      // }
+      if (value?.pause !== oldValue?.pause) {
+        await togglePlay(videoElement.value)
+      }
 
-      // dom.pause()
+      if (value?.controls !== oldValue?.controls) {
+        console.log('toggleControls')
+      }
     })
 
     return {

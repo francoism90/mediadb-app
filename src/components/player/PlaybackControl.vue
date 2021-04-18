@@ -7,7 +7,7 @@
       name="play_arrow"
       size="96px"
       color="white"
-      @click="setRequest({ pause: !request.pause })"
+      @click="sendRequest({ pause: !request.pause })"
     />
   </div>
 </template>
@@ -29,12 +29,12 @@ export default defineComponent({
   setup (props) {
     // const pause = ref(false)
 
-    const { request, stream, setRequest } = usePlayer({ module: props.module })
+    const { request, stream, sendRequest } = usePlayer({ module: props.module })
 
     return {
       request,
       stream,
-      setRequest
+      sendRequest
     }
   }
 })
