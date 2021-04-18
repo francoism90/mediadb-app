@@ -20,7 +20,7 @@
             </div>
           </q-card-section>
 
-          <q-separator dark />
+          <q-separator />
 
           <q-card-section class="q-px-xl q-gutter-sm">
             <q-input
@@ -28,7 +28,6 @@
               :error-message="getError('email')[0]"
               :error="hasError('email')"
               autofocus
-              dark
               label="Your email"
               type="email"
             />
@@ -37,7 +36,6 @@
               v-model.trim="form.password"
               :error-message="getError('password')[0]"
               :error="hasError('password')"
-              dark
               label="Your password"
               type="password"
             />

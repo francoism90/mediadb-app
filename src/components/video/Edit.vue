@@ -36,6 +36,7 @@ import { useDialogPluginComponent } from 'quasar'
 import useFormValidation from 'src/composables/useFormValidation'
 import { ValidationResponse } from 'src/interfaces/form'
 import { Video, VideoUpdateForm } from 'src/interfaces/video'
+import { update } from 'src/repositories/video'
 import { defineComponent, PropType, reactive, ref } from 'vue'
 
 export default defineComponent({
@@ -66,7 +67,7 @@ export default defineComponent({
 
     const onSubmit = async (): Promise<void> => {
       try {
-        const response = await loginUser(form)
+        await update(form)
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>
 
