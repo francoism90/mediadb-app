@@ -12,7 +12,14 @@
         ref="formRef"
         @submit="onSubmit"
       >
-        <!-- buttons example -->
+        <q-card-section class="row no-wrap justify-between items-center content-center">
+          <div class="col text-h6 ellipsis">
+            {{ video.name }}
+          </div>
+        </q-card-section>
+
+        <q-separator />
+
         <q-card-actions align="right">
           <q-btn
             color="primary"
@@ -35,7 +42,7 @@ import { AxiosError } from 'axios'
 import { useDialogPluginComponent } from 'quasar'
 import useFormValidation from 'src/composables/useFormValidation'
 import { ValidationResponse } from 'src/interfaces/form'
-import { Video, VideoUpdateForm } from 'src/interfaces/video'
+import { Video } from 'src/interfaces/video'
 import { update } from 'src/repositories/video'
 import { defineComponent, PropType, reactive, ref } from 'vue'
 
