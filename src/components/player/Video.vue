@@ -51,7 +51,6 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar'
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import ScrubberControl from 'src/components/player/ScrubberControl.vue'
 import SettingsControl from 'src/components/player/SettingsControl.vue'
@@ -76,12 +75,10 @@ export default defineComponent({
   },
 
   setup (props) {
-    const $q = useQuasar()
-
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
 
-    const { createPlayer, setMetadata, setPlayable, sendRequest, request, player } = usePlayer({
+    const { createPlayer, setMetadata, setPlayable, sendRequest, request, player, stream } = usePlayer({
       module: 'video-player',
       model: props.video,
       media: props.video.clip
@@ -102,7 +99,7 @@ export default defineComponent({
     }
 
     const toggleFullscreen = async (dom: HTMLDivElement | null): Promise<void> => {
-      const isActive = $q.fullscreen.isActive
+      const isActive = stream.value?.fullscreen || false
 
       if (dom && isActive) {
         await document.exitFullscreen()

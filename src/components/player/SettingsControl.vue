@@ -35,11 +35,11 @@
           />
 
           <q-icon
-            :name="isFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+            :name="stream.fullscreen ? 'fullscreen_exit' : 'fullscreen'"
             color="white"
             class="cursor-pointer"
             size="32px"
-            @click="sendRequest({ fullscreen: !isFullscreen })"
+            @click="sendRequest({ fullscreen: !request.fullscreen })"
           />
         </div>
       </div>
@@ -48,10 +48,9 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar'
 import useFilters from 'src/composables/useFilters'
 import usePlayer from 'src/composables/usePlayer'
-import { computed, defineComponent, PropType, watch } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'SettingsControl',
@@ -64,26 +63,17 @@ export default defineComponent({
   },
 
   setup (props) {
-    const $q = useQuasar()
-
     const { request, stream, sendRequest } = usePlayer({ module: props.module })
     const { formatTimestamp } = useFilters()
 
     const currentTime = computed(() => formatTimestamp(stream.value?.currentTime || 0))
     const duration = computed(() => formatTimestamp(stream.value?.duration || 0))
-    const isFullscreen = computed(() => $q.fullscreen.isActive || false)
-
-    // We need to force fullscreen changes
-    watch(() => $q.fullscreen.isActive, value => {
-      sendRequest({ fullscreen: value })
-    })
 
     return {
       request,
       stream,
       currentTime,
       duration,
-      isFullscreen,
       sendRequest
     }
   }

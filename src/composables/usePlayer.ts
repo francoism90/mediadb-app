@@ -1,13 +1,15 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs'
 import { pick } from 'lodash'
+import { useQuasar } from 'quasar'
 import { PlayerProps } from 'src/interfaces/player'
 import { PlayerState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
 import playerModule from 'src/store/player'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useNamespacedActions, useNamespacedMutations, useNamespacedState } from 'vuex-composition-helpers'
 
 export default function usePlayer (props: PlayerProps) {
+  const $q = useQuasar()
   const $store = useStore()
 
   if (!$store.hasModule(props.module)) {
@@ -72,6 +74,11 @@ export default function usePlayer (props: PlayerProps) {
       'seeking'
     ]))
   }
+
+  watch(() => $q.fullscreen.isActive, value => {
+    setStream({ fullscreen: value })
+    sendRequest({ fullscreen: value })
+  })
 
   return {
     resetStore,
