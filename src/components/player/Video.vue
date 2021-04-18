@@ -2,8 +2,8 @@
   <div
     ref="videoContainer"
     class="relative-position overflow-hidden container player-container"
-    @mouseover="controls = true"
-    @mouseleave="controls = false"
+    @mouseover="sendRequest({ controls: true })"
+    @mouseleave="sendRequest({ controls: false })"
   >
     <video
       ref="videoElement"
@@ -38,7 +38,7 @@
       leave-active-class="animated fadeOut"
     >
       <div
-        v-show="controls"
+        v-show="request.controls"
         class="absolute-full player-controls"
       >
         <playback-control module="video-player" />
@@ -70,15 +70,14 @@ export default defineComponent({
   setup (props) {
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
-    const controls = ref(false)
 
-    const { createPlayer, setMetadata, setPlayable, request, player } = usePlayer({
+    const { createPlayer, setMetadata, setPlayable, sendRequest, request, player } = usePlayer({
       module: 'video-player',
       model: props.video,
       media: props.video.clip
     })
 
-    const togglePlay = async (dom: HTMLVideoElement) => {
+    const togglePlay = async (dom: HTMLVideoElement): Promise<void> => {
       if (dom.paused === true) {
         await dom.play()
         return
@@ -100,19 +99,16 @@ export default defineComponent({
       if (value?.pause !== oldValue?.pause) {
         await togglePlay(videoElement.value)
       }
-
-      if (value?.controls !== oldValue?.controls) {
-        controls.value = value?.controls || false
-      }
     })
 
     return {
       videoContainer,
       videoElement,
+      sendRequest,
       setMetadata,
       setPlayable,
       player,
-      controls
+      request
     }
   }
 })
