@@ -4,21 +4,18 @@
       <q-icon
         class="q-mb-sm"
         color="white"
-        name="account_circle"
+        name="play_circle_outline"
         size="56px"
       />
 
       <div class="text-body1 text-weight-bold text-white ellipsis">
-        {{ user.name }}
+        MediaDB
       </div>
     </div>
 
-    <q-separator dark />
+    <q-separator />
 
-    <q-list
-      dark
-      padding
-    >
+    <q-list padding>
       <template
         v-for="(menuItem, index) in menuList"
         :key="index"
@@ -28,7 +25,6 @@
           :to="menuItem.route"
           active-class="bg-grey-10"
           clickable
-          dark
         >
           <q-item-section side>
             <q-icon :name="menuItem.icon" />
@@ -41,7 +37,7 @@
       </template>
     </q-list>
 
-    <q-separator dark />
+    <q-separator />
   </div>
 </template>
 

@@ -27,11 +27,14 @@
         <span class="q-px-sm">•</span>
         <span>{{ video.clip?.resolution }}</span>
       </div>
+
+      <chips :tags="video.tags" />
     </q-card-section>
   </q-card>
 </template>
 
 <script lang="ts">
+import Chips from 'src/components/tags/Chips.vue'
 import useFilters from 'src/composables/useFilters'
 import { Video } from 'src/interfaces/video'
 import { computed, defineComponent, PropType } from 'vue'
@@ -39,10 +42,9 @@ import { computed, defineComponent, PropType } from 'vue'
 export default defineComponent({
   name: 'VideosItem',
 
-  // components: {
-  // NavigationLink,
-  // GlobalSearch
-  // },
+  components: {
+    Chips
+  },
 
   props: {
     video: {

@@ -4,8 +4,13 @@
       v-for="(tag, index) in tags"
       :key="index"
       :label="tag.name"
+      clickable
+      dense
+      color="grey-10"
+      text-color="grey-5"
+      class="text-caption"
+      size="0.875em"
       square
-      dark
     />
   </div>
 </template>
@@ -25,15 +30,10 @@ export default defineComponent({
     }
   },
 
-  setup (props) {
-    console.log(props)
-    // const { formatTimestamp } = useFilters()
-
-    // const timestamp = computed(() => formatTimestamp(props.video?.duration || 0))
-
-    // return {
-    //   timestamp
-    // }
+  setup () {
+    return {
+      //
+    }
   }
 })
 </script>

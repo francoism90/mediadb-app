@@ -26,61 +26,97 @@
       class="q-py-md video-details-list"
     >
       <q-item class="text-body2">
-        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
+        <q-item-section
+          top
+          class="text-grey-1 text-weight-medium video-details-label"
+        >
           Language :
         </q-item-section>
 
-        <q-item-section class="text-white">
+        <q-item-section
+          top
+          class="text-white"
+        >
           English
         </q-item-section>
       </q-item>
 
       <q-item class="text-body2">
-        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
+        <q-item-section
+          top
+          class="text-grey-1 text-weight-medium video-details-label"
+        >
           Cast :
         </q-item-section>
 
-        <q-item-section class="text-white">
+        <q-item-section
+          top
+          class="text-white"
+        >
           English
         </q-item-section>
       </q-item>
 
       <q-item class="text-body2">
-        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
+        <q-item-section
+          top
+          class="text-grey-1 text-weight-medium video-details-label"
+        >
           Genre :
         </q-item-section>
 
-        <q-item-section class="text-white">
-          Action, Documentary
+        <q-item-section
+          top
+          class="text-white"
+        >
+          Action, Documentary, Humor, Horror
         </q-item-section>
       </q-item>
 
       <q-item class="text-body2">
-        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
+        <q-item-section
+          top
+          class="text-grey-1 text-weight-medium video-details-label"
+        >
           Studio :
         </q-item-section>
 
-        <q-item-section class="text-white">
+        <q-item-section
+          top
+          class="text-white"
+        >
           English
         </q-item-section>
       </q-item>
 
       <q-item class="text-body2">
-        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
+        <q-item-section
+          top
+          class="text-grey-1 text-weight-medium video-details-label"
+        >
           Run Time :
         </q-item-section>
 
-        <q-item-section class="text-white">
+        <q-item-section
+          top
+          class="text-white"
+        >
           1hr 24 mins
         </q-item-section>
       </q-item>
 
       <q-item class="text-body2">
-        <q-item-section class="text-grey-1 text-weight-medium video-details-label">
+        <q-item-section
+          top
+          class="text-grey-1 text-weight-medium video-details-label"
+        >
           Release Date :
         </q-item-section>
 
-        <q-item-section class="text-white">
+        <q-item-section
+          top
+          class="text-white"
+        >
           14 Aug, 2018
         </q-item-section>
       </q-item>

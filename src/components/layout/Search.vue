@@ -41,7 +41,10 @@
               {{ scope.opt.name }}
             </q-item-label>
 
-            <q-item-label caption>
+            <q-item-label
+              caption
+              class="text-capitalize"
+            >
               {{ scope.opt.type }}
             </q-item-label>
           </q-item-section>
@@ -95,26 +98,10 @@ export default defineComponent({
       })
     }, 500)
 
-    const { fetchTags, setParams, data } = useTags({
+    const { filterTags, data } = useTags({
       module: 'search-tags',
       params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
     })
-
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
-      if (val.length < 1) {
-        abort()
-        return
-      }
-
-      await setParams({
-        params: { 'filter[query]': val, 'page[number]': 1 },
-        reset: true
-      })
-
-      await fetchTags()
-      await update()
-    }
 
     onMounted(() => {
       model.value = queryFilter

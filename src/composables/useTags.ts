@@ -25,8 +25,25 @@ export default function useTags (props: RepositoryProps) {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
+    if (val.length < 1) {
+      abort()
+      return
+    }
+
+    await setParams({
+      params: { 'filter[query]': val, 'page[number]': 1 },
+      reset: true
+    })
+
+    await fetchTags()
+    await update()
+  }
+
   return {
     fetchTags,
+    filterTags,
     resetModels,
     getParam,
     setParams,

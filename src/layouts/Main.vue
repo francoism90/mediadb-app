@@ -47,8 +47,8 @@
             aria-label="Account"
           >
             <q-menu
-              square
-              class="bg-grey-9"
+              class="bg-grey-9 account-menu"
+              :offset="[0, 5]"
             >
               <q-list style="min-width: 175px;">
                 <q-item
