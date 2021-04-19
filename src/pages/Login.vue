@@ -1,61 +1,53 @@
 <template>
   <q-page class="container fluid">
-    <template v-if="token">
-      already logged
-    </template>
-
-    <template v-else>
-      <q-card
-        class="bg-grey-10 fixed-center"
-        style="width: 400px; max-width: 100vw;"
-        square
+    <q-card
+      class="bg-grey-10 fixed-center"
+      style="width: 400px; max-width: 100vw;"
+      square
+    >
+      <q-form
+        ref="formRef"
+        @submit="onSubmit"
       >
-        <q-form
-          ref="formRef"
-          @submit="onSubmit"
+        <q-card-section class="row no-wrap justify-between items-center content-center">
+          <div class="col text-h6 ellipsis">
+            Sign In to MediaDB
+          </div>
+        </q-card-section>
+
+        <q-separator :dark="false" />
+
+        <q-card-section class="q-px-xl q-gutter-sm">
+          <q-input
+            v-model.trim="form.email"
+            :error-message="getError('email')[0]"
+            :error="hasError('email')"
+            autofocus
+            label="Your email"
+            type="email"
+          />
+
+          <q-input
+            v-model.trim="form.password"
+            :error-message="getError('password')[0]"
+            :error="hasError('password')"
+            label="Your password"
+            type="password"
+          />
+        </q-card-section>
+
+        <q-card-actions
+          align="center"
+          class="q-pb-lg"
         >
-          <q-card-section class="row no-wrap justify-between items-center content-center">
-            <div class="col text-h6 ellipsis">
-              Sign In to MediaDB
-            </div>
-          </q-card-section>
-
-          <q-separator />
-
-          <q-card-section class="q-px-xl q-gutter-sm">
-            <q-input
-              v-model.trim="form.email"
-              :error-message="getError('email')[0]"
-              :error="hasError('email')"
-              autofocus
-              label="Your email"
-              type="email"
-            />
-
-            <q-input
-              v-model.trim="form.password"
-              :error-message="getError('password')[0]"
-              :error="hasError('password')"
-              label="Your password"
-              type="password"
-            />
-          </q-card-section>
-
-          <q-card-actions
-            align="center"
-            class="q-pb-lg"
-          >
-            <q-btn
-              no-caps
-              unelevated
-              rounded
-              type="submit"
-              label="Sign In"
-            />
-          </q-card-actions>
-        </q-form>
-      </q-card>
-    </template>
+          <q-btn
+            color="primary"
+            type="submit"
+            label="Sign In"
+          />
+        </q-card-actions>
+      </q-form>
+    </q-card>
   </q-page>
 </template>
 
@@ -63,24 +55,21 @@
 import { AxiosError } from 'axios'
 import { useQuasar } from 'quasar'
 import useFormValidation from 'src/composables/useFormValidation'
+import useSession from 'src/composables/useSession'
 import { ValidationResponse } from 'src/interfaces/form'
 import { LoginUser } from 'src/interfaces/session'
 import { loginUser } from 'src/repositories/user'
 import { router } from 'src/router'
 import { setCsrfCookie } from 'src/services/api'
 import { defineComponent, reactive, ref } from 'vue'
-import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 
 export default defineComponent({
   name: 'LoginPage',
 
   setup () {
-    const { redirectPath } = useNamespacedGetters('session', ['redirectPath'])
-    const { setToken } = useNamespacedActions('session', ['setToken'])
-    const { token } = useNamespacedState('session', ['token'])
-
     const $q = useQuasar()
-    const $router = router
+
+    const { redirectPath, resetStore, setToken } = useSession()
 
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<LoginUser>({
@@ -94,6 +83,8 @@ export default defineComponent({
 
     const onSubmit = async (): Promise<void> => {
       try {
+        await resetStore()
+
         // CSRF is only useful on PWA/SPA
         if (!$q.platform.is.cordova && !$q.platform.is.capacitor) {
           await setCsrfCookie()
@@ -103,7 +94,7 @@ export default defineComponent({
 
         await setToken(response)
 
-        await $router.push(redirectPath.value)
+        await router.push(redirectPath.value || '/')
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>
 
@@ -121,8 +112,7 @@ export default defineComponent({
       hasError,
       formRef,
       form,
-      onSubmit,
-      token
+      onSubmit
     }
   }
 })
