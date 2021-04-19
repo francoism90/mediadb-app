@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios'
 import { echoKey } from 'src/boot/echo'
+import { ErrorResponse } from 'src/interfaces/api'
 import { Video } from 'src/interfaces/video'
 import { find } from 'src/repositories/video'
 import { inject, onMounted, Ref, ref, watch } from 'vue'
@@ -9,13 +11,28 @@ interface Props {
 
 export default function useVideo (props: Props) {
   const video = ref(<Video>{})
+  const errors = ref(<ErrorResponse>{})
 
   const echo = inject(echoKey)
 
   const fetchVideo = async (): Promise<void> => {
-    const response = await find(props.id.value)
+    errors.value = <ErrorResponse>{}
+    video.value = <Video>{}
 
-    video.value = response.data
+    try {
+      const response = await find(props.id.value)
+
+      video.value = response.data
+    } catch (e: unknown) {
+      const error = e as AxiosError<ErrorResponse>
+
+      if (error.response) {
+        errors.value = error.response.data
+        return
+      }
+
+      throw error
+    }
   }
 
   const subscribe = (id: string | number): void => {
@@ -36,6 +53,7 @@ export default function useVideo (props: Props) {
     fetchVideo,
     subscribe,
     unsubscribe,
+    errors,
     video
   }
 }

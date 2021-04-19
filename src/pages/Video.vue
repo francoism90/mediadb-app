@@ -1,5 +1,20 @@
 <template>
   <q-page :key="id">
+    <template v-if="errors && errors.message">
+      <q-banner class="container q-py-lg">
+        <template #avatar>
+          <q-icon
+            name="error_outline"
+            color="primary"
+          />
+        </template>
+
+        <span class="text-body2">
+          Unable to Play Video. An error occurred.
+        </span>
+      </q-banner>
+    </template>
+
     <template v-if="video && video.id">
       <video-player :video="video" />
 
@@ -16,10 +31,6 @@
 
         <video-related :video="video" />
       </div>
-    </template>
-
-    <template v-else>
-      Loading ..
     </template>
   </q-page>
 </template>
@@ -60,7 +71,7 @@ export default defineComponent({
 
   setup (props: Props) {
     const { id } = toRefs(props)
-    const { subscribe, unsubscribe, video } = useVideo({ id })
+    const { subscribe, unsubscribe, errors, video } = useVideo({ id })
 
     onMounted(() => subscribe(id.value))
 
@@ -72,6 +83,7 @@ export default defineComponent({
     onBeforeUnmount(() => unsubscribe(id.value))
 
     return {
+      errors,
       video
     }
   }
