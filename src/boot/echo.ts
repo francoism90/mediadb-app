@@ -4,11 +4,11 @@ import Pusher from 'pusher-js'
 import { boot } from 'quasar/wrappers'
 import { api } from 'src/boot/axios'
 import { StoreState } from 'src/interfaces/store'
+import { InjectionKey } from 'vue'
 import { Store } from 'vuex'
 
 function createEcho (store: Store<StoreState>): Echo {
   const authToken = store.state.session.token || ''
-  console.log(authToken)
 
   return new Echo({
     broadcaster: 'pusher',
@@ -48,7 +48,13 @@ function createEcho (store: Store<StoreState>): Echo {
   })
 }
 
+export const echoKey: InjectionKey<Echo> = Symbol('echo-key')
+
 export default boot(({ app, store }) => {
+  const echo = createEcho(store)
+
+  app.provide(echoKey, echo)
+
   app.config.globalProperties.$pusher = Pusher
-  app.config.globalProperties.$echo = createEcho(store)
+  app.config.globalProperties.$echo = echo
 })

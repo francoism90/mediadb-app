@@ -25,8 +25,6 @@ export default defineComponent({
 
     onMounted(async () => {
       await logOut()
-
-      // Redirect back to home
       await router.push({ name: 'home' })
     })
   }
