@@ -18,7 +18,6 @@ export default boot(({ app, store, urlPath }) => {
   api.interceptors.request.use((config) => {
     config.headers = {
       Authorization: `Bearer ${token}`,
-      // Accept: 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     }
 
@@ -30,7 +29,7 @@ export default boot(({ app, store, urlPath }) => {
   api.interceptors.response.use((response) => {
     return response
   }, (error: AxiosError) => {
-    // Upstream rate limiting
+    // API rate limiting
     if (error?.response?.status === 429 && !urlPath.startsWith('/429')) {
       return Promise.reject({ url: '/429' })
     }
