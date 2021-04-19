@@ -2,9 +2,13 @@ import { SessionState } from 'src/interfaces/store'
 import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 
 export default function useSession () {
-  const { reset } = useNamespacedActions('session', ['reset'])
+  const { resetStore, setToken } = useNamespacedActions('session', ['resetStore'])
   const { isAuthenticated } = useNamespacedGetters('session', ['isAuthenticated'])
-  const { user } = useNamespacedState<SessionState>('session', ['user'])
+  const { redirectPath, token, user } = useNamespacedState<SessionState>('session', [
+    'redirectPath',
+    'token',
+    'user'
+  ])
 
   const hasRole = (payload: string): boolean | undefined => {
     if (!isAuthenticated || !user.value.roles) {
@@ -55,12 +59,15 @@ export default function useSession () {
   }
 
   return {
-    reset,
+    resetStore,
+    setToken,
     isAuthenticated,
     hasRole,
     hasAnyRole,
     hasPermission,
     hasAnyPermissions,
+    redirectPath,
+    token,
     user
   }
 }

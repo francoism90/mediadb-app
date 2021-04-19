@@ -42,10 +42,25 @@
             dense
             round
             color="grey-10"
+            class="cursor-pointer"
             icon="account_circle"
             aria-label="Account"
-            @click="toggleDrawer"
-          />
+          >
+            <q-menu
+              square
+              class="bg-grey-9"
+            >
+              <q-list style="min-width: 175px;">
+                <q-item
+                  v-close-popup
+                  clickable
+                  :to="{ name: 'logout' }"
+                >
+                  <q-item-section>Log Out</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
         </div>
       </q-toolbar>
     </q-header>

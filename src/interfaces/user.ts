@@ -4,9 +4,10 @@ export interface UserSettings {
 }
 
 export interface User extends Model {
+  'email': string | null
   'avatar_url'?: string | null
-  'roles'?: string[]
-  'permissions'?: string[]
+  'roles': string[]
+  'permissions': string[]
   'settings'?: UserSettings[]
 }
 

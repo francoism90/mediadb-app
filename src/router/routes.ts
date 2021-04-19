@@ -50,6 +50,18 @@ const routes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: '/logout',
+    component: () => import('layouts/Auth.vue'),
+    children: [
+      {
+        path: '',
+        name: 'logout',
+        component: () => import('pages/Logout.vue'),
+        meta: { auth: true }
+      }
+    ]
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/Error404.vue')
   }

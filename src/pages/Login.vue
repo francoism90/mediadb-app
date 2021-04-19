@@ -49,7 +49,6 @@
               no-caps
               unelevated
               rounded
-              class="btn-outline btn-primary"
               type="submit"
               label="Sign In"
             />
@@ -87,8 +86,8 @@ export default defineComponent({
     const form = reactive<LoginUser>({
       email: '',
       password: '',
-      deviceName: $q.platform.userAgent,
-      remember: true
+      device_name: $q.platform.userAgent || '',
+      remember_me: true
     })
 
     const { getError, hasError, setResponse } = useFormValidation()
