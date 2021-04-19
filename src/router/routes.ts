@@ -18,7 +18,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/Main.vue'),
     children: [
       {
-        path: ':id/:slug?',
+        path: ':id/:slug?/:version?',
         name: 'video',
         component: () => import('pages/Video.vue'),
         props: true,
