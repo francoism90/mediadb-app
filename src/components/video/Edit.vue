@@ -4,7 +4,7 @@
     @hide="onDialogHide"
   >
     <q-card
-      class="bg-grey-10  q-dialog-plugin"
+      class="bg-grey-10 q-pa-md q-dialog-plugin"
       style="width: 400px; max-width: 100vw;"
       square
     >
@@ -12,9 +12,9 @@
         ref="formRef"
         @submit="onSubmit"
       >
-        <q-card-section class="row no-wrap justify-between items-center content-center">
-          <div class="col text-h6 ellipsis">
-            {{ video.name }}
+        <q-card-section>
+          <div class="text-h4 ellipsis">
+            Edit Video
           </div>
         </q-card-section>
 
@@ -36,14 +36,8 @@
         <q-card-actions align="right">
           <q-btn
             color="primary"
-            label="OK"
+            label="Save Changes"
             @click="onSubmit"
-          />
-
-          <q-btn
-            color="primary"
-            label="Cancel"
-            @click="onCancelClick"
           />
         </q-card-actions>
       </q-form>
