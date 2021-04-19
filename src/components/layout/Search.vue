@@ -67,11 +67,7 @@ interface Searchable {
 }
 
 const searchable = [
-  {
-    label: 'Search videos',
-    route: 'home',
-    module: 'videos'
-  }
+  { label: 'Search videos', route: 'home', module: 'videos' }
 ]
 
 export default defineComponent({
@@ -81,15 +77,14 @@ export default defineComponent({
     const currentSearch = ref<Searchable>()
     const model = ref('')
 
-    const setCurrentSearch = () => {
+    const setSearchable = () => {
       currentSearch.value = searchable.find(x => x.route === router.currentRoute.value.name)
     }
 
-    onMounted(setCurrentSearch)
-    watch(router.currentRoute, setCurrentSearch)
-
     const { setParams: setModuleParams } = useRepository({ module: 'videos' })
     const { getParam: getModuleParam } = useRepositoryGetters('videos')
+
+    const queryFilter = getModuleParam('filter[query]') as string
 
     const setModel = debounce(async (val: string): Promise<void> => {
       model.value = val
@@ -121,7 +116,11 @@ export default defineComponent({
       await update()
     }
 
-    model.value = getModuleParam('filter[query]') as string
+    onMounted(() => {
+      model.value = queryFilter
+    })
+
+    watch(router.currentRoute, setSearchable, { immediate: true })
 
     return {
       currentSearch,
