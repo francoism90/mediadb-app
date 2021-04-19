@@ -25,11 +25,12 @@
 </template>
 
 <script lang="ts">
+import { echoKey } from 'src/boot/echo'
 import VideoPlayer from 'src/components/player/Video.vue'
 import VideoDetails from 'src/components/video/Details.vue'
 import VideoRelated from 'src/components/video/Related.vue'
 import useVideo from 'src/composables/useVideo'
-import { defineComponent, PropType, toRefs } from 'vue'
+import { defineComponent, inject, onBeforeUnmount, onMounted, PropType, toRefs, watch } from 'vue'
 
 export interface Props {
   id: string,
@@ -60,7 +61,30 @@ export default defineComponent({
 
   setup (props: Props) {
     const { id } = toRefs(props)
-    const { video } = useVideo({ id })
+    const { fetchVideo, video } = useVideo({ id })
+
+    const echo = inject(echoKey)
+
+    const subscribe = (): void => {
+      echo?.private(`video.${id.value}`)
+        .listen('.video.updated', async () => {
+          await fetchVideo()
+        })
+        .listen('.video.favorited', async () => {
+          await fetchVideo()
+        })
+    }
+
+    onMounted(subscribe)
+
+    watch(id, (value, oldValue): void => {
+      subscribe()
+      echo?.leave(`video.${oldValue}`)
+    })
+
+    onBeforeUnmount(() => {
+      echo?.leave(id.value)
+    })
 
     return {
       video
