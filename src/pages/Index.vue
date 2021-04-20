@@ -4,7 +4,10 @@
       <filters module="videos" />
     </q-toolbar>
 
-    <q-pull-to-refresh :key="id">
+    <q-pull-to-refresh
+      :key="id"
+      @refresh="onRefresh"
+    >
       <q-infinite-scroll
         class="row wrap justify-start items-start content-start q-col-gutter-lg"
         @load="onLoad"
@@ -37,12 +40,12 @@ export default defineComponent({
   },
 
   setup () {
-    const { fetchVideos, isLoadable, id, data, meta } = useVideos({
+    const { fetchVideos, isLoadable, setParams, id, data, meta } = useVideos({
       module: 'videos',
       params: <VideosParameters>{
         sort: 'recommended',
         'page[number]': 1,
-        'page[size]': 5
+        'page[size]': 12
       }
     })
 
@@ -58,8 +61,19 @@ export default defineComponent({
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const onRefresh = async (done: Function): Promise<void> => {
+      await setParams({
+        params: { 'page[number]': 1 },
+        reset: true
+      })
+
+      done()
+    }
+
     return {
       onLoad,
+      onRefresh,
       id,
       data,
       meta
