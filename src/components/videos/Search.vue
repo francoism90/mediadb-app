@@ -1,13 +1,11 @@
 <template>
   <q-form
-    v-show="search"
     class="q-mx-md header-search"
     @submit.prevent
   >
     <tag-input
       v-model:tags="query"
-      :max-values="15"
-      :placeholder="search?.label || 'Search'"
+      placeholder="Search Videos"
       behavior="menu"
       class="full-height full-width"
       fill-input
@@ -17,7 +15,7 @@
       hide-selected
       square
       use-input
-      @input-value="setModel"
+      @input-value="performQuery"
     />
   </q-form>
 </template>
@@ -27,38 +25,23 @@ import { debounce } from 'quasar'
 import TagInput from 'src/components/form/TagInput.vue'
 import useRepository from 'src/composables/useRepository'
 import useRepositoryGetters from 'src/composables/useRepositoryGetters'
-import { router } from 'src/router'
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
-
-interface Searchable {
-  label: string,
-  route: string,
-  module: string
-}
-
-const searchable = [
-  { label: 'Search videos', route: 'home', module: 'videos' }
-]
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'AppSearch',
+  name: 'VideoSearch',
 
   components: {
     TagInput
   },
 
   setup () {
-    const search = ref<Searchable>()
-    const query = ref<string>('')
-
-    const configSearch = () => {
-      search.value = searchable.find(x => x.route === router.currentRoute.value.name)
-    }
-
     const { setParams: setModuleParams } = useRepository({ module: 'videos' })
     const { getParam: getModuleParam } = useRepositoryGetters('videos')
 
-    const setModel = debounce(async (val: string): Promise<void> => {
+    const currentQuery = getModuleParam('filter[query]') as string
+    const query = ref(currentQuery)
+
+    const performQuery = debounce(async (val: string): Promise<void> => {
       query.value = val
 
       await setModuleParams({
@@ -67,18 +50,9 @@ export default defineComponent({
       })
     }, 500)
 
-    const queryFilter = computed(() => getModuleParam('filter[query]') as string)
-
-    onMounted(() => {
-      query.value = queryFilter.value
-    })
-
-    watch(router.currentRoute, configSearch, { immediate: true })
-
     return {
       query,
-      search,
-      setModel
+      performQuery
     }
   }
 })

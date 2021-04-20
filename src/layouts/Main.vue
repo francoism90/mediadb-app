@@ -84,7 +84,7 @@
 
 <script lang="ts">
 import Drawer from 'src/components/layout/Drawer.vue'
-import Search from 'src/components/layout/Search.vue'
+import Search from 'src/components/videos/Search.vue'
 import { router } from 'src/router'
 import { defineComponent, ref } from 'vue'
 
