@@ -7,9 +7,10 @@
   >
     <q-menu
       anchor="top left"
+      class="menu"
       self="top left"
       square
-      class="menu"
+      transition-duration="0"
     >
       <q-list
         bordered
@@ -38,7 +39,7 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label class="text-body2 text-grey-4">
+            <q-item-label class="text-grey-4">
               {{ sorter.label }}
             </q-item-label>
           </q-item-section>

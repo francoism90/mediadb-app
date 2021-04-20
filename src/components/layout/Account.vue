@@ -9,9 +9,10 @@
   >
     <q-menu
       anchor="top left"
+      class="menu"
       self="top left"
       square
-      class="menu"
+      transition-duration="0"
     >
       <q-list
         bordered
