@@ -57,9 +57,9 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { formatTimestamp } = useFilters()
+    const { formatTime } = useFilters()
 
-    const clipDuration = computed(() => formatTimestamp(props.video.clip?.duration || 0))
+    const clipDuration = computed(() => formatTime(props.video.clip?.duration || 0))
 
     return {
       clipDuration

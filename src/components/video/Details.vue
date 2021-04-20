@@ -25,112 +25,72 @@
       dense
       class="q-py-md video-details-list"
     >
-      <q-item class="text-body2">
-        <q-item-section
-          top
-          class="text-grey-1 text-weight-medium video-details-label"
-        >
-          Language :
-        </q-item-section>
+      <item v-if="languages.length">
+        <template #label>
+          Languages :
+        </template>
+        <list :tags="languages" />
+      </item>
 
-        <q-item-section
-          top
-          class="text-white"
-        >
-          English
-        </q-item-section>
-      </q-item>
-
-      <q-item class="text-body2">
-        <q-item-section
-          top
-          class="text-grey-1 text-weight-medium video-details-label"
-        >
+      <item v-if="cast.length">
+        <template #label>
           Cast :
-        </q-item-section>
+        </template>
+        <list :tags="cast" />
+      </item>
 
-        <q-item-section
-          top
-          class="text-white"
-        >
-          English
-        </q-item-section>
-      </q-item>
+      <item v-if="genres.length">
+        <template #label>
+          Genres :
+        </template>
+        <list :tags="genres" />
+      </item>
 
-      <q-item class="text-body2">
-        <q-item-section
-          top
-          class="text-grey-1 text-weight-medium video-details-label"
-        >
-          Genre :
-        </q-item-section>
+      <item v-if="studios.length">
+        <template #label>
+          Studios :
+        </template>
+        <list :tags="studios" />
+      </item>
 
-        <q-item-section
-          top
-          class="text-white"
-        >
-          Action, Documentary, Humor, Horror
-        </q-item-section>
-      </q-item>
-
-      <q-item class="text-body2">
-        <q-item-section
-          top
-          class="text-grey-1 text-weight-medium video-details-label"
-        >
-          Studio :
-        </q-item-section>
-
-        <q-item-section
-          top
-          class="text-white"
-        >
-          English
-        </q-item-section>
-      </q-item>
-
-      <q-item class="text-body2">
-        <q-item-section
-          top
-          class="text-grey-1 text-weight-medium video-details-label"
-        >
+      <item v-if="duration">
+        <template #label>
           Run Time :
-        </q-item-section>
+        </template>
+        {{ duration }}
+      </item>
 
-        <q-item-section
-          top
-          class="text-white"
-        >
-          1hr 24 mins
-        </q-item-section>
-      </q-item>
+      <item v-if="video.release_date">
+        <template #label>
+          Release Date:
+        </template>
+        {{ released }}
+      </item>
 
-      <q-item class="text-body2">
-        <q-item-section
-          top
-          class="text-grey-1 text-weight-medium video-details-label"
-        >
-          Release Date :
-        </q-item-section>
-
-        <q-item-section
-          top
-          class="text-white"
-        >
-          14 Aug, 2018
-        </q-item-section>
-      </q-item>
+      <item v-if="video.created_at">
+        <template #label>
+          Upload Date:
+        </template>
+        {{ created }}
+      </item>
     </q-list>
   </div>
 </template>
 
 <script lang="ts">
+import List from 'src/components/tags/List.vue'
+import Item from 'src/components/video/Item.vue'
 import useFilters from 'src/composables/useFilters'
 import { Video } from 'src/interfaces/video'
 import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'VideoDetails',
+
+  components: {
+    Item,
+    List
+  },
 
   props: {
     video: {
@@ -140,11 +100,27 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { formatTimestamp } = useFilters()
-    const timestamp = computed(() => formatTimestamp(props.video.clip?.duration || 0))
+    const { formatDate, formatTime } = useFilters()
+
+    const tagsByType = (type: string) => props.video.tags?.filter(tag => tag.type === type)
+
+    const cast = computed(() => tagsByType('actor'))
+    const languages = computed(() => tagsByType('language'))
+    const genres = computed(() => tagsByType('genre'))
+    const studios = computed(() => tagsByType('studio'))
+
+    const duration = computed(() => formatTime(props.video.clip?.duration || 0))
+    const created = computed(() => formatDate(props.video.created_at || Date.now()))
+    const released = computed(() => formatDate(props.video.release_date || Date.now()))
 
     return {
-      timestamp
+      cast,
+      languages,
+      genres,
+      studios,
+      duration,
+      created,
+      released
     }
   }
 })

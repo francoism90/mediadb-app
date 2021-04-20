@@ -21,10 +21,10 @@ export default defineComponent({
 
   setup (props) {
     const { stream } = usePlayer({ module: props.module })
-    const { formatTimestamp } = useFilters()
+    const { formatTime } = useFilters()
 
-    const currentTime = computed(() => formatTimestamp(stream.value?.currentTime || 0))
-    const duration = computed(() => formatTimestamp(stream.value?.duration || 0))
+    const currentTime = computed(() => formatTime(stream.value?.currentTime || 0))
+    const duration = computed(() => formatTime(stream.value?.duration || 0))
 
     return {
       stream,

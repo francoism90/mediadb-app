@@ -36,6 +36,14 @@
             v-model:tags="form.tags"
             :error-message="getError('tags')[0]"
             :error="hasError('tags')"
+            :max-values="15"
+            counter
+            hide-dropdown-icon
+            label="Tags"
+            multiple
+            stack-label
+            use-chips
+            use-input
           />
         </q-card-section>
 

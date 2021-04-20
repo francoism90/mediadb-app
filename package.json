@@ -24,6 +24,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.10.1",
     "dashjs": "^3.2.2",
+    "dayjs": "^1.10.4",
     "laravel-echo": "^1.10.0",
     "lodash": "^4.17.21",
     "pusher-js": "^7.0.3",

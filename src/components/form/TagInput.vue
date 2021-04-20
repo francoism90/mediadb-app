@@ -3,16 +3,8 @@
     :model-value="tags"
     :input-debounce="500"
     :options="data"
-    :max-values="15"
-    counter
-    hide-dropdown-icon
-    label="Tags"
-    multiple
     option-label="name"
     option-value="id"
-    stack-label
-    use-chips
-    use-input
     @update:model-value="(value) => $emit('update:tags', value)"
     @filter="filterTags"
   >
