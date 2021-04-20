@@ -6,7 +6,7 @@ import { PlayerState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
 import playerModule from 'src/store/player'
 import { ref, watch } from 'vue'
-import { useNamespacedActions, useNamespacedMutations, useNamespacedState } from 'vuex-composition-helpers'
+import { useNamespacedActions, useNamespacedGetters, useNamespacedMutations, useNamespacedState } from 'vuex-composition-helpers'
 
 export default function usePlayer (props: PlayerProps) {
   const $q = useQuasar()
@@ -27,6 +27,10 @@ export default function usePlayer (props: PlayerProps) {
     'resetStore',
     'initialize',
     'sendRequest'
+  ])
+
+  const { isLoading } = useNamespacedGetters(props.module, [
+    'isLoading'
   ])
 
   const { setStream } = useNamespacedMutations(props.module, [
@@ -93,6 +97,7 @@ export default function usePlayer (props: PlayerProps) {
     setStream,
     setMetadata,
     setPlayable,
+    isLoading,
     player,
     model,
     media,

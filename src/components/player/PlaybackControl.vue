@@ -3,7 +3,14 @@
     v-if="stream && stream.readyState > 0"
     class="absolute-center q-gutter-xs player-control"
   >
-    <template v-if="stream && stream.readyState > 2">
+    <template v-if="isLoading">
+      <q-spinner-dots
+        color="white"
+        size="64px"
+      />
+    </template>
+
+    <template v-else>
       <q-icon
         name="replay_10"
         class="cursor-pointer"
@@ -29,13 +36,6 @@
         @click="increaseTime"
       />
     </template>
-
-    <template v-else>
-      <q-spinner-dots
-        color="white"
-        size="64px"
-      />
-    </template>
   </div>
 </template>
 
@@ -54,7 +54,7 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { request, stream, sendRequest } = usePlayer({ module: props.module })
+    const { isLoading, request, stream, sendRequest } = usePlayer({ module: props.module })
 
     const icon = computed(() => stream.value?.paused === true ? 'play_arrow' : 'pause')
 
@@ -71,6 +71,7 @@ export default defineComponent({
     }
 
     return {
+      isLoading,
       request,
       stream,
       sendRequest,
