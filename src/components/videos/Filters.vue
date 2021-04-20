@@ -9,6 +9,7 @@
       anchor="top left"
       self="top left"
       square
+      class="menu"
     >
       <q-list
         bordered

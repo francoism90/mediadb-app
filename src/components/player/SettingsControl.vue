@@ -9,8 +9,14 @@
       <q-menu
         anchor="top left"
         self="top left"
+        square
+        class="menu"
       >
-        <q-list style="min-width: 150px;">
+        <q-list
+          bordered
+          padding
+          style="width: 200px; max-width: 100vw;"
+        >
           <q-item
             v-close-popup
             clickable

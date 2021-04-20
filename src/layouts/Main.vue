@@ -38,29 +38,7 @@
         <search-videos v-show="routeName === 'home'" />
 
         <div class="row no-wrap items-center">
-          <q-btn
-            dense
-            round
-            color="grey-10"
-            class="cursor-pointer"
-            icon="account_circle"
-            aria-label="Account"
-          >
-            <q-menu
-              class="bg-grey-9 account-menu"
-              :offset="[0, 5]"
-            >
-              <q-list style="min-width: 175px;">
-                <q-item
-                  v-close-popup
-                  clickable
-                  :to="{ name: 'logout' }"
-                >
-                  <q-item-section>Log Out</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
+          <account />
         </div>
       </q-toolbar>
     </q-header>
@@ -83,6 +61,7 @@
 </template>
 
 <script lang="ts">
+import Account from 'src/components/layout/Account.vue'
 import Drawer from 'src/components/layout/Drawer.vue'
 import SearchVideos from 'src/components/videos/Search.vue'
 import { router } from 'src/router'
@@ -93,7 +72,8 @@ export default defineComponent({
 
   components: {
     Drawer,
-    SearchVideos
+    SearchVideos,
+    Account
   },
 
   setup () {
