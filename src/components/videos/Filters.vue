@@ -1,6 +1,6 @@
 <template>
   <q-btn
-    icon="expand_more"
+    icon="filter_list"
     label="Filters"
     color="grey-5"
     outline
