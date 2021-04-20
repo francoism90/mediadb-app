@@ -50,7 +50,7 @@ export default defineComponent({
     const { video } = toRefs(props)
 
     const { fetchVideos, isLoadable, setParams, id, data, meta } = useVideos({
-      module: 'video-related',
+      module: `video-related-${video.value.id}`,
       params: <VideosParameters>{
         sort: 'recommended',
         'filter[related]': video.value.id,

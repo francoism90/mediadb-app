@@ -6,7 +6,7 @@ import { VideosParameters } from 'src/interfaces/video'
 import { findAll } from 'src/repositories/video'
 
 export default function useVideos (props: RepositoryProps) {
-  const { resetModels, setParams, setResponse } = useRepository(props)
+  const { resetModels, resetStore, setParams, setResponse } = useRepository(props)
 
   const { getParam, getParams, isLoadable, nextPage } = useRepositoryGetters(props.module)
 
@@ -28,6 +28,7 @@ export default function useVideos (props: RepositoryProps) {
   return {
     fetchVideos,
     resetModels,
+    resetStore,
     getParam,
     setParams,
     isLoadable,
