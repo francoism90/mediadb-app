@@ -32,41 +32,7 @@
             type="text"
           />
 
-          <q-select
-            v-model="form.tags"
-            :error-message="getError('tags')[0]"
-            :error="hasError('tags')"
-            :input-debounce="500"
-            :options="tags"
-            :max-values="15"
-            counter
-            hide-dropdown-icon
-            label="Tags"
-            multiple
-            option-label="name"
-            option-value="id"
-            stack-label
-            use-chips
-            use-input
-            @filter="filterTags"
-          >
-            <template #option="scope">
-              <q-item v-bind="scope.itemProps">
-                <q-item-section>
-                  <q-item-label>
-                    {{ scope.opt.name }}
-                  </q-item-label>
-
-                  <q-item-label
-                    caption
-                    class="text-capitalize"
-                  >
-                    {{ scope.opt.type }}
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-select>
+          <tag-input v-model:tags="form.tags" />
         </q-card-section>
 
         <q-card-actions align="right">
@@ -84,16 +50,16 @@
 <script lang="ts">
 import { AxiosError } from 'axios'
 import { useDialogPluginComponent } from 'quasar'
+import TagInput from 'src/components/form/TagInput.vue'
 import useFormValidation from 'src/composables/useFormValidation'
-import useTags from 'src/composables/useTags'
 import { ValidationResponse } from 'src/interfaces/form'
-import { TagsParameters } from 'src/interfaces/tag'
 import { Video } from 'src/interfaces/video'
 import { update } from 'src/repositories/video'
 import { defineComponent, PropType, reactive, ref } from 'vue'
 
 export default defineComponent({
   name: 'VideoEdit',
+  components: { TagInput },
 
   props: {
     video: {
@@ -119,11 +85,6 @@ export default defineComponent({
 
     const { getError, hasError, setResponse } = useFormValidation()
 
-    const { filterTags, data: tags } = useTags({
-      module: 'model-tags',
-      params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
-    })
-
     const onSubmit = async (): Promise<void> => {
       try {
         await update(form)
@@ -144,12 +105,10 @@ export default defineComponent({
       hasError,
       formRef,
       form,
-      tags,
-      filterTags,
       onSubmit,
       dialogRef,
       onDialogHide,
-      onCancelClick: onDialogCancel
+      onDialogCancel
     }
   }
 })
