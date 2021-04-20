@@ -11,7 +11,6 @@
       :placeholder="currentSearch?.label || 'Search'"
       behavior="menu"
       class="full-height full-width"
-      dark
       fill-input
       filled
       hide-bottom-space
@@ -19,7 +18,6 @@
       hide-selected
       option-label="name"
       option-value="name"
-      options-dark
       square
       use-input
       @input-value="setModel"

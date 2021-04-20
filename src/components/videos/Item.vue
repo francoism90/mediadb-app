@@ -2,7 +2,6 @@
   <q-card
     class="transparent video-item"
     draggable="false"
-    dark
     flat
     square
   >

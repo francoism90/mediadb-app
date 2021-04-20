@@ -11,7 +11,6 @@
         :clickable="false"
         :ripple="false"
         dense
-        dark
       >
         <span class="q-ml-xs text-body1">{{ video.views || 0 }} views</span>
       </q-chip>

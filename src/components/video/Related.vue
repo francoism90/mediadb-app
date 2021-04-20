@@ -4,7 +4,7 @@
       More Like This
     </h1>
 
-    <q-separator dark />
+    <q-separator />
 
     <q-pull-to-refresh :key="id">
       <q-infinite-scroll

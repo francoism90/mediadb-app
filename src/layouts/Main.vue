@@ -70,7 +70,6 @@
       behavior="mobile"
       class="drawer"
       bordered
-      dark
       overlay
       :width="260"
     >
