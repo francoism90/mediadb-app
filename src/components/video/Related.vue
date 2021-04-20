@@ -6,7 +6,10 @@
 
     <q-separator />
 
-    <q-pull-to-refresh :key="id">
+    <q-pull-to-refresh
+      :key="id"
+      @refresh="onRefresh"
+    >
       <q-infinite-scroll
         class="q-py-lg row wrap justify-start items-start content-start q-col-gutter-lg"
         @load="onLoad"
@@ -46,7 +49,7 @@ export default defineComponent({
   setup (props) {
     const { video } = toRefs(props)
 
-    const { fetchVideos, isLoadable, id, data, meta } = useVideos({
+    const { fetchVideos, isLoadable, setParams, id, data, meta } = useVideos({
       module: 'video-related',
       params: <VideosParameters>{
         sort: 'recommended',
@@ -68,8 +71,19 @@ export default defineComponent({
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const onRefresh = async (done: Function): Promise<void> => {
+      await setParams({
+        params: { 'page[number]': 1 },
+        reset: true
+      })
+
+      done()
+    }
+
     return {
       onLoad,
+      onRefresh,
       id,
       data,
       meta

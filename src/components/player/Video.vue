@@ -1,7 +1,7 @@
 <template>
   <div
     ref="videoContainer"
-    class="relative-position overflow-hidden container player-container"
+    class="relative-position row no-wrap justify-center items-center player-container"
     @mouseover="sendRequest({ controls: true })"
     @mouseleave="sendRequest({ controls: false })"
   >
@@ -11,7 +11,7 @@
       crossorigin="use-credentials"
       playsinline
       preload="auto"
-      class="relative-position full-height full-width player-video"
+      class="col"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
@@ -100,7 +100,6 @@ export default defineComponent({
     }
 
     const setCurrentTime = (dom: HTMLVideoElement, value: number): void => {
-      // TODO: check duration?
       dom.currentTime = value
     }
 
