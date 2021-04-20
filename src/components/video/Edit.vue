@@ -32,7 +32,11 @@
             type="text"
           />
 
-          <tag-input v-model:tags="form.tags" />
+          <tag-input
+            v-model:tags="form.tags"
+            :error-message="getError('tags')[0]"
+            :error="hasError('tags')"
+          />
         </q-card-section>
 
         <q-card-actions align="right">
