@@ -23,6 +23,7 @@
             v-if="stream && stream.readyState > 0"
             v-close-popup
             clickable
+            @click="thumbnailMedia"
           >
             <q-item-section>Set Thumbnail</q-item-section>
           </q-item>
@@ -36,6 +37,7 @@
 import { useQuasar } from 'quasar'
 import VideoEdit from 'src/components/video/Edit.vue'
 import usePlayer from 'src/composables/usePlayer'
+import { update } from 'src/repositories/media'
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
@@ -51,7 +53,7 @@ export default defineComponent({
   setup (props) {
     const $q = useQuasar()
 
-    const { model, stream } = usePlayer({ module: props.module })
+    const { media, model, stream } = usePlayer({ module: props.module })
 
     const editModel = (): void => {
       $q.dialog({
@@ -62,9 +64,22 @@ export default defineComponent({
       })
     }
 
+    const thumbnailMedia = async (): Promise<void> => {
+      await update({
+        id: media.value?.id || '',
+        thumbnail: stream.value?.currentTime || 10
+      })
+
+      $q.notify({
+        type: 'positive',
+        message: 'The thumbnail will be updated!'
+      })
+    }
+
     return {
       stream,
-      editModel
+      editModel,
+      thumbnailMedia
     }
   }
 })
