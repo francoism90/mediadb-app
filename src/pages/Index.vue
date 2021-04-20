@@ -1,7 +1,7 @@
 <template>
   <q-page class="container">
-    <q-toolbar>
-      <sorter module="videos" />
+    <q-toolbar class="q-py-lg">
+      <filters module="videos" />
     </q-toolbar>
 
     <q-pull-to-refresh :key="id">
@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
+import Filters from 'src/components/videos/Filters.vue'
 import Item from 'src/components/videos/Item.vue'
-import Sorter from 'src/components/videos/Sorter.vue'
 import useVideos from 'src/composables/useVideos'
 import { VideosParameters } from 'src/interfaces/video'
 import { defineComponent } from 'vue'
@@ -33,7 +33,7 @@ export default defineComponent({
 
   components: {
     Item,
-    Sorter
+    Filters
   },
 
   setup () {
