@@ -28,7 +28,10 @@
         <span>{{ video.clip?.resolution }}</span>
       </div>
 
-      <chips :tags="video.tags" />
+      <chips
+        v-if="video.tags.length"
+        :tags="video.tags"
+      />
     </q-card-section>
   </q-card>
 </template>
