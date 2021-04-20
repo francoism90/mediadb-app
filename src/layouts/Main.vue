@@ -35,7 +35,7 @@
 
         <q-space />
 
-        <search />
+        <search-videos v-show="routeName === 'home'" />
 
         <div class="row no-wrap items-center">
           <q-btn
@@ -84,16 +84,16 @@
 
 <script lang="ts">
 import Drawer from 'src/components/layout/Drawer.vue'
-import Search from 'src/components/videos/Search.vue'
+import SearchVideos from 'src/components/videos/Search.vue'
 import { router } from 'src/router'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
     Drawer,
-    Search
+    SearchVideos
   },
 
   setup () {
@@ -106,11 +106,14 @@ export default defineComponent({
       drawer.value = !drawer.value
     }
 
+    const routeName = computed(() => router.currentRoute.value.name?.toString())
+
     return {
       drawer,
       toggleDrawer,
       historyBack,
-      historyForward
+      historyForward,
+      routeName
     }
   }
 })
