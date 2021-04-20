@@ -37,7 +37,7 @@ export default defineComponent({
 
   props: {
     tags: {
-      type: Array as PropType<Tag[]>,
+      type: [Array, String] as PropType<Tag[] | string>,
       required: false,
       default: () => (<Tag[]>[])
     }
