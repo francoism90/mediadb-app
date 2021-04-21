@@ -54,7 +54,7 @@ const menuList = [
   {
     icon: 'o_tag',
     label: 'Tags',
-    route: { name: 'settings' }
+    route: { name: 'tags' }
   },
   {
     icon: 'o_bookmarks',

@@ -6,7 +6,7 @@ import { TagsParameters } from 'src/interfaces/tag'
 import { findAll } from 'src/repositories/tag'
 
 export default function useTags (props: RepositoryProps) {
-  const { resetModels, setParams, setResponse } = useRepository(props)
+  const { resetModels, resetStore, setParams, setResponse } = useRepository(props)
 
   const { getParam, getParams, isLoadable, nextPage } = useRepositoryGetters(props.module)
 
@@ -45,8 +45,10 @@ export default function useTags (props: RepositoryProps) {
     fetchTags,
     filterTags,
     resetModels,
+    resetStore,
     getParam,
     setParams,
+    isLoadable,
     id,
     data,
     meta
