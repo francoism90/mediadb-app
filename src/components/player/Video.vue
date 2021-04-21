@@ -45,9 +45,9 @@
         v-show="request.controls"
         class="absolute-full player-controls"
       >
-        <playback-control module="video-player" />
-        <scrubber-control module="video-player" />
-        <settings-control module="video-player" />
+        <playback-control :module="module" />
+        <scrubber-control :module="module" />
+        <settings-control :module="module" />
       </div>
     </transition>
   </div>
@@ -72,6 +72,11 @@ export default defineComponent({
   },
 
   props: {
+    module: {
+      type: String as PropType<string>,
+      required: true
+    },
+
     video: {
       type: Object as PropType<Video>,
       required: true
@@ -85,7 +90,7 @@ export default defineComponent({
     const videoElement = ref<HTMLVideoElement | null>(null)
 
     const { createPlayer, setMetadata, setPlayable, sendRequest, request, player } = usePlayer({
-      module: 'video-player',
+      module: props.module,
       model: props.video,
       media: props.video.clip
     })

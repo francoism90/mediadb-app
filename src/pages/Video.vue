@@ -16,7 +16,10 @@
     </template>
 
     <template v-if="video && video.id">
-      <video-player :video="video" />
+      <video-player
+        :module="`video-${id}`"
+        :video="video"
+      />
 
       <div class="container">
         <video-details
