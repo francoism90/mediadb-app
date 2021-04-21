@@ -53,7 +53,7 @@
 import { debounce } from 'quasar'
 import useRepository from 'src/composables/useRepository'
 import useRepositoryGetters from 'src/composables/useRepositoryGetters'
-import { VideosParameters } from 'src/interfaces/video'
+import { TagsParameters } from 'src/interfaces/tag'
 import { defineComponent, PropType, reactive, watch } from 'vue'
 
 const sortList = [
@@ -62,17 +62,13 @@ const sortList = [
     value: 'recommended'
   },
   {
-    label: 'Recently Added',
-    value: 'created_at'
-  },
-  {
-    label: 'Duration',
-    value: 'duration'
+    label: 'Items',
+    value: 'items'
   }
 ]
 
 export default defineComponent({
-  name: 'VideosFilter',
+  name: 'TagsFilter',
 
   props: {
     module: {
@@ -82,10 +78,10 @@ export default defineComponent({
   },
 
   setup () {
-    const { setParams: setModuleParams } = useRepository({ module: 'videos' })
-    const { getParam: getModuleParam } = useRepositoryGetters('videos')
+    const { setParams: setModuleParams } = useRepository({ module: 'tags' })
+    const { getParam: getModuleParam } = useRepositoryGetters('tags')
 
-    const form = reactive<VideosParameters>({
+    const form = reactive<TagsParameters>({
       sort: getModuleParam('sort')
     })
 

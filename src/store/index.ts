@@ -1,6 +1,6 @@
 import { store } from 'quasar/wrappers'
 import { StoreState } from 'src/interfaces/store'
-import videos from 'src/store/repository'
+import repository from 'src/store/repository'
 import session from 'src/store/session'
 import { InjectionKey } from 'vue'
 import { createStore, Store as VuexStore, useStore as vuexUseStore } from 'vuex'
@@ -17,10 +17,14 @@ const persistedState = createPersistedState({
 
 export const storeKey: InjectionKey<VuexStore<StoreState>> = Symbol('vuex-key')
 
+export const tags = repository
+export const videos = repository
+
 export default store(function (/* { ssrContext } */) {
   const Store = createStore<StoreState>({
     modules: {
       session,
+      tags,
       videos
     },
     plugins: [persistedState],

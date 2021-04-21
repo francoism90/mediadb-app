@@ -36,6 +36,7 @@
         <q-space />
 
         <search-videos v-show="routeName === 'home'" />
+        <search-tags v-show="routeName === 'tags'" />
 
         <div class="row no-wrap items-center">
           <account />
@@ -63,6 +64,7 @@
 <script lang="ts">
 import Account from 'src/components/layout/Account.vue'
 import Drawer from 'src/components/layout/Drawer.vue'
+import SearchTags from 'src/components/tags/Search.vue'
 import SearchVideos from 'src/components/videos/Search.vue'
 import { router } from 'src/router'
 import { computed, defineComponent, ref } from 'vue'
@@ -72,6 +74,7 @@ export default defineComponent({
 
   components: {
     Drawer,
+    SearchTags,
     SearchVideos,
     Account
   },
