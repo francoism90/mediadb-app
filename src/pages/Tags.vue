@@ -44,7 +44,7 @@ export default defineComponent({
       module: 'tags',
       params: <TagsParameters>{
         append: 'items',
-        sort: 'recommended',
+        sort: 'name',
         'page[number]': 1,
         'page[size]': 12
       }

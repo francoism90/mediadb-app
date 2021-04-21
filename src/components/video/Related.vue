@@ -55,7 +55,7 @@ export default defineComponent({
         sort: 'recommended',
         'filter[related]': video.value.id,
         'page[number]': 1,
-        'page[size]': 5
+        'page[size]': 12
       }
     })
 

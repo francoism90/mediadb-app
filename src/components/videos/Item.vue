@@ -9,10 +9,9 @@
       <q-img
         :alt="video.name"
         :src="video.clip?.thumbnail_url"
-        height="100%"
-        width="100%"
+        placeholder-src="~assets/placeholder/16x16.webp"
         class="video-item-placeholder cursor-pointer"
-        img-class="video-item-cover"
+        img-class="video-item-placeholder"
       />
     </router-link>
 

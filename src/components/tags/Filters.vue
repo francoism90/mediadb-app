@@ -58,6 +58,10 @@ import { defineComponent, PropType, reactive, watch } from 'vue'
 
 const sortList = [
   {
+    label: 'Alphabetical',
+    value: 'name'
+  },
+  {
     label: 'Recommended',
     value: 'recommended'
   },
