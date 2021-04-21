@@ -17,8 +17,8 @@ export default function useTags (props: RepositoryProps) {
 
     if (fetch) {
       const pageNumber = nextPage.value as number
-      const pageParams = { ...{ 'page[number]': pageNumber }, ...getParams.value } as TagsParameters
-      await setParams(pageParams)
+      const pageParams = { ...getParams.value, ...{ 'page[number]': pageNumber } } as TagsParameters
+      await setParams({ params: pageParams })
 
       const response = await findAll(pageParams)
       await setResponse(response)

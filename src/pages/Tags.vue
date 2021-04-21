@@ -1,7 +1,7 @@
 <template>
   <q-page class="container">
     <q-toolbar class="q-py-lg">
-      <filters module="tags" />
+      <!-- <filters module="tags" /> -->
     </q-toolbar>
 
     <q-pull-to-refresh
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import Filters from 'src/components/tags/Filters.vue'
+// import Filters from 'src/components/tags/Filters.vue'
 import Item from 'src/components/tags/Item.vue'
 import useTags from 'src/composables/useTags'
 import { TagsParameters } from 'src/interfaces/tag'
@@ -35,8 +35,8 @@ export default defineComponent({
   name: 'IndexPage',
 
   components: {
-    Item,
-    Filters
+    Item
+    // Filters
   },
 
   setup () {

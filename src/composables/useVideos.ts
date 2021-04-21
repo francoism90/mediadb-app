@@ -17,8 +17,8 @@ export default function useVideos (props: RepositoryProps) {
 
     if (fetch) {
       const pageNumber = nextPage.value as number
-      const pageParams = { ...{ 'page[number]': pageNumber }, ...getParams.value } as VideosParameters
-      await setParams(pageParams)
+      const pageParams = { ...getParams.value, ...{ 'page[number]': pageNumber } } as VideosParameters
+      await setParams({ params: pageParams })
 
       const response = await findAll(pageParams)
       await setResponse(response)
