@@ -8,7 +8,21 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'home',
-        component: () => import('pages/Index.vue')
+        component: () => import('pages/Index.vue'),
+        meta: { auth: true }
+      }
+    ]
+  },
+  {
+    path: '/video',
+    component: () => import('layouts/Main.vue'),
+    children: [
+      {
+        path: ':id/:slug?/:version?',
+        name: 'video',
+        component: () => import('pages/Video.vue'),
+        props: true,
+        meta: { auth: true }
       }
     ]
   },
@@ -25,6 +39,18 @@ const routes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: '/tags',
+    component: () => import('layouts/Main.vue'),
+    children: [
+      {
+        path: '',
+        name: 'tags',
+        component: () => import('pages/Tags.vue'),
+        meta: { auth: true }
+      }
+    ]
+  },
+  {
     path: '/login',
     component: () => import('layouts/Auth.vue'),
     children: [
@@ -32,6 +58,18 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'login',
         component: () => import('pages/Login.vue')
+      }
+    ]
+  },
+  {
+    path: '/logout',
+    component: () => import('layouts/Auth.vue'),
+    children: [
+      {
+        path: '',
+        name: 'logout',
+        component: () => import('pages/Logout.vue'),
+        meta: { auth: true }
       }
     ]
   },

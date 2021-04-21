@@ -1,47 +1,83 @@
 <template>
   <q-page class="container">
+    <q-toolbar class="q-py-lg">
+      <filters module="videos" />
+    </q-toolbar>
 
+    <q-pull-to-refresh
+      :key="id"
+      @refresh="onRefresh"
+    >
+      <q-infinite-scroll
+        class="row wrap justify-start items-start content-start q-col-gutter-lg"
+        @load="onLoad"
+      >
+        <q-intersection
+          v-for="(item, index) in data"
+          :key="index"
+          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 video-item"
+        >
+          <item :video="item" />
+        </q-intersection>
+      </q-infinite-scroll>
+    </q-pull-to-refresh>
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from 'src/services/store'
+import Filters from 'src/components/videos/Filters.vue'
+import Item from 'src/components/videos/Item.vue'
+import useVideos from 'src/composables/useVideos'
+import { VideosParameters } from 'src/interfaces/video'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'PageIndex',
+  name: 'IndexPage',
+
+  components: {
+    Item,
+    Filters
+  },
 
   setup () {
-    const store = useStore()
+    const { fetchVideos, isLoadable, setParams, id, data, meta } = useVideos({
+      module: 'videos',
+      params: <VideosParameters>{
+        sort: 'recommended',
+        'page[number]': 1,
+        'page[size]': 12
+      }
+    })
 
-    const twiceTheCounter = computed(() => store.state.session.timestamp)
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const onLoad = async (index: number, done: Function): Promise<void> => {
+      try {
+        await fetchVideos()
+        await done(!isLoadable.value)
+      } catch {
+        //
+      } finally {
+        //
+      }
+    }
 
-    console.log(twiceTheCounter)
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const onRefresh = async (done: Function): Promise<void> => {
+      await setParams({
+        params: { 'page[number]': 1 },
+        reset: true
+      })
 
-    // const test = store.dispatch('foo/bar')
+      done()
+    }
 
-    // console.log(test)
-
-    // How to call getters/dispatch/etc. here?
+    return {
+      onLoad,
+      onRefresh,
+      id,
+      data,
+      meta
+    }
   }
-
-  // computed: {
-  //   // mix the getters into computed with object spread operator
-  //   ...mapGetters([
-  //     'doneTodosCount',
-  //     'anotherGetter'
-  //     // ...
-  //   ])
-  // }
-
-  // computed: {
-  //   bla () {
-  //     return this.$store.state.session.timestamp
-  //   },
-
-  // foo () {
-  // return this.$store.getters['session/getTimestampDiff']
-  // }
-  // }
 })
 </script>

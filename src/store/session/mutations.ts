@@ -1,11 +1,15 @@
-import { MutationTree } from 'vuex'
-import { Profile } from 'src/interfaces/session'
 import { SessionState } from 'src/interfaces/store'
-import defaultState from './state'
+import { User } from 'src/interfaces/user'
+import defaultState from 'src/store/session/state'
+import { MutationTree } from 'vuex'
 
 const mutation: MutationTree<SessionState> = {
   resetStore (state: SessionState) {
     Object.assign(state, defaultState())
+  },
+
+  setRedirectPath (state: SessionState, payload: string | null) {
+    state.redirectPath = payload
   },
 
   setToken (state: SessionState, payload: string) {
@@ -16,8 +20,8 @@ const mutation: MutationTree<SessionState> = {
     state.timestamp = payload
   },
 
-  setUser (state: SessionState, payload: Profile) {
-    Object.assign(state.user, payload)
+  setUser (state: SessionState, payload: User) {
+    state.user = Object.assign(state.user, payload)
   }
 }
 

@@ -1,59 +1,58 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header
-      class="md-header row items-center content-center no-wrap"
+      bordered
+      class="header row items-center content-center no-wrap"
       height-hint="58"
     >
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleDrawer"
-        />
+      <q-toolbar class="header-container">
+        <div class="row items-center content-center no-wrap">
+          <q-icon
+            name="o_menu"
+            class="cursor-pointer q-mr-md"
+            size="24px"
+            aria-label="Account"
+            @click="toggleDrawer"
+          />
 
-        <global-search />
+          <q-btn
+            dense
+            color="grey-10"
+            icon="chevron_left"
+            aria-label="Back"
+            @click="historyBack"
+          />
+
+          <q-btn
+            dense
+            color="grey-10"
+            icon="chevron_right"
+            aria-label="Forward"
+            class="q-ml-xs"
+            @click="historyForward"
+          />
+        </div>
 
         <q-space />
 
-        <div class="q-gutter-x-xs row no-wrap items-center">
-          <q-btn
-            flat
-            dense
-            icon="notifications"
-            aria-label="Menu"
-            @click="toggleDrawer"
-          />
+        <search-videos v-show="routeName === 'home'" />
+        <search-tags v-show="routeName === 'tags'" />
 
-          <q-btn
-            flat
-            dense
-            icon="account_circle"
-            aria-label="Menu"
-            @click="toggleDrawer"
-          />
+        <div class="row no-wrap items-center">
+          <account />
         </div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="drawerOpen"
-      class="md-drawer"
+      v-model="drawer"
+      behavior="mobile"
+      class="drawer"
+      bordered
+      overlay
+      :width="260"
     >
-      <q-scroll-area class="md-drawer-container">
-        <q-list>
-          <q-item-label class="md-drawer-top">
-            <span class="text-grey-5">MediaDB</span>
-          </q-item-label>
-
-          <navigation-link
-            v-for="link in essentialLinks"
-            :key="link.title"
-            v-bind="link"
-          />
-        </q-list>
-      </q-scroll-area>
+      <drawer />
     </q-drawer>
 
     <q-page-container>
@@ -63,74 +62,41 @@
 </template>
 
 <script lang="ts">
-import NavigationLink from 'components/toolbar/NavigationLink.vue'
-import GlobalSearch from 'components/toolbar/GlobalSearch.vue'
-
-const linksList = [
-  {
-    title: 'Library',
-    caption: 'quasar.dev',
-    icon: 'video_library',
-    link: { name: 'home' },
-    exact: true
-  },
-  {
-    title: 'Docs',
-    caption: 'Our API Docs',
-    icon: 'school',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Code',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: { name: 'settings' }
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: { name: 'settings' }
-  }
-]
-
-import { defineComponent, ref } from 'vue'
+import Account from 'src/components/layout/Account.vue'
+import Drawer from 'src/components/layout/Drawer.vue'
+import SearchTags from 'src/components/tags/Search.vue'
+import SearchVideos from 'src/components/videos/Search.vue'
+import { router } from 'src/router'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'Main',
+  name: 'MainLayout',
 
   components: {
-    NavigationLink,
-    GlobalSearch
+    Drawer,
+    SearchTags,
+    SearchVideos,
+    Account
   },
 
   setup () {
-    const drawerOpen = ref(false)
+    const drawer = ref(false)
+
+    const historyBack = () => router.back()
+    const historyForward = () => router.forward()
+
+    const toggleDrawer = () => {
+      drawer.value = !drawer.value
+    }
+
+    const routeName = computed(() => router.currentRoute.value.name?.toString())
 
     return {
-      essentialLinks: linksList,
-      drawerOpen,
-      toggleDrawer () {
-        drawerOpen.value = !drawerOpen.value
-      }
+      drawer,
+      toggleDrawer,
+      historyBack,
+      historyForward,
+      routeName
     }
   }
 })

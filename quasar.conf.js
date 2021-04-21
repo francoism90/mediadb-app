@@ -29,11 +29,10 @@ module.exports = configure(function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
-      'store',
       'i18n',
       'axios',
-      'model',
       'auth',
+      'echo',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -43,28 +42,20 @@ module.exports = configure(function (/* ctx */) {
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
-      // 'ionicons-v4',
-      // 'mdi-v5',
-      // 'fontawesome-v5',
-      // 'eva-icons',
-      // 'themify',
-      // 'line-awesome',
-      // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-      'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'material-icons',
+      'material-icons-outlined'
     ],
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
 
-      // transpile: false,
+      transpile: true,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
       // Applies only if "transpile" is set to true.
-      // transpileDependencies: [],
+      transpileDependencies: [/vuex-composition-helpers/],
 
       // rtl: false, // https://quasar.dev/options/rtl-support
       // preloadChunks: true,
@@ -87,33 +78,23 @@ module.exports = configure(function (/* ctx */) {
     devServer: {
       port: 8000,
       host: 'localhost',
-      open: true,
-      https: true,
-      proxy: {
-        '/api': {
-          target: 'https://localhost:3001',
-          secure: false
-        }
-      }
+      open: false,
+      https: false
     },
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
       // Quasar plugins
       plugins: [
-        'LocalStorage',
-        'SessionStorage',
+        'AppFullscreen',
         'Dialog',
         'Loading',
-        'LoadingBar',
         'Meta',
         'Notify',
       ],
 
       config: {
-        loadingBar: {
-          color: 'secondary',
-        }
+        dark: true
       },
 
       // iconSet: 'material-icons', // Quasar icon set
@@ -144,8 +125,8 @@ module.exports = configure(function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'LibreAPI',
-        short_name: 'LibreAPI',
+        name: 'MediaDB',
+        short_name: 'MediaDB',
         description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',

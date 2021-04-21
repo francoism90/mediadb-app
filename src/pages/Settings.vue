@@ -1,13 +1,11 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-
-  </q-page>
+  <q-page class="row items-center justify-evenly" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'PageSettings'
+  name: 'SettingsPage'
 })
 </script>

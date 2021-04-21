@@ -1,17 +1,16 @@
+import axios, { AxiosError } from 'axios'
 import { boot } from 'quasar/wrappers'
-import axios, { AxiosInstance, AxiosError } from 'axios'
-import { getAuthToken } from 'src/services/auth'
-
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $axios: AxiosInstance;
-  }
-}
+import { StoreState } from 'src/interfaces/store'
+import { Store } from 'vuex'
 
 const api = axios.create({
   baseURL: process.env.API_URL,
   withCredentials: true
 })
+
+function getAuthToken (store: Store<StoreState>): string | null {
+  return store.state.session.token
+}
 
 export default boot(({ app, store, urlPath }) => {
   const token = getAuthToken(store) || ''
@@ -19,8 +18,6 @@ export default boot(({ app, store, urlPath }) => {
   api.interceptors.request.use((config) => {
     config.headers = {
       Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
       'X-Requested-With': 'XMLHttpRequest'
     }
 
@@ -32,7 +29,7 @@ export default boot(({ app, store, urlPath }) => {
   api.interceptors.response.use((response) => {
     return response
   }, (error: AxiosError) => {
-    // Upstream rate limiting
+    // API rate limiting
     if (error?.response?.status === 429 && !urlPath.startsWith('/429')) {
       return Promise.reject({ url: '/429' })
     }
@@ -44,4 +41,4 @@ export default boot(({ app, store, urlPath }) => {
   app.config.globalProperties.$api = api
 })
 
-export { axios, api }
+export { api, axios }

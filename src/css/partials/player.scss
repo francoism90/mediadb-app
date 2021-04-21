@@ -1,0 +1,85 @@
+.player-container {
+  background: #000;
+
+  video {
+    z-index: 10;
+    object-fit: contain;
+    min-height: 640px;
+    max-height: 720px;
+    max-width: $breakpoint-md;
+
+    @media (max-width: $breakpoint-sm-max) {
+      object-fit: fill;
+      min-height: 240px;
+      max-height: 320px;
+    }
+
+    @media (max-width: $breakpoint-xs-max) {
+      max-height: 240px;
+    }
+  }
+
+  &:fullscreen {
+    video {
+      height: 100vw;
+      width: 100vw;
+      max-height: 100vw;
+      max-width: 100vw;
+    }
+  }
+}
+
+.player-controls {
+  z-index: 30;
+
+  &::after {
+    background: rgba(0, 0, 0, 0.35);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 20;
+  }
+}
+
+.player-control {
+  z-index: 40;
+}
+
+.player-scrubber {
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+
+  .q-slider__track-container {
+    background: rgba(255, 255, 255, 0.1);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: var(--buffer);
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.25);
+      z-index: -1;
+    }
+  }
+}
+
+.player-settings {
+  top: 16px;
+  right: 16px;
+}

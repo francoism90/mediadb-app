@@ -1,0 +1,31 @@
+.video-item {
+  height: 350px;
+  min-height: 350px;
+  min-width: 200px;
+}
+
+.video-item-placeholder {
+  background-position: center !important;
+  background-size: 100% 100% !important;
+  height: 180px;
+}
+
+.video-item-title {
+  font-size: 1rem;
+}
+
+.video-item-description {
+  font-size: 0.875rem;
+}
+
+.video-details-label {
+  width: 150px;
+  max-width: 150px;
+}
+
+.video-details-list {
+  &.q-list--dense > .q-item,
+  &.q-item--dense {
+    padding-left: 0;
+  }
+}

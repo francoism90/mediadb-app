@@ -1,11 +1,12 @@
 import { SessionState } from 'src/interfaces/store'
-import { Profile } from 'src/interfaces/session'
+import { User } from 'src/interfaces/user'
 
 function state (): SessionState {
   return {
+    redirectPath: null,
     timestamp: null,
     token: null,
-    user: <Profile>{}
+    user: <User>{}
   }
 }
 

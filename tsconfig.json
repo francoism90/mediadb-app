@@ -1,7 +1,7 @@
 {
   "extends": "@quasar/app/tsconfig-preset",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
   },
   "include": [
     "src"

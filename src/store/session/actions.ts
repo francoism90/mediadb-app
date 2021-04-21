@@ -1,15 +1,22 @@
+import { AuthResponse } from 'src/interfaces/session'
+import { SessionState, StoreState } from 'src/interfaces/store'
+import { User, UserResponse } from 'src/interfaces/user'
 import { ActionTree } from 'vuex'
-import { StoreState, SessionState } from 'src/interfaces/store'
-import { Profile } from 'src/interfaces/session'
 
 const actions: ActionTree<SessionState, StoreState> = {
-  reset (context): void {
+  resetStore (context): void {
     context.commit('resetStore')
     context.commit('setTimestamp', Date.now())
   },
 
-  setUser (context, payload: { user: Profile }): void {
-    context.commit('setUser', payload.user)
+  setToken (context, payload: AuthResponse): void {
+    context.commit('setToken', payload.token || '')
+    context.commit('setTimestamp', Date.now())
+  },
+
+  setUser (context, payload: UserResponse): void {
+    context.commit('setRedirectPath', null)
+    context.commit('setUser', payload.data || <User>{})
     context.commit('setTimestamp', Date.now())
   }
 }

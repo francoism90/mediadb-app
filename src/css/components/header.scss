@@ -1,19 +1,18 @@
-.md-header {
-  background: #030303;
-  border-bottom: 1px solid #333;
+.header {
+  background: #181818;
   height: 58px;
 }
 
-.md-search {
-  background: #212121;
+.header-container {
+  padding-left: $space-base;
+  padding-right: $space-base;
+}
+
+.header-search {
   width: 60vw;
-  max-width: 400px;
+  max-width: 450px;
 
   @media (max-width: $breakpoint-xs-max) {
     width: 100vw;
   }
-}
-
-.md-search-q {
-  height: 57px;
 }
