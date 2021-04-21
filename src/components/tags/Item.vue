@@ -1,12 +1,35 @@
 <template>
-  <q-card
-    class="transparent tag-item"
-    draggable="false"
-    flat
-    square
+  <q-item
+    v-ripple
+    clickable
+    class="no-padding tag"
   >
-    {{ tag }}
-  </q-card>
+    <q-item-section side>
+      <q-avatar
+        square
+        color="grey-8"
+        text-color="white"
+        size="48px"
+      >
+        {{ tag.name.charAt(0) }}
+      </q-avatar>
+    </q-item-section>
+
+    <q-item-section>
+      <q-item-label>
+        {{ tag.name }}
+      </q-item-label>
+
+      <q-item-label
+        caption
+        class="tag-item-description"
+      >
+        <span class="text-capitalize">{{ tag.type || 0 }}</span>
+        <span class="q-px-sm">•</span>
+        <span>{{ tag.items || 0 }} items</span>
+      </q-item-label>
+    </q-item-section>
+  </q-item>
 </template>
 
 <script lang="ts">

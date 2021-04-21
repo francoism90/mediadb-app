@@ -43,6 +43,7 @@ export default defineComponent({
     const { fetchTags, isLoadable, setParams, id, data, meta } = useTags({
       module: 'tags',
       params: <TagsParameters>{
+        append: 'items',
         sort: 'recommended',
         'page[number]': 1,
         'page[size]': 12
