@@ -16,7 +16,7 @@
     </router-link>
 
     <q-card-section class="q-px-none q-py-dm">
-      <div class="text-weight-medium video-item-title">
+      <div class="text-weight-medium video-item-title ellipsis-2-lines">
         {{ video.name }}
       </div>
 
