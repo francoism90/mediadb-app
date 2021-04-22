@@ -7,12 +7,3 @@
   padding-left: $space-base;
   padding-right: $space-base;
 }
-
-.header-search {
-  width: 60vw;
-  max-width: 450px;
-
-  @media (max-width: $breakpoint-xs-max) {
-    width: 100vw;
-  }
-}

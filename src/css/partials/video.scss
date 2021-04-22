@@ -1,7 +1,12 @@
 .video-item {
-  height: 350px;
-  min-height: 350px;
+  height: 340px;
+  min-height: 340px;
   min-width: 200px;
+
+  @media (max-width: $breakpoint-xs-max) {
+    height: 320px;
+    min-height: 320px;
+  }
 }
 
 .video-item-placeholder {

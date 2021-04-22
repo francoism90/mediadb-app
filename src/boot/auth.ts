@@ -15,7 +15,7 @@ async function checkUser (store: Store<StoreState>, redirectPath: string | null)
 
   try {
     const response = await authUser({ token: session.token })
-    await store.dispatch('session/setUser', response.user)
+    await store.dispatch('session/setUser', response)
 
     return true
   } catch {

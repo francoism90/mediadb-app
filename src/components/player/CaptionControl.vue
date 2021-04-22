@@ -3,7 +3,7 @@
     :name="request.fullscreen ? 'closed_caption' : 'closed_caption_off'"
     color="white"
     class="cursor-pointer"
-    size="32px"
+    size="24px"
     @click="sendRequest({ fullscreen: !request.fullscreen })"
   />
 </template>

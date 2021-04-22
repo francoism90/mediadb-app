@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-auto">
-        <div class="q-gutter-sm">
+        <div class="q-col-gutter-sm">
           <caption-control :module="module" />
           <fullscreen-control :module="module" />
         </div>
