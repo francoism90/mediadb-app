@@ -54,6 +54,7 @@
 <script lang="ts">
 import { AxiosError } from 'axios'
 import { useQuasar } from 'quasar'
+import { setAuthHeader } from 'src/boot/axios'
 import useFormValidation from 'src/composables/useFormValidation'
 import useSession from 'src/composables/useSession'
 import { ValidationResponse } from 'src/interfaces/form'
@@ -69,7 +70,7 @@ export default defineComponent({
   setup () {
     const $q = useQuasar()
 
-    const { redirectPath, resetStore, setToken } = useSession()
+    const { redirectPath, initialize } = useSession()
 
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<LoginUser>({
@@ -83,16 +84,15 @@ export default defineComponent({
 
     const onSubmit = async (): Promise<void> => {
       try {
-        await resetStore()
-
-        // CSRF is only useful on PWA/SPA
+        // CSRF is only useful on SPA
         if (!$q.platform.is.cordova && !$q.platform.is.capacitor) {
           await setCsrfCookie()
         }
 
         const response = await loginUser(form)
+        await initialize(response)
 
-        await setToken(response)
+        setAuthHeader(response.token || '')
 
         await router.push(redirectPath.value || '/')
       } catch (e: unknown) {

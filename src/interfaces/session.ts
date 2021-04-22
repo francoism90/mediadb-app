@@ -4,6 +4,10 @@ export interface CsrfCookie {
   message?: string
 }
 
+export interface AuthUser {
+  token: string | null
+}
+
 export interface LoginUser {
   email: string,
   password: string,
@@ -11,12 +15,8 @@ export interface LoginUser {
   'remember_me': boolean
 }
 
-export interface LogoutUser {
-  token: string
-}
-
 export interface AuthResponse {
   token?: string
-  user?: User
+  user?: User,
   success?: boolean
 }

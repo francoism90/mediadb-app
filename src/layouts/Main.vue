@@ -1,5 +1,8 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout
+    :key="layoutKey"
+    view="hHh lpR fFf"
+  >
     <q-header
       bordered
       class="header row items-center content-center no-wrap"
@@ -35,8 +38,8 @@
 
         <q-space />
 
-        <search-videos v-show="routeName === 'home'" />
-        <search-tags v-show="routeName === 'tags'" />
+        <search-videos v-show="currentRouteName === 'home'" />
+        <search-tags v-show="currentRouteName === 'tags'" />
 
         <div class="row no-wrap items-center">
           <account />
@@ -66,7 +69,8 @@ import Account from 'src/components/layout/Account.vue'
 import Drawer from 'src/components/layout/Drawer.vue'
 import SearchTags from 'src/components/tags/Search.vue'
 import SearchVideos from 'src/components/videos/Search.vue'
-import { router } from 'src/router'
+import useRouter from 'src/composables/useRouter'
+import useSession from 'src/composables/useSession'
 import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
@@ -82,6 +86,11 @@ export default defineComponent({
   setup () {
     const drawer = ref(false)
 
+    const { router, currentRouteName } = useRouter()
+    const { user } = useSession()
+
+    const layoutKey = computed(() => user.value.id || '')
+
     const historyBack = () => router.back()
     const historyForward = () => router.forward()
 
@@ -89,14 +98,13 @@ export default defineComponent({
       drawer.value = !drawer.value
     }
 
-    const routeName = computed(() => router.currentRoute.value.name?.toString())
-
     return {
       drawer,
+      layoutKey,
+      currentRouteName,
       toggleDrawer,
       historyBack,
-      historyForward,
-      routeName
+      historyForward
     }
   }
 })

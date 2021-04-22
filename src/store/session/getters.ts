@@ -9,6 +9,10 @@ const getters: GetterTree<SessionState, StoreState> = {
     return Math.abs((lastDate - currentDate) / 1000)
   },
 
+  getToken (state: SessionState): string | null {
+    return state.token
+  },
+
   isAuthenticated (state: SessionState): boolean {
     if (!state.token || state.token.length === 0) {
       return false

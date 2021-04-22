@@ -4,28 +4,24 @@ import { authUser } from 'src/repositories/user'
 import { Store } from 'vuex'
 
 async function checkUser (store: Store<StoreState>, redirectPath: string | null): Promise<boolean> {
+  const session = store.state.session
+
+  if (!session.token || session.token.length === 0) {
+    return false
+  }
+
   try {
-    // Validate current token
-    const sessionToken = store.state.session.token
-
-    if (!sessionToken || sessionToken.length === 0) {
-      throw Error('Invalid auth-token given')
-    }
-
-    // Returns 401 when token is invalid
-    const response = await authUser()
-
-    await store.dispatch('session/setUser', response)
+    const response = await authUser({ token: session.token })
+    await store.dispatch('session/setUser', response.user)
 
     return true
   } catch {
-    await store.dispatch('session/resetStore')
+    await store.dispatch('session/resetUser')
 
-    // Redirect after successful login
     store.commit('session/setRedirectPath', redirectPath)
-
-    return false
   }
+
+  return false
 }
 
 export default boot(({ router, store }) => {

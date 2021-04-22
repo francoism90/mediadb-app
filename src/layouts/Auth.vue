@@ -11,22 +11,5 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'AuthLayout'
-
-  // components: {
-  // NavigationLink,
-  // GlobalSearch
-  // }
-
-  // setup () {
-  //   const drawerOpen = ref(false)
-
-  //   return {
-  //     essentialLinks: linksList,
-  //     drawerOpen,
-  //     toggleDrawer () {
-  //       drawerOpen.value = !drawerOpen.value
-  //     }
-  //   }
-  // }
 })
 </script>

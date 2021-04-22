@@ -1,31 +1,20 @@
 import axios, { AxiosError } from 'axios'
 import { boot } from 'quasar/wrappers'
-import { StoreState } from 'src/interfaces/store'
-import { Store } from 'vuex'
 
 const api = axios.create({
   baseURL: process.env.API_URL,
-  withCredentials: true
+  withCredentials: true,
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest'
+  }
 })
 
-function getAuthToken (store: Store<StoreState>): string | null {
-  return store.state.session.token
+export function setAuthHeader (token: string) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  api.defaults.headers.common.Authorization = `Bearer ${token}`
 }
 
-export default boot(({ app, store, urlPath }) => {
-  const token = getAuthToken(store) || ''
-
-  api.interceptors.request.use((config) => {
-    config.headers = {
-      Authorization: `Bearer ${token}`,
-      'X-Requested-With': 'XMLHttpRequest'
-    }
-
-    return config
-  }, (error: AxiosError) => {
-    return Promise.reject(error)
-  })
-
+export default boot(({ app, urlPath }) => {
   api.interceptors.response.use((response) => {
     return response
   }, (error: AxiosError) => {

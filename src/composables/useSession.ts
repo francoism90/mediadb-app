@@ -2,7 +2,7 @@ import { SessionState } from 'src/interfaces/store'
 import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 
 export default function useSession () {
-  const { resetStore, setToken } = useNamespacedActions('session', ['resetStore', 'setToken'])
+  const { resetStore, resetUser, initialize } = useNamespacedActions('session', ['resetStore', 'resetUser', 'initialize'])
   const { isAuthenticated } = useNamespacedGetters('session', ['isAuthenticated'])
   const { redirectPath, token, user } = useNamespacedState<SessionState>('session', [
     'redirectPath',
@@ -60,7 +60,8 @@ export default function useSession () {
 
   return {
     resetStore,
-    setToken,
+    resetUser,
+    initialize,
     isAuthenticated,
     hasRole,
     hasAnyRole,
