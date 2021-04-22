@@ -5,7 +5,7 @@ import { PlayerProps } from 'src/interfaces/player'
 import { PlayerState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
 import playerModule from 'src/store/player'
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import { useNamespacedActions, useNamespacedGetters, useNamespacedMutations, useNamespacedState } from 'vuex-composition-helpers'
 
 export default function usePlayer (props: PlayerProps) {
@@ -88,6 +88,8 @@ export default function usePlayer (props: PlayerProps) {
   watch(() => $q.fullscreen.isActive, value => {
     sendRequest({ fullscreen: value })
   })
+
+  onBeforeUnmount(() => player.value?.reset())
 
   return {
     resetStore,
