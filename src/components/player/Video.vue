@@ -8,7 +8,6 @@
     <video
       ref="videoElement"
       autoPictureInPicture
-      crossorigin="use-credentials"
       playsinline
       preload="auto"
       class="col"
