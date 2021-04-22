@@ -5,11 +5,11 @@
   >
     <q-header
       bordered
-      class="header row items-center content-center no-wrap"
+      class="row no-wrap items-center content-center header"
       height-hint="58"
     >
       <q-toolbar class="header-container">
-        <div class="row items-center content-center no-wrap">
+        <div class="row no-wrap items-center content-center">
           <q-icon
             name="o_menu"
             class="cursor-pointer q-mr-md"
@@ -38,10 +38,8 @@
 
         <q-space />
 
-        <search-videos v-show="currentRouteName === 'home'" />
-        <search-tags v-show="currentRouteName === 'tags'" />
-
-        <div class="row no-wrap items-center">
+        <div class="row no-wrap items-center content-center q-gutter-sm">
+          <search />
           <account />
         </div>
       </q-toolbar>
@@ -65,10 +63,9 @@
 </template>
 
 <script lang="ts">
-import Account from 'src/components/layout/Account.vue'
-import Drawer from 'src/components/layout/Drawer.vue'
-import SearchTags from 'src/components/tags/Search.vue'
-import SearchVideos from 'src/components/videos/Search.vue'
+import Account from 'src/components/ui/Account.vue'
+import Drawer from 'src/components/ui/Drawer.vue'
+import Search from 'src/components/ui/Search.vue'
 import useRouter from 'src/composables/useRouter'
 import useSession from 'src/composables/useSession'
 import { computed, defineComponent, ref } from 'vue'
@@ -78,15 +75,14 @@ export default defineComponent({
 
   components: {
     Drawer,
-    SearchTags,
-    SearchVideos,
+    Search,
     Account
   },
 
   setup () {
     const drawer = ref(false)
 
-    const { router, currentRouteName } = useRouter()
+    const { router } = useRouter()
     const { user } = useSession()
 
     const layoutKey = computed(() => user.value.id || '')
@@ -99,9 +95,8 @@ export default defineComponent({
     }
 
     return {
-      drawer,
       layoutKey,
-      currentRouteName,
+      drawer,
       toggleDrawer,
       historyBack,
       historyForward

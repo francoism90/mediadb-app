@@ -1,8 +1,8 @@
 <template>
   <q-btn
     dense
+    flat
     round
-    color="grey-10"
     class="cursor-pointer"
     icon="account_circle"
     aria-label="Account"
