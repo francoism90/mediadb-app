@@ -63,7 +63,7 @@ const sortList = [
   },
   {
     label: 'Recently Added',
-    value: 'created_at'
+    value: '-created_at'
   },
   {
     label: 'Duration',

@@ -11,7 +11,7 @@
     >
       <q-card-section class="q-py-xs">
         <div class="text-caption text-grey-4 q-px-md">
-          Search Videos
+          {{ label }}
         </div>
       </q-card-section>
 
@@ -37,7 +37,17 @@ export default defineComponent({
   name: 'SearchDialog',
 
   props: {
+    label: {
+      type: String as PropType<string>,
+      required: true
+    },
+
     route: {
+      type: String as PropType<string>,
+      required: true
+    },
+
+    module: {
       type: String as PropType<string>,
       required: true
     }
@@ -47,18 +57,18 @@ export default defineComponent({
     ...useDialogPluginComponent.emits
   ],
 
-  setup () {
+  setup (props) {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent()
 
-    const { setParams: setModuleParams } = useRepository({ module: 'videos' })
-    const { getParam: getModuleParam } = useRepositoryGetters('videos')
+    const { setParams: setModuleParams } = useRepository({ module: props.module })
+    const { getParam: getModuleParam } = useRepositoryGetters(props.module)
 
     const currentQuery = getModuleParam('filter[query]') as string
     const query = ref(currentQuery)
 
     watch(query, async (val: string) => {
       await setModuleParams({
-        params: { 'filter[query]': val, 'page[number]': 1 },
+        params: { 'filter[query]': val, 'page[number]': 1, sort: 'recommended' },
         reset: true
       })
     })
