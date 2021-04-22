@@ -3,7 +3,7 @@
     :name="request.fullscreen ? 'fullscreen_exit' : 'fullscreen'"
     color="white"
     class="cursor-pointer"
-    size="32px"
+    size="24px"
     @click="sendRequest({ fullscreen: !request.fullscreen })"
   />
 </template>

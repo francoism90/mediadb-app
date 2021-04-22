@@ -1,5 +1,5 @@
 <template>
-  <div class="text-overline text-white">
+  <div class="text-caption text-white">
     {{ currentTime }} / {{ duration }}
   </div>
 </template>

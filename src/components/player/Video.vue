@@ -3,7 +3,6 @@
     ref="videoContainer"
     class="relative-position row no-wrap justify-center items-center player-container"
     @mouseover="sendRequest({ controls: true })"
-    @mouseleave="sendRequest({ controls: false })"
   >
     <video
       ref="videoElement"

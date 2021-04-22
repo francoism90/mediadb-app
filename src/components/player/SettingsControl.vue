@@ -1,10 +1,10 @@
 <template>
-  <div class="absolute-top-right player-control player-settings">
+  <div class="absolute-top-right player-control player-settings q-col-gutter-sm">
     <q-icon
       name="more_vert"
       color="white"
       class="cursor-pointer"
-      size="32px"
+      size="24px"
     >
       <q-menu
         anchor="top left"
@@ -37,6 +37,13 @@
         </q-list>
       </q-menu>
     </q-icon>
+
+    <q-icon
+      name="remove"
+      color="white"
+      class="cursor-pointer"
+      size="24px"
+    />
   </div>
 </template>
 
