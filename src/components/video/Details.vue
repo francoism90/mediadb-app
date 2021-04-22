@@ -1,6 +1,6 @@
 <template>
   <div class="video-details q-py-md">
-    <h1 class="text-h2 text-white ellipsis-2-lines">
+    <h1 class="text-h3 text-white ellipsis-2-lines">
       {{ video.name }}
     </h1>
 
