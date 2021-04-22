@@ -54,7 +54,6 @@
 <script lang="ts">
 import { AxiosError } from 'axios'
 import { useQuasar } from 'quasar'
-import { setAuthHeader } from 'src/boot/axios'
 import useFormValidation from 'src/composables/useFormValidation'
 import useSession from 'src/composables/useSession'
 import { ValidationResponse } from 'src/interfaces/form'
@@ -91,8 +90,6 @@ export default defineComponent({
 
         const response = await loginUser(form)
         await initialize(response)
-
-        setAuthHeader(response.token || '')
 
         await router.push(redirectPath.value || '/')
       } catch (e: unknown) {
