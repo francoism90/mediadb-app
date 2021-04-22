@@ -1,10 +1,10 @@
 export interface Model {
   id: string | number,
-  uuid?: string | number | null,
-  slug?: string | number | null,
-  name?: string | number | null,
+  uuid?: string | null,
+  slug?: string | null,
+  name?: string | null,
   description?: string | null,
-  'prefixed_id'?: string | number | null,
+  'prefixed_id'?: string | null,
   'created_at'?: Date | null,
   'updated_at'?: Date | null,
 }
