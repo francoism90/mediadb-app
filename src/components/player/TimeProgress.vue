@@ -23,8 +23,8 @@ export default defineComponent({
     const { properties } = usePlayer({ module: props.module })
     const { formatTime } = useFilters()
 
-    const currentTime = computed(() => formatTime(properties.value?.currentTime))
-    const duration = computed(() => formatTime(properties.value?.duration))
+    const currentTime = computed(() => formatTime(properties.value?.currentTime || 0))
+    const duration = computed(() => formatTime(properties.value?.duration || 0))
 
     return {
       currentTime,
