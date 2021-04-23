@@ -40,12 +40,22 @@ export default function usePlayer (props: PlayerProps) {
   }
 
   const createPlayer = (dom: HTMLVideoElement | null): void => {
+    if (!dom) {
+      console.debug('Waiting for HTMLVideoElement..')
+      return
+    }
+
     player.value = MediaFactory().create()
     player.value.initialize(dom || undefined, props.media?.stream_url || '', true)
   }
 
   const syncProperties = (event: Event | null): void => {
     const target = event?.target as HTMLVideoElement
+
+    if (!event || !target) {
+      console.debug('Waiting for HTMLVideoElement..')
+      return
+    }
 
     setProperties(pick(target, [
       'buffered',

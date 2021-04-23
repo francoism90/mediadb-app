@@ -2,6 +2,9 @@
   <div
     ref="videoContainer"
     class="relative-position row no-wrap justify-center items-center player-container"
+    @mouseenter="activateControls"
+    @mousemove="activateControls"
+    @touchstart="activateControls"
   >
     <video
       ref="videoElement"
@@ -35,9 +38,20 @@
       @waiting="syncProperties"
     />
 
-    <playback-control :module="module" />
-    <scrubber-control :module="module" />
-    <settings-control :module="module" />
+    <transition
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <div
+        v-show="properties.controls"
+        class="absolute-full player-controls"
+      >
+        <playback-control :module="module" />
+        <scrubber-control :module="module" />
+        <settings-control :module="module" />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -74,7 +88,7 @@ export default defineComponent({
   setup (props) {
     const $q = useQuasar()
 
-    const { createPlayer, syncProperties, properties } = usePlayer({
+    const { createPlayer, setProperties, syncProperties, properties } = usePlayer({
       module: props.module,
       model: props.video,
       media: props.video.clip
@@ -82,6 +96,19 @@ export default defineComponent({
 
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
+    const videoControls = ref<number | undefined>(0)
+
+    const activateControls = () => {
+      setProperties({ controls: true })
+    }
+
+    const deactiveControls = (): void => {
+      clearTimeout(videoControls.value)
+
+      videoControls.value = window.setTimeout(() => {
+        setProperties({ controls: false })
+      }, 3500)
+    }
 
     const setFullscreen = async (value: boolean): Promise<void> => {
       if (value === true) {
@@ -106,6 +133,10 @@ export default defineComponent({
     })
 
     watch(properties, async (value, oldValue): Promise<void> => {
+      if (value.controls !== oldValue.controls) {
+        deactiveControls()
+      }
+
       if (value.paused !== oldValue.paused) {
         await setPause(value.paused)
       }
@@ -118,6 +149,7 @@ export default defineComponent({
     return {
       videoContainer,
       videoElement,
+      activateControls,
       syncProperties,
       properties
     }
