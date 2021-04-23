@@ -43,7 +43,7 @@ quasar dev
 Notes:
 
 - [Android Studio](https://next.quasar.dev/quasar-cli/developing-capacitor-apps/preparation) is required.
-- Change the given domains `mediadb.internal`, `socket.mediadb.internal`, `stream.internal` to your own domains.
+- Update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` so it reflects your own configured domains.
 
 ```bash
 cd /var/www/html/app
