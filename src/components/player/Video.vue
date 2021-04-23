@@ -35,6 +35,7 @@
       @seeking="syncProperties"
       @seeked="syncProperties"
       @stalled="syncProperties"
+      @timeupdate="syncProperties"
       @waiting="syncProperties"
     />
 
