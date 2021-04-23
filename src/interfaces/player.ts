@@ -23,6 +23,7 @@ export interface PlayerProperties {
   playbackRate: number,
   played: TimeRanges | null,
   readyState: number,
+  requestTime: number,
   seekable: TimeRanges | null,
   seeking: boolean,
   textTracks: TextTrack[] | null,

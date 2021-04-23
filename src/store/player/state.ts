@@ -13,6 +13,7 @@ function state (): PlayerState {
       controls: false,
       currentSrc: '',
       currentTime: 0,
+      requestTime: 0,
       duration: 0,
       ended: false,
       error: null,

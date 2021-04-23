@@ -57,11 +57,11 @@ export default defineComponent({
     const icon = computed(() => properties.value?.paused === true ? 'play_arrow' : 'pause')
 
     const decreaseTime = () => {
-      setProperties({ currentTime: properties.value?.currentTime - 10 })
+      setProperties({ requestTime: properties.value?.currentTime - 10 })
     }
 
     const increaseTime = () => {
-      setProperties({ currentTime: properties.value?.currentTime + 10 })
+      setProperties({ requestTime: properties.value?.currentTime + 10 })
     }
 
     const setPause = () => {

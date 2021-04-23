@@ -60,6 +60,7 @@ export default function usePlayer (props: PlayerProps) {
     setProperties(pick(target, [
       'buffered',
       'currentSrc',
+      'currentTime',
       'duration',
       'ended',
       'error',

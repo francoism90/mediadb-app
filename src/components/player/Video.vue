@@ -16,7 +16,6 @@
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
       :autoplay="properties.autoplay"
-      :currentTime="properties.currentTime"
       :muted="properties.muted"
       :playbackRate="properties.playbackRate"
       :volume="properties.volume"
@@ -111,6 +110,12 @@ export default defineComponent({
       }, 3500)
     }
 
+    const setCurrentTime = (value: number): void => {
+      if (videoElement.value) {
+        videoElement.value.currentTime = value
+      }
+    }
+
     const setFullscreen = async (value: boolean): Promise<void> => {
       if (value === true) {
         await videoContainer.value?.requestFullscreen()
@@ -136,6 +141,10 @@ export default defineComponent({
     watch(properties, async (value, oldValue): Promise<void> => {
       if (value.controls !== oldValue.controls) {
         deactiveControls()
+      }
+
+      if (value.requestTime !== oldValue.requestTime) {
+        setCurrentTime(value.requestTime)
       }
 
       if (value.paused !== oldValue.paused) {
