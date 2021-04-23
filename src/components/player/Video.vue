@@ -37,6 +37,7 @@
 
     <playback-control :module="module" />
     <scrubber-control :module="module" />
+    <settings-control :module="module" />
   </div>
 </template>
 
@@ -44,7 +45,7 @@
 import { useQuasar } from 'quasar'
 import PlaybackControl from 'src/components/player/PlaybackControl.vue'
 import ScrubberControl from 'src/components/player/ScrubberControl.vue'
-// import SettingsControl from 'src/components/player/SettingsControl.vue'
+import SettingsControl from 'src/components/player/SettingsControl.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { Video } from 'src/interfaces/video'
 import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
@@ -54,8 +55,8 @@ export default defineComponent({
 
   components: {
     PlaybackControl,
-    ScrubberControl
-    // SettingsControl
+    ScrubberControl,
+    SettingsControl
   },
 
   props: {
