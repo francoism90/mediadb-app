@@ -38,7 +38,7 @@ npm install
 quasar dev
 ```
 
-### Build Android project
+### Live Android project
 
 Notes:
 
@@ -50,4 +50,18 @@ cd /var/www/html/app
 cp .env.example .env
 npm install
 quasar dev --mode capacitor --target android --ide
+```
+
+### Build Android project
+
+Notes:
+
+- [Android Studio](https://next.quasar.dev/quasar-cli/developing-capacitor-apps/preparation) is required.
+- Update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` so it reflects your own configured domains.
+
+```bash
+cd /var/www/html/app
+cp .env.example .env
+npm install
+quasar build --mode capacitor --target android --ide
 ```
