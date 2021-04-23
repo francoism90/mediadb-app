@@ -1,16 +1,16 @@
 <template>
   <q-icon
-    :name="request.fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+    :name="icon"
     color="white"
     class="cursor-pointer"
     size="24px"
-    @click="sendRequest({ fullscreen: !request.fullscreen })"
+    @click="setFullscreen"
   />
 </template>
 
 <script lang="ts">
 import usePlayer from 'src/composables/usePlayer'
-import { defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'FullscreenControl',
@@ -23,11 +23,18 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { request, sendRequest } = usePlayer({ module: props.module })
+    const { properties, setProperties } = usePlayer({ module: props.module })
+
+    const icon = computed(() => properties.value?.fullscreen === true ? 'fullscreen_exit' : 'fullscreen')
+
+    const setFullscreen = () => {
+      setProperties({ fullscreen: !properties.value?.fullscreen })
+    }
 
     return {
-      request,
-      sendRequest
+      icon,
+      properties,
+      setFullscreen
     }
   }
 })

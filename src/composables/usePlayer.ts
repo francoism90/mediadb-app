@@ -1,4 +1,4 @@
-import { MediaPlayer, MediaPlayerClass } from 'dashjs'
+import { MediaPlayer as MediaFactory, MediaPlayerClass } from 'dashjs'
 import { pick } from 'lodash'
 import { useQuasar } from 'quasar'
 import { PlayerProps } from 'src/interfaces/player'
@@ -6,87 +6,66 @@ import { PlayerState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
 import playerModule from 'src/store/player'
 import { onBeforeUnmount, ref, watch } from 'vue'
-import { useNamespacedActions, useNamespacedGetters, useNamespacedMutations, useNamespacedState } from 'vuex-composition-helpers'
+import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers'
 
 export default function usePlayer (props: PlayerProps) {
   const $q = useQuasar()
   const $store = useStore()
 
+  // eslint-disable-next-line no-undef
+  const player = ref(<MediaPlayerClass | null>(null))
+
   if (!$store.hasModule(props.module)) {
     $store.registerModule(props.module, playerModule)
   }
 
-  const { media, model, request, stream } = useNamespacedState<PlayerState>(props.module, [
+  const { media, model, properties } = useNamespacedState<PlayerState>(props.module, [
     'media',
     'model',
-    'request',
-    'stream'
+    'properties'
   ])
 
-  const { resetStore, initialize, sendRequest } = useNamespacedActions(props.module, [
+  const { resetStore, initialize, setProperties } = useNamespacedActions(props.module, [
     'resetStore',
     'initialize',
-    'sendRequest'
+    'setProperties'
   ])
 
   const { isLoading } = useNamespacedGetters(props.module, [
     'isLoading'
   ])
 
-  const { setStream } = useNamespacedMutations(props.module, [
-    'setStream'
-  ])
-
   if (props.module && props.media) {
     initialize(props)
   }
 
-  // eslint-disable-next-line no-undef
-  const player = ref(<MediaPlayerClass | null>(null))
-
   const createPlayer = (dom: HTMLVideoElement | null): void => {
-    const mediaFactory = MediaPlayer().create()
-    mediaFactory.initialize(dom || undefined, props.media?.stream_url || '', true)
-
-    player.value = mediaFactory
+    player.value = MediaFactory().create()
+    player.value.initialize(dom || undefined, props.media?.stream_url || '', true)
   }
 
-  const setMetadata = (event: Event | null): void => {
+  const syncProperties = (event: Event | null): void => {
     const target = event?.target as HTMLVideoElement
 
-    setStream(pick(target, [
+    setProperties(pick(target, [
       'buffered',
       'currentSrc',
       'duration',
+      'ended',
+      'error',
       'muted',
       'networkState',
       'paused',
-      'poster',
-      'readyState',
-      'seekable',
-      'textTracks',
-      'volume'
-    ]))
-  }
-
-  const setPlayable = (event: Event | null): void => {
-    const target = event?.target as HTMLVideoElement
-
-    setStream(pick(target, [
-      'currentTime',
-      'ended',
-      'error',
-      'networkState',
-      'paused',
-      'playbackRate',
       'played',
       'readyState',
-      'seeking'
+      'seekable',
+      'seeking',
+      'textTracks'
     ]))
   }
 
   watch(() => $q.fullscreen.isActive, value => {
-    sendRequest({ fullscreen: value })
+    setProperties({ fullscreen: value })
   })
 
   onBeforeUnmount(() => player.value?.reset())
@@ -94,16 +73,13 @@ export default function usePlayer (props: PlayerProps) {
   return {
     resetStore,
     initialize,
+    setProperties,
+    syncProperties,
     createPlayer,
-    sendRequest,
-    setStream,
-    setMetadata,
-    setPlayable,
     isLoading,
     player,
     model,
     media,
-    request,
-    stream
+    properties
   }
 }

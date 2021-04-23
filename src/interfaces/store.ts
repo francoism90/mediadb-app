@@ -1,5 +1,5 @@
 import { Media } from 'src/interfaces/media'
-import { PlayerRequest, StreamInfo } from 'src/interfaces/player'
+import { PlayerProperties } from 'src/interfaces/player'
 import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository'
 import { User } from 'src/interfaces/user'
 
@@ -19,10 +19,9 @@ export interface RepositoryState {
 }
 
 export interface PlayerState {
-  request: PlayerRequest | null,
   media: Media | null
   model: Model | null
-  stream: StreamInfo | null
+  properties: PlayerProperties
 }
 
 export interface StoreState {

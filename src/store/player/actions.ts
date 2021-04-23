@@ -1,4 +1,4 @@
-import { PlayerProps, PlayerRequest } from 'src/interfaces/player'
+import { PlayerProperties, PlayerProps } from 'src/interfaces/player'
 import { PlayerState, StoreState } from 'src/interfaces/store'
 import { ActionTree } from 'vuex'
 
@@ -12,8 +12,8 @@ const actions: ActionTree<PlayerState, StoreState> = {
     context.commit('setModel', payload.model)
   },
 
-  sendRequest (context, payload: PlayerRequest): void {
-    context.commit('setRequest', payload)
+  setProperties (context, payload: PlayerProperties): void {
+    context.commit('setProperties', payload)
   }
 }
 

@@ -7,31 +7,24 @@ export interface PlayerProps {
   model?: Model,
 }
 
-export interface StreamInfo {
+export interface PlayerProperties {
+  autoplay: boolean,
   buffered: TimeRanges | null,
-  currentSrc: string | null,
-  currentTime: number | undefined,
-  duration: number | undefined,
+  controls: boolean,
+  currentSrc: string,
+  currentTime: number,
+  duration: number,
   ended: boolean,
   error: string | null,
+  fullscreen: boolean,
   muted: boolean,
   networkState: number,
   paused: boolean,
-  playbackRate: number | null,
-  played: TimeRanges | undefined,
-  poster: string | null,
-  readyState: number | null,
-  seekable: TimeRanges | undefined,
+  playbackRate: number,
+  played: TimeRanges | null,
+  readyState: number,
+  seekable: TimeRanges | null,
   seeking: boolean,
   textTracks: TextTrack[] | null,
-  volume: number | null,
-}
-
-export interface PlayerRequest {
-  controls?: boolean,
-  currentTime?: number,
-  fullscreen?: boolean,
-  pause?: boolean,
-  playbackRate?: number,
-  tracks?: Media[],
+  volume: number,
 }

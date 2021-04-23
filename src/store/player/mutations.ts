@@ -1,5 +1,5 @@
 import { Media } from 'src/interfaces/media'
-import { PlayerRequest, StreamInfo } from 'src/interfaces/player'
+import { PlayerProperties } from 'src/interfaces/player'
 import { Model } from 'src/interfaces/repository'
 import { PlayerState } from 'src/interfaces/store'
 import defaultState from 'src/store/player/state'
@@ -18,18 +18,11 @@ const mutation: MutationTree<PlayerState> = {
     state.model = Object.assign(state.model, payload)
   },
 
-  setRequest (state: PlayerState, payload: PlayerRequest) {
-    const currentRequests = state.request
-    const finalRequests = { ...currentRequests, ...payload }
+  setProperties (state: PlayerState, payload: PlayerProperties) {
+    const currentProps = state.properties
+    const finalProps = { ...currentProps, ...payload }
 
-    state.request = Object.assign({}, state.request, finalRequests)
-  },
-
-  setStream (state: PlayerState, payload: StreamInfo) {
-    const currentStreamInfo = state.stream
-    const finalStreamInfo = { ...currentStreamInfo, ...payload }
-
-    state.stream = Object.assign({}, state.stream, finalStreamInfo)
+    state.properties = Object.assign({}, state.properties, finalProps)
   }
 }
 
