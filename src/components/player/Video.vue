@@ -89,12 +89,21 @@ export default defineComponent({
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
     const controlsTimer = ref<number | undefined>(0)
+    const isFullscreen = ref<boolean>(false)
 
     const { createPlayer, setMetadata, setPlayable, sendRequest, request, player } = usePlayer({
       module: props.module,
       model: props.video,
       media: props.video.clip
     })
+
+    const setFullscreen = async (dom: HTMLDivElement | null, value: boolean): Promise<void> => {
+      if (value && !isFullscreen.value) {
+        await dom?.requestFullscreen()
+      } else if (!value && isFullscreen.value) {
+        await $q.fullscreen.exit()
+      }
+    }
 
     const togglePlay = async (dom: HTMLVideoElement, value: boolean): Promise<void> => {
       if (value === true) {
@@ -121,18 +130,12 @@ export default defineComponent({
       }, 3500)
     }
 
-    const toggleFullscreen = async (dom: HTMLDivElement | null): Promise<void> => {
-      const isActive = $q.fullscreen.isActive || false
-
-      if (dom && isActive) {
-        await document.exitFullscreen()
-      } else if (dom && !isActive) {
-        await dom.requestFullscreen()
-      }
-    }
-
     onMounted(() => {
       createPlayer(videoElement.value)
+    })
+
+    watch(() => $q.fullscreen.isActive, val => {
+      isFullscreen.value = val
     })
 
     watch(request, async (value, oldValue): Promise<void> => {
@@ -146,7 +149,7 @@ export default defineComponent({
       }
 
       if (value?.fullscreen !== oldValue?.fullscreen) {
-        await toggleFullscreen(videoContainer.value)
+        await setFullscreen(videoContainer.value, value?.fullscreen || false)
       }
 
       if (value?.controls !== oldValue?.controls) {

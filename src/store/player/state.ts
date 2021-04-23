@@ -8,10 +8,10 @@ function state (): PlayerState {
     media: <Media>{},
     model: <Model>{},
     request: <PlayerRequest>{
-      controls: null,
-      currentTime: null,
-      fullscreen: null,
-      pause: null,
+      controls: false,
+      currentTime: 0,
+      fullscreen: false,
+      pause: true,
       playbackRate: 1.0,
       tracks: []
     },

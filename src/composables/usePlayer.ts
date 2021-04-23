@@ -46,7 +46,7 @@ export default function usePlayer (props: PlayerProps) {
 
   const createPlayer = (dom: HTMLVideoElement | null): void => {
     const mediaFactory = MediaPlayer().create()
-    mediaFactory.initialize(dom || undefined, props.media?.stream_url || '')
+    mediaFactory.initialize(dom || undefined, props.media?.stream_url || '', true)
 
     player.value = mediaFactory
   }
