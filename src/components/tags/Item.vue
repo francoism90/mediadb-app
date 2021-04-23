@@ -3,6 +3,7 @@
     v-ripple
     clickable
     class="no-padding tag"
+    @click="onClick"
   >
     <q-item-section side>
       <q-avatar
@@ -33,6 +34,8 @@
 </template>
 
 <script lang="ts">
+import useRepository from 'src/composables/useRepository'
+import useRouter from 'src/composables/useRouter'
 import { Tag } from 'src/interfaces/tag'
 import { defineComponent, PropType } from 'vue'
 
@@ -46,9 +49,21 @@ export default defineComponent({
     }
   },
 
-  setup () {
+  setup (props) {
+    const { router } = useRouter()
+    const { setParams: setModuleParams } = useRepository({ module: 'videos' })
+
+    const onClick = async () => {
+      await setModuleParams({
+        params: { 'filter[query]': props.tag.name, 'page[number]': 1 },
+        reset: true
+      })
+
+      await router.push({ name: 'home' })
+    }
+
     return {
-      //
+      onClick
     }
   }
 })
