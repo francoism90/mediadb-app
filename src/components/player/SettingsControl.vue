@@ -37,14 +37,6 @@
         </q-list>
       </q-menu>
     </q-icon>
-
-    <q-icon
-      name="input"
-      color="white"
-      class="cursor-pointer"
-      size="24px"
-      @click="sendRequest({ controls: !request.controls })"
-    />
   </div>
 </template>
 
@@ -68,7 +60,7 @@ export default defineComponent({
   setup (props) {
     const $q = useQuasar()
 
-    const { media, model, request, stream, sendRequest } = usePlayer({ module: props.module })
+    const { media, model, stream } = usePlayer({ module: props.module })
 
     const editModel = (): void => {
       $q.dialog({
@@ -92,9 +84,7 @@ export default defineComponent({
     }
 
     return {
-      request,
       stream,
-      sendRequest,
       editModel,
       thumbnailMedia
     }

@@ -2,8 +2,9 @@
   <div
     ref="videoContainer"
     class="relative-position row no-wrap justify-center items-center player-container"
-    @mouseover="sendRequest({ controls: true })"
-    @mouseleave="sendRequest({ controls: false })"
+    @mouseenter="sendRequest({ controls: true })"
+    @mousemove="sendRequest({ controls: true })"
+    @touchstart="sendRequest({ controls: true })"
   >
     <video
       ref="videoElement"
@@ -87,6 +88,7 @@ export default defineComponent({
 
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLVideoElement | null>(null)
+    const controlsTimer = ref<number | undefined>(0)
 
     const { createPlayer, setMetadata, setPlayable, sendRequest, request, player } = usePlayer({
       module: props.module,
@@ -109,6 +111,14 @@ export default defineComponent({
 
     const setPlaybackRate = (dom: HTMLVideoElement, value: number): void => {
       dom.playbackRate = value
+    }
+
+    const toggleControls = (): void => {
+      clearTimeout(controlsTimer.value)
+
+      controlsTimer.value = window.setTimeout(() => {
+        sendRequest({ controls: false })
+      }, 3500)
     }
 
     const toggleFullscreen = async (dom: HTMLDivElement | null): Promise<void> => {
@@ -137,6 +147,10 @@ export default defineComponent({
 
       if (value?.fullscreen !== oldValue?.fullscreen) {
         await toggleFullscreen(videoContainer.value)
+      }
+
+      if (value?.controls !== oldValue?.controls) {
+        toggleControls()
       }
 
       if (value?.currentTime !== oldValue?.currentTime) {
