@@ -2,9 +2,9 @@
   <div
     ref="videoContainer"
     class="relative-position row no-wrap justify-center items-center player-container"
-    @mouseenter="sendRequest({ controls: true })"
-    @mousemove="sendRequest({ controls: true })"
-    @touchstart="sendRequest({ controls: true })"
+    @mouseenter="activateControls"
+    @mousemove="activateControls"
+    @touchstart="activateControls"
   >
     <video
       ref="videoElement"
@@ -15,25 +15,27 @@
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
-      @canplay="setPlayable"
-      @cuechange="setMetadata"
-      @durationchange="setMetadata"
-      @ended="setPlayable"
-      @error="setPlayable"
-      @fullscreenchange="setPlayable"
-      @loadeddata="setMetadata"
-      @loadedmetadata="setMetadata"
-      @pause="setPlayable"
-      @play="setPlayable"
-      @playing="setPlayable"
-      @progress="setMetadata"
-      @ratechange="setPlayable"
-      @seeking="setPlayable"
-      @seeked="setPlayable"
-      @stalled="setPlayable"
-      @timeupdate="setPlayable"
-      @volumechange="setMetadata"
-      @waiting="setPlayable"
+      :autoplay="properties.autoplay"
+      :muted="properties.muted"
+      :playbackRate="properties.playbackRate"
+      :volume="properties.volume"
+      @canplay="syncProperties"
+      @cuechange="syncProperties"
+      @durationchange="syncProperties"
+      @ended="syncProperties"
+      @error="syncProperties"
+      @loadeddata="syncProperties"
+      @loadedmetadata="syncProperties"
+      @pause="syncProperties"
+      @play="syncProperties"
+      @playing="syncProperties"
+      @progress="syncProperties"
+      @ratechange="syncProperties"
+      @seeking="syncProperties"
+      @seeked="syncProperties"
+      @stalled="syncProperties"
+      @timeupdate="syncProperties"
+      @waiting="syncProperties"
     />
 
     <transition
@@ -42,7 +44,7 @@
       leave-active-class="animated fadeOut"
     >
       <div
-        v-show="request.controls"
+        v-show="properties.controls"
         class="absolute-full player-controls"
       >
         <playback-control :module="module" />
@@ -86,93 +88,80 @@ export default defineComponent({
   setup (props) {
     const $q = useQuasar()
 
-    const videoContainer = ref<HTMLDivElement | null>(null)
-    const videoElement = ref<HTMLVideoElement | null>(null)
-    const controlsTimer = ref<number | undefined>(0)
-    const isFullscreen = ref<boolean>(false)
-
-    const { createPlayer, setMetadata, setPlayable, sendRequest, request, player } = usePlayer({
+    const { createPlayer, setProperties, syncProperties, properties } = usePlayer({
       module: props.module,
       model: props.video,
       media: props.video.clip
     })
 
-    const setFullscreen = async (dom: HTMLDivElement | null, value: boolean): Promise<void> => {
-      if (value && !isFullscreen.value) {
-        await dom?.requestFullscreen()
-      } else if (!value && isFullscreen.value) {
-        await $q.fullscreen.exit()
+    const videoContainer = ref<HTMLDivElement | null>(null)
+    const videoElement = ref<HTMLVideoElement | null>(null)
+    const videoControls = ref<number | undefined>(0)
+
+    const activateControls = () => {
+      setProperties({ controls: true })
+    }
+
+    const deactiveControls = (): void => {
+      clearTimeout(videoControls.value)
+
+      videoControls.value = window.setTimeout(() => {
+        setProperties({ controls: false })
+      }, 3500)
+    }
+
+    const setCurrentTime = (value: number): void => {
+      if (videoElement.value) {
+        videoElement.value.currentTime = value
       }
     }
 
-    const togglePlay = async (dom: HTMLVideoElement, value: boolean): Promise<void> => {
+    const setFullscreen = async (value: boolean): Promise<void> => {
       if (value === true) {
-        dom.pause()
+        await videoContainer.value?.requestFullscreen()
         return
       }
 
-      await dom.play()
+      await $q.fullscreen.exit()
     }
 
-    const setCurrentTime = (dom: HTMLVideoElement, value: number): void => {
-      dom.currentTime = value
-    }
+    const setPause = async (value: boolean): Promise<void> => {
+      if (value === true) {
+        videoElement.value?.pause()
+        return
+      }
 
-    const setPlaybackRate = (dom: HTMLVideoElement, value: number): void => {
-      dom.playbackRate = value
-    }
-
-    const toggleControls = (): void => {
-      clearTimeout(controlsTimer.value)
-
-      controlsTimer.value = window.setTimeout(() => {
-        sendRequest({ controls: false })
-      }, 3500)
+      await videoElement.value?.play()
     }
 
     onMounted(() => {
       createPlayer(videoElement.value)
     })
 
-    watch(() => $q.fullscreen.isActive, val => {
-      isFullscreen.value = val
-    })
-
-    watch(request, async (value, oldValue): Promise<void> => {
-      // Wait for player and the element to be ready
-      if (!player || !videoElement.value) {
-        return
+    watch(properties, async (value, oldValue): Promise<void> => {
+      if (value.controls !== oldValue.controls) {
+        deactiveControls()
       }
 
-      if (value?.pause !== oldValue?.pause) {
-        await togglePlay(videoElement.value, value?.pause || false)
+      if (value.requestTime !== oldValue.requestTime) {
+        setCurrentTime(value.requestTime)
       }
 
-      if (value?.fullscreen !== oldValue?.fullscreen) {
-        await setFullscreen(videoContainer.value, value?.fullscreen || false)
+      if (value.paused !== oldValue.paused) {
+        await setPause(value.paused)
       }
 
-      if (value?.controls !== oldValue?.controls) {
-        toggleControls()
-      }
-
-      if (value?.currentTime !== oldValue?.currentTime) {
-        setCurrentTime(videoElement.value, value?.currentTime || 0)
-      }
-
-      if (value?.playbackRate !== oldValue?.playbackRate) {
-        setPlaybackRate(videoElement.value, value?.playbackRate || 1.0)
+      if (value.fullscreen !== oldValue.fullscreen) {
+        await setFullscreen(value.fullscreen)
       }
     })
 
     return {
       videoContainer,
       videoElement,
-      sendRequest,
-      setMetadata,
-      setPlayable,
-      player,
-      request
+      activateControls,
+      syncProperties,
+      properties
     }
   }
 })

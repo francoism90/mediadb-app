@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="stream && stream.readyState > 0"
-    class="absolute-center player-control"
-  >
+  <div class="absolute-center player-control">
     <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
       <template v-if="isLoading">
         <q-spinner-dots
@@ -25,8 +22,7 @@
           class="cursor-pointer"
           color="white"
           size="72px"
-          @click="sendRequest({ pause: !request.pause })"
-          @keyup.k="sendRequest({ pause: !request.pause })"
+          @click="setPause"
         />
 
         <q-icon
@@ -56,29 +52,28 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { isLoading, request, stream, sendRequest } = usePlayer({ module: props.module })
+    const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
 
-    const icon = computed(() => stream.value?.paused === true ? 'play_arrow' : 'pause')
+    const icon = computed(() => properties.value?.paused === true ? 'play_arrow' : 'pause')
 
     const decreaseTime = () => {
-      const currentTime = stream.value?.currentTime || 10
-
-      sendRequest({ currentTime: currentTime - 10 })
+      setProperties({ requestTime: properties.value?.currentTime - 10 })
     }
 
     const increaseTime = () => {
-      const currentTime = stream.value?.currentTime || 0
+      setProperties({ requestTime: properties.value?.currentTime + 10 })
+    }
 
-      sendRequest({ currentTime: currentTime + 10 })
+    const setPause = () => {
+      setProperties({ paused: !properties.value?.paused })
     }
 
     return {
+      properties,
       isLoading,
-      request,
-      stream,
-      sendRequest,
       decreaseTime,
       increaseTime,
+      setPause,
       icon
     }
   }

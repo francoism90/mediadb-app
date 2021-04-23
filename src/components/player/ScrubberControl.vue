@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="stream && stream.readyState > 0"
-    class="absolute-bottom player-control player-scrubber"
-  >
+  <div class="absolute-bottom player-control player-scrubber">
     <div class="row no-wrap justify-between items-center content-center">
       <div class="col">
         <time-progress :module="module" />
@@ -17,9 +14,9 @@
     </div>
 
     <q-slider
-      :model-value="stream.currentTime || 0"
+      :model-value="properties.currentTime"
       :min="0.0"
-      :max="stream.duration || 0"
+      :max="properties.duration"
       :step="0"
       :style="bufferStyle"
       color="primary"
@@ -52,13 +49,13 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { request, stream, sendRequest } = usePlayer({ module: props.module })
+    const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
 
     const bufferedPct = computed(() => {
-      const buffered = stream.value?.buffered || <TimeRanges>{}
-      const duration = stream.value?.duration || 0
+      const buffered = properties.value?.buffered || <TimeRanges>{}
+      const duration = properties.value?.duration || 0
 
-      if (buffered.length === 0) {
+      if (!(buffered instanceof TimeRanges) || buffered.length === 0) {
         return 0
       }
 
@@ -78,17 +75,16 @@ export default defineComponent({
       }
     })
 
-    const setCurrentTime = (value: number | null) => {
-      sendRequest({ currentTime: value || 0 })
+    const setCurrentTime = (value: number) => {
+      setProperties({ requestTime: value })
     }
 
     return {
-      request,
-      stream,
+      properties,
+      isLoading,
       bufferedPct,
       bufferedRemainingPct,
       bufferStyle,
-      sendRequest,
       setCurrentTime
     }
   }

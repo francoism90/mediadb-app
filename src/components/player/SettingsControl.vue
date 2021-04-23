@@ -27,7 +27,6 @@
           </q-item>
 
           <q-item
-            v-if="stream && stream.readyState > 0"
             v-close-popup
             clickable
             @click="thumbnailMedia"
@@ -60,7 +59,7 @@ export default defineComponent({
   setup (props) {
     const $q = useQuasar()
 
-    const { media, model, stream } = usePlayer({ module: props.module })
+    const { media, model, properties } = usePlayer({ module: props.module })
 
     const editModel = (): void => {
       $q.dialog({
@@ -74,7 +73,7 @@ export default defineComponent({
     const thumbnailMedia = async (): Promise<void> => {
       await update({
         id: media.value?.id || '',
-        thumbnail: stream.value?.currentTime || 10
+        thumbnail: properties.value?.currentTime || 10
       })
 
       $q.notify({
@@ -84,7 +83,7 @@ export default defineComponent({
     }
 
     return {
-      stream,
+      properties,
       editModel,
       thumbnailMedia
     }
