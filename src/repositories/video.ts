@@ -25,3 +25,11 @@ export async function update (params: Video): Promise<VideoResponse> {
 
   return response.data
 }
+
+export async function remove (params: Video): Promise<VideoResponse> {
+  const response = await api.delete<VideoResponse, AxiosResponse<VideoResponse>>(
+    `videos/${params.id}`
+  )
+
+  return response.data
+}
