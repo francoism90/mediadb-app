@@ -61,14 +61,14 @@
 
       <item v-if="video.release_date">
         <template #label>
-          Release Date:
+          Release Date :
         </template>
         {{ released }}
       </item>
 
       <item v-if="video.created_at">
         <template #label>
-          Upload Date:
+          Upload Date :
         </template>
         {{ created }}
       </item>
