@@ -37,8 +37,8 @@ export default function useVideo (props: Props) {
 
   const subscribe = (id: string | number): void => {
     echo?.private(`video.${id}`)
+      .listen('.video.deleted', fetchVideo)
       .listen('.video.updated', fetchVideo)
-      .listen('.video.favorited', fetchVideo)
   }
 
   const unsubscribe = (id: string | number): void => {
