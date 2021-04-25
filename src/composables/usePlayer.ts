@@ -47,6 +47,13 @@ export default function usePlayer (props: PlayerProps) {
 
     player.value = MediaFactory().create()
     player.value.initialize(dom || undefined, props.media?.stream_url || '', true)
+    player.value?.updateSettings({
+      streaming: {
+        bufferToKeep: 30,
+        smallGapLimit: 0.5,
+        bufferTimeAtTopQuality: 60
+      }
+    })
   }
 
   const syncProperties = (event: Event | null): void => {
