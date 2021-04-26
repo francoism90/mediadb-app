@@ -59,12 +59,27 @@ export default function usePlayer (props: PlayerProps) {
     shakaPlayer.configure({
       streaming: {
         jumpLargeGaps: true,
-        ignoreTextStreamFailures: true
+        ignoreTextStreamFailures: true,
+        alwaysStreamText: true
       }
     })
 
     try {
-      player.value = await shakaPlayer.load(props.media?.stream_url || '') as shaka.Player
+      await shakaPlayer.load(props.media?.stream_url || '') as shaka.Player
+
+      const track = shakaPlayer.addTextTrack(
+        props.media?.sprite_url || '', 'en', 'metadata', 'text/vtt'
+      )
+
+      shakaPlayer.setTextTrackVisibility(true)
+      shakaPlayer.selectTextLanguage('en')
+      shakaPlayer.selectTextTrack(track)
+
+      console.log(shakaPlayer.getTextTracks())
+
+      // console.log(track)
+
+      player.value = shakaPlayer
     } catch (e: unknown) {
       console.error(e)
     }
@@ -91,10 +106,13 @@ export default function usePlayer (props: PlayerProps) {
       'played',
       'readyState',
       'seekable',
-      'seeking',
-      'textTracks'
+      'seeking'
     ]))
   }
+
+  watch(() => player.value?.getTextTracks(), value => {
+    setProperties({ textTracks: value })
+  })
 
   watch(() => $q.fullscreen.isActive, value => {
     setProperties({ fullscreen: value })

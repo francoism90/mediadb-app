@@ -13,7 +13,10 @@
       </div>
     </div>
 
+    {{ properties.textTracks }}
+
     <q-slider
+      ref="slider"
       :disable="properties.readyState === 0"
       :model-value="properties.currentTime"
       :min="0.0"
@@ -21,17 +24,20 @@
       :step="0"
       :style="bufferStyle"
       color="primary"
+      @mousemove="onScrubberHover"
       @change="setCurrentTime"
     />
   </div>
 </template>
 
 <script lang="ts">
+import { dom, QSlider } from 'quasar'
 import CaptionControl from 'src/components/player/CaptionControl.vue'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
+// import useMediaThumbnail from 'src/composables/useMediaThumbnail'
 import usePlayer from 'src/composables/usePlayer'
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
   name: 'ScrubberControl',
@@ -50,7 +56,12 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
+    const { isLoading, media, properties, setProperties } = usePlayer({ module: props.module })
+    // const { fetchThumbnail, url: thumbnailUrl } = useMediaThumbnail(media.value)
+
+    const slider = ref<QSlider | null>(null)
+
+    console.log(properties.value.textTracks)
 
     const bufferedPct = computed(() => {
       const buffered = properties.value?.buffered || <TimeRanges>{}
@@ -76,6 +87,25 @@ export default defineComponent({
       }
     })
 
+    const onScrubberHover = (event: MouseEvent) => {
+      setProperties({ controls: true })
+
+      const sliderWidth = dom.width(slider.value?.$el)
+      const sliderOffset = dom.offset(slider.value?.$el)
+
+      const hoverPosition = event.clientX - sliderOffset.left
+      const hoverPercent = Math.round((hoverPosition) / sliderWidth * 100)
+
+      const foo = Math.round(hoverPercent / 2) * 2
+      const frame = Math.round((media.value?.duration || 0) * foo)
+
+      // console.log(hoverPercent)
+      // console.log(media.value?.duration)
+      console.log(foo)
+      console.log(frame)
+      // console.log(sliderOffset)
+    }
+
     const setCurrentTime = (value: number) => {
       setProperties({
         currentTime: value,
@@ -84,11 +114,13 @@ export default defineComponent({
     }
 
     return {
+      slider,
       properties,
       isLoading,
       bufferedPct,
       bufferedRemainingPct,
       bufferStyle,
+      onScrubberHover,
       setCurrentTime
     }
   }

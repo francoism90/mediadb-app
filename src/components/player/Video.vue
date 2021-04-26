@@ -13,6 +13,7 @@
       preload="auto"
       autoplay
       class="col"
+      crossorigin="anonymous"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
@@ -107,7 +108,7 @@ export default defineComponent({
 
       videoControls.value = window.setTimeout(() => {
         setProperties({ controls: false })
-      }, 3500)
+      }, 5000)
     }
 
     const setCurrentTime = (value: number): void => {
