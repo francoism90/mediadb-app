@@ -25,6 +25,6 @@ export interface PlayerProperties {
   requestTime: number,
   seekable: TimeRanges | null,
   seeking: boolean,
-  textTracks: TextTrack[] | null,
+  textTracks: TextTrackList | null,
   volume: number,
 }

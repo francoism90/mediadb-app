@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    {{ properties.textTracks }}
+    {{ hoverCue.url }}
 
     <q-slider
       ref="slider"
@@ -31,11 +31,11 @@
 </template>
 
 <script lang="ts">
+import { find } from 'lodash'
 import { dom, QSlider } from 'quasar'
 import CaptionControl from 'src/components/player/CaptionControl.vue'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
-// import useMediaThumbnail from 'src/composables/useMediaThumbnail'
 import usePlayer from 'src/composables/usePlayer'
 import { computed, defineComponent, PropType, ref } from 'vue'
 
@@ -56,29 +56,26 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { isLoading, media, properties, setProperties } = usePlayer({ module: props.module })
-    // const { fetchThumbnail, url: thumbnailUrl } = useMediaThumbnail(media.value)
-
+    const hoverCue = ref<JSON | null>(null)
     const slider = ref<QSlider | null>(null)
 
-    console.log(properties.value.textTracks)
+    const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
+
+    const buffered = computed(() => properties.value?.buffered || <TimeRanges>{})
+    const duration = computed(() => properties.value?.duration || 0)
+    const textTracks = computed(() => properties.value.textTracks || <TextTrackList>{})
 
     const bufferedPct = computed(() => {
-      const buffered = properties.value?.buffered || <TimeRanges>{}
-      const duration = properties.value?.duration || 0
-
-      if (!(buffered instanceof TimeRanges) || buffered.length === 0) {
+      if (!(buffered.value instanceof TimeRanges) || buffered.value.length === 0) {
         return 0
       }
 
-      const bufferedSeconds = buffered.end(0) - buffered.start(0)
+      const bufferedSeconds = buffered.value.end(0) - buffered.value.start(0)
 
-      return Math.round((bufferedSeconds / duration) * 100)
+      return Math.round((bufferedSeconds / duration.value) * 100)
     })
 
-    const bufferedRemainingPct = computed(() => {
-      return Math.round(100 - bufferedPct.value)
-    })
+    const bufferedRemainingPct = computed(() => Math.round(100 - bufferedPct.value))
 
     const bufferStyle = computed(() => {
       return {
@@ -88,22 +85,23 @@ export default defineComponent({
     })
 
     const onScrubberHover = (event: MouseEvent) => {
-      setProperties({ controls: true })
-
       const sliderWidth = dom.width(slider.value?.$el)
       const sliderOffset = dom.offset(slider.value?.$el)
-
       const hoverPosition = event.clientX - sliderOffset.left
       const hoverPercent = Math.round((hoverPosition) / sliderWidth * 100)
+      const hoverTime = Math.floor(duration.value * (hoverPercent / 100))
 
-      const foo = Math.round(hoverPercent / 2) * 2
-      const frame = Math.round((media.value?.duration || 0) * foo)
+      const track = find(textTracks.value, { id: 'sprite' }) as TextTrack | null
+      const cues = track?.cues as TextTrackCueList || undefined
 
-      // console.log(hoverPercent)
-      // console.log(media.value?.duration)
-      console.log(foo)
-      console.log(frame)
-      // console.log(sliderOffset)
+      const activeCue = find(cues, (o) => {
+        return o.startTime >= hoverTime || o.startTime >= (hoverTime - 30) || o.id
+      }) as VTTCue
+
+      hoverCue.value = JSON.parse(activeCue?.text) as JSON
+
+      // console.log('hover', hoverTime)
+      // console.log('active', activeCue)
     }
 
     const setCurrentTime = (value: number) => {
@@ -115,6 +113,7 @@ export default defineComponent({
 
     return {
       slider,
+      hoverCue,
       properties,
       isLoading,
       bufferedPct,

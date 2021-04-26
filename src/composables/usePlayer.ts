@@ -65,21 +65,7 @@ export default function usePlayer (props: PlayerProps) {
     })
 
     try {
-      await shakaPlayer.load(props.media?.stream_url || '') as shaka.Player
-
-      const track = shakaPlayer.addTextTrack(
-        props.media?.sprite_url || '', 'en', 'metadata', 'text/vtt'
-      )
-
-      shakaPlayer.setTextTrackVisibility(true)
-      shakaPlayer.selectTextLanguage('en')
-      shakaPlayer.selectTextTrack(track)
-
-      console.log(shakaPlayer.getTextTracks())
-
-      // console.log(track)
-
-      player.value = shakaPlayer
+      player.value = await shakaPlayer.load(props.media?.stream_url || '') as shaka.Player
     } catch (e: unknown) {
       console.error(e)
     }
@@ -106,13 +92,14 @@ export default function usePlayer (props: PlayerProps) {
       'played',
       'readyState',
       'seekable',
-      'seeking'
+      'seeking',
+      'textTracks'
     ]))
   }
 
-  watch(() => player.value?.getTextTracks(), value => {
-    setProperties({ textTracks: value })
-  })
+  // watch(() => player.value?.getTextTracks(), value => {
+  //   setProperties({ textTracks: value })
+  // })
 
   watch(() => $q.fullscreen.isActive, value => {
     setProperties({ fullscreen: value })

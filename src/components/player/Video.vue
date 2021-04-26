@@ -37,7 +37,15 @@
       @stalled="syncProperties"
       @timeupdate="syncProperties"
       @waiting="syncProperties"
-    />
+    >
+      <track
+        id="sprite"
+        default
+        kind="metadata"
+        srclang="en"
+        :src="video.clip?.sprite_url"
+      >
+    </video>
 
     <transition
       appear
