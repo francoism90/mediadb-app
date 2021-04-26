@@ -14,6 +14,7 @@
     </div>
 
     <q-slider
+      :disable="properties.readyState === 0"
       :model-value="properties.currentTime"
       :min="0.0"
       :max="properties.duration"
