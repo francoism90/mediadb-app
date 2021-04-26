@@ -44,7 +44,6 @@ export default function usePlayer (props: PlayerProps) {
       return
     }
 
-    // Install built-in polyfills to patch browser incompatibilities
     shaka.polyfill.installAll()
 
     if (shaka.Player.isBrowserSupported()) {
