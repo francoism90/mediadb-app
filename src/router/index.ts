@@ -25,7 +25,13 @@ const createHistory =
         : createWebHashHistory
 
 export const router = createRouter({
-  scrollBehavior: () => ({ left: 0, top: 0 }),
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) {
+      return savedPosition
+    }
+
+    return { left: 0, top: 0 }
+  },
   routes,
 
   // Leave this as is and make changes in quasar.conf.js instead!

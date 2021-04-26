@@ -1,6 +1,6 @@
-import { MediaPlayer as MediaFactory, MediaPlayerClass } from 'dashjs'
 import { pick } from 'lodash'
 import { useQuasar } from 'quasar'
+import * as shaka from 'shaka-player'
 import { PlayerProps } from 'src/interfaces/player'
 import { PlayerState } from 'src/interfaces/store'
 import { useStore } from 'src/store'
@@ -12,8 +12,7 @@ export default function usePlayer (props: PlayerProps) {
   const $q = useQuasar()
   const $store = useStore()
 
-  // eslint-disable-next-line no-undef
-  const player = ref(<MediaPlayerClass | null>(null))
+  const player = ref(<shaka.Player | null>(null))
 
   if (!$store.hasModule(props.module)) {
     $store.registerModule(props.module, playerModule)
@@ -39,21 +38,43 @@ export default function usePlayer (props: PlayerProps) {
     initialize(props)
   }
 
-  const createPlayer = (dom: HTMLVideoElement | null): void => {
+  const createPlayer = async (dom: HTMLMediaElement | null): Promise<void> => {
     if (!dom) {
       console.debug('Waiting for HTMLVideoElement..')
       return
     }
 
-    player.value = MediaFactory().create()
-    player.value.initialize(dom || undefined, props.media?.stream_url || '', true)
+    shaka.polyfill.installAll()
+
+    if (shaka.Player.isBrowserSupported()) {
+      await initPlayer(dom)
+    } else {
+      console.error('Browser not supported')
+    }
+  }
+
+  const initPlayer = async (dom: HTMLMediaElement | null): Promise<void> => {
+    const shakaPlayer = new shaka.Player(dom)
+
+    shakaPlayer.configure({
+      streaming: {
+        jumpLargeGaps: true,
+        ignoreTextStreamFailures: true
+      }
+    })
+
+    try {
+      player.value = await shakaPlayer.load(props.media?.stream_url || '') as shaka.Player
+    } catch (e: unknown) {
+      console.error(e)
+    }
   }
 
   const syncProperties = (event: Event | null): void => {
-    const target = event?.target as HTMLVideoElement
+    const target = event?.target as HTMLMediaElement
 
     if (!event || !target) {
-      console.debug('Waiting for HTMLVideoElement..')
+      console.debug('Waiting for HTMLMediaElement..')
       return
     }
 
@@ -79,7 +100,10 @@ export default function usePlayer (props: PlayerProps) {
     setProperties({ fullscreen: value })
   })
 
-  onBeforeUnmount(() => player.value?.reset())
+  onBeforeUnmount(() => {
+    player.value?.detach()
+    player.value?.destroy()
+  })
 
   return {
     resetStore,

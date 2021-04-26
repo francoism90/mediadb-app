@@ -14,6 +14,7 @@
     </div>
 
     <q-slider
+      :disable="properties.readyState === 0"
       :model-value="properties.currentTime"
       :min="0.0"
       :max="properties.duration"
@@ -76,7 +77,10 @@ export default defineComponent({
     })
 
     const setCurrentTime = (value: number) => {
-      setProperties({ requestTime: value })
+      setProperties({
+        currentTime: value,
+        requestTime: value
+      })
     }
 
     return {
