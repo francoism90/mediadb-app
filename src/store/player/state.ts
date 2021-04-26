@@ -8,7 +8,6 @@ function state (): PlayerState {
     media: <Media>{},
     model: <Model>{},
     properties: <PlayerProperties>{
-      autoplay: false,
       buffered: null,
       controls: false,
       currentSrc: '',

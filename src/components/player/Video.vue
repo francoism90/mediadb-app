@@ -11,11 +11,11 @@
       autoPictureInPicture
       playsinline
       preload="auto"
+      autoplay
       class="col"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
-      :autoplay="properties.autoplay"
       :muted="properties.muted"
       :playbackRate="properties.playbackRate"
       :volume="properties.volume"
@@ -95,7 +95,7 @@ export default defineComponent({
     })
 
     const videoContainer = ref<HTMLDivElement | null>(null)
-    const videoElement = ref<HTMLVideoElement | null>(null)
+    const videoElement = ref<HTMLMediaElement | null>(null)
     const videoControls = ref<number | undefined>(0)
 
     const activateControls = () => {
@@ -134,9 +134,7 @@ export default defineComponent({
       await videoElement.value?.play()
     }
 
-    onMounted(() => {
-      createPlayer(videoElement.value)
-    })
+    onMounted(async () => await createPlayer(videoElement.value))
 
     watch(properties, async (value, oldValue): Promise<void> => {
       if (value.controls !== oldValue.controls) {

@@ -8,7 +8,6 @@ export interface PlayerProps {
 }
 
 export interface PlayerProperties {
-  autoplay: boolean,
   buffered: TimeRanges | null,
   controls: boolean,
   currentSrc: string,
