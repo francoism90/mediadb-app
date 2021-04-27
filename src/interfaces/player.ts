@@ -28,3 +28,14 @@ export interface PlayerProperties {
   textTracks: TextTrackList | null,
   volume: number,
 }
+
+export interface TextTrackCueThumbnail {
+  start: string,
+  end: string,
+  url: string,
+}
+
+export interface TextTrackCue {
+  time?: number,
+  thumbnail?: TextTrackCueThumbnail
+}

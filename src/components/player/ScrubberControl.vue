@@ -13,7 +13,12 @@
       </div>
     </div>
 
-    {{ hoverCue.url }}
+    <q-img
+      v-if="trackCue"
+      :src="trackCue.thumbnail?.url"
+    />
+
+    {{ trackCue }}
 
     <q-slider
       ref="slider"
@@ -37,6 +42,7 @@ import CaptionControl from 'src/components/player/CaptionControl.vue'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
 import usePlayer from 'src/composables/usePlayer'
+import { TextTrackCue, TextTrackCueThumbnail } from 'src/interfaces/player'
 import { computed, defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
@@ -56,8 +62,8 @@ export default defineComponent({
   },
 
   setup (props) {
-    const hoverCue = ref<JSON | null>(null)
     const slider = ref<QSlider | null>(null)
+    const trackCue = ref<TextTrackCue | null>(null)
 
     const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
 
@@ -94,14 +100,13 @@ export default defineComponent({
       const track = find(textTracks.value, { id: 'sprite' }) as TextTrack | null
       const cues = track?.cues as TextTrackCueList || undefined
 
-      const activeCue = find(cues, (o) => {
+      const vttCue = find(cues, (o) => {
         return o.startTime >= hoverTime || o.startTime >= (hoverTime - 30) || o.id
       }) as VTTCue
 
-      hoverCue.value = JSON.parse(activeCue?.text) as JSON
+      const thumbnail = JSON.parse(vttCue?.text) as TextTrackCueThumbnail
 
-      // console.log('hover', hoverTime)
-      // console.log('active', activeCue)
+      trackCue.value = { time: hoverTime, thumbnail: thumbnail }
     }
 
     const setCurrentTime = (value: number) => {
@@ -113,7 +118,7 @@ export default defineComponent({
 
     return {
       slider,
-      hoverCue,
+      trackCue,
       properties,
       isLoading,
       bufferedPct,
