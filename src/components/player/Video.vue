@@ -48,16 +48,10 @@
       >
     </video>
 
-    <transition
-      appear
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-    >
-      <default-controls
-        v-show="properties.controls"
-        :module="module"
-      />
-    </transition>
+    <default-controls
+      v-show="properties.controls"
+      :module="module"
+    />
   </div>
 </template>
 
@@ -98,13 +92,13 @@ export default defineComponent({
 
     const videoContainer = ref<HTMLDivElement | null>(null)
     const videoElement = ref<HTMLMediaElement | null>(null)
-    const videoControls = ref<number | undefined>(0)
+    const controlTimer = ref<number | undefined>(0)
 
     const activateControls = () => {
-      clearTimeout(videoControls.value)
+      clearTimeout(controlTimer.value)
       setProperties({ controls: true })
 
-      videoControls.value = window.setTimeout(() => {
+      controlTimer.value = window.setTimeout(() => {
         setProperties({ controls: false })
       }, 3500)
     }

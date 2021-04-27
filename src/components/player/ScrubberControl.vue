@@ -15,7 +15,8 @@
       :step="0"
       :style="bufferStyle"
       color="primary"
-      @mousemove="onScrubberHover"
+      @mousemove="activateSprites"
+      @mouseleave="deactivateSprites"
       @change="setCurrentTime"
     />
 
@@ -98,7 +99,11 @@ export default defineComponent({
       return { marginLeft: `${finalPosition}px` }
     })
 
-    const onScrubberHover = (event: MouseEvent) => {
+    const deactivateSprites = (): void => {
+      spriteCue.value = null
+    }
+
+    const activateSprites = (event: MouseEvent) => {
       const sliderWidth = dom.width(slider.value?.$el)
       const sliderOffset = dom.offset(slider.value?.$el)
       const clientPosition = event.clientX - sliderOffset?.left
@@ -133,7 +138,8 @@ export default defineComponent({
       bufferedRemainingPct,
       bufferStyle,
       tooltipStyle,
-      onScrubberHover,
+      activateSprites,
+      deactivateSprites,
       setCurrentTime
     }
   }
