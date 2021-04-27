@@ -11,6 +11,7 @@ export interface Media extends Model {
   thumbnail?: number | null,
   'mime_type'?: string | null,
   'stream_url'?: string | null,
+  'sprite_url'?: string | null,
   'thumbnail_url'?: string | null,
 }
 

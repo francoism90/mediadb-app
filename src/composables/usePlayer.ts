@@ -59,7 +59,8 @@ export default function usePlayer (props: PlayerProps) {
     shakaPlayer.configure({
       streaming: {
         jumpLargeGaps: true,
-        ignoreTextStreamFailures: true
+        ignoreTextStreamFailures: true,
+        alwaysStreamText: true
       }
     })
 
@@ -95,6 +96,10 @@ export default function usePlayer (props: PlayerProps) {
       'textTracks'
     ]))
   }
+
+  // watch(() => player.value?.getTextTracks(), value => {
+  //   setProperties({ textTracks: value })
+  // })
 
   watch(() => $q.fullscreen.isActive, value => {
     setProperties({ fullscreen: value })

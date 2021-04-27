@@ -25,6 +25,18 @@ export interface PlayerProperties {
   requestTime: number,
   seekable: TimeRanges | null,
   seeking: boolean,
-  textTracks: TextTrack[] | null,
+  textTracks: TextTrackList | null,
   volume: number,
+}
+
+export interface TextTrackCueThumbnail {
+  start: string,
+  end: string,
+  url: string,
+}
+
+export interface TextTrackCue {
+  time?: string | number,
+  position?: number,
+  thumbnail?: TextTrackCueThumbnail | null
 }

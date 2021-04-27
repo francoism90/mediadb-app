@@ -13,6 +13,7 @@
       preload="auto"
       autoplay
       class="col"
+      crossorigin="anonymous"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :src="video.clip?.stream_url"
@@ -36,30 +37,32 @@
       @stalled="syncProperties"
       @timeupdate="syncProperties"
       @waiting="syncProperties"
-    />
+    >
+      <track
+        id="sprite"
+        default
+        kind="metadata"
+        srclang="en"
+        :src="video.clip?.sprite_url"
+      >
+    </video>
 
     <transition
       appear
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
     >
-      <div
+      <default-controls
         v-show="properties.controls"
-        class="absolute-full player-controls"
-      >
-        <playback-control :module="module" />
-        <scrubber-control :module="module" />
-        <settings-control :module="module" />
-      </div>
+        :module="module"
+      />
     </transition>
   </div>
 </template>
 
 <script lang="ts">
 import { useQuasar } from 'quasar'
-import PlaybackControl from 'src/components/player/PlaybackControl.vue'
-import ScrubberControl from 'src/components/player/ScrubberControl.vue'
-import SettingsControl from 'src/components/player/SettingsControl.vue'
+import DefaultControls from 'src/components/player/DefaultControls.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { Video } from 'src/interfaces/video'
 import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
@@ -68,9 +71,7 @@ export default defineComponent({
   name: 'VideoPlayer',
 
   components: {
-    PlaybackControl,
-    ScrubberControl,
-    SettingsControl
+    DefaultControls
   },
 
   props: {
@@ -107,7 +108,7 @@ export default defineComponent({
 
       videoControls.value = window.setTimeout(() => {
         setProperties({ controls: false })
-      }, 3500)
+      }, 5000)
     }
 
     const setCurrentTime = (value: number): void => {

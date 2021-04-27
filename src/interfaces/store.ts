@@ -19,12 +19,12 @@ export interface RepositoryState {
 }
 
 export interface PlayerState {
-  media: Media | null
-  model: Model | null
-  properties: PlayerProperties
+  media: Media,
+  model: Model,
+  properties: PlayerProperties,
 }
 
 export interface StoreState {
   session: SessionState,
-  videos: RepositoryState
+  videos: RepositoryState,
 }
