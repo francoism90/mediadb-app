@@ -37,5 +37,6 @@ export interface TextTrackCueThumbnail {
 
 export interface TextTrackCue {
   time?: string | number,
+  position?: string | number,
   thumbnail?: TextTrackCueThumbnail | null
 }

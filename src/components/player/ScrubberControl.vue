@@ -1,5 +1,22 @@
 <template>
   <div class="absolute-bottom player-control player-scrubber">
+    <q-img
+      v-if="trackCue"
+      :src="trackCue.thumbnail?.url"
+      :alt="trackCue.time"
+      width="160px"
+      height="90px"
+      class="player-thumb q-mb-sm"
+      no-spinner
+      no-transition
+    >
+      <div class="absolute-bottom text-center">
+        <div class="text-white player-thumb-label">
+          {{ trackCue.time }}
+        </div>
+      </div>
+    </q-img>
+
     <div class="row no-wrap justify-between items-center content-center">
       <div class="col">
         <time-progress :module="module" />
@@ -12,22 +29,6 @@
         </div>
       </div>
     </div>
-
-    <q-img
-      v-if="trackCue"
-      :src="trackCue.thumbnail?.url"
-      :alt="trackCue.time"
-      width="160px"
-      height="90px"
-      no-spinner
-      no-transition
-    >
-      <div class="absolute-bottom text-center">
-        <div class="text-white player-thumb-label">
-          {{ trackCue.time }}
-        </div>
-      </div>
-    </q-img>
 
     <q-slider
       ref="slider"
@@ -104,25 +105,26 @@ export default defineComponent({
     const onScrubberHover = (event: MouseEvent) => {
       const sliderWidth = dom.width(slider.value?.$el)
       const sliderOffset = dom.offset(slider.value?.$el)
-      const hoverPosition = event.clientX - sliderOffset.left
-      const hoverPercent = Math.round((hoverPosition) / sliderWidth * 100)
-      const hoverTime = Math.floor(duration.value * (hoverPercent / 100))
+      const clientPosition = event.clientX - sliderOffset.left
+      const clientPercent = Math.round((clientPosition) / sliderWidth * 100)
+      const clientTime = Math.floor(duration.value * (clientPercent / 100))
 
       const track = find(textTracks.value, { id: 'sprite' }) as TextTrack | null
       const cues = track?.cues as TextTrackCueList || undefined
 
       const vttCue = find(cues, (o) => {
-        return o.startTime >= hoverTime || o.startTime >= (hoverTime - 30) || o.id
+        return o.startTime >= clientTime || o.startTime >= (clientTime - 30) || o.id
       }) as VTTCue
 
-      const thumbnail = JSON.parse(vttCue?.text) as TextTrackCueThumbnail
-
-      trackCue.value = { time: formatTime(hoverTime), thumbnail: thumbnail }
+      trackCue.value = {
+        time: formatTime(clientTime),
+        position: clientPosition,
+        thumbnail: JSON.parse(vttCue?.text) as TextTrackCueThumbnail
+      }
     }
 
     const setCurrentTime = (value: number) => {
       const time = Math.floor(value)
-
       setProperties({ currentTime: time, requestTime: time })
     }
 
