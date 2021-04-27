@@ -1,8 +1,8 @@
 <template>
   <div class="player-tooltip">
     <q-img
-      v-if="trackCue.thumbnail"
-      :src="trackCue.thumbnail?.url"
+      v-if="spriteCue.text"
+      :src="spriteCue.text"
       width="160px"
       height="90px"
       class="player-tooltip-thumbnail"
@@ -10,21 +10,21 @@
     />
 
     <div class="text-white text-center q-py-xs">
-      {{ trackCue.time }}
+      {{ spriteCue.time }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { TextTrackCue } from 'src/interfaces/player'
+import { SpriteTrackCue } from 'src/interfaces/player'
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'PlayerTooltip',
 
   props: {
-    trackCue: {
-      type: Object as PropType<TextTrackCue>,
+    spriteCue: {
+      type: Object as PropType<SpriteTrackCue>,
       required: true
     }
   },

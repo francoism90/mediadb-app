@@ -29,14 +29,8 @@ export interface PlayerProperties {
   volume: number,
 }
 
-export interface TextTrackCueThumbnail {
-  start: string,
-  end: string,
-  url: string,
-}
-
-export interface TextTrackCue {
-  time?: string | number,
-  position?: number,
-  thumbnail?: TextTrackCueThumbnail | null
+export interface SpriteTrackCue {
+  time: string | number,
+  position: number,
+  text: string | undefined
 }

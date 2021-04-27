@@ -1,8 +1,8 @@
 <template>
   <div class="player-scrubber absolute-bottom">
     <tooltip
-      v-if="trackCue"
-      :track-cue="trackCue"
+      v-if="spriteCue"
+      :sprite-cue="spriteCue"
       :style="tooltipStyle"
     />
 
@@ -41,7 +41,7 @@ import TimeProgress from 'src/components/player/TimeProgress.vue'
 import Tooltip from 'src/components/player/Tooltip.vue'
 import useFilters from 'src/composables/useFilters'
 import usePlayer from 'src/composables/usePlayer'
-import { TextTrackCue, TextTrackCueThumbnail } from 'src/interfaces/player'
+import { SpriteTrackCue } from 'src/interfaces/player'
 import { computed, defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
@@ -62,7 +62,7 @@ export default defineComponent({
 
   setup (props) {
     const slider = ref<QSlider | null>(null)
-    const trackCue = ref<TextTrackCue | null>(null)
+    const spriteCue = ref<SpriteTrackCue | null>(null)
 
     const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
     const { formatTime } = useFilters()
@@ -92,7 +92,7 @@ export default defineComponent({
 
     const tooltipStyle = computed(() => {
       const sliderWidth = dom.width(slider.value?.$el)
-      const position = trackCue.value?.position || 160
+      const position = spriteCue.value?.position || 160
       const finalPosition = clamp(position - 80, 0, sliderWidth - 160)
 
       return { marginLeft: `${finalPosition}px` }
@@ -112,10 +112,10 @@ export default defineComponent({
         return o.startTime >= clientTime || o.startTime >= (clientTime - 30) || o.id
       }) as VTTCue
 
-      trackCue.value = {
+      spriteCue.value = {
         time: formatTime(clientTime),
         position: clientPosition,
-        thumbnail: JSON.parse(vttCue?.text || '') as TextTrackCueThumbnail
+        text: vttCue?.text
       }
     }
 
@@ -126,7 +126,7 @@ export default defineComponent({
 
     return {
       slider,
-      trackCue,
+      spriteCue,
       properties,
       isLoading,
       bufferedPct,
