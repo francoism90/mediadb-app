@@ -13,12 +13,12 @@ function createEcho (store: Store<StoreState>): Echo {
   return new Echo({
     broadcaster: 'pusher',
     key: process.env.WS_KEY,
-    cluster: process.env.WS_CLUSTER || 'mt1',
-    wsHost: process.env.WS_HOST || 'localhost',
-    wsPort: process.env.WS_PORT || 6001,
-    wssPort: process.env.WS_PORT || 6001,
+    cluster: process.env.WS_CLUSTER,
+    wsHost: process.env.WS_HOST,
+    wsPort: process.env.WS_PORT,
+    wssPort: process.env.WS_PORT,
     disableStats: true,
-    forceTLS: process.env.WS_TLS || false,
+    forceTLS: process.env.WS_TLS,
     enabledTransports: ['ws', 'wss'],
     authEndpoint: process.env.API_URL + '/broadcasting/auth',
     auth: {
