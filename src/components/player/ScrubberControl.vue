@@ -1,23 +1,10 @@
 <template>
-  <div class="absolute-bottom player-control player-scrubber">
+  <div class="player-scrubber absolute-bottom">
     <tooltip
       v-if="trackCue"
       :track-cue="trackCue"
       :style="tooltipStyle"
     />
-
-    <div class="row no-wrap justify-between items-center content-center">
-      <div class="col">
-        <time-progress :module="module" />
-      </div>
-
-      <div class="col-auto">
-        <div class="q-col-gutter-sm">
-          <caption-control :module="module" />
-          <fullscreen-control :module="module" />
-        </div>
-      </div>
-    </div>
 
     <q-slider
       ref="slider"
@@ -31,13 +18,24 @@
       @mousemove="onScrubberHover"
       @change="setCurrentTime"
     />
+
+    <div class="row no-wrap justify-between items-center content-center">
+      <div class="col">
+        <time-progress :module="module" />
+      </div>
+
+      <div class="col-auto">
+        <div class="q-col-gutter-sm">
+          <fullscreen-control :module="module" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { clamp, find } from 'lodash'
 import { dom, QSlider } from 'quasar'
-import CaptionControl from 'src/components/player/CaptionControl.vue'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
 import Tooltip from 'src/components/player/Tooltip.vue'
@@ -52,8 +50,7 @@ export default defineComponent({
   components: {
     TimeProgress,
     Tooltip,
-    FullscreenControl,
-    CaptionControl
+    FullscreenControl
   },
 
   props: {

@@ -29,26 +29,23 @@
   }
 }
 
-.player-controls {
+.player-controls::after {
+  background: rgba(0, 0, 0, 0.35);
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   z-index: 30;
-
-  &::after {
-    background: rgba(0, 0, 0, 0.35);
-    content: '';
-    display: block;
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    z-index: 20;
-  }
 }
 
-.player-control {
+.player-play {
   z-index: 40;
 }
 
 .player-scrubber {
+  z-index: 40;
   bottom: 16px;
   left: 16px;
   right: 16px;
@@ -81,11 +78,13 @@
 
 .player-tooltip {
   z-index: 50;
+  margin-bottom: $space-base;
   height: 90px;
   width: 160px;
 }
 
 .player-settings {
+  z-index: 40;
   top: 16px;
   right: 16px;
 }

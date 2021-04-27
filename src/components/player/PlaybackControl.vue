@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute-center player-control">
+  <div class="absolute-center player-play">
     <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
       <template v-if="isLoading">
         <q-spinner-dots
