@@ -16,9 +16,18 @@
     <q-img
       v-if="trackCue"
       :src="trackCue.thumbnail?.url"
-    />
-
-    {{ trackCue }}
+      :alt="trackCue.time"
+      width="160px"
+      height="90px"
+      no-spinner
+      no-transition
+    >
+      <div class="absolute-bottom text-center">
+        <div class="text-white player-thumb-label">
+          {{ trackCue.time }}
+        </div>
+      </div>
+    </q-img>
 
     <q-slider
       ref="slider"
@@ -41,6 +50,7 @@ import { dom, QSlider } from 'quasar'
 import CaptionControl from 'src/components/player/CaptionControl.vue'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
+import useFilters from 'src/composables/useFilters'
 import usePlayer from 'src/composables/usePlayer'
 import { TextTrackCue, TextTrackCueThumbnail } from 'src/interfaces/player'
 import { computed, defineComponent, PropType, ref } from 'vue'
@@ -66,6 +76,7 @@ export default defineComponent({
     const trackCue = ref<TextTrackCue | null>(null)
 
     const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
+    const { formatTime } = useFilters()
 
     const buffered = computed(() => properties.value?.buffered || <TimeRanges>{})
     const duration = computed(() => properties.value?.duration || 0)
@@ -106,14 +117,13 @@ export default defineComponent({
 
       const thumbnail = JSON.parse(vttCue?.text) as TextTrackCueThumbnail
 
-      trackCue.value = { time: hoverTime, thumbnail: thumbnail }
+      trackCue.value = { time: formatTime(hoverTime), thumbnail: thumbnail }
     }
 
     const setCurrentTime = (value: number) => {
-      setProperties({
-        currentTime: value,
-        requestTime: value
-      })
+      const time = Math.floor(value)
+
+      setProperties({ currentTime: time, requestTime: time })
     }
 
     return {
