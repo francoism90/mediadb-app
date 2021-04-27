@@ -1,21 +1,10 @@
 <template>
   <div class="absolute-bottom player-control player-scrubber">
-    <q-img
+    <tooltip
       v-if="trackCue"
-      :src="trackCue.thumbnail?.url"
-      width="160px"
-      height="90px"
-      class="player-tooltip-item"
+      :track-cue="trackCue"
       :style="tooltipStyle"
-      no-spinner
-      no-transition
-    >
-      <div class="absolute-bottom text-center">
-        <div class="text-white player-tooltip-label">
-          {{ trackCue.time }}
-        </div>
-      </div>
-    </q-img>
+    />
 
     <div class="row no-wrap justify-between items-center content-center">
       <div class="col">
@@ -51,6 +40,7 @@ import { dom, QSlider } from 'quasar'
 import CaptionControl from 'src/components/player/CaptionControl.vue'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
+import Tooltip from 'src/components/player/Tooltip.vue'
 import useFilters from 'src/composables/useFilters'
 import usePlayer from 'src/composables/usePlayer'
 import { TextTrackCue, TextTrackCueThumbnail } from 'src/interfaces/player'
@@ -61,6 +51,7 @@ export default defineComponent({
 
   components: {
     TimeProgress,
+    Tooltip,
     FullscreenControl,
     CaptionControl
   },
@@ -113,7 +104,7 @@ export default defineComponent({
     const onScrubberHover = (event: MouseEvent) => {
       const sliderWidth = dom.width(slider.value?.$el)
       const sliderOffset = dom.offset(slider.value?.$el)
-      const clientPosition = event.clientX - sliderOffset.left
+      const clientPosition = event.clientX - sliderOffset?.left
       const clientPercent = Math.round((clientPosition) / sliderWidth * 100)
       const clientTime = Math.floor(duration.value * (clientPercent / 100))
 
