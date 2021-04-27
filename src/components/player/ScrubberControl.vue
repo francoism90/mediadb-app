@@ -115,7 +115,7 @@ export default defineComponent({
       trackCue.value = {
         time: formatTime(clientTime),
         position: clientPosition,
-        thumbnail: JSON.parse(vttCue?.text) as TextTrackCueThumbnail
+        thumbnail: JSON.parse(vttCue?.text || '') as TextTrackCueThumbnail
       }
     }
 

@@ -3,8 +3,9 @@
     ref="videoContainer"
     class="relative-position row no-wrap justify-center items-center player-container"
     @mouseenter="activateControls"
-    @mousemove="activateControls"
     @touchstart="activateControls"
+    @mousemove="activateControls"
+    @mouseleave="deactivateControls"
   >
     <video
       ref="videoElement"
@@ -100,15 +101,16 @@ export default defineComponent({
     const videoControls = ref<number | undefined>(0)
 
     const activateControls = () => {
-      setProperties({ controls: true })
-    }
-
-    const deactiveControls = (): void => {
       clearTimeout(videoControls.value)
+      setProperties({ controls: true })
 
       videoControls.value = window.setTimeout(() => {
         setProperties({ controls: false })
-      }, 5000)
+      }, 3500)
+    }
+
+    const deactivateControls = (): void => {
+      setProperties({ controls: false })
     }
 
     const setCurrentTime = (value: number): void => {
@@ -138,10 +140,6 @@ export default defineComponent({
     onMounted(async () => await createPlayer(videoElement.value))
 
     watch(properties, async (value, oldValue): Promise<void> => {
-      if (value.controls !== oldValue.controls) {
-        deactiveControls()
-      }
-
       if (value.requestTime !== oldValue.requestTime) {
         setCurrentTime(value.requestTime)
       }
@@ -159,6 +157,7 @@ export default defineComponent({
       videoContainer,
       videoElement,
       activateControls,
+      deactivateControls,
       syncProperties,
       properties
     }

@@ -6,8 +6,7 @@
       width="160px"
       height="90px"
       class="player-tooltip-thumbnail"
-      no-spinner
-      no-transition
+      loading="lazy"
     />
 
     <div class="text-white text-center q-py-xs">

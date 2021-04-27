@@ -7,6 +7,7 @@
     min-height: 640px;
     max-height: 720px;
     max-width: $breakpoint-md;
+    pointer-events: none;
 
     @media (max-width: $breakpoint-sm-max) {
       object-fit: fill;
@@ -38,6 +39,7 @@
   bottom: 0;
   width: 100%;
   z-index: 30;
+  pointer-events: none;
 }
 
 .player-play {

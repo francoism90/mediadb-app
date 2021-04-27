@@ -18,7 +18,7 @@ function createEcho (store: Store<StoreState>): Echo {
     wsPort: process.env.WS_PORT || 6001,
     wssPort: process.env.WS_PORT || 6001,
     disableStats: true,
-    forceTLS: process.env.WS_TLS,
+    forceTLS: process.env.WS_TLS || false,
     enabledTransports: ['ws', 'wss'],
     authEndpoint: process.env.API_URL + '/broadcasting/auth',
     auth: {
