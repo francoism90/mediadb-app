@@ -79,7 +79,23 @@
   }
 }
 
-.player-thumb-label {
+.player-tooltip {
+  // padding-left: 80;
+  // padding-right: 80;
+  background: red;
+}
+
+.player-tooltip-item {
+  z-index: 50;
+  // align-items: flex-end;
+  // justify-content: center;
+  // margin-left: 80px;
+  // margin-right: 80px;
+  min-height: 90px;
+  min-width: 160px;
+}
+
+.player-tooltip-label {
   background: rgba(0, 0, 0, 0.5);
   margin: 0 auto;
   width: 60px;

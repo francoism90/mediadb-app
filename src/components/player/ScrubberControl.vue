@@ -3,15 +3,15 @@
     <q-img
       v-if="trackCue"
       :src="trackCue.thumbnail?.url"
-      :alt="trackCue.time"
       width="160px"
       height="90px"
-      class="player-thumb q-mb-sm"
+      class="player-tooltip-item"
+      :style="tooltipStyle"
       no-spinner
       no-transition
     >
       <div class="absolute-bottom text-center">
-        <div class="text-white player-thumb-label">
+        <div class="text-white player-tooltip-label">
           {{ trackCue.time }}
         </div>
       </div>
@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { find } from 'lodash'
+import { clamp, find } from 'lodash'
 import { dom, QSlider } from 'quasar'
 import CaptionControl from 'src/components/player/CaptionControl.vue'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
@@ -102,6 +102,14 @@ export default defineComponent({
       }
     })
 
+    const tooltipStyle = computed(() => {
+      const sliderWidth = dom.width(slider.value?.$el)
+      const position = trackCue.value?.position || 160
+      const finalPosition = clamp(position - 80, 0, sliderWidth - 160)
+
+      return { marginLeft: `${finalPosition}px` }
+    })
+
     const onScrubberHover = (event: MouseEvent) => {
       const sliderWidth = dom.width(slider.value?.$el)
       const sliderOffset = dom.offset(slider.value?.$el)
@@ -136,6 +144,7 @@ export default defineComponent({
       bufferedPct,
       bufferedRemainingPct,
       bufferStyle,
+      tooltipStyle,
       onScrubberHover,
       setCurrentTime
     }
