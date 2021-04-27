@@ -1,5 +1,5 @@
 <template>
-  <div class="player-tooltip">
+  <div class="player-tooltip desktop-only">
     <q-img
       v-if="spriteCue.text"
       :src="spriteCue.text"
