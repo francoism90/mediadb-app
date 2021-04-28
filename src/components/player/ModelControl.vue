@@ -6,9 +6,8 @@
     size="24px"
   >
     <q-menu
-      anchor="top left"
       class="menu"
-      self="top left"
+      anchor="top end"
       square
       transition-duration="0"
     >
