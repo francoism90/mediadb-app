@@ -56,11 +56,11 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
 import { useQuasar } from 'quasar'
+import { Video } from 'src/interfaces/video'
 import DefaultControls from 'src/components/player/DefaultControls.vue'
 import usePlayer from 'src/composables/usePlayer'
-import { Video } from 'src/interfaces/video'
-import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'VideoPlayer',
