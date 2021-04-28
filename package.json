@@ -20,6 +20,9 @@
     "last 5 Opera versions"
   ],
   "dependencies": {
+    "@capacitor/app": "^0.3.6",
+    "@capacitor/core": "*",
+    "@capacitor/splash-screen": "^0.3.6",
     "@quasar/extras": "^1.10.4",
     "axios": "^0.21.1",
     "core-js": "^3.11.0",
