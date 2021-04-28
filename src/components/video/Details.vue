@@ -59,6 +59,13 @@
         {{ duration }}
       </item>
 
+      <item v-if="video.clip?.resolution">
+        <template #label>
+          Resolution :
+        </template>
+        {{ video.clip?.resolution }}
+      </item>
+
       <item v-if="video.release_date">
         <template #label>
           Release Date :
