@@ -36,10 +36,8 @@ function createEcho (store: Store<StoreState>): Echo {
               channel_name: channel.name as string
             })
 
-            // eslint-disable-next-line node/no-callback-literal
             callback(false, response.data)
           } catch (error) {
-            // eslint-disable-next-line node/no-callback-literal
             callback(true, error)
           }
         }
