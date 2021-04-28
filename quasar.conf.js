@@ -148,8 +148,8 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: 'Quasar App',
-        short_name: 'Quasar App',
+        name: 'MediaDB App',
+        short_name: 'MediaDB App',
         description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',
@@ -215,7 +215,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'q2-with-wp5'
+        appId: 'app'
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
