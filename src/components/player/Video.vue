@@ -110,7 +110,7 @@ export default defineComponent({
     }
 
     const setCurrentTime = (value: number): void => {
-      if (videoElement.value && value !== properties.value?.currentTime) {
+      if (videoElement.value) {
         videoElement.value.currentTime = value
       }
     }
