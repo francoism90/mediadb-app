@@ -22,13 +22,13 @@
   "dependencies": {
     "@quasar/extras": "^1.10.4",
     "axios": "^0.21.1",
-    "core-js": "^3.11.0",
+    "core-js": "^3.11.1",
     "dayjs": "^1.10.4",
     "laravel-echo": "^1.10.0",
     "lodash": "^4.17.21",
     "pusher-js": "^7.0.3",
     "quasar": "^2.0.0-beta.13",
-    "shaka-player": "^3.0.10",
+    "shaka-player": "^3.0.11",
     "vue-i18n": "^9.1.4",
     "vuex-composition-helpers": "^2.0.0",
     "vuex-persistedstate": "^4.0.0-beta.3"
