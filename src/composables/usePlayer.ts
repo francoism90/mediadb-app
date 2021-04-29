@@ -74,8 +74,6 @@ export default function usePlayer (props: PlayerProps) {
   const readonlyProperties = (event: Event | null): void => {
     const target = event?.target as HTMLMediaElement
 
-    console.log('read-only')
-
     if (!event || !target) {
       console.debug('Waiting for HTMLMediaElement..')
       return

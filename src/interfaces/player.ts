@@ -29,8 +29,8 @@ export interface PlayerProperties {
   volume: number,
 }
 
-export interface SpriteTrackCue {
-  time: string | number,
+export interface PlayerTooltip {
+  cue: VTTCue | null,
   position: number,
-  text: string | undefined
+  time: number,
 }
