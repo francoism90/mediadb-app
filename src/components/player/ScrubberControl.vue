@@ -1,8 +1,8 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <tooltip
-      v-if="spriteCue"
-      :sprite-cue="spriteCue"
+    <scrubber-tooltip
+      v-if="tooltip && tooltip.time"
+      :data="tooltip"
       :style="tooltipStyle"
     />
 
@@ -15,8 +15,8 @@
       :step="0"
       :style="bufferStyle"
       color="primary"
-      @mousemove="activateSprites"
-      @mouseleave="deactivateSprites"
+      @mousemove="activateTooltip"
+      @mouseleave="deactivateTooltip"
       @change="setCurrentTime"
     />
 
@@ -39,10 +39,9 @@ import { clamp, find } from 'lodash'
 import { dom, QSlider } from 'quasar'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
-import Tooltip from 'src/components/player/Tooltip.vue'
-import useFilters from 'src/composables/useFilters'
+import ScrubberTooltip from 'src/components/player/ScrubberTooltip.vue'
 import usePlayer from 'src/composables/usePlayer'
-import { SpriteTrackCue } from 'src/interfaces/player'
+import { PlayerTooltip } from 'src/interfaces/player'
 import { computed, defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
@@ -50,7 +49,7 @@ export default defineComponent({
 
   components: {
     TimeProgress,
-    Tooltip,
+    ScrubberTooltip,
     FullscreenControl
   },
 
@@ -63,10 +62,9 @@ export default defineComponent({
 
   setup (props) {
     const slider = ref<QSlider | null>(null)
-    const spriteCue = ref<SpriteTrackCue | null>(null)
+    const tooltip = ref<PlayerTooltip | null>(null)
 
-    const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
-    const { formatTime } = useFilters()
+    const { properties, setProperties } = usePlayer({ module: props.module })
 
     const buffered = computed(() => properties.value?.buffered || <TimeRanges>{})
     const duration = computed(() => properties.value?.duration || 0)
@@ -93,17 +91,13 @@ export default defineComponent({
 
     const tooltipStyle = computed(() => {
       const sliderWidth = dom.width(slider.value?.$el)
-      const position = spriteCue.value?.position || 160
+      const position = tooltip.value?.position || 160
       const finalPosition = clamp(position - 80, 0, sliderWidth - 160)
 
       return { marginLeft: `${finalPosition}px` }
     })
 
-    const deactivateSprites = (): void => {
-      spriteCue.value = null
-    }
-
-    const activateSprites = (event: MouseEvent) => {
+    const activateTooltip = (event: MouseEvent): void => {
       const sliderWidth = dom.width(slider.value?.$el)
       const sliderOffset = dom.offset(slider.value?.$el)
       const clientPosition = event.clientX - sliderOffset?.left
@@ -117,29 +111,31 @@ export default defineComponent({
         return o.startTime >= clientTime || o.startTime >= (clientTime - 30) || o.id
       }) as VTTCue
 
-      spriteCue.value = {
-        time: formatTime(clientTime),
+      tooltip.value = {
+        cue: vttCue,
         position: clientPosition,
-        text: vttCue?.text
+        time: clientTime,
       }
     }
 
+    const deactivateTooltip = (): void => {
+      tooltip.value = null
+    }
+
     const setCurrentTime = (value: number) => {
-      const time = Math.floor(value)
-      setProperties({ currentTime: time, requestTime: time })
+      setProperties({ currentTime: value, requestTime: value })
     }
 
     return {
       slider,
-      spriteCue,
+      tooltip,
       properties,
-      isLoading,
       bufferedPct,
       bufferedRemainingPct,
       bufferStyle,
       tooltipStyle,
-      activateSprites,
-      deactivateSprites,
+      activateTooltip,
+      deactivateTooltip,
       setCurrentTime
     }
   }

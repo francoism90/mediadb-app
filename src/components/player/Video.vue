@@ -11,7 +11,7 @@
       ref="videoElement"
       autoPictureInPicture
       playsinline
-      preload="auto"
+      preload="metadata"
       autoplay
       class="col"
       crossorigin="anonymous"
@@ -21,7 +21,9 @@
       :muted="properties.muted"
       :playbackRate="properties.playbackRate"
       :volume="properties.volume"
+      @abort="syncProperties"
       @canplay="syncProperties"
+      @canplaythrough="syncProperties"
       @cuechange="syncProperties"
       @durationchange="syncProperties"
       @ended="syncProperties"
@@ -95,9 +97,9 @@ export default defineComponent({
     const controlTimer = ref<number | undefined>(0)
 
     const activateControls = () => {
-      clearTimeout(controlTimer.value)
       setProperties({ controls: true })
 
+      clearTimeout(controlTimer.value)
       controlTimer.value = window.setTimeout(() => {
         setProperties({ controls: false })
       }, 3500)

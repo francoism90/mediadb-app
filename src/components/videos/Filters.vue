@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { debounce } from 'quasar'
+import { debounce } from 'lodash'
 import useRepository from 'src/composables/useRepository'
 import useRepositoryGetters from 'src/composables/useRepositoryGetters'
 import { VideosParameters } from 'src/interfaces/video'
@@ -89,14 +89,16 @@ export default defineComponent({
       sort: getModuleParam('sort')
     })
 
-    const performQuery = debounce(async (): Promise<void> => {
+    const performQuery = async (): Promise<void> => {
       await setModuleParams({
         params: { ...form, ...{ 'page[number]': 1 } },
         reset: true
       })
-    }, 500)
+    }
 
-    watch(form, performQuery)
+    const setQuery = debounce(performQuery, 500)
+
+    watch(form, setQuery)
 
     return {
       sortList,
