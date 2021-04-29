@@ -126,7 +126,7 @@ export default defineComponent({
 
     const setCurrentTime = (value: number) => {
       const time = Math.floor(value)
-      setProperties({ currentTime: time, requestTime: time })
+      setProperties({ requestTime: time })
     }
 
     return {

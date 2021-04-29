@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { debounce } from 'quasar'
+import { debounce } from 'lodash'
 import useRepository from 'src/composables/useRepository'
 import useRepositoryGetters from 'src/composables/useRepositoryGetters'
 import { VideosParameters } from 'src/interfaces/video'

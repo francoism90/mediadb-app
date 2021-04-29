@@ -1,4 +1,4 @@
-import { pick } from 'lodash'
+import { pick, debounce } from 'lodash'
 import { useQuasar } from 'quasar'
 import * as shaka from 'shaka-player'
 import { PlayerProps } from 'src/interfaces/player'
@@ -71,8 +71,10 @@ export default function usePlayer (props: PlayerProps) {
     }
   }
 
-  const syncProperties = (event: Event | null): void => {
+  const readonlyProperties = (event: Event | null): void => {
     const target = event?.target as HTMLMediaElement
+
+    console.log('read-only')
 
     if (!event || !target) {
       console.debug('Waiting for HTMLMediaElement..')
@@ -96,6 +98,8 @@ export default function usePlayer (props: PlayerProps) {
       'textTracks'
     ]))
   }
+
+  const syncProperties = debounce(readonlyProperties, 100)
 
   // watch(() => player.value?.getTextTracks(), value => {
   //   setProperties({ textTracks: value })
