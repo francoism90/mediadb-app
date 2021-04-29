@@ -3,7 +3,7 @@
     :model-value="tags"
     :input-debounce="300"
     :options="data"
-    option-label="name"
+    option-label="id"
     option-value="name"
     @update:model-value="(value) => $emit('update:tags', value)"
     @filter="filterTags"
