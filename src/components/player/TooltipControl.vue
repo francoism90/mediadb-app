@@ -21,7 +21,7 @@ import { PlayerTooltip } from 'src/interfaces/player'
 import { computed, defineComponent, onMounted, PropType, ref, watch } from 'vue'
 
 export default defineComponent({
-  name: 'ScrubberTooltip',
+  name: 'TooltipControl',
 
   props: {
     data: {

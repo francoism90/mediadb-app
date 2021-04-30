@@ -1,6 +1,6 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <scrubber-tooltip
+    <tooltip-control
       v-if="tooltip && tooltip.time"
       :data="tooltip"
       :style="tooltipStyle"
@@ -39,7 +39,7 @@ import { clamp, find } from 'lodash'
 import { dom, QSlider } from 'quasar'
 import FullscreenControl from 'src/components/player/FullscreenControl.vue'
 import TimeProgress from 'src/components/player/TimeProgress.vue'
-import ScrubberTooltip from 'src/components/player/ScrubberTooltip.vue'
+import TooltipControl from 'src/components/player/TooltipControl.vue'
 import usePlayer from 'src/composables/usePlayer'
 import { PlayerTooltip } from 'src/interfaces/player'
 import { computed, defineComponent, PropType, ref } from 'vue'
@@ -49,7 +49,7 @@ export default defineComponent({
 
   components: {
     TimeProgress,
-    ScrubberTooltip,
+    TooltipControl,
     FullscreenControl
   },
 
