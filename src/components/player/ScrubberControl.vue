@@ -123,7 +123,7 @@ export default defineComponent({
     }
 
     const setCurrentTime = (value: number) => {
-      setProperties({ currentTime: value, requestTime: value })
+      setProperties({ requestTime: value })
     }
 
     return {
