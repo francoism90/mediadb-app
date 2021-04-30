@@ -3,8 +3,8 @@
     :model-value="tags"
     :input-debounce="300"
     :options="data"
-    option-label="id"
-    option-value="name"
+    option-label="name"
+    option-value="id"
     @update:model-value="(value) => $emit('update:tags', value)"
     @filter="filterTags"
   >
@@ -28,9 +28,9 @@
 </template>
 
 <script lang="ts">
-import useTags from 'src/composables/useTags'
-import { Tag, TagsParameters } from 'src/interfaces/tag'
-import { defineComponent, PropType } from 'vue'
+import useTags from 'src/composables/useTags';
+import { Tag, TagsParameters } from 'src/interfaces/tag';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'TagInput',
@@ -39,22 +39,22 @@ export default defineComponent({
     tags: {
       type: [Array, String] as PropType<Tag[] | string>,
       required: false,
-      default: () => (<Tag[]>[])
-    }
+      default: () => (<Tag[]>[]),
+    },
   },
 
   emits: ['update:tags'],
 
-  setup () {
+  setup() {
     const { filterTags, data } = useTags({
       module: 'tag-input',
-      params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 }
-    })
+      params: <TagsParameters>{ sort: 'recommended', 'page[number]': 1, 'page[size]': 5 },
+    });
 
     return {
       filterTags,
-      data
-    }
-  }
-})
+      data,
+    };
+  },
+});
 </script>

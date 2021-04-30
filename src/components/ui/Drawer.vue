@@ -42,53 +42,53 @@
 </template>
 
 <script lang="ts">
-import useSession from 'src/composables/useSession'
-import { defineComponent } from 'vue'
+import useSession from 'src/composables/useSession';
+import { defineComponent } from 'vue';
 
 const menuList = [
   {
     icon: 'o_video_library',
     label: 'Videos',
-    route: { name: 'home' }
+    route: { name: 'home' },
   },
   {
     icon: 'o_tag',
     label: 'Tags',
-    route: { name: 'tags' }
+    route: { name: 'tags' },
   },
   {
     icon: 'o_bookmarks',
     label: 'Bookmarks',
-    route: { name: 'settings' }
+    route: { name: 'settings' },
   },
   {
     icon: 'o_watch_later',
     label: 'Watch Later',
-    route: { name: 'settings' }
+    route: { name: 'settings' },
   },
   {
     icon: 'o_history',
     label: 'History',
-    route: { name: 'settings' }
+    route: { name: 'settings' },
   },
   {
     icon: 'o_settings',
     label: 'Settings',
-    route: { name: 'settings' }
-  }
-]
+    route: { name: 'settings' },
+  },
+];
 
 export default defineComponent({
   name: 'AppDrawer',
 
-  setup () {
-    const { user } = useSession()
+  setup() {
+    const { user } = useSession();
     //
 
     return {
       menuList,
-      user
-    }
-  }
-})
+      user,
+    };
+  },
+});
 </script>

@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import useRepository from 'src/composables/useRepository'
-import useRouter from 'src/composables/useRouter'
-import { Tag } from 'src/interfaces/tag'
-import { defineComponent, PropType } from 'vue'
+import useRepository from 'src/composables/useRepository';
+import useRouter from 'src/composables/useRouter';
+import { Tag } from 'src/interfaces/tag';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'TagList',
@@ -24,26 +24,26 @@ export default defineComponent({
     tags: {
       type: Array as PropType<Tag[]>,
       required: false,
-      default: () => (<Tag[]>[])
-    }
+      default: () => (<Tag[]>[]),
+    },
   },
 
-  setup () {
-    const { router } = useRouter()
-    const { setParams: setModuleParams } = useRepository({ module: 'videos' })
+  setup() {
+    const { router } = useRouter();
+    const { setParams: setModuleParams } = useRepository({ module: 'videos' });
 
     const onClick = async (tag: Tag) => {
       await setModuleParams({
         params: { 'filter[query]': tag.name, 'page[number]': 1 },
-        reset: true
-      })
+        reset: true,
+      });
 
-      await router.push({ name: 'home' })
-    }
+      await router.push({ name: 'home' });
+    };
 
     return {
-      onClick
-    }
-  }
-})
+      onClick,
+    };
+  },
+});
 </script>

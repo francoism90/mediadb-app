@@ -34,10 +34,10 @@
 </template>
 
 <script lang="ts">
-import useRepository from 'src/composables/useRepository'
-import useRouter from 'src/composables/useRouter'
-import { Tag } from 'src/interfaces/tag'
-import { defineComponent, PropType } from 'vue'
+import useRepository from 'src/composables/useRepository';
+import useRouter from 'src/composables/useRouter';
+import { Tag } from 'src/interfaces/tag';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'TagsItem',
@@ -45,26 +45,26 @@ export default defineComponent({
   props: {
     tag: {
       type: Object as PropType<Tag>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const { router } = useRouter()
-    const { setParams: setModuleParams } = useRepository({ module: 'videos' })
+  setup(props) {
+    const { router } = useRouter();
+    const { setParams: setModuleParams } = useRepository({ module: 'videos' });
 
     const onClick = async () => {
       await setModuleParams({
         params: { 'filter[query]': props.tag.name, 'page[number]': 1 },
-        reset: true
-      })
+        reset: true,
+      });
 
-      await router.push({ name: 'home' })
-    }
+      await router.push({ name: 'home' });
+    };
 
     return {
-      onClick
-    }
-  }
-})
+      onClick,
+    };
+  },
+});
 </script>

@@ -63,12 +63,12 @@
 </template>
 
 <script lang="ts">
-import Account from 'src/components/ui/Account.vue'
-import Drawer from 'src/components/ui/Drawer.vue'
-import Search from 'src/components/ui/Search.vue'
-import useRouter from 'src/composables/useRouter'
-import useSession from 'src/composables/useSession'
-import { computed, defineComponent, ref } from 'vue'
+import Account from 'src/components/ui/Account.vue';
+import Drawer from 'src/components/ui/Drawer.vue';
+import Search from 'src/components/ui/Search.vue';
+import useRouter from 'src/composables/useRouter';
+import useSession from 'src/composables/useSession';
+import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -76,31 +76,31 @@ export default defineComponent({
   components: {
     Drawer,
     Search,
-    Account
+    Account,
   },
 
-  setup () {
-    const drawer = ref(false)
+  setup() {
+    const drawer = ref(false);
 
-    const { router } = useRouter()
-    const { user } = useSession()
+    const { router } = useRouter();
+    const { user } = useSession();
 
-    const layoutKey = computed(() => user.value.id || '')
+    const layoutKey = computed(() => user.value.id || '');
 
-    const historyBack = () => router.back()
-    const historyForward = () => router.forward()
+    const historyBack = () => router.back();
+    const historyForward = () => router.forward();
 
     const toggleDrawer = () => {
-      drawer.value = !drawer.value
-    }
+      drawer.value = !drawer.value;
+    };
 
     return {
       layoutKey,
       drawer,
       toggleDrawer,
       historyBack,
-      historyForward
-    }
-  }
-})
+      historyForward,
+    };
+  },
+});
 </script>

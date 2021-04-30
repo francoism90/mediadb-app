@@ -1,7 +1,7 @@
-import { Media } from 'src/interfaces/media'
-import { PlayerProperties } from 'src/interfaces/player'
-import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository'
-import { User } from 'src/interfaces/user'
+import { Media } from 'src/interfaces/media';
+import { PlayerProperties } from 'src/interfaces/player';
+import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository';
+import { User } from 'src/interfaces/user';
 
 export interface SessionState {
   redirectPath: string | null;

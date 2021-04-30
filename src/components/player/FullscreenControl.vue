@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer'
-import { computed, defineComponent, PropType } from 'vue'
+import usePlayer from 'src/composables/usePlayer';
+import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'FullscreenControl',
@@ -18,24 +18,24 @@ export default defineComponent({
   props: {
     module: {
       type: String as PropType<string>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const { properties, setProperties } = usePlayer({ module: props.module })
+  setup(props) {
+    const { properties, setProperties } = usePlayer({ module: props.module });
 
-    const icon = computed(() => properties.value?.fullscreen === true ? 'fullscreen_exit' : 'fullscreen')
+    const icon = computed(() => (properties.value?.fullscreen === true ? 'fullscreen_exit' : 'fullscreen'));
 
     const setFullscreen = () => {
-      setProperties({ fullscreen: !properties.value?.fullscreen })
-    }
+      setProperties({ fullscreen: !properties.value?.fullscreen });
+    };
 
     return {
       icon,
       properties,
-      setFullscreen
-    }
-  }
-})
+      setFullscreen,
+    };
+  },
+});
 </script>

@@ -59,96 +59,102 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
-import { useQuasar } from 'quasar'
-import { Video } from 'src/interfaces/video'
-import DefaultControls from 'src/components/player/DefaultControls.vue'
-import usePlayer from 'src/composables/usePlayer'
+import {
+  defineComponent, onMounted, PropType, ref, watch,
+} from 'vue';
+import { useQuasar } from 'quasar';
+import { Video } from 'src/interfaces/video';
+import DefaultControls from 'src/components/player/DefaultControls.vue';
+import usePlayer from 'src/composables/usePlayer';
 
 export default defineComponent({
   name: 'VideoPlayer',
 
   components: {
-    DefaultControls
+    DefaultControls,
   },
 
   props: {
     module: {
       type: String as PropType<string>,
-      required: true
+      required: true,
     },
 
     video: {
       type: Object as PropType<Video>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const $q = useQuasar()
+  setup(props) {
+    const $q = useQuasar();
 
-    const { createPlayer, setProperties, syncProperties, properties } = usePlayer({
+    const {
+      createPlayer, setProperties, syncProperties, properties,
+    } = usePlayer({
       module: props.module,
       model: props.video,
-      media: props.video.clip
-    })
+      media: props.video.clip,
+    });
 
-    const videoContainer = ref<HTMLDivElement | null>(null)
-    const videoElement = ref<HTMLMediaElement | null>(null)
-    const controlTimer = ref<number | undefined>(0)
+    const videoContainer = ref<HTMLDivElement | null>(null);
+    const videoElement = ref<HTMLMediaElement | null>(null);
+    const controlTimer = ref<number | undefined>(0);
 
     const activateControls = () => {
-      setProperties({ controls: true })
+      setProperties({ controls: true });
 
-      clearTimeout(controlTimer.value)
+      clearTimeout(controlTimer.value);
       controlTimer.value = window.setTimeout(() => {
-        setProperties({ controls: false })
-      }, 3500)
-    }
+        setProperties({ controls: false });
+      }, 3500);
+    };
 
     const deactivateControls = (): void => {
-      setProperties({ controls: false })
-    }
+      setProperties({ controls: false });
+    };
 
     const setCurrentTime = (value: number): void => {
       if (videoElement.value) {
-        videoElement.value.currentTime = value
+        videoElement.value.currentTime = value;
       }
-    }
+    };
 
     const setFullscreen = async (value: boolean): Promise<void> => {
       if (value === true) {
-        await videoContainer.value?.requestFullscreen()
-        return
+        await videoContainer.value?.requestFullscreen();
+        return;
       }
 
-      await $q.fullscreen.exit()
-    }
+      await $q.fullscreen.exit();
+    };
 
     const setPause = async (value: boolean): Promise<void> => {
       if (value === true) {
-        videoElement.value?.pause()
-        return
+        videoElement.value?.pause();
+        return;
       }
 
-      await videoElement.value?.play()
-    }
+      await videoElement.value?.play();
+    };
 
-    onMounted(async () => await createPlayer(videoElement.value))
+    onMounted(async () => {
+      await createPlayer(videoElement.value);
+    });
 
     watch(properties, async (value, oldValue): Promise<void> => {
       if (value.requestTime !== oldValue.requestTime) {
-        setCurrentTime(value.requestTime)
+        setCurrentTime(value.requestTime);
       }
 
       if (value.paused !== oldValue.paused) {
-        await setPause(value.paused)
+        await setPause(value.paused);
       }
 
       if (value.fullscreen !== oldValue.fullscreen) {
-        await setFullscreen(value.fullscreen)
+        await setFullscreen(value.fullscreen);
       }
-    })
+    });
 
     return {
       videoContainer,
@@ -156,8 +162,8 @@ export default defineComponent({
       activateControls,
       deactivateControls,
       syncProperties,
-      properties
-    }
-  }
-})
+      properties,
+    };
+  },
+});
 </script>

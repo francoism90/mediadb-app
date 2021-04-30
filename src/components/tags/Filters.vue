@@ -50,26 +50,28 @@
 </template>
 
 <script lang="ts">
-import { debounce } from 'lodash'
-import useRepository from 'src/composables/useRepository'
-import useRepositoryGetters from 'src/composables/useRepositoryGetters'
-import { TagsParameters } from 'src/interfaces/tag'
-import { defineComponent, PropType, reactive, watch } from 'vue'
+import { debounce } from 'lodash';
+import useRepository from 'src/composables/useRepository';
+import useRepositoryGetters from 'src/composables/useRepositoryGetters';
+import { TagsParameters } from 'src/interfaces/tag';
+import {
+  defineComponent, PropType, reactive, watch,
+} from 'vue';
 
 const sortList = [
   {
     label: 'Alphabetical',
-    value: 'name'
+    value: 'name',
   },
   {
     label: 'Recommended',
-    value: 'recommended'
+    value: 'recommended',
   },
   {
     label: 'Items',
-    value: 'items'
-  }
-]
+    value: 'items',
+  },
+];
 
 export default defineComponent({
   name: 'TagsFilter',
@@ -77,33 +79,33 @@ export default defineComponent({
   props: {
     module: {
       type: String as PropType<string>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup () {
-    const { setParams: setModuleParams } = useRepository({ module: 'tags' })
-    const { getParam: getModuleParam } = useRepositoryGetters('tags')
+  setup() {
+    const { setParams: setModuleParams } = useRepository({ module: 'tags' });
+    const { getParam: getModuleParam } = useRepositoryGetters('tags');
 
     const form = reactive<TagsParameters>({
-      sort: getModuleParam('sort')
-    })
+      sort: getModuleParam('sort'),
+    });
 
     const performQuery = async (): Promise<void> => {
       await setModuleParams({
         params: { ...form, ...{ 'page[number]': 1 } },
-        reset: true
-      })
-    }
+        reset: true,
+      });
+    };
 
-    const setQuery = debounce(performQuery, 500)
+    const setQuery = debounce(performQuery, 500);
 
-    watch(form, setQuery)
+    watch(form, setQuery);
 
     return {
       sortList,
-      form
-    }
-  }
-})
+      form,
+    };
+  },
+});
 </script>

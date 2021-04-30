@@ -1,4 +1,5 @@
-import { Model } from './repository'
+import { Model } from './repository';
+
 export interface UserSettings {
   [key: string]: string | number | null
 }

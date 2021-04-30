@@ -1,7 +1,8 @@
-
-import { Media } from 'src/interfaces/media'
-import { Model, ModelResponse, RepositoryMeta, RepositoryParams, RepositoryResponse } from 'src/interfaces/repository'
-import { Tag } from 'src/interfaces/tag'
+import { Media } from 'src/interfaces/media';
+import {
+  Model, ModelResponse, RepositoryMeta, RepositoryParams, RepositoryResponse,
+} from 'src/interfaces/repository';
+import { Tag } from 'src/interfaces/tag';
 
 export interface Video extends Model {
   tags?: Tag[],
