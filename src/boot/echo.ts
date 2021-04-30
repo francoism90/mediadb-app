@@ -1,14 +1,14 @@
-import Echo from 'laravel-echo'
-import { PusherChannel } from 'laravel-echo/dist/channel'
-import Pusher from 'pusher-js'
-import { boot } from 'quasar/wrappers'
-import { api } from 'src/boot/axios'
-import { StoreState } from 'src/interfaces/store'
-import { InjectionKey } from 'vue'
-import { Store } from 'vuex'
+import Echo from 'laravel-echo';
+import { PusherChannel } from 'laravel-echo/dist/channel';
+import Pusher from 'pusher-js';
+import { boot } from 'quasar/wrappers';
+import { api } from 'src/boot/axios';
+import { StoreState } from 'src/interfaces/store';
+import { InjectionKey } from 'vue';
+import { Store } from 'vuex';
 
-function createEcho (store: Store<StoreState>): Echo {
-  const authToken = store.state.session.token || ''
+function createEcho(store: Store<StoreState>): Echo {
+  const authToken = store.state.session.token || '';
 
   return new Echo({
     broadcaster: 'pusher',
@@ -20,39 +20,37 @@ function createEcho (store: Store<StoreState>): Echo {
     disableStats: true,
     forceTLS: process.env.WS_TLS,
     enabledTransports: ['ws', 'wss'],
-    authEndpoint: process.env.API_URL + '/broadcasting/auth',
+    authEndpoint: `${process.env.API_URL}/broadcasting/auth`,
     auth: {
       headers: {
-        Authorization: `Bearer ${authToken}`
-      }
+        Authorization: `Bearer ${authToken}`,
+      },
     },
-    authorizer: (channel: PusherChannel) => {
-      return {
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        authorize: async (socketId: string, callback: Function) => {
-          try {
-            const response = await api.post('/broadcasting/auth', {
-              socket_id: socketId,
-              channel_name: channel.name as string
-            })
+    authorizer: (channel: PusherChannel) => ({
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      authorize: async (socketId: string, callback: Function) => {
+        try {
+          const response = await api.post('/broadcasting/auth', {
+            socket_id: socketId,
+            channel_name: channel.name as string,
+          });
 
-            callback(false, response.data)
-          } catch (error) {
-            callback(true, error)
-          }
+          callback(false, response.data);
+        } catch (error) {
+          callback(true, error);
         }
-      }
-    }
-  })
+      },
+    }),
+  });
 }
 
-export const echoKey: InjectionKey<Echo> = Symbol('echo-key')
+export const echoKey: InjectionKey<Echo> = Symbol('echo-key');
 
 export default boot(({ app, store }) => {
-  const echo = createEcho(store)
+  const echo = createEcho(store);
 
-  app.provide(echoKey, echo)
+  app.provide(echoKey, echo);
 
-  app.config.globalProperties.$pusher = Pusher
-  app.config.globalProperties.$echo = echo
-})
+  app.config.globalProperties.$pusher = Pusher;
+  app.config.globalProperties.$echo = echo;
+});

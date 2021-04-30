@@ -37,11 +37,11 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar'
-import VideoEdit from 'src/components/video/Edit.vue'
-import usePlayer from 'src/composables/usePlayer'
-import { update } from 'src/repositories/media'
-import { defineComponent, PropType } from 'vue'
+import { useQuasar } from 'quasar';
+import VideoEdit from 'src/components/video/Edit.vue';
+import usePlayer from 'src/composables/usePlayer';
+import { update } from 'src/repositories/media';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'Menu',
@@ -49,41 +49,41 @@ export default defineComponent({
   props: {
     module: {
       type: String as PropType<string>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const $q = useQuasar()
+  setup(props) {
+    const $q = useQuasar();
 
-    const { media, model, properties } = usePlayer({ module: props.module })
+    const { media, model, properties } = usePlayer({ module: props.module });
 
     const editModel = (): void => {
       $q.dialog({
         component: VideoEdit,
         componentProps: {
-          video: model.value
-        }
-      })
-    }
+          video: model.value,
+        },
+      });
+    };
 
     const thumbnailMedia = async (): Promise<void> => {
       await update({
         id: media.value?.id || '',
-        thumbnail: properties.value?.currentTime || 10
-      })
+        thumbnail: properties.value?.currentTime || 10,
+      });
 
       $q.notify({
         type: 'positive',
-        message: 'The thumbnail will be updated!'
-      })
-    }
+        message: 'The thumbnail will be updated!',
+      });
+    };
 
     return {
       properties,
       editModel,
-      thumbnailMedia
-    }
-  }
-})
+      thumbnailMedia,
+    };
+  },
+});
 </script>

@@ -1,12 +1,12 @@
-export {}
+export {};
 
 declare global {
-  interface Window {
-    NavigationBar: NavigationBarPlugin
-  }
-
-  export interface NavigationBarPlugin {
+  interface NavigationBarPlugin {
     show(): Promise<void>
     hide(): Promise<void>
+  }
+
+  interface Window {
+    NavigationBar: NavigationBarPlugin
   }
 }

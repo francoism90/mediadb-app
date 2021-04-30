@@ -25,60 +25,62 @@
 </template>
 
 <script lang="ts">
-import Filters from 'src/components/tags/Filters.vue'
-import Item from 'src/components/tags/Item.vue'
-import useTags from 'src/composables/useTags'
-import { TagsParameters } from 'src/interfaces/tag'
-import { defineComponent } from 'vue'
+import Filters from 'src/components/tags/Filters.vue';
+import Item from 'src/components/tags/Item.vue';
+import useTags from 'src/composables/useTags';
+import { TagsParameters } from 'src/interfaces/tag';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'IndexPage',
 
   components: {
     Item,
-    Filters
+    Filters,
   },
 
-  setup () {
-    const { fetchTags, isLoadable, setParams, id, data, meta } = useTags({
+  setup() {
+    const {
+      fetchTags, isLoadable, setParams, id, data, meta,
+    } = useTags({
       module: 'tags',
       params: <TagsParameters>{
         append: 'items',
         sort: 'name',
         'page[number]': 1,
-        'page[size]': 24
-      }
-    })
+        'page[size]': 24,
+      },
+    });
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetchTags()
-        await done(!isLoadable.value)
+        await fetchTags();
+        await done(!isLoadable.value);
       } catch {
         //
       } finally {
         //
       }
-    }
+    };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = async (done: Function): Promise<void> => {
       await setParams({
         params: { 'page[number]': 1 },
-        reset: true
-      })
+        reset: true,
+      });
 
-      done()
-    }
+      done();
+    };
 
     return {
       onLoad,
       onRefresh,
       id,
       data,
-      meta
-    }
-  }
-})
+      meta,
+    };
+  },
+});
 </script>

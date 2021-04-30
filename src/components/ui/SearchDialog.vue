@@ -28,10 +28,12 @@
 </template>
 
 <script lang="ts">
-import { useDialogPluginComponent } from 'quasar'
-import useRepository from 'src/composables/useRepository'
-import useRepositoryGetters from 'src/composables/useRepositoryGetters'
-import { defineComponent, PropType, ref, watch } from 'vue'
+import { useDialogPluginComponent } from 'quasar';
+import useRepository from 'src/composables/useRepository';
+import useRepositoryGetters from 'src/composables/useRepositoryGetters';
+import {
+  defineComponent, PropType, ref, watch,
+} from 'vue';
 
 export default defineComponent({
   name: 'SearchDialog',
@@ -39,46 +41,46 @@ export default defineComponent({
   props: {
     label: {
       type: String as PropType<string>,
-      required: true
+      required: true,
     },
 
     route: {
       type: String as PropType<string>,
-      required: true
+      required: true,
     },
 
     module: {
       type: String as PropType<string>,
-      required: true
-    }
+      required: true,
+    },
   },
 
   emits: [
-    ...useDialogPluginComponent.emits
+    ...useDialogPluginComponent.emits,
   ],
 
-  setup (props) {
-    const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent()
+  setup(props) {
+    const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
 
-    const { setParams: setModuleParams } = useRepository({ module: props.module })
-    const { getParam: getModuleParam } = useRepositoryGetters(props.module)
+    const { setParams: setModuleParams } = useRepository({ module: props.module });
+    const { getParam: getModuleParam } = useRepositoryGetters(props.module);
 
-    const currentQuery = getModuleParam('filter[query]') as string
-    const query = ref(currentQuery)
+    const currentQuery = getModuleParam('filter[query]') as string;
+    const query = ref(currentQuery);
 
     watch(query, async (val: string) => {
       await setModuleParams({
         params: { 'filter[query]': val, 'page[number]': 1, sort: 'recommended' },
-        reset: true
-      })
-    })
+        reset: true,
+      });
+    });
 
     return {
       query,
       dialogRef,
       onDialogHide,
-      onDialogCancel
-    }
-  }
-})
+      onDialogCancel,
+    };
+  },
+});
 </script>

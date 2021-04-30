@@ -84,40 +84,40 @@
 </template>
 
 <script lang="ts">
-import List from 'src/components/tags/List.vue'
-import Item from 'src/components/video/Item.vue'
-import useFilters from 'src/composables/useFilters'
-import { Video } from 'src/interfaces/video'
-import { computed, defineComponent, PropType } from 'vue'
+import List from 'src/components/tags/List.vue';
+import Item from 'src/components/video/Item.vue';
+import useFilters from 'src/composables/useFilters';
+import { Video } from 'src/interfaces/video';
+import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'VideoDetails',
 
   components: {
     Item,
-    List
+    List,
   },
 
   props: {
     video: {
       type: Object as PropType<Video>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const { formatDate, formatTime } = useFilters()
+  setup(props) {
+    const { formatDate, formatTime } = useFilters();
 
-    const tagsByType = (type: string) => props.video.tags?.filter(tag => tag.type === type)
+    const tagsByType = (type: string) => props.video.tags?.filter((tag) => tag.type === type);
 
-    const cast = computed(() => tagsByType('actor'))
-    const languages = computed(() => tagsByType('language'))
-    const genres = computed(() => tagsByType('genre'))
-    const studios = computed(() => tagsByType('studio'))
+    const cast = computed(() => tagsByType('actor'));
+    const languages = computed(() => tagsByType('language'));
+    const genres = computed(() => tagsByType('genre'));
+    const studios = computed(() => tagsByType('studio'));
 
-    const duration = computed(() => formatTime(props.video.clip?.duration || 0))
-    const created = computed(() => formatDate(props.video.created_at || Date.now()))
-    const released = computed(() => formatDate(props.video.release_date || Date.now()))
+    const duration = computed(() => formatTime(props.video.clip?.duration || 0));
+    const created = computed(() => formatDate(props.video.created_at || Date.now()));
+    const released = computed(() => formatDate(props.video.release_date || Date.now()));
 
     return {
       cast,
@@ -126,8 +126,8 @@ export default defineComponent({
       studios,
       duration,
       created,
-      released
-    }
-  }
-})
+      released,
+    };
+  },
+});
 </script>

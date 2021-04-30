@@ -39,11 +39,13 @@
 </template>
 
 <script lang="ts">
-import VideoPlayer from 'src/components/player/Video.vue'
-import VideoDetails from 'src/components/video/Details.vue'
-import VideoRelated from 'src/components/video/Related.vue'
-import useVideo from 'src/composables/useVideo'
-import { defineComponent, onBeforeUnmount, onMounted, PropType, toRefs, watch } from 'vue'
+import VideoPlayer from 'src/components/player/Video.vue';
+import VideoDetails from 'src/components/video/Details.vue';
+import VideoRelated from 'src/components/video/Related.vue';
+import useVideo from 'src/composables/useVideo';
+import {
+  defineComponent, onBeforeUnmount, onMounted, PropType, toRefs, watch,
+} from 'vue';
 
 export interface Props {
   id: string,
@@ -56,39 +58,41 @@ export default defineComponent({
   components: {
     VideoDetails,
     VideoPlayer,
-    VideoRelated
+    VideoRelated,
   },
 
   props: {
     id: {
       type: String as PropType<string>,
-      required: true
+      required: true,
     },
 
     slug: {
       type: String as PropType<string>,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
 
-  setup (props: Props) {
-    const { id } = toRefs(props)
-    const { subscribe, unsubscribe, errors, video } = useVideo({ id })
+  setup(props: Props) {
+    const { id } = toRefs(props);
+    const {
+      subscribe, unsubscribe, errors, video,
+    } = useVideo({ id });
 
-    onMounted(() => subscribe(id.value))
+    onMounted(() => subscribe(id.value));
 
     watch(id, (value, oldValue): void => {
-      subscribe(value)
-      unsubscribe(oldValue)
-    })
+      subscribe(value);
+      unsubscribe(oldValue);
+    });
 
-    onBeforeUnmount(() => unsubscribe(id.value))
+    onBeforeUnmount(() => unsubscribe(id.value));
 
     return {
       errors,
-      video
-    }
-  }
-})
+      video,
+    };
+  },
+});
 </script>

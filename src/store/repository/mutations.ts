@@ -1,47 +1,47 @@
-import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository'
-import { RepositoryState } from 'src/interfaces/store'
-import defaultState from 'src/store/repository/state'
-import { MutationTree } from 'vuex'
+import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository';
+import { RepositoryState } from 'src/interfaces/store';
+import defaultState from 'src/store/repository/state';
+import { MutationTree } from 'vuex';
 
 const mutation: MutationTree<RepositoryState> = {
-  resetStore (state: RepositoryState) {
-    Object.assign(state, defaultState())
+  resetStore(state: RepositoryState) {
+    Object.assign(state, defaultState());
   },
 
-  resetData (state: RepositoryState) {
-    state.data = <Model[]>[]
+  resetData(state: RepositoryState) {
+    state.data = <Model[]>[];
   },
 
-  resetMeta (state: RepositoryState) {
-    state.meta = <RepositoryMeta>{}
+  resetMeta(state: RepositoryState) {
+    state.meta = <RepositoryMeta>{};
   },
 
-  resetParams (state: RepositoryState) {
-    state.params = <RepositoryParams>{}
+  resetParams(state: RepositoryState) {
+    state.params = <RepositoryParams>{};
   },
 
-  setId (state: RepositoryState, payload: string | number | null) {
-    state.id = payload
+  setId(state: RepositoryState, payload: string | number | null) {
+    state.id = payload;
   },
 
-  setData (state: RepositoryState, payload: Model[]) {
-    state.data = state.data.concat(payload)
+  setData(state: RepositoryState, payload: Model[]) {
+    state.data = state.data.concat(payload);
   },
 
-  setMeta (state: RepositoryState, payload: RepositoryMeta) {
-    state.meta = payload
+  setMeta(state: RepositoryState, payload: RepositoryMeta) {
+    state.meta = payload;
   },
 
-  setParams (state: RepositoryState, payload: RepositoryParams) {
-    const currentParams = state.params
-    const finalParams = { ...currentParams, ...payload }
+  setParams(state: RepositoryState, payload: RepositoryParams) {
+    const currentParams = state.params;
+    const finalParams = { ...currentParams, ...payload };
 
-    state.params = Object.assign({}, state.params, finalParams)
+    state.params = { ...state.params, ...finalParams };
   },
 
-  setReady (state: RepositoryState, payload: boolean) {
-    state.ready = payload
-  }
-}
+  setReady(state: RepositoryState, payload: boolean) {
+    state.ready = payload;
+  },
+};
 
-export default mutation
+export default mutation;

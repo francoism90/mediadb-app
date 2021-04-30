@@ -50,26 +50,28 @@
 </template>
 
 <script lang="ts">
-import { debounce } from 'lodash'
-import useRepository from 'src/composables/useRepository'
-import useRepositoryGetters from 'src/composables/useRepositoryGetters'
-import { VideosParameters } from 'src/interfaces/video'
-import { defineComponent, PropType, reactive, watch } from 'vue'
+import { debounce } from 'lodash';
+import useRepository from 'src/composables/useRepository';
+import useRepositoryGetters from 'src/composables/useRepositoryGetters';
+import { VideosParameters } from 'src/interfaces/video';
+import {
+  defineComponent, PropType, reactive, watch,
+} from 'vue';
 
 const sortList = [
   {
     label: 'Recommended',
-    value: 'recommended'
+    value: 'recommended',
   },
   {
     label: 'Recently Added',
-    value: '-created_at'
+    value: '-created_at',
   },
   {
     label: 'Duration',
-    value: 'duration'
-  }
-]
+    value: 'duration',
+  },
+];
 
 export default defineComponent({
   name: 'VideosFilter',
@@ -77,33 +79,33 @@ export default defineComponent({
   props: {
     module: {
       type: String as PropType<string>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup () {
-    const { setParams: setModuleParams } = useRepository({ module: 'videos' })
-    const { getParam: getModuleParam } = useRepositoryGetters('videos')
+  setup() {
+    const { setParams: setModuleParams } = useRepository({ module: 'videos' });
+    const { getParam: getModuleParam } = useRepositoryGetters('videos');
 
     const form = reactive<VideosParameters>({
-      sort: getModuleParam('sort')
-    })
+      sort: getModuleParam('sort'),
+    });
 
     const performQuery = async (): Promise<void> => {
       await setModuleParams({
         params: { ...form, ...{ 'page[number]': 1 } },
-        reset: true
-      })
-    }
+        reset: true,
+      });
+    };
 
-    const setQuery = debounce(performQuery, 500)
+    const setQuery = debounce(performQuery, 500);
 
-    watch(form, setQuery)
+    watch(form, setQuery);
 
     return {
       sortList,
-      form
-    }
-  }
-})
+      form,
+    };
+  },
+});
 </script>

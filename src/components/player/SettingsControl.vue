@@ -8,23 +8,23 @@
 </template>
 
 <script lang="ts">
-import CaptionControl from 'src/components/player/CaptionControl.vue'
-import ModelControl from 'src/components/player/ModelControl.vue'
-import { defineComponent, PropType } from 'vue'
+import CaptionControl from 'src/components/player/CaptionControl.vue';
+import ModelControl from 'src/components/player/ModelControl.vue';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'SettingsControl',
 
   components: {
     CaptionControl,
-    ModelControl
+    ModelControl,
   },
 
   props: {
     module: {
       type: String as PropType<string>,
-      required: true
-    }
-  }
-})
+      required: true,
+    },
+  },
+});
 </script>

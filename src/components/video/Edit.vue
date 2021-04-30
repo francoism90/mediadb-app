@@ -94,14 +94,16 @@
 </template>
 
 <script lang="ts">
-import { AxiosError } from 'axios'
-import { useDialogPluginComponent } from 'quasar'
-import TagInput from 'src/components/form/TagInput.vue'
-import useFormValidation from 'src/composables/useFormValidation'
-import { ValidationResponse } from 'src/interfaces/form'
-import { Video } from 'src/interfaces/video'
-import { remove, update } from 'src/repositories/video'
-import { defineComponent, PropType, reactive, ref } from 'vue'
+import { AxiosError } from 'axios';
+import { useDialogPluginComponent } from 'quasar';
+import TagInput from 'src/components/form/TagInput.vue';
+import useFormValidation from 'src/composables/useFormValidation';
+import { ValidationResponse } from 'src/interfaces/form';
+import { Video } from 'src/interfaces/video';
+import { remove, update } from 'src/repositories/video';
+import {
+  defineComponent, PropType, reactive, ref,
+} from 'vue';
 
 export default defineComponent({
   name: 'VideoEdit',
@@ -110,57 +112,57 @@ export default defineComponent({
   props: {
     video: {
       type: Object as PropType<Video>,
-      required: true
-    }
+      required: true,
+    },
   },
 
   emits: [
-    ...useDialogPluginComponent.emits
+    ...useDialogPluginComponent.emits,
   ],
 
-  setup (props) {
-    const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent()
+  setup(props) {
+    const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
 
-    const deleteDialog = ref(false)
-    const formRef = ref<HTMLFormElement | null>(null)
+    const deleteDialog = ref(false);
+    const formRef = ref<HTMLFormElement | null>(null);
     const form = reactive<Video>({
       id: props.video.id,
       name: props.video.name || '',
       overview: props.video.overview || '',
-      tags: props.video.tags || []
-    })
+      tags: props.video.tags || [],
+    });
 
-    const { getError, hasError, setResponse } = useFormValidation()
+    const { getError, hasError, setResponse } = useFormValidation();
 
     const onSubmit = async (): Promise<void> => {
       try {
-        await update(form)
+        await update(form);
       } catch (e: unknown) {
-        const error = e as AxiosError<ValidationResponse>
+        const error = e as AxiosError<ValidationResponse>;
 
         if (error.response) {
-          setResponse(error.response.data)
-          return
+          setResponse(error.response.data);
+          return;
         }
 
-        throw error
+        throw error;
       }
-    }
+    };
 
     const onDelete = async (): Promise<void> => {
       try {
-        await remove(form)
+        await remove(form);
       } catch (e: unknown) {
-        const error = e as AxiosError<ValidationResponse>
+        const error = e as AxiosError<ValidationResponse>;
 
         if (error.response) {
-          setResponse(error.response.data)
-          return
+          setResponse(error.response.data);
+          return;
         }
 
-        throw error
+        throw error;
       }
-    }
+    };
 
     return {
       getError,
@@ -172,8 +174,8 @@ export default defineComponent({
       onSubmit,
       dialogRef,
       onDialogHide,
-      onDialogCancel
-    }
-  }
-})
+      onDialogCancel,
+    };
+  },
+});
 </script>

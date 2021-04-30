@@ -38,8 +38,8 @@
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer'
-import { computed, defineComponent, PropType } from 'vue'
+import usePlayer from 'src/composables/usePlayer';
+import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'PlaybackControl',
@@ -47,26 +47,26 @@ export default defineComponent({
   props: {
     module: {
       type: String as PropType<string>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const { isLoading, properties, setProperties } = usePlayer({ module: props.module })
+  setup(props) {
+    const { isLoading, properties, setProperties } = usePlayer({ module: props.module });
 
-    const icon = computed(() => properties.value?.paused === true ? 'play_arrow' : 'pause')
+    const icon = computed(() => (properties.value?.paused === true ? 'play_arrow' : 'pause'));
 
     const decreaseTime = () => {
-      setProperties({ requestTime: properties.value?.currentTime - 10 })
-    }
+      setProperties({ requestTime: properties.value?.currentTime - 10 });
+    };
 
     const increaseTime = () => {
-      setProperties({ requestTime: properties.value?.currentTime + 10 })
-    }
+      setProperties({ requestTime: properties.value?.currentTime + 10 });
+    };
 
     const setPause = () => {
-      setProperties({ paused: !properties.value?.paused })
-    }
+      setProperties({ paused: !properties.value?.paused });
+    };
 
     return {
       properties,
@@ -74,8 +74,8 @@ export default defineComponent({
       decreaseTime,
       increaseTime,
       setPause,
-      icon
-    }
-  }
-})
+      icon,
+    };
+  },
+});
 </script>

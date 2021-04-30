@@ -1,13 +1,13 @@
-import { SessionState } from 'src/interfaces/store'
-import { User } from 'src/interfaces/user'
+import { SessionState } from 'src/interfaces/store';
+import { User } from 'src/interfaces/user';
 
-function state (): SessionState {
+function state(): SessionState {
   return {
     redirectPath: null,
     timestamp: null,
     token: null,
-    user: <User>{}
-  }
+    user: <User>{},
+  };
 }
 
-export default state
+export default state;

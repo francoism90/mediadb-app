@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -9,9 +9,9 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'home',
         component: () => import('pages/Index.vue'),
-        meta: { auth: true }
-      }
-    ]
+        meta: { auth: true },
+      },
+    ],
   },
   {
     path: '/video',
@@ -22,9 +22,9 @@ const routes: RouteRecordRaw[] = [
         name: 'video',
         component: () => import('pages/Video.vue'),
         props: true,
-        meta: { auth: true }
-      }
-    ]
+        meta: { auth: true },
+      },
+    ],
   },
   {
     path: '/settings',
@@ -34,9 +34,9 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'settings',
         component: () => import('pages/Settings.vue'),
-        meta: { auth: true }
-      }
-    ]
+        meta: { auth: true },
+      },
+    ],
   },
   {
     path: '/tags',
@@ -46,9 +46,9 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'tags',
         component: () => import('pages/Tags.vue'),
-        meta: { auth: true }
-      }
-    ]
+        meta: { auth: true },
+      },
+    ],
   },
   {
     path: '/login',
@@ -57,9 +57,9 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'login',
-        component: () => import('pages/Login.vue')
-      }
-    ]
+        component: () => import('pages/Login.vue'),
+      },
+    ],
   },
   {
     path: '/logout',
@@ -69,14 +69,14 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'logout',
         component: () => import('pages/Logout.vue'),
-        meta: { auth: true }
-      }
-    ]
+        meta: { auth: true },
+      },
+    ],
   },
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue')
-  }
-]
+    component: () => import('pages/Error404.vue'),
+  },
+];
 
-export default routes
+export default routes;

@@ -1,24 +1,14 @@
 {
   "name": "app",
   "version": "0.0.1",
-  "private": true,
   "description": "A Quasar Framework app",
+  "productName": "MediaDB",
   "author": "francoism90 <f.menning@pm.me>",
+  "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
-  "browserslist": [
-    "last 10 Chrome versions",
-    "last 10 Firefox versions",
-    "last 4 Edge versions",
-    "last 7 Safari versions",
-    "last 8 Android versions",
-    "last 8 ChromeAndroid versions",
-    "last 8 FirefoxAndroid versions",
-    "last 10 iOS versions",
-    "last 5 Opera versions"
-  ],
   "dependencies": {
     "@capacitor/core": "^2.4.7",
     "@quasar/extras": "^1.10.4",
@@ -35,6 +25,7 @@
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0-beta.18",
     "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "@types/lodash": "^4.14.168",
@@ -42,16 +33,26 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "eslint": "^7.25.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-vue": "^7.9.0",
     "stylelint-config-standard": "^22.0.0",
     "workbox-webpack-plugin": "^6.1.5"
   },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
   "engines": {
-    "node": ">= 10.18.1",
+    "node": ">= 12.22.1",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
-  },
-  "productName": "MediaDB"
+  }
 }

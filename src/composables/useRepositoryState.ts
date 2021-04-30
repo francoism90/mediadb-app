@@ -1,18 +1,20 @@
-import { RepositoryState } from 'src/interfaces/store'
-import { useNamespacedState } from 'vuex-composition-helpers'
+import { RepositoryState } from 'src/interfaces/store';
+import { useNamespacedState } from 'vuex-composition-helpers';
 
-export default function useRepositoryState (module: string) {
-  const { id, params, data, meta } = useNamespacedState<RepositoryState>(module, [
+export default function useRepositoryState(module: string) {
+  const {
+    id, params, data, meta,
+  } = useNamespacedState<RepositoryState>(module, [
     'id',
     'params',
     'data',
-    'meta'
-  ])
+    'meta',
+  ]);
 
   return {
     id,
     params,
     data,
-    meta
-  }
+    meta,
+  };
 }

@@ -1,9 +1,9 @@
-import { Media } from 'src/interfaces/media'
-import { PlayerProperties } from 'src/interfaces/player'
-import { Model } from 'src/interfaces/repository'
-import { PlayerState } from 'src/interfaces/store'
+import { Media } from 'src/interfaces/media';
+import { PlayerProperties } from 'src/interfaces/player';
+import { Model } from 'src/interfaces/repository';
+import { PlayerState } from 'src/interfaces/store';
 
-function state (): PlayerState {
+function state(): PlayerState {
   return {
     media: <Media>{},
     model: <Model>{},
@@ -26,9 +26,9 @@ function state (): PlayerState {
       seekable: null,
       seeking: false,
       textTracks: null,
-      volume: 1
-    }
-  }
+      volume: 1,
+    },
+  };
 }
 
-export default state
+export default state;

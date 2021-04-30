@@ -36,33 +36,33 @@
 </template>
 
 <script lang="ts">
-import Chips from 'src/components/tags/Chips.vue'
-import useFilters from 'src/composables/useFilters'
-import { Video } from 'src/interfaces/video'
-import { computed, defineComponent, PropType } from 'vue'
+import Chips from 'src/components/tags/Chips.vue';
+import useFilters from 'src/composables/useFilters';
+import { Video } from 'src/interfaces/video';
+import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'VideosItem',
 
   components: {
-    Chips
+    Chips,
   },
 
   props: {
     video: {
       type: Object as PropType<Video>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const { formatTime } = useFilters()
+  setup(props) {
+    const { formatTime } = useFilters();
 
-    const clipDuration = computed(() => formatTime(props.video.clip?.duration || 0))
+    const clipDuration = computed(() => formatTime(props.video.clip?.duration || 0));
 
     return {
-      clipDuration
-    }
-  }
-})
+      clipDuration,
+    };
+  },
+});
 </script>

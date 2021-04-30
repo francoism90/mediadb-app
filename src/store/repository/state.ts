@@ -1,14 +1,14 @@
-import { RepositoryParams } from 'src/interfaces/repository'
-import { RepositoryState } from 'src/interfaces/store'
+import { RepositoryParams } from 'src/interfaces/repository';
+import { RepositoryState } from 'src/interfaces/store';
 
-function state (): RepositoryState {
+function state(): RepositoryState {
   return {
     ready: false,
     id: null,
     params: <RepositoryParams>{},
     data: [],
-    meta: {}
-  }
+    meta: {},
+  };
 }
 
-export default state
+export default state;

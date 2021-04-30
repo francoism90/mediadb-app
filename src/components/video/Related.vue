@@ -27,67 +27,69 @@
 </template>
 
 <script lang="ts">
-import Item from 'src/components/videos/Item.vue'
-import useVideos from 'src/composables/useVideos'
-import { Video, VideosParameters } from 'src/interfaces/video'
-import { defineComponent, PropType, toRefs } from 'vue'
+import Item from 'src/components/videos/Item.vue';
+import useVideos from 'src/composables/useVideos';
+import { Video, VideosParameters } from 'src/interfaces/video';
+import { defineComponent, PropType, toRefs } from 'vue';
 
 export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    Item
+    Item,
   },
 
   props: {
     video: {
       type: Object as PropType<Video>,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  setup (props) {
-    const { video } = toRefs(props)
+  setup(props) {
+    const { video } = toRefs(props);
 
-    const { fetchVideos, isLoadable, setParams, id, data, meta } = useVideos({
+    const {
+      fetchVideos, isLoadable, setParams, id, data, meta,
+    } = useVideos({
       module: `video-related-${video.value.id}`,
       params: <VideosParameters>{
         sort: 'recommended',
         'filter[related]': video.value.id,
         'page[number]': 1,
-        'page[size]': 12
-      }
-    })
+        'page[size]': 12,
+      },
+    });
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetchVideos()
-        await done(!isLoadable.value)
+        await fetchVideos();
+        await done(!isLoadable.value);
       } catch {
         //
       } finally {
         //
       }
-    }
+    };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = async (done: Function): Promise<void> => {
       await setParams({
         params: { 'page[number]': 1 },
-        reset: true
-      })
+        reset: true,
+      });
 
-      done()
-    }
+      done();
+    };
 
     return {
       onLoad,
       onRefresh,
       id,
       data,
-      meta
-    }
-  }
-})
+      meta,
+    };
+  },
+});
 </script>

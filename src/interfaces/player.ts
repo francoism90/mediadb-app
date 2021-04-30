@@ -1,5 +1,5 @@
-import { Media } from 'src/interfaces/media'
-import { Model } from 'src/interfaces/repository'
+import { Media } from 'src/interfaces/media';
+import { Model } from 'src/interfaces/repository';
 
 export interface PlayerProps {
   module: string,

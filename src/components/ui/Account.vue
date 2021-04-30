@@ -56,18 +56,18 @@
 </template>
 
 <script lang="ts">
-import useSession from 'src/composables/useSession'
-import { defineComponent } from 'vue'
+import useSession from 'src/composables/useSession';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'AppAccount',
 
-  setup () {
-    const { user } = useSession()
+  setup() {
+    const { user } = useSession();
 
     return {
-      user
-    }
-  }
-})
+      user,
+    };
+  },
+});
 </script>

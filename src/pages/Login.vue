@@ -52,65 +52,65 @@
 </template>
 
 <script lang="ts">
-import { AxiosError } from 'axios'
-import { useQuasar } from 'quasar'
-import useFormValidation from 'src/composables/useFormValidation'
-import useSession from 'src/composables/useSession'
-import { ValidationResponse } from 'src/interfaces/form'
-import { LoginUser } from 'src/interfaces/session'
-import { loginUser } from 'src/repositories/user'
-import { router } from 'src/router'
-import { setCsrfCookie } from 'src/services/api'
-import { defineComponent, reactive, ref } from 'vue'
+import { AxiosError } from 'axios';
+import { useQuasar } from 'quasar';
+import useFormValidation from 'src/composables/useFormValidation';
+import useSession from 'src/composables/useSession';
+import { ValidationResponse } from 'src/interfaces/form';
+import { LoginUser } from 'src/interfaces/session';
+import { loginUser } from 'src/repositories/user';
+import { router } from 'src/router';
+import { setCsrfCookie } from 'src/services/api';
+import { defineComponent, reactive, ref } from 'vue';
 
 export default defineComponent({
   name: 'LoginPage',
 
-  setup () {
-    const $q = useQuasar()
+  setup() {
+    const $q = useQuasar();
 
-    const { redirectPath, initialize } = useSession()
+    const { redirectPath, initialize } = useSession();
 
-    const formRef = ref<HTMLFormElement | null>(null)
+    const formRef = ref<HTMLFormElement | null>(null);
     const form = reactive<LoginUser>({
       email: '',
       password: '',
       device_name: $q.platform.userAgent || '',
-      remember_me: true
-    })
+      remember_me: true,
+    });
 
-    const { getError, hasError, setResponse } = useFormValidation()
+    const { getError, hasError, setResponse } = useFormValidation();
 
     const onSubmit = async (): Promise<void> => {
       try {
         // CSRF is only useful on SPA
         if (!$q.platform.is.capacitor && !$q.platform.is.cordova) {
-          await setCsrfCookie()
+          await setCsrfCookie();
         }
 
-        const response = await loginUser(form)
-        await initialize(response)
+        const response = await loginUser(form);
+        await initialize(response);
 
-        await router.push(redirectPath.value || '/')
+        await router.push(redirectPath.value || '/');
       } catch (e: unknown) {
-        const error = e as AxiosError<ValidationResponse>
+        const error = e as AxiosError<ValidationResponse>;
 
         if (error.response) {
-          setResponse(error.response.data)
-          return
+          setResponse(error.response.data);
+          return;
         }
 
-        throw error
+        throw error;
       }
-    }
+    };
 
     return {
       getError,
       hasError,
       formRef,
       form,
-      onSubmit
-    }
-  }
-})
+      onSubmit,
+    };
+  },
+});
 </script>

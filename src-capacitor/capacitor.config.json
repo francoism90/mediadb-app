@@ -10,7 +10,8 @@
       "mediadb.internal",
       "socket.mediadb.internal",
       "stream.internal"
-    ]
+    ],
+    "url": "http://192.168.179.101:8000"
   },
   "android": {
     "allowMixedContent": true,

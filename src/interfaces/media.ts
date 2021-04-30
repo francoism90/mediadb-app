@@ -1,4 +1,4 @@
-import { Model, ModelResponse } from './repository'
+import { Model, ModelResponse } from './repository';
 
 export interface Media extends Model {
   duration?: number | null,
