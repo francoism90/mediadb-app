@@ -17,6 +17,7 @@
       crossorigin="anonymous"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
+      :poster="video.clip?.thumbnail_url"
       :src="video.clip?.stream_url"
       :muted="properties.muted"
       :playbackRate="properties.playbackRate"

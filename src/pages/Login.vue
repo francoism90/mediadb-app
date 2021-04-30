@@ -84,7 +84,7 @@ export default defineComponent({
     const onSubmit = async (): Promise<void> => {
       try {
         // CSRF is only useful on SPA
-        if (!$q.platform.is.cordova && !$q.platform.is.capacitor) {
+        if (!$q.platform.is.capacitor && !$q.platform.is.cordova) {
           await setCsrfCookie()
         }
 

@@ -16,7 +16,8 @@
       android:label="@string/title_activity_main"
       android:theme="@style/AppTheme.NoActionBarLaunch"
       android:launchMode="singleTask"
-      android:supportsPictureInPicture="true"
+      android:hardwareAccelerated="true"
+      android:screenOrientation="fullSensor"
     >
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -36,6 +37,8 @@
       </meta-data>
     </provider>
   </application>
-  <!-- Permissions -->
+  <uses-feature android:name="android.hardware.sensor.accelerometer" />
+  <uses-feature android:name="android.hardware.screen.landscape" />
+  <uses-feature android:name="android.hardware.screen.portrait" />
   <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
