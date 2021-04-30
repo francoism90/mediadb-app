@@ -10,6 +10,7 @@
     "@capacitor/cli": "^3.0.0-rc.1",
     "@capacitor/core": "^3.0.0-rc.1",
     "@capacitor/splash-screen": "^0.3.7",
+    "@capacitor/status-bar": "^0.4.7",
     "cordova-plugin-screen-orientation": "^3.0.2",
     "es6-promise-plugin": "^4.2.2"
   }
