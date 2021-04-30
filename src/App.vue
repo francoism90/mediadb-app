@@ -6,7 +6,7 @@
 <script lang="ts">
 import { useQuasar } from 'quasar'
 import useDevice from 'src/composables/useDevice'
-import { defineComponent, onMounted, watch } from 'vue'
+import { defineComponent, watch } from 'vue'
 
 export default defineComponent({
   name: 'App',
@@ -14,16 +14,13 @@ export default defineComponent({
   setup () {
     const $q = useQuasar()
     const {
-      setOverlaysWebView,
       hideStatusBar,
       showStatusBar,
+      hideNavigationBar,
+      showNavigationBar,
       screenOrientationLandscape,
       screenOrientationUnlock
     } = useDevice()
-
-    onMounted(async () => {
-      await setOverlaysWebView()
-    })
 
     watch(() => $q.fullscreen.isActive, async (value): Promise<void> => {
       if (!$q.platform.is.capacitor && !$q.platform.is.cordova) {
@@ -32,9 +29,11 @@ export default defineComponent({
 
       if (value === true) {
         await hideStatusBar()
+        await hideNavigationBar()
         await screenOrientationLandscape()
       } else {
         await showStatusBar()
+        await showNavigationBar()
         screenOrientationUnlock()
       }
     })

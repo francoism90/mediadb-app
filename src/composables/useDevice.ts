@@ -23,11 +23,21 @@ export default function useDevice () {
     await StatusBar.show()
   }
 
+  const hideNavigationBar = async (): Promise<void> => {
+    await window.NavigationBar.hide()
+  }
+
+  const showNavigationBar = async (): Promise<void> => {
+    await window.NavigationBar.show()
+  }
+
   return {
     setOverlaysWebView,
     screenOrientationLandscape,
     screenOrientationUnlock,
     hideStatusBar,
-    showStatusBar
+    showStatusBar,
+    hideNavigationBar,
+    showNavigationBar
   }
 }
