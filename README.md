@@ -1,32 +1,34 @@
 # MediaDB app
 
-**MediaDB** is a web-based video streaming service written in Laravel and Vue ([Quasar](https://quasar.dev/)).
+**MediaDB** is a web-based video streaming service written in Laravel, TypeScript and Vue ([Quasar](https://next.quasar.dev/)).
 
 MediaDB is very much in development and may not be suitable for production purposes.
+It is recommended to fork the project.
 
 ## Installation
 
 Notes:
 
 - Requires a running [MediaDB API](https://github.com/francoism90/mediadb) instance.
-- It is recommend to clone/install MediaDB projects to `/var/www/html/api` (mediadb-api) and `/var/www/html/app` (SPA/PWA).
-- See our [api docs](https://github.com/francoism90/mediadb/blob/master/doc/nginx/) for nginx configuration examples.
+- See the [api docs](https://github.com/francoism90/mediadb/blob/master/doc/nginx/) for nginx configuration examples.
 
 ### Configuration
 
-Please consult to following links to learn more about Quasar:
+Please consult the following links to learn more about Quasar:
 
 - <https://next.quasar.dev>
-- <https://next.quasar.dev/quasar-cli/commands-list#introduction>
-- <https://next.quasar.dev/quasar-cli/developing-capacitor-apps/introduction#introduction>
+- <https://next.quasar.dev/quasar-cli/installation>
+
+When using Capacitor, update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` so it reflects your own configured domains.
 
 ### Build project (SPA/PWA)
 
 ```bash
 cd /var/www/html/app
 cp .env.example .env
-npm install
-quasar build
+yarn install
+quasar build -m pwa
+quasar build -m spa
 ```
 
 ### Live project
@@ -34,34 +36,29 @@ quasar build
 ```bash
 cd /var/www/html/app
 cp .env.local.example .env.local
-npm install
-quasar dev
+yarn install
+quasar dev -m spa
 ```
 
 ### Live Android project
 
-Notes:
+Please consult the following links to learn more about Capacitor:
 
-- [Android Studio](https://next.quasar.dev/quasar-cli/developing-capacitor-apps/preparation) is required.
-- Update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` so it reflects your own configured domains.
+- <https://next.quasar.dev/quasar-cli/developing-capacitor-apps/introduction>
+- <https://capacitorjs.com/>
 
 ```bash
 cd /var/www/html/app
 cp .env.example .env
-npm install
+yarn install
 quasar dev --mode capacitor --target android --ide
 ```
 
 ### Build Android project
 
-Notes:
-
-- [Android Studio](https://next.quasar.dev/quasar-cli/developing-capacitor-apps/preparation) is required.
-- Update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` so it reflects your own configured domains.
-
 ```bash
 cd /var/www/html/app
 cp .env.example .env
-npm install
+yarn install
 quasar build --mode capacitor --target android --ide
 ```
