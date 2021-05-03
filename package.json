@@ -36,7 +36,6 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-vue": "^7.9.0",
-    "stylelint-config-standard": "^22.0.0",
     "workbox-webpack-plugin": "^6.1.5"
   },
   "browserslist": [
