@@ -10,7 +10,7 @@ export async function find(id: string | number): Promise<TagResponse> {
   return response.data;
 }
 
-export async function findAll(params: TagsParameters): Promise<TagsResponse> {
+export async function all(params: TagsParameters): Promise<TagsResponse> {
   const response = await api.get<TagsResponse, AxiosResponse<TagsResponse>>(
     'tags', { params },
   );

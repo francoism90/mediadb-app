@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers';
 import { setAuthHeader } from 'src/boot/axios';
 import { StoreState } from 'src/interfaces/store';
-import { authUser } from 'src/repositories/user';
+import { auth } from 'src/repositories/user';
 import { Store } from 'vuex';
 
 async function checkUser(store: Store<StoreState>, redirectPath: string | null): Promise<boolean> {
@@ -14,7 +14,7 @@ async function checkUser(store: Store<StoreState>, redirectPath: string | null):
   setAuthHeader(session.token);
 
   try {
-    const response = await authUser({ token: session.token });
+    const response = await auth({ token: session.token });
     await store.dispatch('session/setUser', response);
 
     return true;

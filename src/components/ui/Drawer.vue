@@ -59,7 +59,7 @@ const menuList = [
   {
     icon: 'o_bookmarks',
     label: 'Bookmarks',
-    route: { name: 'settings' },
+    route: { name: 'bookmarks' },
   },
   {
     icon: 'o_watch_later',

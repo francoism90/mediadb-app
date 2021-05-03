@@ -3,7 +3,7 @@ import useRepositoryGetters from 'src/composables/useRepositoryGetters';
 import useRepositoryState from 'src/composables/useRepositoryState';
 import { RepositoryProps } from 'src/interfaces/repository';
 import { TagsParameters } from 'src/interfaces/tag';
-import { findAll } from 'src/repositories/tag';
+import { all } from 'src/repositories/tag';
 
 export default function useTags(props: RepositoryProps) {
   const {
@@ -24,7 +24,7 @@ export default function useTags(props: RepositoryProps) {
       const pageParams = { ...getParams.value, ...{ 'page[number]': pageNumber } } as TagsParameters;
       await setParams({ params: pageParams });
 
-      const response = await findAll(pageParams);
+      const response = await all(pageParams);
       await setResponse(response);
     }
   };

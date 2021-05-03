@@ -3,7 +3,7 @@ import useRepositoryGetters from 'src/composables/useRepositoryGetters';
 import useRepositoryState from 'src/composables/useRepositoryState';
 import { RepositoryProps } from 'src/interfaces/repository';
 import { VideosParameters } from 'src/interfaces/video';
-import { findAll } from 'src/repositories/video';
+import { all } from 'src/repositories/video';
 
 export default function useVideos(props: RepositoryProps) {
   const {
@@ -24,7 +24,7 @@ export default function useVideos(props: RepositoryProps) {
       const pageParams = { ...getParams.value, ...{ 'page[number]': pageNumber } } as VideosParameters;
       await setParams({ params: pageParams });
 
-      const response = await findAll(pageParams);
+      const response = await all(pageParams);
       await setResponse(response);
     }
   };
