@@ -27,6 +27,18 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/bookmarks',
+    component: () => import('layouts/Main.vue'),
+    children: [
+      {
+        path: '',
+        name: 'bookmarks',
+        component: () => import('pages/Bookmarks.vue'),
+        meta: { auth: true },
+      },
+    ],
+  },
+  {
     path: '/settings',
     component: () => import('layouts/Main.vue'),
     children: [

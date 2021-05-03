@@ -26,6 +26,7 @@ export interface VideosResponse extends RepositoryResponse {
 }
 
 export interface VideosParameters extends RepositoryParams {
+  'filter[favorites]'?: boolean | number | null
   'filter[related]'?: string | number | null
   'filter[query]'?: string | null
 }
