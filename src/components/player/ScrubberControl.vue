@@ -17,6 +17,7 @@
       color="primary"
       @mousemove="activateTooltip"
       @mouseleave="deactivateTooltip"
+      @update:model-value="setCurrentTime"
       @change="setCurrentTime"
     />
 
@@ -123,7 +124,7 @@ export default defineComponent({
     };
 
     const setCurrentTime = (value: number) => {
-      setProperties({ currentTime: value, requestTime: value });
+      setProperties({ requestTime: value });
     };
 
     return {

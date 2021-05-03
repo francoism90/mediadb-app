@@ -42,10 +42,30 @@ export default function usePlayer(props: PlayerProps) {
     const shakaPlayer = new shaka.Player(dom);
 
     shakaPlayer.configure({
+      manifest: {
+        dash: {
+          ignoreMinBufferTime: true,
+        },
+        retryParameters: {
+          timeout: 10000,
+          stallTimeout: 5000,
+          connectionTimeout: 10000,
+          maxAttempts: 3,
+          baseDelay: 1000,
+          backoffFactor: 2,
+          fuzzFactor: 0.5,
+        },
+      },
       streaming: {
         jumpLargeGaps: true,
+        rebufferingGoal: 2,
+        bufferingGoal: 60,
+        bufferBehind: 30,
         ignoreTextStreamFailures: true,
         alwaysStreamText: true,
+        stallEnabled: true,
+        stallSkip: 10,
+        stallThreshold: 1,
       },
     });
 
