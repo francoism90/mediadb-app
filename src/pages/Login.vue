@@ -58,7 +58,7 @@ import useFormValidation from 'src/composables/useFormValidation';
 import useSession from 'src/composables/useSession';
 import { ValidationResponse } from 'src/interfaces/form';
 import { LoginUser } from 'src/interfaces/session';
-import { loginUser } from 'src/repositories/user';
+import { login } from 'src/repositories/user';
 import { router } from 'src/router';
 import { setCsrfCookie } from 'src/services/api';
 import { defineComponent, reactive, ref } from 'vue';
@@ -88,7 +88,7 @@ export default defineComponent({
           await setCsrfCookie();
         }
 
-        const response = await loginUser(form);
+        const response = await login(form);
         await initialize(response);
 
         await router.push(redirectPath.value || '/');

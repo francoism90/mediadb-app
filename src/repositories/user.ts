@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
+import { Model, ModelResponse } from 'src/interfaces/repository';
 import { AuthResponse, AuthUser, LoginUser } from 'src/interfaces/session';
 import { UserResponse } from 'src/interfaces/user';
 
-export async function authUser(params: AuthUser): Promise<AuthResponse> {
+export async function auth(params: AuthUser): Promise<AuthResponse> {
   const apiToken = params.token || '';
 
   const response = await api.get<UserResponse, AxiosResponse<AuthResponse>>('auth/user', {
@@ -15,14 +16,22 @@ export async function authUser(params: AuthUser): Promise<AuthResponse> {
   return response.data;
 }
 
-export async function loginUser(params: LoginUser): Promise<AuthResponse> {
+export async function login(params: LoginUser): Promise<AuthResponse> {
   const response = await api.post<AuthResponse, AxiosResponse<AuthResponse>>('auth/login', params);
 
   return response.data;
 }
 
-export async function logoutUser(params: AuthUser): Promise<AuthResponse> {
+export async function logout(params: AuthUser): Promise<AuthResponse> {
   const response = await api.post<AuthResponse, AxiosResponse<AuthResponse>>('auth/logout', params);
+
+  return response.data;
+}
+
+export async function favorite(params: Model): Promise<ModelResponse> {
+  const response = await api.post<ModelResponse, AxiosResponse<ModelResponse>>(
+    'user/favorite', params,
+  );
 
   return response.data;
 }
