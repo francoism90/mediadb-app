@@ -8,17 +8,25 @@
       :key="id"
       @refresh="onRefresh"
     >
-      <q-infinite-scroll
-        class="row wrap justify-start items-start content-start q-col-gutter-lg"
-        @load="onLoad"
-      >
-        <q-intersection
-          v-for="(item, index) in data"
-          :key="index"
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 video-item"
-        >
-          <item :video="item" />
-        </q-intersection>
+      <q-infinite-scroll @load="onLoad">
+        <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
+          <q-intersection
+            v-for="(item, index) in data"
+            :key="index"
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
+          >
+            <item :video="item" />
+          </q-intersection>
+        </div>
+
+        <template #loading>
+          <div class="row no-wrap justify-center q-my-md">
+            <q-spinner-orbit
+              color="primary"
+              size="3em"
+            />
+          </div>
+        </template>
       </q-infinite-scroll>
     </q-pull-to-refresh>
   </q-page>
