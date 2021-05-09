@@ -60,7 +60,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, onMounted, PropType, ref, watch,
+  defineComponent, onBeforeUnmount, onMounted, PropType, ref, watch,
 } from 'vue';
 import { useQuasar } from 'quasar';
 import { Video } from 'src/interfaces/video';
@@ -90,7 +90,7 @@ export default defineComponent({
     const $q = useQuasar();
 
     const {
-      createPlayer, setProperties, syncProperties, properties,
+      createPlayer, destroyPlayer, setProperties, syncProperties, properties,
     } = usePlayer({
       module: props.module,
       model: props.video,
@@ -140,6 +140,15 @@ export default defineComponent({
 
     onMounted(async () => {
       await createPlayer(videoElement.value);
+    });
+
+    onBeforeUnmount(async () => {
+      // https://stackoverflow.com/a/28060352
+      videoElement.value?.pause();
+      videoElement.value?.removeAttribute('src');
+      videoElement.value?.load();
+
+      await destroyPlayer();
     });
 
     watch(properties, async (value, oldValue): Promise<void> => {

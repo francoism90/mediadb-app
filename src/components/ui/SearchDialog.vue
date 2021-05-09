@@ -19,7 +19,8 @@
         <q-input
           v-model.trim="query"
           input-class="text-h3 q-px-md"
-          debounce="700"
+          debounce="650"
+          type="text"
           autofocus
         />
       </q-card-section>

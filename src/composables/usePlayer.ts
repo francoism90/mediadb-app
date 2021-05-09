@@ -5,7 +5,7 @@ import { PlayerProps } from 'src/interfaces/player';
 import { PlayerState } from 'src/interfaces/store';
 import { useStore } from 'src/store';
 import playerModule from 'src/store/player';
-import { onBeforeUnmount, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers';
 
 export default function usePlayer(props: PlayerProps) {
@@ -91,6 +91,11 @@ export default function usePlayer(props: PlayerProps) {
     }
   };
 
+  const destroyPlayer = async (): Promise<void> => {
+    await player.value?.detach();
+    await player.value?.destroy();
+  };
+
   const readonlyProperties = (event: Event | null): void => {
     const target = event?.target as HTMLMediaElement;
 
@@ -127,17 +132,13 @@ export default function usePlayer(props: PlayerProps) {
     setProperties({ fullscreen: value });
   });
 
-  onBeforeUnmount(() => {
-    player.value?.detach();
-    player.value?.destroy();
-  });
-
   return {
     resetStore,
     initialize,
     setProperties,
     syncProperties,
     createPlayer,
+    destroyPlayer,
     isLoading,
     player,
     model,

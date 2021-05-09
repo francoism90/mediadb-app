@@ -24,6 +24,11 @@ const searchList = [
     label: 'Search Videos',
   },
   {
+    route: 'bookmarks',
+    module: 'bookmarks',
+    label: 'Search Videos',
+  },
+  {
     route: 'tags',
     module: 'tags',
     label: 'Search Tags',
