@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import { AxiosError } from 'axios';
-import { useQuasar } from 'quasar';
+import { useMeta, useQuasar } from 'quasar';
 import useFormValidation from 'src/composables/useFormValidation';
 import useSession from 'src/composables/useSession';
 import { ValidationResponse } from 'src/interfaces/form';
@@ -103,6 +103,10 @@ export default defineComponent({
         throw error;
       }
     };
+
+    useMeta(() => ({
+      title: 'Log In',
+    }));
 
     return {
       getError,

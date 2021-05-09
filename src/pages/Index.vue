@@ -33,6 +33,7 @@
 </template>
 
 <script lang="ts">
+import { useMeta } from 'quasar';
 import Filters from 'src/components/videos/Filters.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
@@ -80,6 +81,10 @@ export default defineComponent({
 
       done();
     };
+
+    useMeta(() => ({
+      title: 'Videos',
+    }));
 
     return {
       onLoad,

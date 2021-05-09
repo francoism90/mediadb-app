@@ -39,6 +39,7 @@
 </template>
 
 <script lang="ts">
+import { useMeta } from 'quasar';
 import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
 import VideoRelated from 'src/components/video/Related.vue';
@@ -76,9 +77,14 @@ export default defineComponent({
 
   setup(props: Props) {
     const { id } = toRefs(props);
+
     const {
       subscribe, unsubscribe, errors, video,
     } = useVideo({ id });
+
+    useMeta(() => ({
+      title: video.value?.name || '',
+    }));
 
     onMounted(() => subscribe(id.value));
 

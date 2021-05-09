@@ -4,8 +4,6 @@
       More Like This
     </h1>
 
-    <q-separator />
-
     <q-pull-to-refresh
       :key="id"
       @refresh="onRefresh"

@@ -3,15 +3,22 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar';
+import { useMeta, useQuasar } from 'quasar';
 import useDevice from 'src/composables/useDevice';
 import { defineComponent, watch } from 'vue';
+
+const metaData = {
+  title: '',
+  titleTemplate: (title: string) => `${title} | MediaDB`,
+};
 
 export default defineComponent({
   name: 'App',
 
   setup() {
     const $q = useQuasar();
+    const meta = useMeta(metaData);
+
     const {
       hideStatusBar,
       showStatusBar,
@@ -36,6 +43,10 @@ export default defineComponent({
         screenOrientationUnlock();
       }
     });
+
+    return {
+      meta,
+    };
   },
 });
 </script>

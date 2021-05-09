@@ -33,6 +33,7 @@
 </template>
 
 <script lang="ts">
+import { useMeta } from 'quasar';
 import Filters from 'src/components/tags/Filters.vue';
 import Item from 'src/components/tags/Item.vue';
 import useTags from 'src/composables/useTags';
@@ -40,7 +41,7 @@ import { TagsParameters } from 'src/interfaces/tag';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: 'TagsPage',
 
   components: {
     Item,
@@ -81,6 +82,10 @@ export default defineComponent({
 
       done();
     };
+
+    useMeta(() => ({
+      title: 'Tags',
+    }));
 
     return {
       onLoad,

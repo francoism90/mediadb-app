@@ -26,9 +26,16 @@
 </template>
 
 <script lang="ts">
+import { useMeta } from 'quasar';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Error404',
+
+  setup() {
+    useMeta(() => ({
+      title: '404 - Not Found',
+    }));
+  },
 });
 </script>
