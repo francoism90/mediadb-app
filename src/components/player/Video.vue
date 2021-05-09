@@ -51,10 +51,15 @@
       >
     </video>
 
-    <default-controls
-      v-show="properties.controls"
-      :module="module"
-    />
+    <transition
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <default-controls
+        v-show="properties.controls"
+        :module="module"
+      />
+    </transition>
   </div>
 </template>
 

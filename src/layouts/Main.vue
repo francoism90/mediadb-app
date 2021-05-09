@@ -8,40 +8,23 @@
       class="row no-wrap items-center content-center header"
       height-hint="58"
     >
-      <q-toolbar class="header-container">
-        <div class="row no-wrap items-center content-center">
-          <q-icon
-            name="o_menu"
-            class="cursor-pointer q-mr-md"
-            size="24px"
-            aria-label="Account"
-            @click="toggleDrawer"
-          />
+      <q-toolbar>
+        <q-icon
+          name="o_menu"
+          class="cursor-pointer q-mr-md"
+          size="24px"
+          aria-label="Account"
+          @click="toggleDrawer"
+        />
 
-          <q-btn
-            dense
-            color="grey-10"
-            icon="chevron_left"
-            aria-label="Back"
-            @click="historyBack"
-          />
+        <q-toolbar-title class="text-body2">
+          MediaDB
+        </q-toolbar-title>
+      </q-toolbar>
 
-          <q-btn
-            dense
-            color="grey-10"
-            icon="chevron_right"
-            aria-label="Forward"
-            class="q-ml-xs"
-            @click="historyForward"
-          />
-        </div>
-
-        <q-space />
-
-        <div class="row no-wrap items-center content-center q-gutter-sm">
-          <search />
-          <account />
-        </div>
+      <q-toolbar class="col-auto q-gutter-sm">
+        <search />
+        <account />
       </q-toolbar>
     </q-header>
 
@@ -66,7 +49,6 @@
 import Account from 'src/components/ui/Account.vue';
 import Drawer from 'src/components/ui/Drawer.vue';
 import Search from 'src/components/ui/Search.vue';
-import useRouter from 'src/composables/useRouter';
 import useSession from 'src/composables/useSession';
 import { computed, defineComponent, ref } from 'vue';
 
@@ -82,13 +64,9 @@ export default defineComponent({
   setup() {
     const drawer = ref(false);
 
-    const { router } = useRouter();
     const { user } = useSession();
 
-    const layoutKey = computed(() => user.value.id || '');
-
-    const historyBack = () => router.back();
-    const historyForward = () => router.forward();
+    const layoutKey = computed(() => user.value.id || +new Date());
 
     const toggleDrawer = () => {
       drawer.value = !drawer.value;
@@ -98,8 +76,6 @@ export default defineComponent({
       layoutKey,
       drawer,
       toggleDrawer,
-      historyBack,
-      historyForward,
     };
   },
 });
