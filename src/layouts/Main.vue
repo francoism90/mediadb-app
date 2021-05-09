@@ -17,8 +17,13 @@
           @click="toggleDrawer"
         />
 
-        <q-toolbar-title class="text-body2">
-          MediaDB
+        <q-toolbar-title>
+          <router-link
+            to="/"
+            class="text-body2 cursor-pointer"
+          >
+            MediaDB
+          </router-link>
         </q-toolbar-title>
       </q-toolbar>
 
@@ -68,7 +73,7 @@ export default defineComponent({
 
     const layoutKey = computed(() => user.value.id || +new Date());
 
-    const toggleDrawer = () => {
+    const toggleDrawer = (): void => {
       drawer.value = !drawer.value;
     };
 

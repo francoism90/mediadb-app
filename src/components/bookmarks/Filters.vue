@@ -64,8 +64,8 @@ const sortList = [
     value: 'recommended',
   },
   {
-    label: 'Duration',
-    value: 'duration',
+    label: 'Longest',
+    value: '-duration',
   },
 ];
 

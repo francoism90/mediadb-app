@@ -64,12 +64,16 @@ const sortList = [
     value: 'recommended',
   },
   {
-    label: 'Recently Added',
+    label: 'Trending',
+    value: 'trending',
+  },
+  {
+    label: 'Most Recent',
     value: '-created_at',
   },
   {
-    label: 'Duration',
-    value: 'duration',
+    label: 'Longest',
+    value: '-duration',
   },
 ];
 
