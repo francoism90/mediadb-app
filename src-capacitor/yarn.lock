@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.0.0-rc.1.tgz#6c7fd0f0469a6b2d8af4ce9b7e90656da9764a6a"
   integrity sha512-l3SBYd3RoFUS5+PT8o5SllLYdcEGQjDuPI1+aBGGMu2qycMQqD0CjDTdKrTwt0Ff4slI3Ssj5QrzURX3NzTJhg==
 
-"@capacitor/app@^0.3.7":
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-0.3.7.tgz#fc5a245c06da45033c68b2da711991ea579850ed"
-  integrity sha512-y13vvtdfkETYi18Fruw60KXtT2LQzrJJ3DCNS0VSwJqMZDwqLVisNLueMZOxnjpomsL0NGKEVHCPLbzTWXwUtw==
+"@capacitor/app@^0.3.9":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-0.3.9.tgz#9100fcf302c13e4a579910b4e18acfcc90f28837"
+  integrity sha512-4fmwFZxrpXlV7QQ+/LAbncv1AIUDnlcLyT4y5MworSCRqu1Ym+aF+kjOP8MmjnDqUzHrzZEPOYx6XjjP0HlgFQ==
 
 "@capacitor/cli@^3.0.0-rc.1":
   version "3.0.0-rc.1"
@@ -41,15 +41,15 @@
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/splash-screen@^0.3.7":
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-0.3.7.tgz#6e5f21eb0d4c6c5f6eb8a0d58029518ea8e69095"
-  integrity sha512-QGc1BhiDscE5Cxiljgyib2vKIGyMVz3k0TOhbeTgw4Vwsj2pbdQNMaBIYLAQd36DI8dVLg3dL1fNf7VSj1U5Jw==
+"@capacitor/splash-screen@^0.3.9":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-0.3.9.tgz#fa1b3dc3e58b6cebaa4ae3a98515dfae9225b327"
+  integrity sha512-A8b/GyMXA8Il/3pLALBTwHGfCCL85XGyT129hvEhgOw+z+hLxWfJhS81NLwTWTy8emOwOVFcn8NBWRl52PaiNg==
 
-"@capacitor/status-bar@^0.4.7":
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-0.4.7.tgz#24ef458d3774c55ab56697c99feafe63af653b56"
-  integrity sha512-BN++SHy4lZPlJJvBS/2WkBgV30Vpas0efP5wyng3QCwaKc4JtF2J2J5+meojSbOI+hE18n8YoxjXf4/wAFkC8A==
+"@capacitor/status-bar@^0.4.9":
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-0.4.9.tgz#4803584b0f57086e80c138b8f290635eb511c9e1"
+  integrity sha512-fvXHH99t4wDPuS/1kBoy2ezik08ee/H1kNI6vu47M8yowU4vAXrtiHl4+NqlAj5/4pqVya/k9DRLxSGZ944l1g==
 
 "@ionic/cli-framework-output@^2.2.1":
   version "2.2.2"
