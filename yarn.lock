@@ -1112,10 +1112,10 @@
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha1-FPzHEqUwA475vhzmlSMVqDn0Zqg=
 
-"@quasar/app@^3.0.0-beta.23":
-  version "3.0.0-beta.23"
-  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.0.0-beta.23.tgz#a70696a908a479ac6fab597b47b5a855341f9f1e"
-  integrity sha512-zd8kHbTQ4FiVvjeQYDe/AjrbpDQwXuKpNMFMc3VQGjgUYC2Qytrcbwi0zd5zij3XYKt6Hu4ZEnQwqbCZTRGLNg==
+"@quasar/app@^3.0.0-beta.24":
+  version "3.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.0.0-beta.24.tgz#ebdda0186b4d4f3e14b56629f48fe435c09471aa"
+  integrity sha512-aawe+uCLA3EDvHmLOAqxjow8dr5Sdek3MjTwt2iMfdMiDy6S2Qy9HbcxWQWVbDJFtpUup14Fmr4LT6b0Wxfe3w==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
@@ -1180,7 +1180,7 @@
     url-loader "4.1.1"
     vue "3.0.11"
     vue-loader "16.2.0"
-    vue-router "4.0.6"
+    vue-router "4.0.8"
     vue-style-loader "4.1.3"
     vuex "4.0.0"
     webpack "^5.35.0"
@@ -1651,7 +1651,7 @@
     "@vue/compiler-dom" "3.0.11"
     "@vue/shared" "3.0.11"
 
-"@vue/devtools-api@^6.0.0-beta.7":
+"@vue/devtools-api@^6.0.0-beta.10", "@vue/devtools-api@^6.0.0-beta.7":
   version "6.0.0-beta.10"
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.10.tgz#f39da7618cee292e39c7274227c34163e30eb3ca"
   integrity sha512-nktQYRnIFrh4DdXiCBjHnsHOMZXDIVcP9qlm/DMfxmjJMtpMGrSZCOKP8j7kDhObNHyqlicwoGLd+a4hf4x9ww==
@@ -3719,9 +3719,9 @@ forwarded@~0.1.2:
   integrity sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
 
 fraction.js@^4.0.13:
-  version "4.0.13"
-  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.0.13.tgz#3c1c315fa16b35c85fffa95725a36fa729c69dfe"
-  integrity sha512-E1fz2Xs9ltlUp+qbiyx9wmt2n9dRzPsS11Jtdb8D2o+cC7wr9xkkKsVKJuBX0ST+LVS+LhLO+SbLJNtfWcJvXA==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.1.0.tgz#229ec1cedc8c3c7e5d2d20688ba64f0a43af5830"
+  integrity sha512-o9lSKpK0TDqDwTL24Hxqi6I99s942l6TYkfl6WvGWgLOIFz/YonSGKfiSeMadoiNvTfqnfOa9mjb5SGVbBK9/w==
 
 fresh@0.5.2:
   version "0.5.2"
@@ -7203,10 +7203,12 @@ vue-loader@16.2.0:
     hash-sum "^2.0.0"
     loader-utils "^2.0.0"
 
-vue-router@4.0.6:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.6.tgz#91750db507d26642f225b0ec6064568e5fe448d6"
-  integrity sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==
+vue-router@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.8.tgz#55d4290a3122444edbc91a3cd2492bb1d0cef494"
+  integrity sha512-42mWSQaH7CCBQDspQTHv63f34VEnZC20g9QNK4WJ/zW8SdIUeT6TQ2i/78fjF/pVBUPLBWrGhvB7uDnaz7O/pA==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.10"
 
 vue-style-loader@4.1.3:
   version "4.1.3"

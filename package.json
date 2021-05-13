@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.2",
-    "@quasar/app": "^3.0.0-beta.23",
+    "@quasar/app": "^3.0.0-beta.24",
     "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "@types/lodash": "^4.14.169",
     "@types/node": "^15.0.3",
