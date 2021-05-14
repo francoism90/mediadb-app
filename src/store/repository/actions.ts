@@ -20,6 +20,7 @@ const actions: ActionTree<RepositoryState, StoreState> = {
 
     if (payload.reset) {
       context.commit('resetData');
+      context.commit('resetLinks');
       context.commit('resetMeta');
       context.commit('setId', Date.now());
     }
@@ -27,6 +28,7 @@ const actions: ActionTree<RepositoryState, StoreState> = {
 
   setResponse(context, payload: RepositoryResponse): void {
     context.commit('setData', payload.data);
+    context.commit('setLinks', payload.links);
     context.commit('setMeta', payload.meta);
   },
 };

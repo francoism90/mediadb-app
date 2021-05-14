@@ -67,9 +67,7 @@ export default defineComponent({
         await fetchTags();
         await done(!isLoadable.value);
       } catch {
-        //
-      } finally {
-        //
+        await done(true);
       }
     };
 

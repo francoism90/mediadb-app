@@ -34,8 +34,16 @@ export interface RepositoryMeta {
   total?: number,
 }
 
+export interface RepositoryLinks {
+  'first'?: string | null,
+  'last'?: string | null,
+  next?: string | null,
+  prev?: string | null,
+}
+
 export interface RepositoryResponse {
   data: Model[],
+  links: RepositoryLinks
   meta: RepositoryMeta
 }
 

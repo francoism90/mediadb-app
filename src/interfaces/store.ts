@@ -1,6 +1,8 @@
 import { Media } from 'src/interfaces/media';
 import { PlayerProperties } from 'src/interfaces/player';
-import { Model, RepositoryMeta, RepositoryParams } from 'src/interfaces/repository';
+import {
+  Model, RepositoryLinks, RepositoryMeta, RepositoryParams,
+} from 'src/interfaces/repository';
 import { User } from 'src/interfaces/user';
 
 export interface SessionState {
@@ -15,6 +17,7 @@ export interface RepositoryState {
   id: string | number | null,
   params: RepositoryParams,
   data: Model[],
+  links: RepositoryLinks,
   meta: RepositoryMeta,
 }
 

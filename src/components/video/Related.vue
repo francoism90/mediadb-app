@@ -73,9 +73,7 @@ export default defineComponent({
         await fetchVideos();
         await done(!isLoadable.value);
       } catch {
-        //
-      } finally {
-        //
+        await done(true);
       }
     };
 

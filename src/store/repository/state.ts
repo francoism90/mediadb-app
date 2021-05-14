@@ -7,6 +7,7 @@ function state(): RepositoryState {
     id: null,
     params: <RepositoryParams>{},
     data: [],
+    links: {},
     meta: {},
   };
 }

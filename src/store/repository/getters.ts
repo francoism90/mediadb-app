@@ -4,14 +4,11 @@ import { GetterTree } from 'vuex';
 
 const getters: GetterTree<RepositoryState, StoreState> = {
   isLoadable(state: RepositoryState): boolean {
-    if (!state.meta.current_page || !state.meta.last_page) {
-      return true;
+    if (state.links.first && !state.links.next) {
+      return false;
     }
 
-    return (
-      state.meta.current_page !== state.meta.last_page
-      && state.meta.current_page < state.meta.last_page
-    );
+    return true;
   },
 
   getParams(state: RepositoryState): RepositoryParams {
