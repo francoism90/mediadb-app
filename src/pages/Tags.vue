@@ -50,7 +50,7 @@ export default defineComponent({
 
   setup() {
     const {
-      fetchTags, isLoadable, setParams, id, data, meta,
+      fetchTags, isLoadable, setParams, id, data,
     } = useTags({
       module: 'tags',
       params: <TagsParameters>{
@@ -90,7 +90,6 @@ export default defineComponent({
       onRefresh,
       id,
       data,
-      meta,
     };
   },
 });

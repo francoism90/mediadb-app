@@ -56,7 +56,7 @@ export default defineComponent({
     const { video } = toRefs(props);
 
     const {
-      fetchVideos, isLoadable, setParams, id, data, meta,
+      fetchVideos, isLoadable, setParams, id, data,
     } = useVideos({
       module: `video-related-${video.value.id}`,
       params: <VideosParameters>{
@@ -92,7 +92,6 @@ export default defineComponent({
       onRefresh,
       id,
       data,
-      meta,
     };
   },
 });

@@ -50,7 +50,7 @@ export default defineComponent({
 
   setup() {
     const {
-      fetchVideos, isLoadable, setParams, id, data, meta,
+      fetchVideos, isLoadable, setParams, id, data,
     } = useVideos({
       module: 'bookmarks',
       params: <VideosParameters>{
@@ -67,9 +67,7 @@ export default defineComponent({
         await fetchVideos();
         await done(!isLoadable.value);
       } catch {
-        //
-      } finally {
-        //
+        await done(true);
       }
     };
 
@@ -92,7 +90,6 @@ export default defineComponent({
       onRefresh,
       id,
       data,
-      meta,
     };
   },
 });
