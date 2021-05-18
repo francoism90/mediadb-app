@@ -27,11 +27,11 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.3",
     "@quasar/app": "^3.0.0-beta.25",
-    "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "@types/lodash": "^4.14.169",
     "@types/node": "^15.3.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
+    "dotenv": "^9.0.2",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.2",
