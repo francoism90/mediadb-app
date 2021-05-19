@@ -10,7 +10,8 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@capacitor/core": "^2.4.7",
+    "@capacitor/core": "^3.0.0",
+    "@capacitor/status-bar": "^1.0.0",
     "@quasar/extras": "^1.10.4",
     "axios": "^0.21.1",
     "core-js": "^3.12.1",

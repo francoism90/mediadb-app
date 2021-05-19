@@ -2,20 +2,20 @@
 # yarn lockfile v1
 
 
-"@capacitor/android@^3.0.0-rc.3":
-  version "3.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.0.0-rc.3.tgz#7d4759b8a5f34914a6130bd6ecb5c7524cba371c"
-  integrity sha512-2dWLvNFCV/BF/5UJF/xMgxnNME2rcLCf265T1a4jsBL8Wq01El11wRkWdGM06syIqV/ct8hUl6GgvZZmv4SPKQ==
+"@capacitor/android@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.0.0.tgz#0d8ce965fa19d9f1412a468476525af2b92a151e"
+  integrity sha512-qyvI3LzfGvVnSK7Dw3dXXLSJjfj816EfWHiyGzV4Rg5r2XkvPa8IqjHT3lmyxwNJjGdHl3TTn9Q6YvM6XD70cQ==
 
-"@capacitor/app@^0.3.10":
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-0.3.10.tgz#0e859a34fba01f11cb53650ab226889caa5378c0"
-  integrity sha512-bjmHkQvHE/Z7ysN35Q29kaPzgM+/bQyZ/rF4oMzL4NRDLoyFJoRgo4yTKcCCPXRaDPJjKXgtVno4CVPFvQ3i/w==
+"@capacitor/app@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-1.0.0.tgz#38e092de0448f1b230cfc289d65337e802357638"
+  integrity sha512-ie8BNPoyQV300BQ7ckucc4xdcTOcxcII9YH2kOcffHfXjrqYMo+2srkoaAbYs6ivjse+rWfNVFZN9CjAbep8qQ==
 
-"@capacitor/cli@^3.0.0-rc.3":
-  version "3.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.0.0-rc.3.tgz#0081b3f27e92d269ec5ba46558cbe3362d8c169f"
-  integrity sha512-Mrz7yANRBO+OZ11k4yZq3DXuJovw+ElmrUHL/ZTuL9EvRdsYhOWyz7yKdeJRD0ZnA05dAjPQZBA6T7LG7BWxFQ==
+"@capacitor/cli@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.0.0.tgz#ce2defddbf6ecd40236f8cdfba62a0af84147606"
+  integrity sha512-WTU1PqinYSl8jibmWgQBnlHsXZmkYx2BTXtczlKUrZuiCm+He90qFEA2Fmf2uolqurpLWNnj/kfrACIZ/Sfr2Q==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.1"
     "@ionic/utils-fs" "^3.1.5"
@@ -34,22 +34,22 @@
     tslib "^2.1.0"
     xml2js "^0.4.23"
 
-"@capacitor/core@^3.0.0-rc.3":
-  version "3.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.0.0-rc.3.tgz#c7800cdb4304d07e9f4461727ed8d6a120952879"
-  integrity sha512-Yg6Ymw4PZFnDbOjQiPzdgsjdPliwsfW7eCjnmzDxE6mr9jvDLCA22aJW0LUQo7j2H3zO8KeXix/qA0RISRAjQQ==
+"@capacitor/core@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.0.0.tgz#c990688d838d523d6d473281b8a74e6b83b187d5"
+  integrity sha512-JmKE6QEayo8MqWcApwMP5YFimpVb2mcIEHBwgP/P9nSAOxOcbdpJyd9HhBt5pzZAE1MBngPADWWwZLrdNSjCnA==
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/splash-screen@^0.3.10":
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-0.3.10.tgz#2d94cff44c423b7424e9c39972bf72dae250a85d"
-  integrity sha512-nS9Thn3hVex/1NDrK0QRPpnDJnFz3+Q1le09kyUumfdck3K60NEkh4o3BpYRznynvavcJdBeEgOV12xqAFCFrQ==
+"@capacitor/splash-screen@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-1.0.0.tgz#39ec860cf610c6e2f577f42c353cb9a0b14247a1"
+  integrity sha512-+Z6/82PsF3bPHBpK7enItWyRh7LbMF7DvpGVHSRaiLxa1vDgttmB8YBlSs9nCb7gGPg10KQs51vfkyGuIh3YHA==
 
-"@capacitor/status-bar@^0.4.10":
-  version "0.4.10"
-  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-0.4.10.tgz#9d56175aac09a4cdd0827e21a1411a69a6f81326"
-  integrity sha512-rppDAllO5EXzi0TbZ/2wrP2YEB/W6qfnXNj/h29KbLKg3NHjz8epuCSTWqncjnHY3mKNhU8Eu44X4QIcOPQPPg==
+"@capacitor/status-bar@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.0.tgz#c501753cf5e514100a441a0902d4a9f3b4edbba8"
+  integrity sha512-Neja1ljJM/i8Qe/Z1HdOJ2x8irrvt5k6gudad52yLa6h4G453n57ZiwgWVV7owqT0KOoJUSLBee4MvJsUDS5vQ==
 
 "@ionic/cli-framework-output@^2.2.1":
   version "2.2.2"

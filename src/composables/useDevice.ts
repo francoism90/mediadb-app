@@ -1,6 +1,4 @@
-import { Plugins } from '@capacitor/core';
-
-const { StatusBar } = Plugins;
+import { StatusBar } from '@capacitor/status-bar';
 
 export default function useDevice() {
   const screenOrientationLandscape = async (): Promise<void> => {
