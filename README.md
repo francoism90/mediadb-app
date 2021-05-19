@@ -35,7 +35,7 @@ quasar build -m spa
 
 ```bash
 cd /var/www/html/app
-cp .env.local.example .env.local
+cp .env.example .env
 yarn install
 quasar dev -m spa
 ```
