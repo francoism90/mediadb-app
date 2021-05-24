@@ -2,7 +2,7 @@
   <q-item
     v-ripple
     clickable
-    class="no-padding tag"
+    class="no-padding tag-item"
     @click="onClick"
   >
     <q-item-section side>
