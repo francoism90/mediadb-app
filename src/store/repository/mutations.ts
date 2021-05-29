@@ -3,6 +3,7 @@ import {
 } from 'src/interfaces/repository';
 import { RepositoryState } from 'src/interfaces/store';
 import defaultState from 'src/store/repository/state';
+import { merge } from 'lodash';
 import { MutationTree } from 'vuex';
 
 const mutation: MutationTree<RepositoryState> = {
@@ -43,10 +44,7 @@ const mutation: MutationTree<RepositoryState> = {
   },
 
   setParams(state: RepositoryState, payload: RepositoryParams) {
-    const currentParams = state.params;
-    const finalParams = { ...currentParams, ...payload };
-
-    state.params = { ...state.params, ...finalParams };
+    state.params = merge(state.params, payload);
   },
 
   setReady(state: RepositoryState, payload: boolean) {

@@ -5,11 +5,11 @@
 
   <q-item>
     <q-item-section>
-      <q-checkbox
-        v-model="favorites"
-        :true-value="1"
+      <q-option-group
+        v-model="types"
+        :options="options"
         :false-value="null"
-        label="Bookmarks"
+        type="checkbox"
         dense
       />
     </q-item-section>
@@ -19,29 +19,49 @@
 <script lang="ts">
 import useRepository from 'src/composables/useRepository';
 import useRepositoryGetters from 'src/composables/useRepositoryGetters';
-import { VideosParameters } from 'src/interfaces/video';
+import { TagsParameters } from 'src/interfaces/tag';
 import {
   computed, defineComponent,
 } from 'vue';
+
+const options = [
+  {
+    label: 'Genre',
+    value: 'genre',
+  },
+  {
+    label: 'Actor',
+    value: 'actor',
+  },
+  {
+    label: 'Language',
+    value: 'language',
+  },
+  {
+    label: 'Studio',
+    value: 'studio',
+  },
+];
 
 export default defineComponent({
   name: 'VideoQuery',
 
   setup() {
-    const { setParams } = useRepository({ module: 'videos' });
-    const { getParam } = useRepositoryGetters('videos');
+    const { setParams } = useRepository({ module: 'tags' });
+    const { getParam } = useRepositoryGetters('tags');
 
-    const setModuleParams = async (params: VideosParameters): Promise<void> => {
+    const setModuleParams = async (params: TagsParameters): Promise<void> => {
       await setParams({ params, reset: true });
     };
 
-    const favorites = computed({
-      get: () => getParam('filter.favorites') as number,
-      set: (value) => setModuleParams({ filter: { favorites: value } }),
+    const types = computed({
+      get: () => getParam('filter.type') as string | string[],
+      set: (value) => setModuleParams({ filter: { type: value } }),
     });
 
     return {
-      favorites,
+      options,
+      types,
     };
   },
 });
