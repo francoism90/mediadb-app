@@ -18,10 +18,6 @@
         padding
         style="width: 250px; max-width: 100vw;"
       >
-        <q-item-label header>
-          Filters
-        </q-item-label>
-
         <query />
         <q-separator spaced />
         <settings />

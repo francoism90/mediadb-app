@@ -25,7 +25,7 @@
 <script lang="ts">
 import useRepository from 'src/composables/useRepository';
 import useRepositoryGetters from 'src/composables/useRepositoryGetters';
-import { VideosParameters } from 'src/interfaces/video';
+import { TagsParameters } from 'src/interfaces/tag';
 import {
   computed, defineComponent,
 } from 'vue';
@@ -34,10 +34,10 @@ export default defineComponent({
   name: 'VideoQuery',
 
   setup() {
-    const { setParams } = useRepository({ module: 'videos' });
-    const { getParam } = useRepositoryGetters('videos');
+    const { setParams } = useRepository({ module: 'tags' });
+    const { getParam } = useRepositoryGetters('tags');
 
-    const setModuleParams = async (params: VideosParameters): Promise<void> => {
+    const setModuleParams = async (params: TagsParameters): Promise<void> => {
       await setParams({ params, reset: true });
     };
 

@@ -57,21 +57,6 @@ const menuList = [
     route: { name: 'tags' },
   },
   {
-    icon: 'o_bookmarks',
-    label: 'Bookmarks',
-    route: { name: 'bookmarks' },
-  },
-  {
-    icon: 'o_watch_later',
-    label: 'Watch Later',
-    route: { name: 'settings' },
-  },
-  {
-    icon: 'o_history',
-    label: 'History',
-    route: { name: 'settings' },
-  },
-  {
     icon: 'o_settings',
     label: 'Settings',
     route: { name: 'settings' },
