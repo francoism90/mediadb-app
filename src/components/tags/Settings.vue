@@ -8,7 +8,6 @@
       <q-option-group
         v-model="types"
         :options="options"
-        :false-value="null"
         type="checkbox"
         dense
       />
@@ -55,8 +54,8 @@ export default defineComponent({
     };
 
     const types = computed({
-      get: () => getParam('filter.type') as string | string[],
-      set: (value) => setModuleParams({ filter: { type: value } }),
+      get: () => getParam('filter[type]') as string | string[],
+      set: (value) => setModuleParams({ 'filter[type]': value }),
     });
 
     return {

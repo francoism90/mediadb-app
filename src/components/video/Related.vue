@@ -61,7 +61,7 @@ export default defineComponent({
       module: `video-related-${video.value.id}`,
       params: <VideosParameters>{
         sort: 'recommended',
-        filter: { related: video.value.id },
+        'filter[related]': video.value.id,
         'page[number]': 1,
         'page[size]': 12,
       },

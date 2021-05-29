@@ -34,7 +34,7 @@ export default defineComponent({
 
     const onClick = async (tag: Tag) => {
       await setModuleParams({
-        params: { filter: { query: tag.name }, 'page[number]': 1 },
+        params: { 'filter[query]': tag.name },
         reset: true,
       });
 

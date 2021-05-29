@@ -42,8 +42,8 @@ export default defineComponent({
     };
 
     const query = computed({
-      get: () => getParam('filter.query') as string,
-      set: (value) => setModuleParams({ filter: { query: value } }),
+      get: () => getParam('filter[query]') as string,
+      set: (value) => setModuleParams({ 'filter[query]': value }),
     });
 
     return {

@@ -36,8 +36,8 @@ export default defineComponent({
     };
 
     const favorites = computed({
-      get: () => getParam('filter.favorites') as number,
-      set: (value) => setModuleParams({ filter: { favorites: value } }),
+      get: () => getParam('filter[favorites]') as number,
+      set: (value) => setModuleParams({ 'filter[favorites]': value }),
     });
 
     return {
