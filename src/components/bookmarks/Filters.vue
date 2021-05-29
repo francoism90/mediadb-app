@@ -84,7 +84,7 @@ export default defineComponent({
     const { getParam: getModuleParam } = useRepositoryGetters(props.module);
 
     const form = reactive<VideosParameters>({
-      sort: getModuleParam('sort'),
+      sort: getModuleParam('sort') as string,
     });
 
     const performQuery = async (): Promise<void> => {

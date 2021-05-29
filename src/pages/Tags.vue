@@ -1,7 +1,7 @@
 <template>
   <q-page class="container">
     <q-toolbar class="q-py-lg">
-      <filters module="tags" />
+      <filters />
     </q-toolbar>
 
     <q-pull-to-refresh
@@ -56,6 +56,7 @@ export default defineComponent({
       params: <TagsParameters>{
         append: 'items',
         sort: 'name',
+        'filter[type]': [],
         'page[number]': 1,
         'page[size]': 24,
       },

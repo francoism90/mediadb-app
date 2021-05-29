@@ -1,11 +1,15 @@
 import axios, { AxiosError } from 'axios';
 import { boot } from 'quasar/wrappers';
+import { stringify } from 'qs';
 
 const api = axios.create({
   baseURL: process.env.API_URL,
   withCredentials: true,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
+  },
+  paramsSerializer(params) {
+    return stringify(params, { encode: false });
   },
 });
 

@@ -37,7 +37,7 @@ export default function useTags(props: RepositoryProps) {
     }
 
     await setParams({
-      params: { 'filter[query]': val, 'page[number]': 1 },
+      params: { 'filter[query]': val },
       reset: true,
     });
 

@@ -16,7 +16,7 @@ const actions: ActionTree<RepositoryState, StoreState> = {
   },
 
   setParams(context, payload: RepositoryParameters): void {
-    context.commit('setParams', payload.params || []);
+    context.commit('setParams', payload.params || undefined);
 
     if (payload.reset) {
       context.commit('resetData');

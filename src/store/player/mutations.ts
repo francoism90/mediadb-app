@@ -19,10 +19,9 @@ const mutation: MutationTree<PlayerState> = {
   },
 
   setProperties(state: PlayerState, payload: PlayerProperties) {
-    const currentProps = state.properties;
-    const finalProps = { ...currentProps, ...payload };
+    const propValue = { ...state.properties, ...payload };
 
-    state.properties = { ...state.properties, ...finalProps };
+    state.properties = { ...state.properties, ...propValue };
   },
 };
 

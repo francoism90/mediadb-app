@@ -28,7 +28,6 @@
       </q-toolbar>
 
       <q-toolbar class="col-auto q-gutter-sm">
-        <search />
         <account />
       </q-toolbar>
     </q-header>
@@ -53,7 +52,6 @@
 <script lang="ts">
 import Account from 'src/components/ui/Account.vue';
 import Drawer from 'src/components/ui/Drawer.vue';
-import Search from 'src/components/ui/Search.vue';
 import useSession from 'src/composables/useSession';
 import { computed, defineComponent, ref } from 'vue';
 
@@ -62,7 +60,6 @@ export default defineComponent({
 
   components: {
     Drawer,
-    Search,
     Account,
   },
 

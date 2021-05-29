@@ -55,7 +55,7 @@ export default defineComponent({
 
     const onClick = async () => {
       await setModuleParams({
-        params: { 'filter[query]': props.tag.name, 'page[number]': 1 },
+        params: { 'filter[query]': props.tag.name },
         reset: true,
       });
 

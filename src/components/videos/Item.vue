@@ -17,11 +17,11 @@
     </router-link>
 
     <q-card-section class="q-px-none q-py-dm">
-      <div class="text-weight-medium video-item-title ellipsis-2-lines">
+      <div class="text-weight-medium ellipsis-2-lines">
         {{ video.name }}
       </div>
 
-      <div class="q-py-xs text-overline text-grey-5 video-item-description">
+      <div class="q-py-xs text-caption text-grey-5">
         <span>{{ clipDuration }}</span>
         <span class="q-px-sm">•</span>
         <span>{{ video.clip?.resolution }}</span>
