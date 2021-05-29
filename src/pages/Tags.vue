@@ -1,7 +1,7 @@
 <template>
   <q-page class="container">
     <q-toolbar class="q-py-lg">
-      <filters module="tags" />
+      <filters />
     </q-toolbar>
 
     <q-pull-to-refresh
