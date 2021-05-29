@@ -72,8 +72,16 @@ const sortList = [
     value: '-created_at',
   },
   {
+    label: 'Alphabetical',
+    value: 'name',
+  },
+  {
     label: 'Longest',
     value: '-duration',
+  },
+  {
+    label: 'Shortest',
+    value: 'duration',
   },
 ];
 
