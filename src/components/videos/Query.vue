@@ -16,7 +16,6 @@
         filled
         square
         dense
-        autofocus
       />
     </q-item-section>
   </q-item>

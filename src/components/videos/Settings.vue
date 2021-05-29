@@ -25,7 +25,7 @@ import {
 } from 'vue';
 
 export default defineComponent({
-  name: 'VideoQuery',
+  name: 'VideoSettings',
 
   setup() {
     const { setParams } = useRepository({ module: 'videos' });

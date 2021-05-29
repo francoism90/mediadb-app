@@ -16,7 +16,6 @@
         filled
         square
         dense
-        autofocus
       />
     </q-item-section>
   </q-item>
@@ -31,7 +30,7 @@ import {
 } from 'vue';
 
 export default defineComponent({
-  name: 'VideoQuery',
+  name: 'TagQuery',
 
   setup() {
     const { setParams } = useRepository({ module: 'tags' });

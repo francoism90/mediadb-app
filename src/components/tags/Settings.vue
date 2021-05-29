@@ -43,7 +43,7 @@ const options = [
 ];
 
 export default defineComponent({
-  name: 'VideoQuery',
+  name: 'TagSettings',
 
   setup() {
     const { setParams } = useRepository({ module: 'tags' });
