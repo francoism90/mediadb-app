@@ -8,16 +8,16 @@
       <q-select
         v-model="sorter"
         :options="sorters"
-        class="text-caption full-width"
-        input-class="text-grey-5"
+        behavior="menu"
         bg-color="grey-8"
-        dropdown-icon="expand_more"
-        options-selected-class="text-white"
-        popup-content-class="popup"
-        emit-value
-        map-options
+        class="text-caption full-width"
         dense
+        dropdown-icon="expand_more"
+        emit-value
         filled
+        input-class="text-grey-5"
+        map-options
+        options-selected-class="text-white"
         square
       >
         <template #option="{ itemProps, opt, selected }">
