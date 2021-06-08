@@ -1,6 +1,6 @@
 # MediaDB app
 
-**MediaDB** is a web-based video streaming service written in Laravel, TypeScript and Vue ([Quasar](https://next.quasar.dev/)).
+**MediaDB** is a web-based video streaming service written in Laravel, TypeScript and Vue 3 ([Quasar](https://next.quasar.dev/)).
 
 MediaDB is very much in development and may not be suitable for production purposes.
 It is recommended to fork the project.
@@ -11,6 +11,12 @@ Notes:
 
 - Requires a running [MediaDB API](https://github.com/francoism90/mediadb) instance.
 - See the [api docs](https://github.com/francoism90/mediadb/blob/master/doc/nginx/) for nginx configuration examples.
+
+```bash
+cd /var/www/html/app
+cp .env.example .env
+yarn install
+```
 
 ### Configuration
 
@@ -24,9 +30,6 @@ When using Capacitor, update `src-capacitor/android/app/src/main/res/xml/network
 ### Build project (SPA/PWA)
 
 ```bash
-cd /var/www/html/app
-cp .env.example .env
-yarn install
 quasar build -m pwa
 quasar build -m spa
 ```
@@ -34,9 +37,7 @@ quasar build -m spa
 ### Live project
 
 ```bash
-cd /var/www/html/app
-cp .env.example .env
-yarn install
+quasar dev -m pwa
 quasar dev -m spa
 ```
 
@@ -48,17 +49,11 @@ Please consult the following links to learn more about Capacitor:
 - <https://capacitorjs.com/>
 
 ```bash
-cd /var/www/html/app
-cp .env.example .env
-yarn install
 quasar dev --mode capacitor --target android --ide
 ```
 
 ### Build Android project
 
 ```bash
-cd /var/www/html/app
-cp .env.example .env
-yarn install
 quasar build --mode capacitor --target android --ide
 ```
