@@ -6,8 +6,9 @@
   <q-item>
     <q-item-section>
       <q-input
-        v-model.trim="query"
+        v-model="query"
         bg-color="grey-8"
+        clearable
         color="grey-5"
         debounce="600"
         input-class="text-caption"
@@ -41,7 +42,7 @@ export default defineComponent({
     };
 
     const query = computed({
-      get: () => getParam('filter[query]') as string,
+      get: () => getParam('filter[query]') as string | null,
       set: (value) => setModuleParams({ 'filter[query]': value }),
     });
 

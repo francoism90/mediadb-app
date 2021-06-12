@@ -6,13 +6,15 @@
     size="24px"
   >
     <q-menu
+      anchor="top right"
       class="menu"
-      anchor="top end"
+      self="top right"
       square
       transition-duration="0"
     >
       <q-list
         bordered
+        dense
         padding
         style="width: 200px; max-width: 100vw;"
       >
