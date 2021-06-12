@@ -12,7 +12,7 @@
   "dependencies": {
     "@capacitor/core": "^3.0.1",
     "@capacitor/status-bar": "^1.0.1",
-    "@quasar/extras": "^1.10.6",
+    "@quasar/extras": "^1.10.7",
     "@types/qs": "^6.9.6",
     "axios": "^0.21.1",
     "core-js": "^3.14.0",
