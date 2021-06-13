@@ -1118,10 +1118,10 @@
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha1-FPzHEqUwA475vhzmlSMVqDn0Zqg=
 
-"@quasar/app@^3.0.0-rc.1":
-  version "3.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.0.0-rc.1.tgz#694b4781e26315b9c42a8d47c75306d2ac1ac2c4"
-  integrity sha512-645VPXRj0+oRl9m9KPtrxu07scrchk47olWgNEoom/IRdk+O37PA7xHx13sGw7m5d7t5XB7fbP6bwzFbGeL0jQ==
+"@quasar/app@^3.0.0-rc.2":
+  version "3.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.0.0-rc.2.tgz#710724ff5e4d52520caf2545c3f68d8227168442"
+  integrity sha512-CaBL/H/jXmlaGFhZyl2S7cQzXFseVApcKCC4UyQOBaUp9WE0jNG9oVG8yEuHeKxy0gRnw2Vq70Gt1AKaSLtrKw==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
@@ -3372,10 +3372,10 @@ eslint-plugin-import@^2.23.4:
     resolve "^1.20.0"
     tsconfig-paths "^3.9.0"
 
-eslint-plugin-vue@^7.11.0:
-  version "7.11.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.11.0.tgz#c19b098899b7e3cd692beffbbe73611064ef1ea6"
-  integrity sha512-Qwo8wilqnOXnG9B5auEiTstyaHefyhHd5lEhhxemwXoWsAxIW2yppzuVudowC5n+qn1nMLNV9TANkTthBK7Waw==
+eslint-plugin-vue@^7.11.1:
+  version "7.11.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.11.1.tgz#77eb4b44032d5cca79f9af21d06991d8694a314a"
+  integrity sha512-lbw3vkEAGqYjqd1HpPFWHXtYaS8mILTJ5KOpJfRxO3Fo7o0wCf1zD7vSOasbm6nTA9xIgvZQ4VcyGIzQXxznHw==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
@@ -6074,10 +6074,10 @@ qs@^6.10.1:
   dependencies:
     side-channel "^1.0.4"
 
-quasar@^2.0.0-rc.1:
-  version "2.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.0.0-rc.1.tgz#c047f0cc5ea7f803ec06b7f0830c7ed1b8fe315d"
-  integrity sha512-+b+Hb66+7rzuDQrZkjXh/QTzdyzz1FnYQM2JcngPPYv/4B9SPaX/GJ9L2NnOhYu41b1SVYHWnLpyiAGd4iihsQ==
+quasar@^2.0.0-rc.2:
+  version "2.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.0.0-rc.2.tgz#df7695526ce4a556abcbe1cc7abe66ec56af1ef3"
+  integrity sha512-eicMlpSSYzPn4p0FriZgFIqpFEAmiQ2PUWSx5W1pyUqlSToBV/3ZxJXM2j/CwCVey0rr17/OBBYuAYY4ej/+Bg==
 
 querystring@0.2.0:
   version "0.2.0"
