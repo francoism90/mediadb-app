@@ -19,8 +19,7 @@ export interface RepositoryParams {
   fields?: string | null,
   append?: string | null,
   sort?: string | number | null,
-  'page[number]'?: number | null,
-  'page[size]'?: number | null,
+  page?: number | null,
 }
 
 export interface RepositoryMeta {

@@ -54,9 +54,8 @@ export default defineComponent({
     } = useVideos({
       module: 'videos',
       params: <VideosParameters>{
-        sort: 'recommended',
-        'page[number]': 1,
-        'page[size]': 12,
+        sort: 'name',
+        page: 1,
       },
     });
 
@@ -73,7 +72,6 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = async (done: Function): Promise<void> => {
       await setParams({
-        params: { 'page[number]': 1 },
         reset: true,
       });
 
