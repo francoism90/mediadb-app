@@ -4,6 +4,7 @@ export interface Model {
   slug?: string | null,
   name?: string | null,
   description?: string | null,
+  favorite?: number | boolean | null,
   'created_at'?: Date | null,
   'updated_at'?: Date | null,
 }
