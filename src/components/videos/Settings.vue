@@ -7,7 +7,7 @@
     <q-item-section>
       <q-checkbox
         v-model="favorites"
-        :true-value="1"
+        :true-value="true"
         :false-value="null"
         label="Bookmarks"
         dense
@@ -36,8 +36,8 @@ export default defineComponent({
     };
 
     const favorites = computed({
-      get: () => getParam('filter[favorites]') as number,
-      set: (value) => setModuleParams({ 'filter[favorites]': value }),
+      get: () => getParam('bookmarks') as number | boolean | null,
+      set: (value) => setModuleParams({ bookmarks: value }),
     });
 
     return {

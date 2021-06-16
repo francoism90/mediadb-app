@@ -4,8 +4,6 @@ export interface Model {
   slug?: string | null,
   name?: string | null,
   description?: string | null,
-  favorite?: boolean | null,
-  'prefixed_id'?: string | null,
   'created_at'?: Date | null,
   'updated_at'?: Date | null,
 }
@@ -15,10 +13,7 @@ export interface ModelResponse {
 }
 
 export interface RepositoryParams {
-  include?: string | null,
-  fields?: string | null,
-  append?: string | null,
-  sort?: string | number | null,
+  sort?: string | null,
   page?: number | null,
 }
 
@@ -39,6 +34,11 @@ export interface RepositoryLinks {
   prev?: string | null,
 }
 
+export interface RepositoryParameters {
+  params?: RepositoryParams,
+  reset?: boolean,
+}
+
 export interface RepositoryResponse {
   data: Model[],
   links: RepositoryLinks
@@ -48,9 +48,4 @@ export interface RepositoryResponse {
 export interface RepositoryProps {
   module: string,
   params?: RepositoryParams,
-}
-
-export interface RepositoryParameters {
-  params?: RepositoryParams,
-  reset?: boolean,
 }

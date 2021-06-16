@@ -54,8 +54,7 @@ export default defineComponent({
     } = useVideos({
       module: 'videos',
       params: <VideosParameters>{
-        sort: 'name',
-        page: 1,
+        sort: 'recommended',
       },
     });
 
