@@ -5,12 +5,12 @@
   "author": "francoism90 <f.menning@pm.me>",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "^3.0.0",
-    "@capacitor/app": "^1.0.0",
-    "@capacitor/cli": "^3.0.0",
-    "@capacitor/core": "^3.0.0",
-    "@capacitor/splash-screen": "^1.0.0",
-    "@capacitor/status-bar": "^1.0.0",
+    "@capacitor/android": "^3.0.1",
+    "@capacitor/app": "^1.0.1",
+    "@capacitor/cli": "^3.0.1",
+    "@capacitor/core": "^3.0.1",
+    "@capacitor/splash-screen": "^1.0.1",
+    "@capacitor/status-bar": "^1.0.1",
     "cordova-plugin-navigationbar-color": "^0.1.0",
     "cordova-plugin-screen-orientation": "^3.0.2",
     "es6-promise-plugin": "^4.2.2"
