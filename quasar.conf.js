@@ -8,8 +8,6 @@
 
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint func-names: 0 */
-/* eslint global-require: 0 */
 const { configure } = require('quasar/wrappers');
 
 module.exports = configure((ctx) => ({
@@ -78,8 +76,8 @@ module.exports = configure((ctx) => ({
 
   // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
   devServer: {
+    https: false,
     port: 8000,
-    host: 'localhost',
     open: false
   },
 
