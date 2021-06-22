@@ -1,12 +1,9 @@
-import { Media } from 'src/interfaces/media';
-import { PlayerProperties } from 'src/interfaces/player';
-import { Model } from 'src/interfaces/repository';
-import { PlayerState } from 'src/interfaces/store';
+import { PlayerProperties, PlayerState } from 'src/interfaces/player';
 
 function state(): PlayerState {
   return {
-    media: <Media>{},
-    model: <Model>{},
+    ready: false,
+    id: null,
     properties: <PlayerProperties>{
       buffered: null,
       controls: false,
