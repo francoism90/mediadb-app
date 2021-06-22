@@ -3,7 +3,7 @@ import { VideosState } from 'src/interfaces/video';
 import { ActionTree } from 'vuex';
 
 const actions: ActionTree<VideosState, StoreState> = {
-  resetStore(context): void {
+  reset(context): void {
     context.commit('resetStore');
   },
 
@@ -14,7 +14,7 @@ const actions: ActionTree<VideosState, StoreState> = {
     }
   },
 
-  reset(context): void {
+  repopulate(context): void {
     context.commit('resetItems');
     context.commit('resetLinks');
     context.commit('resetMeta');

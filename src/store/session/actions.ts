@@ -4,20 +4,20 @@ import { UserModel } from 'src/interfaces/user';
 import { ActionTree } from 'vuex';
 
 const actions: ActionTree<SessionState, StoreState> = {
-  resetStore(context): void {
+  reset(context): void {
     context.commit('resetStore');
-    context.commit('setTimestamp', Date.now());
-  },
-
-  resetUser(context): void {
-    context.commit('setToken', '');
-    context.commit('setUser', <UserModel>{});
     context.commit('setTimestamp', Date.now());
   },
 
   initialize(context, payload: AuthResponse): void {
     context.commit('setToken', payload.token || '');
     context.commit('setUser', payload.user || <UserModel>{});
+    context.commit('setTimestamp', Date.now());
+  },
+
+  resetUser(context): void {
+    context.commit('setToken', '');
+    context.commit('setUser', <UserModel>{});
     context.commit('setTimestamp', Date.now());
   },
 

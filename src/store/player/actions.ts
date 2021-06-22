@@ -3,7 +3,7 @@ import { StoreState } from 'src/interfaces/store';
 import { ActionTree } from 'vuex';
 
 const actions: ActionTree<PlayerState, StoreState> = {
-  resetStore(context): void {
+  reset(context): void {
     context.commit('resetStore');
   },
 
