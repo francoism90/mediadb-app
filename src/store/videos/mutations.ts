@@ -9,7 +9,7 @@ const mutation: MutationTree<VideosState> = {
     Object.assign(state, defaultState());
   },
 
-  resetData(state: VideosState) {
+  resetItems(state: VideosState) {
     state.items = <VideoModel[]>[];
   },
 

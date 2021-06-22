@@ -13,3 +13,8 @@ export interface MediaModel {
   'sprite_url'?: string | null,
   'thumbnail_url'?: string | null,
 }
+
+export interface MediaResponse {
+  data: MediaModel,
+  meta: null,
+}

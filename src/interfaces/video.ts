@@ -12,6 +12,11 @@ export interface VideoModel {
   favorite?: boolean,
 }
 
+export interface VideoResponse {
+  data: TagModel,
+  meta: null,
+}
+
 export interface VideosMeta {
   'current_page'?: number,
   'last_page'?: number,
@@ -53,4 +58,10 @@ export interface VideosState {
   items: VideoModel[],
   meta: VideosMeta,
   links: VideosLinks,
+}
+
+export interface VideosResponse {
+  data: VideoModel[],
+  meta: VideosMeta,
+  links: VideosLinks
 }
