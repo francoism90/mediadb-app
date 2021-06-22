@@ -1,4 +1,5 @@
-import { SessionState, StoreState } from 'src/interfaces/store';
+import { SessionState } from 'src/interfaces/session';
+import { StoreState } from 'src/interfaces/store';
 import { GetterTree } from 'vuex';
 
 const getters: GetterTree<SessionState, StoreState> = {

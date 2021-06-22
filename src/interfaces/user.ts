@@ -10,3 +10,8 @@ export interface UserModel {
   settings: UserSettings[],
   'avatar_url'?: string | null,
 }
+
+export interface UserResponse {
+  data: UserModel,
+  meta: null
+}

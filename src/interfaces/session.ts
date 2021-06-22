@@ -23,7 +23,6 @@ export interface AuthResponse {
 
 export interface SessionState {
   redirectPath: string | null,
-  drawer: boolean,
   timestamp: Date | null,
   token: string | null,
   user: UserModel,

@@ -1,6 +1,6 @@
-import { AuthResponse } from 'src/interfaces/session';
-import { SessionState, StoreState } from 'src/interfaces/store';
-import { User } from 'src/interfaces/user';
+import { AuthResponse, SessionState } from 'src/interfaces/session';
+import { StoreState } from 'src/interfaces/store';
+import { UserModel } from 'src/interfaces/user';
 import { ActionTree } from 'vuex';
 
 const actions: ActionTree<SessionState, StoreState> = {
@@ -11,18 +11,18 @@ const actions: ActionTree<SessionState, StoreState> = {
 
   resetUser(context): void {
     context.commit('setToken', '');
-    context.commit('setUser', <User>{});
+    context.commit('setUser', <UserModel>{});
     context.commit('setTimestamp', Date.now());
   },
 
   initialize(context, payload: AuthResponse): void {
     context.commit('setToken', payload.token || '');
-    context.commit('setUser', payload.user || <User>{});
+    context.commit('setUser', payload.user || <UserModel>{});
     context.commit('setTimestamp', Date.now());
   },
 
   setUser(context, payload: AuthResponse): void {
-    context.commit('setUser', payload.user || <User>{});
+    context.commit('setUser', payload.user || <UserModel>{});
     context.commit('setTimestamp', Date.now());
   },
 };

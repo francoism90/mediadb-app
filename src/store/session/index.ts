@@ -1,4 +1,5 @@
-import { SessionState, StoreState } from 'src/interfaces/store';
+import { SessionState } from 'src/interfaces/session';
+import { StoreState } from 'src/interfaces/store';
 import actions from 'src/store/session/actions';
 import getters from 'src/store/session/getters';
 import mutations from 'src/store/session/mutations';

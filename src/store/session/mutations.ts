@@ -1,5 +1,5 @@
-import { SessionState } from 'src/interfaces/store';
-import { User } from 'src/interfaces/user';
+import { SessionState } from 'src/interfaces/session';
+import { UserModel } from 'src/interfaces/user';
 import defaultState from 'src/store/session/state';
 import { MutationTree } from 'vuex';
 
@@ -12,10 +12,6 @@ const mutation: MutationTree<SessionState> = {
     state.redirectPath = payload;
   },
 
-  setDrawer(state: SessionState, payload: boolean) {
-    state.drawer = payload;
-  },
-
   setToken(state: SessionState, payload: string) {
     state.token = payload;
   },
@@ -24,7 +20,7 @@ const mutation: MutationTree<SessionState> = {
     state.timestamp = payload;
   },
 
-  setUser(state: SessionState, payload: User) {
+  setUser(state: SessionState, payload: UserModel) {
     state.user = Object.assign(state.user, payload);
   },
 };
