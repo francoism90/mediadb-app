@@ -13,7 +13,7 @@ export interface VideoModel {
 }
 
 export interface VideoResponse {
-  data: TagModel,
+  data: VideoModel,
   meta: null,
 }
 

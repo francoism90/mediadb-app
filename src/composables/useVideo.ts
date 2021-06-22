@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { echoKey } from 'src/boot/echo';
 import { ErrorResponse } from 'src/interfaces/api';
-import { Video } from 'src/interfaces/video';
+import { VideoModel } from 'src/interfaces/video';
 import { find } from 'src/repositories/video';
 import {
   inject, onMounted, Ref, ref, watch,
@@ -12,14 +12,14 @@ interface Props {
 }
 
 export default function useVideo(props: Props) {
-  const video = ref(<Video>{});
+  const video = ref(<VideoModel>{});
   const errors = ref(<ErrorResponse>{});
 
   const echo = inject(echoKey);
 
   const fetchVideo = async (): Promise<void> => {
     errors.value = <ErrorResponse>{};
-    video.value = <Video>{};
+    video.value = <VideoModel>{};
 
     try {
       const response = await find(props.id.value);

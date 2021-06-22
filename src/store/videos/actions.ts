@@ -1,5 +1,5 @@
 import { StoreState } from 'src/interfaces/store';
-import { VideosState } from 'src/interfaces/video';
+import { VideosResponse, VideosState } from 'src/interfaces/video';
 import { ActionTree } from 'vuex';
 
 const actions: ActionTree<VideosState, StoreState> = {
@@ -12,6 +12,12 @@ const actions: ActionTree<VideosState, StoreState> = {
       context.commit('setId', Date.now());
       context.commit('setReady', true);
     }
+  },
+
+  populate(context, payload: VideosResponse): void {
+    context.commit('setItems', payload.data);
+    context.commit('setLinks', payload.links);
+    context.commit('setMeta', payload.meta);
   },
 
   repopulate(context): void {

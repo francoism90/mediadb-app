@@ -1,43 +1,37 @@
-import useRepository from 'src/composables/useRepository';
-import useRepositoryGetters from 'src/composables/useRepositoryGetters';
-import useRepositoryState from 'src/composables/useRepositoryState';
-import { RepositoryProps } from 'src/interfaces/repository';
-import { VideosParameters } from 'src/interfaces/video';
-import { all } from 'src/repositories/video';
+import { useStore } from 'src/store';
+import videosModule from 'src/store/videos';
+import { createNamespacedHelpers } from 'vuex-composition-helpers';
 
-export default function useVideos(props: RepositoryProps) {
-  const {
-    resetModels, resetStore, setParams, setResponse,
-  } = useRepository(props);
+export default function useVideos(module: string) {
+  const $store = useStore();
 
-  const {
-    getParam, getParams, isLoadable, nextPage,
-  } = useRepositoryGetters(props.module);
+  if (!$store.hasModule(module)) {
+    $store.registerModule(module, videosModule);
+  }
 
-  const { id, data, meta } = useRepositoryState(props.module);
+  const { useState, useActions, useGetters } = createNamespacedHelpers(module);
 
-  const fetchVideos = async (): Promise<void> => {
-    const fetch = isLoadable.value as boolean;
+  const { initialize, repopulate } = useActions([
+    'initialize',
+    'repopulate',
+  ]);
 
-    if (fetch) {
-      const pageNumber = nextPage.value as number;
-      const pageParams = { ...getParams.value, ...{ 'page[number]': pageNumber } } as VideosParameters;
-      await setParams({ params: pageParams });
+  const { id, items } = useState([
+    'id',
+    'items',
+  ]);
 
-      const response = await all(pageParams);
-      await setResponse(response);
-    }
-  };
+  const { isLoadable, nextPage } = useGetters([
+    'isLoadable',
+    'nextPage',
+  ]);
 
   return {
-    fetchVideos,
-    resetModels,
-    resetStore,
-    getParam,
-    setParams,
+    initialize,
+    repopulate,
     isLoadable,
+    nextPage,
     id,
-    data,
-    meta,
+    items,
   };
 }
