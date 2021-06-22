@@ -31,6 +31,7 @@ module.exports = configure((ctx) => ({
     'i18n',
     'axios',
     'auth',
+    'directives',
     'echo',
   ],
 

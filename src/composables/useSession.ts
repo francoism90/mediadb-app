@@ -1,14 +1,20 @@
 import { some } from 'lodash';
 import { SessionState } from 'src/interfaces/store';
-import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers';
+import {
+  useNamespacedActions, useNamespacedGetters, useNamespacedState,
+} from 'vuex-composition-helpers';
 
 export default function useSession() {
-  const { resetStore, resetUser, initialize } = useNamespacedActions('session', ['resetStore', 'resetUser', 'initialize']);
+  const { resetStore, resetUser, initialize } = useNamespacedActions('session', [
+    'resetStore', 'resetUser', 'initialize',
+  ]);
+
   const { isAuthenticated } = useNamespacedGetters('session', ['isAuthenticated']);
-  const { redirectPath, token, user } = useNamespacedState<SessionState>('session', [
-    'redirectPath',
-    'token',
-    'user',
+
+  const {
+    redirectPath, token, user,
+  } = useNamespacedState<SessionState>('session', [
+    'redirectPath', 'token', 'user',
   ]);
 
   const hasRole = (payload: string): boolean | undefined => {

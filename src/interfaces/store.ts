@@ -7,6 +7,7 @@ import { User } from 'src/interfaces/user';
 
 export interface SessionState {
   redirectPath: string | null;
+  drawer: boolean;
   timestamp: Date | null;
   token: string | null;
   user: User;

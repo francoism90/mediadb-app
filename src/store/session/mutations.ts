@@ -12,6 +12,10 @@ const mutation: MutationTree<SessionState> = {
     state.redirectPath = payload;
   },
 
+  setDrawer(state: SessionState, payload: boolean) {
+    state.drawer = payload;
+  },
+
   setToken(state: SessionState, payload: string) {
     state.token = payload;
   },

@@ -9,14 +9,6 @@
       height-hint="58"
     >
       <q-toolbar>
-        <q-icon
-          name="o_menu"
-          class="cursor-pointer q-mr-md"
-          size="24px"
-          aria-label="Account"
-          @click="toggleDrawer"
-        />
-
         <q-toolbar-title>
           <router-link
             to="/"
@@ -33,14 +25,14 @@
     </q-header>
 
     <q-drawer
-      v-model="drawer"
-      behavior="mobile"
+      v-model="drawerModel"
+      behavior="desktop"
       class="drawer"
       bordered
       overlay
       :width="260"
     >
-      <drawer />
+      <filters />
     </q-drawer>
 
     <q-page-container>
@@ -51,33 +43,34 @@
 
 <script lang="ts">
 import Account from 'src/components/ui/Account.vue';
-import Drawer from 'src/components/ui/Drawer.vue';
+import Filters from 'src/components/ui/Filters.vue';
+import useDrawer from 'src/composables/useDrawer';
 import useSession from 'src/composables/useSession';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    Drawer,
+    Filters,
     Account,
   },
 
   setup() {
-    const drawer = ref(false);
-
+    const { drawer, setDrawer } = useDrawer();
     const { user } = useSession();
 
     const layoutKey = computed(() => user.value.id || +new Date());
 
-    const toggleDrawer = (): void => {
-      drawer.value = !drawer.value;
-    };
+    const drawerModel = computed({
+      get: () => drawer.value,
+      set: (value) => { setDrawer(value); },
+    });
 
     return {
       layoutKey,
       drawer,
-      toggleDrawer,
+      drawerModel,
     };
   },
 });

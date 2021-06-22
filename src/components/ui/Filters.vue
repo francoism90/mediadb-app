@@ -1,5 +1,9 @@
 <template>
-  <div class="drawer-container">
+  <div
+    v-if="drawer"
+    v-click-away="toggleDrawer"
+    class="drawer-container"
+  >
     <div class="drawer-avatar q-py-lg text-center">
       <q-icon
         class="q-mb-sm"
@@ -42,6 +46,7 @@
 </template>
 
 <script lang="ts">
+import useDrawer from 'src/composables/useDrawer';
 import useSession from 'src/composables/useSession';
 import { defineComponent } from 'vue';
 
@@ -67,10 +72,12 @@ export default defineComponent({
   name: 'AppDrawer',
 
   setup() {
+    const { drawer, toggleDrawer } = useDrawer();
     const { user } = useSession();
-    //
 
     return {
+      toggleDrawer,
+      drawer,
       menuList,
       user,
     };

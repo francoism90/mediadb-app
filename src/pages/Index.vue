@@ -1,8 +1,6 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="q-py-lg">
-      <filters />
-    </q-toolbar>
+    <toolbar />
 
     <q-pull-to-refresh
       :key="id"
@@ -34,7 +32,7 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
-import Filters from 'src/components/videos/Filters.vue';
+import Toolbar from 'src/components/videos/Toolbar.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
 import { VideosParameters } from 'src/interfaces/video';
@@ -45,7 +43,7 @@ export default defineComponent({
 
   components: {
     Item,
-    Filters,
+    Toolbar,
   },
 
   setup() {

@@ -17,7 +17,6 @@ const persistedState = createPersistedState({
 
 export const storeKey: InjectionKey<VuexStore<StoreState>> = Symbol('vuex-key');
 
-export const bookmarks = repository;
 export const tags = repository;
 export const videos = repository;
 
@@ -25,7 +24,6 @@ export default store((/* { ssrContext } */) => {
   const Store = createStore<StoreState>({
     modules: {
       session,
-      bookmarks,
       tags,
       videos,
     },
