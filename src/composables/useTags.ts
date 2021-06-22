@@ -11,7 +11,7 @@ export default function useTags(props: RepositoryProps) {
   } = useRepository(props);
 
   const {
-    getParam, getParams, isLoadable, nextPage,
+    getValue, getParams, isLoadable, nextPage,
   } = useRepositoryGetters(props.module);
 
   const { id, data, meta } = useRepositoryState(props.module);
@@ -50,8 +50,8 @@ export default function useTags(props: RepositoryProps) {
     filterTags,
     resetModels,
     resetStore,
-    getParam,
     setParams,
+    getValue,
     isLoadable,
     id,
     data,

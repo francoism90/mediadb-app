@@ -1,10 +1,16 @@
-import { Media } from 'src/interfaces/media';
-import { Model } from 'src/interfaces/repository';
+import { MediaModel } from 'src/interfaces/media';
+import { VideoModel } from 'src/interfaces/video';
 
 export interface PlayerProps {
   module: string,
-  media?: Media,
-  model?: Model,
+  media: MediaModel | null,
+  video?: VideoModel,
+}
+
+export interface PlayerTooltip {
+  cue: VTTCue | null,
+  position: number,
+  time: number,
 }
 
 export interface PlayerProperties {
@@ -29,8 +35,8 @@ export interface PlayerProperties {
   volume: number,
 }
 
-export interface PlayerTooltip {
-  cue: VTTCue | null,
-  position: number,
-  time: number,
+export interface PlayerState {
+  media: MediaModel,
+  video?: VideoModel,
+  properties: PlayerProperties,
 }

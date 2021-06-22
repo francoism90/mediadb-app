@@ -1,6 +1,6 @@
 import { RepositoryProps } from 'src/interfaces/repository';
 import { useStore } from 'src/store';
-import repositoryModule from 'src/store/repository';
+import repositoryModule from 'src/store/videos';
 import { useNamespacedActions } from 'vuex-composition-helpers';
 
 export default function useRepository(props: RepositoryProps) {

@@ -1,32 +1,56 @@
-import { Media } from 'src/interfaces/media';
-import {
-  Model, ModelResponse, RepositoryMeta, RepositoryParams, RepositoryResponse,
-} from 'src/interfaces/repository';
-import { Tag } from 'src/interfaces/tag';
+import { MediaModel } from 'src/interfaces/media';
+import { TagModel } from 'src/interfaces/tag';
 
-export interface Video extends Model {
-  tags?: Tag[],
-  status?: 'public' | 'private',
-  overview?: string | null,
-  type?: string | null,
-  views?: number | null,
-  clip?: Media,
-  'release_date'?: Date | null,
-  'season_number'?: number | null,
-  'episode_number'?: number | null,
+export interface VideoModel {
+  id: string,
+  slug: string,
+  name: string,
+  description: string,
+  clip: MediaModel | null,
+  'created_at': Date,
+  'updated_at': Date,
+  favorite?: boolean,
 }
 
-export interface VideoResponse extends ModelResponse {
-  data: Video,
+export interface VideosMeta {
+  'current_page'?: number,
+  'last_page'?: number,
+  'per_page'?: number,
+  from?: number,
+  path?: string,
+  to?: number,
+  total?: number,
 }
 
-export interface VideosResponse extends RepositoryResponse {
-  data: Video[],
-  meta: RepositoryMeta
+export interface VideosLinks {
+  first: string | null,
+  last: string | null,
+  next: string | null,
+  prev: string | null,
 }
 
-export interface VideosParameters extends RepositoryParams {
-  'filter[favorites]'?: number | null,
-  'filter[related]'?: number | string | null,
-  'filter[query]'?: string | null,
+export interface VideosParameters {
+  include: string[] | null,
+  fields: string[] | null,
+  append: string[] | null,
+  sort: string | string[] | null,
+  'page[number]': number | null,
+  'page[size]': number | null,
+}
+
+export interface VideosFilters {
+  actors: TagModel[] | null,
+  genres: TagModel[] | null,
+  languages: TagModel[] | null,
+  studios: TagModel[] | null,
+}
+
+export interface VideosState {
+  ready: boolean,
+  id: string | number | null,
+  parameters: VideosParameters,
+  filters: VideosFilters,
+  items: VideoModel[],
+  meta: VideosMeta,
+  links: VideosLinks,
 }

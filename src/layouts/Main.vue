@@ -26,7 +26,7 @@
 
     <q-drawer
       v-model="drawerModel"
-      behavior="desktop"
+      behavior="mobile"
       class="drawer"
       bordered
       overlay
@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import Account from 'src/components/ui/Account.vue';
-import Filters from 'src/components/ui/Filters.vue';
+import Filters from 'src/components/filters/Container.vue';
 import useDrawer from 'src/composables/useDrawer';
 import useSession from 'src/composables/useSession';
 import { computed, defineComponent } from 'vue';

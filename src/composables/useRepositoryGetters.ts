@@ -13,13 +13,13 @@ export default function useRepositoryGetters(module: string) {
     'nextPage',
   ]);
 
-  const getParam = (key: string, defaultValue?: string | number | null) => get(
+  const getValue = (key: string | number, defaultValue?: returnValue) => get(
     params.value, key, defaultValue || null,
   ) as string | number | null;
 
   return {
     params,
-    getParam,
+    getValue,
     getParams,
     isLoadable,
     nextPage,

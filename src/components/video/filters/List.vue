@@ -1,19 +1,29 @@
 <template>
-  <q-item-label header>
-    Lists
+  <q-item-label
+    header
+    class="q-py-sm text-weight-medium"
+  >
+    Filter Content
   </q-item-label>
 
-  <q-item>
+  <q-item
+    dense
+    tag="label"
+  >
     <q-item-section>
-      <q-checkbox
+      <q-item-label>Bookmarks</q-item-label>
+    </q-item-section>
+
+    <q-item-section side>
+      <q-toggle
         v-model="favorites"
         :true-value="1"
         :false-value="null"
-        label="Bookmarks"
-        dense
       />
     </q-item-section>
   </q-item>
+
+  <q-separator spaced />
 </template>
 
 <script lang="ts">

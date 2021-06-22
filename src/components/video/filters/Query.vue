@@ -1,5 +1,7 @@
 <template>
-  <q-item-label header>
+  <q-item-label
+    overline
+  >
     Filters
   </q-item-label>
 

@@ -1,22 +1,30 @@
-import { User } from 'src/interfaces/user';
+import { UserModel } from 'src/interfaces/user';
 
 export interface CsrfCookie {
-  message?: string
+  message: string | null,
 }
 
 export interface AuthUser {
-  token: string | null
+  token: string | null,
 }
 
 export interface LoginUser {
   email: string,
   password: string,
   'device_name': string,
-  'remember_me': boolean
+  'remember_me': boolean,
 }
 
 export interface AuthResponse {
-  token?: string
-  user?: User,
-  success?: boolean
+  token: string | null,
+  user: UserModel | null,
+  success: boolean,
+}
+
+export interface SessionState {
+  redirectPath: string | null,
+  drawer: boolean,
+  timestamp: Date | null,
+  token: string | null,
+  user: UserModel,
 }
