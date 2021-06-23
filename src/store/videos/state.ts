@@ -1,5 +1,5 @@
 import {
-  VideosState, VideosParameters, VideosFilters, VideosMeta, VideosLinks, VideoModel,
+  VideosState, VideosParameters, VideosMeta, VideosLinks, VideoModel,
 } from 'src/interfaces/video';
 
 function state(): VideosState {
@@ -7,7 +7,6 @@ function state(): VideosState {
     ready: false,
     id: null,
     parameters: <VideosParameters>{},
-    filters: <VideosFilters>{},
     items: <VideoModel[]>[],
     meta: <VideosMeta>{},
     links: <VideosLinks>{},

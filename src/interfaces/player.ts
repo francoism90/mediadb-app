@@ -1,11 +1,5 @@
 import { VideoModel } from 'src/interfaces/video';
 
-export interface PlayerTooltip {
-  cue: VTTCue | null,
-  position: number,
-  time: number,
-}
-
 export interface PlayerProperties {
   buffered: TimeRanges | null,
   controls: boolean,
@@ -26,6 +20,12 @@ export interface PlayerProperties {
   seeking: boolean,
   textTracks: TextTrackList | null,
   volume: number,
+}
+
+export interface PlayerTooltip {
+  cue: VTTCue | null,
+  position: number,
+  time: number,
 }
 
 export interface PlayerState {

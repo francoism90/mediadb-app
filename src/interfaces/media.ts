@@ -1,4 +1,6 @@
-export interface MediaModel {
+import { Model } from 'src/interfaces/repository';
+
+export interface MediaModel extends Model {
   id: string,
   duration?: number | null,
   kind?: string | null,

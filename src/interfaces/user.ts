@@ -1,9 +1,10 @@
+import { Model } from 'src/interfaces/repository';
+
 export interface UserSettings {
   [key: string]: string | number | null
 }
 
-export interface UserModel {
-  id: string,
+export interface UserModel extends Model {
   email: string,
   roles: string[],
   permissions: string[],
