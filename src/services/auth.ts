@@ -4,6 +4,8 @@ import { SessionStorage } from 'quasar';
 import { auth } from 'src/repositories/user';
 import { RouteLocationNormalized } from 'vue-router';
 
+export const store = useSessionStore();
+
 export function getToken(): string | null {
   return SessionStorage.getItem('token');
 }
@@ -14,7 +16,6 @@ export function setToken(payload: string): void {
 }
 
 export async function initialize(): Promise<void> {
-  const store = useSessionStore();
   const { isAuthenticated } = store;
 
   const reset = (): void => {
@@ -39,7 +40,6 @@ export async function initialize(): Promise<void> {
 }
 
 export function check(payload: RouteLocationNormalized): boolean {
-  const store = useSessionStore();
   const { isAuthenticated } = store;
 
   store.redirectUri = null;

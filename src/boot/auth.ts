@@ -6,9 +6,7 @@ export default boot(({ router }) => {
     await initialize();
 
     if (to.matched.some((record) => record.meta?.auth)) {
-      const isAuthenticated = check(to);
-
-      if (!isAuthenticated) {
+      if (!check(to)) {
         next({ path: '/login' });
       } else {
         next();
