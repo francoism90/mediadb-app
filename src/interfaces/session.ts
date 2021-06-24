@@ -12,7 +12,7 @@ export interface CsrfCookie {
 }
 
 export interface AuthUser {
-  token: string,
+  token: string | null,
 }
 
 export interface LoginUser {
