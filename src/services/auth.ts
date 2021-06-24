@@ -2,6 +2,7 @@ import { setAuthHeader } from 'src/boot/axios';
 import { useSessionStore } from 'src/store/session';
 import { SessionStorage } from 'quasar';
 import { auth } from 'src/repositories/user';
+import { RouteLocationNormalized } from 'vue-router';
 
 export function getToken(): string | null {
   return SessionStorage.getItem('token');
@@ -35,4 +36,17 @@ export async function initialize(): Promise<void> {
   } catch {
     reset();
   }
+}
+
+export function check(payload: RouteLocationNormalized): boolean {
+  const store = useSessionStore();
+  const { isAuthenticated } = store;
+
+  store.redirectUri = null;
+
+  if (!isAuthenticated) {
+    store.redirectUri = payload.fullPath || '/';
+  }
+
+  return isAuthenticated;
 }
