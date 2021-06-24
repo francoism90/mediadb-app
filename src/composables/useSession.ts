@@ -1,76 +1,17 @@
-import { some } from 'lodash';
-import { createNamespacedHelpers } from 'vuex-composition-helpers';
+import { includes } from 'lodash';
+import { useSessionStore } from 'src/store/session';
 
 export default function useSession() {
-  const {
-    useState, useActions, useGetters,
-  } = createNamespacedHelpers('session');
+  const store = useSessionStore();
 
-  const { redirectPath, token, user } = useState([
-    'redirectPath',
-    'token',
-    'user',
-  ]);
+  const roles = store.user?.roles || [];
+  const permissions = store.user?.permissions || [];
 
-  const { isAuthenticated } = useGetters([
-    'isAuthenticated',
-  ]);
-
-  const { initialize, reset, resetUser } = useActions([
-    'initialize',
-    'reset',
-    'resetUser',
-  ]);
-
-  const roles = user.value.roles as string[];
-
-  const hasRole = (payload: string): boolean | undefined => {
-    if (!isAuthenticated || !roles) {
-      return false;
-    }
-
-    return roles.includes(payload);
-  };
-
-  const hasAnyRole = (payload: string): boolean => {
-    if (!isAuthenticated || !user.value.roles) {
-      return false;
-    }
-
-    const roles = payload.split(',');
-
-    return some(user.value.roles, roles);
-  };
-
-  const hasPermission = (payload: string): boolean | undefined => {
-    if (!isAuthenticated || !user.value.permissions) {
-      return false;
-    }
-
-    return user.value.permissions.includes(payload);
-  };
-
-  const hasAnyPermissions = (payload: string): boolean | undefined => {
-    if (!isAuthenticated || !user.value.permissions) {
-      return false;
-    }
-
-    const permissions = payload.split(',');
-
-    return some(user.value.roles, permissions);
-  };
+  const hasRole = (key: string | string[]): boolean | undefined => includes(roles, key);
+  const hasPermission = (key: string | string[]): boolean | undefined => includes(permissions, key);
 
   return {
-    reset,
-    resetUser,
-    initialize,
-    isAuthenticated,
     hasRole,
-    hasAnyRole,
     hasPermission,
-    hasAnyPermissions,
-    redirectPath,
-    token,
-    user,
   };
 }
