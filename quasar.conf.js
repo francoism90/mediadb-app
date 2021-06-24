@@ -28,6 +28,7 @@ module.exports = configure((ctx) => ({
   // --> boot files are part of "main.js"
   // https://v2.quasar.dev/quasar-cli/boot-files
   boot: [
+    'pinia',
     'i18n',
     'axios',
     'auth',
@@ -51,12 +52,12 @@ module.exports = configure((ctx) => ({
 
     vueRouterMode: 'history', // available values: 'hash', 'history'
 
-    transpile: true,
+    // transpile: true,
 
     // Add dependencies for transpiling with Babel (Array of string/regex)
     // (from node_modules, which are by default not transpiled).
     // Applies only if "transpile" is set to true.
-    transpileDependencies: [/vuex-composition-helpers/],
+    // transpileDependencies: [],
 
     // rtl: true, // https://v2.quasar.dev/options/rtl-support
     // preloadChunks: true,

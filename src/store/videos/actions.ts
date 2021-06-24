@@ -21,7 +21,7 @@ const actions: ActionTree<VideosState, StoreState> = {
   },
 
   repopulate(context): void {
-    context.commit('resetItems');
+    context.commit('resetData');
     context.commit('resetLinks');
     context.commit('resetMeta');
     context.commit('setId', Date.now());

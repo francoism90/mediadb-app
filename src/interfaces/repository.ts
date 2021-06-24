@@ -24,7 +24,7 @@ export interface RepositoryLinks {
   prev: string | null,
 }
 
-export interface RepositoryParameters {
+export interface RepositoryQuery {
   include: string[] | null,
   fields: string[] | null,
   append: string[] | null,

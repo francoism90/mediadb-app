@@ -24,17 +24,6 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="drawerModel"
-      behavior="mobile"
-      class="drawer"
-      bordered
-      overlay
-      :width="260"
-    >
-      <filters />
-    </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -43,8 +32,6 @@
 
 <script lang="ts">
 import Account from 'src/components/ui/Account.vue';
-import Filters from 'src/components/filters/Container.vue';
-import useDrawer from 'src/composables/useDrawer';
 import useSession from 'src/composables/useSession';
 import { computed, defineComponent } from 'vue';
 
@@ -52,25 +39,16 @@ export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    Filters,
     Account,
   },
 
   setup() {
-    const { drawer, setDrawer } = useDrawer();
     const { user } = useSession();
 
     const layoutKey = computed(() => user.value.id || +new Date());
 
-    const drawerModel = computed({
-      get: () => drawer.value,
-      set: (value) => { setDrawer(value); },
-    });
-
     return {
       layoutKey,
-      drawer,
-      drawerModel,
     };
   },
 });

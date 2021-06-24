@@ -1,28 +1,35 @@
 import { some } from 'lodash';
-import { SessionState } from 'src/interfaces/store';
-import {
-  useNamespacedActions, useNamespacedGetters, useNamespacedState,
-} from 'vuex-composition-helpers';
+import { createNamespacedHelpers } from 'vuex-composition-helpers';
 
 export default function useSession() {
-  const { resetStore, resetUser, initialize } = useNamespacedActions('session', [
-    'resetStore', 'resetUser', 'initialize',
-  ]);
-
-  const { isAuthenticated } = useNamespacedGetters('session', ['isAuthenticated']);
-
   const {
-    redirectPath, token, user,
-  } = useNamespacedState<SessionState>('session', [
-    'redirectPath', 'token', 'user',
+    useState, useActions, useGetters,
+  } = createNamespacedHelpers('session');
+
+  const { redirectPath, token, user } = useState([
+    'redirectPath',
+    'token',
+    'user',
   ]);
+
+  const { isAuthenticated } = useGetters([
+    'isAuthenticated',
+  ]);
+
+  const { initialize, reset, resetUser } = useActions([
+    'initialize',
+    'reset',
+    'resetUser',
+  ]);
+
+  const roles = user.value.roles as string[];
 
   const hasRole = (payload: string): boolean | undefined => {
-    if (!isAuthenticated || !user.value.roles) {
+    if (!isAuthenticated || !roles) {
       return false;
     }
 
-    return user.value.roles.includes(payload);
+    return roles.includes(payload);
   };
 
   const hasAnyRole = (payload: string): boolean => {
@@ -54,7 +61,7 @@ export default function useSession() {
   };
 
   return {
-    resetStore,
+    reset,
     resetUser,
     initialize,
     isAuthenticated,

@@ -35,7 +35,6 @@ import { useMeta } from 'quasar';
 import Toolbar from 'src/components/videos/Toolbar.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
-import { VideosParameters } from 'src/interfaces/video';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -48,20 +47,13 @@ export default defineComponent({
 
   setup() {
     const {
-      fetchVideos, isLoadable, setParams, id, data,
-    } = useVideos({
-      module: 'videos',
-      params: <VideosParameters>{
-        sort: 'recommended',
-        'page[number]': 1,
-        'page[size]': 12,
-      },
-    });
+      fetchAll, repopulate, id, data, isLoadable,
+    } = useVideos('videos');
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetchVideos();
+        await fetchAll();
         await done(!isLoadable.value);
       } catch {
         await done(true);
@@ -70,11 +62,7 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = async (done: Function): Promise<void> => {
-      await setParams({
-        params: { 'page[number]': 1 },
-        reset: true,
-      });
-
+      await repopulate();
       done();
     };
 

@@ -1,5 +1,12 @@
 import { UserModel } from 'src/interfaces/user';
 
+export interface SessionState {
+  redirectUri: string | null,
+  timestamp: number | null,
+  token: string | null,
+  user: UserModel,
+}
+
 export interface CsrfCookie {
   message: string | null,
 }
@@ -18,12 +25,4 @@ export interface LoginUser {
 export interface AuthResponse {
   token: string | null,
   user: UserModel | null,
-  success: boolean,
-}
-
-export interface SessionState {
-  redirectPath: string | null,
-  timestamp: Date | null,
-  token: string | null,
-  user: UserModel,
 }

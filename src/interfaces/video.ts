@@ -1,8 +1,7 @@
 import { MediaModel } from 'src/interfaces/media';
 import {
-  Model, RepositoryLinks, RepositoryMeta, RepositoryParameters,
+  Model, RepositoryLinks, RepositoryMeta, RepositoryQuery,
 } from 'src/interfaces/repository';
-import { TagModel } from 'src/interfaces/tag';
 
 export type VideosMeta = RepositoryMeta
 export type VideosLinks = RepositoryLinks
@@ -18,21 +17,21 @@ export interface VideoResponse {
 }
 
 export interface VideosFilters {
-  actors: TagModel[] | null,
-  genres: TagModel[] | null,
-  languages: TagModel[] | null,
-  studios: TagModel[] | null,
+  actors: string[] | null,
+  genres: string[] | null,
+  languages: string[] | null,
+  studios: string[] | null,
 }
 
-export interface VideosParameters extends RepositoryParameters {
-  filter: VideosFilters
+export interface VideosQuery extends RepositoryQuery {
+  filter: VideosFilters,
 }
 
 export interface VideosState {
   ready: boolean,
   id: string | number | null,
-  parameters: VideosParameters,
-  items: VideoModel[],
+  query: VideosQuery,
+  data: VideoModel[],
   meta: VideosMeta,
   links: VideosLinks,
 }

@@ -1,13 +1,17 @@
 import {
-  VideosState, VideosParameters, VideosMeta, VideosLinks, VideoModel,
+  VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel,
 } from 'src/interfaces/video';
 
 function state(): VideosState {
   return {
     ready: false,
     id: null,
-    parameters: <VideosParameters>{},
-    items: <VideoModel[]>[],
+    query: <VideosQuery>{
+      sort: 'recommended',
+      'page[number]': 1,
+      'page[size]': 12,
+    },
+    data: <VideoModel[]>[],
     meta: <VideosMeta>{},
     links: <VideosLinks>{},
   };

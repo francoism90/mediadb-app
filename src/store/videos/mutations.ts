@@ -1,7 +1,8 @@
 import defaultState from 'src/store/videos/state';
 import { MutationTree } from 'vuex';
+import { assign } from 'lodash';
 import {
-  VideoModel, VideosLinks, VideosMeta, VideosState,
+  VideoModel, VideosLinks, VideosMeta, VideosQuery, VideosState,
 } from 'src/interfaces/video';
 
 const mutation: MutationTree<VideosState> = {
@@ -9,8 +10,8 @@ const mutation: MutationTree<VideosState> = {
     Object.assign(state, defaultState());
   },
 
-  resetItems(state: VideosState) {
-    state.items = <VideoModel[]>[];
+  resetData(state: VideosState) {
+    state.data = <VideoModel[]>[];
   },
 
   resetLinks(state: VideosState) {
@@ -25,8 +26,8 @@ const mutation: MutationTree<VideosState> = {
     state.id = payload;
   },
 
-  setItems(state: VideosState, payload: VideoModel[]) {
-    state.items = state.items.concat(payload);
+  setData(state: VideosState, payload: VideoModel[]) {
+    state.data = state.data.concat(payload);
   },
 
   setLinks(state: VideosState, payload: VideosLinks) {
@@ -35,6 +36,10 @@ const mutation: MutationTree<VideosState> = {
 
   setMeta(state: VideosState, payload: VideosMeta) {
     state.meta = payload;
+  },
+
+  setQuery(state: VideosState, payload: VideosQuery) {
+    state.query = assign(state.query, payload);
   },
 
   setReady(state: VideosState, payload: boolean) {
