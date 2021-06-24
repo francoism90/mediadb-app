@@ -6,7 +6,7 @@ import { InjectionKey } from 'vue';
 
 export const store = useSessionStore();
 
-export const echoKey: InjectionKey<Echo> = Symbol('echo-key');
+export const echoKey: InjectionKey<Echo> = Symbol('echo');
 
 export function initialize(): Echo {
   const authToken = store.token || '';

@@ -16,12 +16,15 @@ export const useVideosStore = defineStore({
     },
     data: <VideoModel[]>[],
     meta: <VideosMeta>{},
-    links: <VideosLinks>{},
+    links: <VideosLinks>{
+      first: null,
+      next: null,
+    },
   }),
 
   getters: {
     firstLoad(): boolean {
-      return (this.links.first === null && this.data.length === 0);
+      return (this.links.first === null && this.links.next === null);
     },
 
     isLoadable(): boolean {

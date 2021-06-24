@@ -37,6 +37,7 @@ import { useMeta } from 'quasar';
 // import Filters from 'src/components/videos/Filters.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
+import { setToken } from 'src/services/auth';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
