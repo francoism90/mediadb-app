@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { AuthResponse, SessionState } from 'src/interfaces/session';
-import { UserModel } from 'src/interfaces/user';
 
 export const useSessionStore = defineStore({
   id: 'session',
@@ -9,25 +8,25 @@ export const useSessionStore = defineStore({
     redirectUri: null,
     timestamp: null,
     token: null,
-    user: <UserModel>{},
+    user: null,
   }),
 
   getters: {
     isAuthenticated(): boolean {
-      return (this.token !== null && this.user.id !== null);
+      return (this.token !== null && this.user !== null);
     },
   },
 
   actions: {
     reset(): void {
       this.token = null;
-      this.user = <UserModel>{};
+      this.user = null;
       this.timestamp = Date.now();
     },
 
     initialize(payload: AuthResponse): void {
-      this.token = payload.token || null;
-      this.user = payload.user || <UserModel>{};
+      this.token = payload.token;
+      this.user = payload.user;
       this.timestamp = Date.now();
     },
   },

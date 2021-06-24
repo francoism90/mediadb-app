@@ -4,7 +4,7 @@ export interface SessionState {
   redirectUri: string | null,
   timestamp: number | null,
   token: string | null,
-  user: UserModel,
+  user: UserModel | null,
 }
 
 export interface CsrfCookie {
@@ -12,7 +12,7 @@ export interface CsrfCookie {
 }
 
 export interface AuthUser {
-  token: string | null,
+  token: string,
 }
 
 export interface LoginUser {

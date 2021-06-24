@@ -103,8 +103,10 @@ module.exports = configure((ctx) => ({
       'AppFullscreen',
       'Dialog',
       'Loading',
+      'LocalStorage',
       'Meta',
       'Notify',
+      'SessionStorage',
     ]
   },
 
