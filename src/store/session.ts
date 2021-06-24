@@ -19,13 +19,13 @@ export const useSessionStore = defineStore({
   },
 
   actions: {
-    reset() {
+    reset(): void {
       this.token = null;
       this.user = <UserModel>{};
       this.timestamp = Date.now();
     },
 
-    initialize(payload: AuthResponse) {
+    initialize(payload: AuthResponse): void {
       this.token = payload.token || null;
       this.user = payload.user || <UserModel>{};
       this.timestamp = Date.now();
