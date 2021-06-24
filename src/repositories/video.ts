@@ -1,7 +1,7 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
 import {
-  VideoModel, VideoResponse, VideosResponse,
+  VideoModel, VideoResponse, VideosQuery, VideosResponse,
 } from 'src/interfaces/video';
 
 export async function find(id: string | number): Promise<VideoResponse> {
@@ -12,9 +12,9 @@ export async function find(id: string | number): Promise<VideoResponse> {
   return response.data;
 }
 
-export async function all(params: AxiosRequestConfig): Promise<VideosResponse> {
+export async function all(params: VideosQuery): Promise<VideosResponse> {
   const response = await api.get<VideosResponse, AxiosResponse<VideosResponse>>(
-    'videos', params,
+    'videos', { params },
   );
 
   return response.data;

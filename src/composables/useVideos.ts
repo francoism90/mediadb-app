@@ -1,67 +1,33 @@
-import { useStore } from 'src/store';
-import videosModule from 'src/store/videos';
+import { api } from 'src/boot/axios';
+import { all } from 'src/repositories/video';
+import { useVideosStore } from 'src/store/videos';
 
-export default function useVideos(module: string) {
-  const $store = useStore();
+export default function useVideos() {
+  const store = useVideosStore();
 
-  if (!$store.hasModule(module)) {
-    $store.registerModule(module, videosModule);
-  }
+  const useQuery = async (): Promise<void> => {
+    const response = await all(store.query);
+    store.populate(response);
+  };
 
-  console.log($store.state.session.token);
+  const useNext = async (): Promise<void> => {
+    if (!store.links.next) {
+      return;
+    }
 
-  console.log($store.getters['session/isLoadable']);
+    const response = await api.get(store.links.next);
+    store.populate(response.data);
+  };
 
-  // console.log(capitalizeActors);
-
-  // const { isLoadable } = useGetters<VideosGetters>(['isLoadable']);
-
-  // const {
-  // useState, useActions, useMutations,
-  // } = createNamespacedHelpers(module);
-
-  // const { id, query, data } = useState([
-  //   'id',
-  //   'query',
-  //   'data',
-  // ]);
-
-  // const { isLoadable, nextPage } = useGetters<VideosGetters>([
-  //   'isLoadable',
-  //   'nextPage',
-  // ]);
-
-  // const { initialize, populate, repopulate } = useActions([
-  //   'initialize',
-  //   'populate',
-  //   'repopulate',
-  // ]);
-
-  // const { setQuery } = useMutations([
-  //   'setQuery',
-  // ]);
-
-  // const fetchAll = async (): Promise<void> => {
-  //   const fetch = isLoadable.value as boolean;
-
-  //   if (fetch) {
-  //     const pageNumber = nextPage.value as number;
-  //     const finalQuery = { ...query.value, ...{ 'page[number]': pageNumber } } as AxiosRequestConfig;
-
-  //     const response = await all(finalQuery);
-  //     await populate(response);
-  //   }
-  // };
+  const fetchAll = async (): Promise<void> => {
+    if (store.firstLoad) {
+      await useQuery();
+    } else if (!store.firstLoad && store.isLoadable) {
+      await useNext();
+    }
+  };
 
   return {
-    // fetchAll,
-    // initialize,
-    // repopulate,
-    // setQuery,
-    // isLoadable,
-    // nextPage,
-    // id,
-    // query,
-    // data,
+    fetchAll,
   };
 }

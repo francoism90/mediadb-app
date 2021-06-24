@@ -8,36 +8,36 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'home',
-        component: () => import('pages/Index.vue'),
+        component: () => import('pages/Videos.vue'),
         meta: { auth: true },
       },
     ],
   },
-  {
-    path: '/video',
-    component: () => import('layouts/Main.vue'),
-    children: [
-      {
-        path: ':id/:slug?/:version?',
-        name: 'video',
-        component: () => import('pages/Video.vue'),
-        props: true,
-        meta: { auth: true },
-      },
-    ],
-  },
-  {
-    path: '/settings',
-    component: () => import('layouts/Main.vue'),
-    children: [
-      {
-        path: '',
-        name: 'settings',
-        component: () => import('pages/Settings.vue'),
-        meta: { auth: true },
-      },
-    ],
-  },
+  // {
+  //   path: '/video',
+  //   component: () => import('layouts/Main.vue'),
+  //   children: [
+  //     {
+  //       path: ':id/:slug?/:version?',
+  //       name: 'video',
+  //       component: () => import('pages/Video.vue'),
+  //       props: true,
+  //       meta: { auth: true },
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: '/settings',
+  //   component: () => import('layouts/Main.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'settings',
+  //       component: () => import('pages/Settings.vue'),
+  //       meta: { auth: true },
+  //     },
+  //   ],
+  // },
   {
     path: '/login',
     component: () => import('layouts/Auth.vue'),

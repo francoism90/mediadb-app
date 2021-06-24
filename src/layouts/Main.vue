@@ -43,9 +43,8 @@ export default defineComponent({
   },
 
   setup() {
-    const { user } = useSession();
-
-    const layoutKey = computed(() => user.value.id || +new Date());
+    const { store } = useSession();
+    const layoutKey = computed(() => store.user?.id || +new Date());
 
     return {
       layoutKey,

@@ -20,6 +20,10 @@ export const useVideosStore = defineStore({
   }),
 
   getters: {
+    firstLoad(): boolean {
+      return (this.links.first === null && this.data.length === 0);
+    },
+
     isLoadable(): boolean {
       return (this.links.first !== null && this.links.next !== null);
     },
