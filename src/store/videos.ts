@@ -4,8 +4,8 @@ import {
   VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
 } from 'src/interfaces/video';
 
-export const useSessionStore = defineStore({
-  id: 'session',
+export const useVideosStore = defineStore({
+  id: 'videos',
 
   state: () => (<VideosState>{
     id: null,
