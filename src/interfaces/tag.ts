@@ -1,5 +1,5 @@
 import {
-  Model, RepositoryLinks, RepositoryMeta, RepositoryParameters,
+  Model, RepositoryLinks, RepositoryMeta, RepositoryQuery,
 } from 'src/interfaces/repository';
 
 export type TagsMeta = RepositoryMeta
@@ -21,7 +21,7 @@ export interface TagsFilters {
   type: string | null
 }
 
-export interface TagsParameters extends RepositoryParameters {
+export interface TagsQuery extends RepositoryQuery {
   filter: TagsFilters
 }
 

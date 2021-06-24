@@ -24,8 +24,7 @@
     "qs": "^6.10.1",
     "quasar": "^2.0.0",
     "shaka-player": "^3.1.1",
-    "vue-i18n": "^9.1.4",
-    "vue-router": "4"
+    "vue-i18n": "^9.1.4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",

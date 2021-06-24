@@ -1,4 +1,4 @@
-import { echoKey } from 'src/boot/echo';
+import { echoKey } from 'src/services/echo';
 import { inject } from 'vue';
 
 export default function useEcho() {

@@ -1,4 +1,5 @@
 import { api } from 'src/boot/axios';
+import { VideosQuery } from 'src/interfaces/video';
 import { all } from 'src/repositories/video';
 import { useVideosStore } from 'src/store/videos';
 
@@ -27,7 +28,13 @@ export default function useVideos() {
     }
   };
 
+  const reset = (): void => {
+    store.reset(<VideosQuery>{ 'page[number]': 1 });
+  };
+
   return {
+    store,
     fetchAll,
+    reset,
   };
 }
