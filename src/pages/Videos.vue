@@ -84,8 +84,6 @@ export default defineComponent({
           transitionShow: 'slide-right',
           transitionHide: 'slide-left',
         },
-        // transitionShow: 'slide-right',
-        // transitionHide: 'slide-right',
       });
     };
 

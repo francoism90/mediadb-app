@@ -11,6 +11,7 @@ export const useVideosStore = defineStore({
     id: null,
     query: <VideosQuery>{
       filter: {
+        favorites: null,
         query: null,
       },
       sort: 'recommended',
