@@ -1,13 +1,11 @@
 import Echo from 'laravel-echo';
 import { PusherChannel } from 'laravel-echo/dist/channel';
 import { api } from 'src/boot/axios';
-import { useSessionStore } from 'src/store/session';
+import { InjectionKey } from 'vue';
 
-export const store = useSessionStore();
+export const echoKey: InjectionKey<Echo> = Symbol('echo-key');
 
 export function initialize(): Echo {
-  const authToken = store.token || '';
-
   return new Echo({
     broadcaster: 'pusher',
     key: process.env.WS_KEY,
@@ -19,11 +17,6 @@ export function initialize(): Echo {
     forceTLS: process.env.WS_TLS,
     enabledTransports: ['ws', 'wss'],
     authEndpoint: `${process.env.API_URL}/broadcasting/auth`,
-    auth: {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
     authorizer: (channel: PusherChannel) => ({
       // eslint-disable-next-line @typescript-eslint/ban-types
       authorize: async (socketId: string, callback: Function) => {
