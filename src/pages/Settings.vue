@@ -42,7 +42,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'Videos',
 
-  preFetch({ currentRoute }) {
+  preFetch() {
     // check(currentRoute);
   },
 

@@ -7,12 +7,16 @@ export default function useVideos() {
   const store = useVideosStore();
 
   const useQuery = async (): Promise<void> => {
+    if (!store.firstLoad || !store.query) {
+      return;
+    }
+
     const response = await all(store.query);
     store.populate(response);
   };
 
   const useNext = async (): Promise<void> => {
-    if (!store.links.next) {
+    if (!store.isLoadable || !store.links.next) {
       return;
     }
 
@@ -21,11 +25,8 @@ export default function useVideos() {
   };
 
   const fetchAll = async (): Promise<void> => {
-    if (store.firstLoad) {
-      await useQuery();
-    } else if (!store.firstLoad && store.isLoadable) {
-      await useNext();
-    }
+    await useQuery();
+    await useNext();
   };
 
   const reset = (): void => {

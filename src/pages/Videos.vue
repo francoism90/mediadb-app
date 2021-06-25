@@ -5,13 +5,13 @@
     </q-toolbar> -->
 
     <q-pull-to-refresh
-      :key="id"
+      :key="store.id"
       @refresh="onRefresh"
     >
       <q-infinite-scroll @load="onLoad">
         <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
-            v-for="(item, index) in data"
+            v-for="(item, index) in store.data"
             :key="index"
             class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
           >
@@ -60,13 +60,13 @@ export default defineComponent({
 
   setup() {
     const { store, fetchAll, reset } = useVideos();
-    const { id, data } = store;
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
         await fetchAll();
-        await done(store.isDone);
+        // await done(store.isDone);
+        await done(true);
       } catch {
         await done(true);
       }
@@ -85,8 +85,7 @@ export default defineComponent({
     return {
       onLoad,
       onRefresh,
-      id,
-      data,
+      store,
     };
   },
 });

@@ -32,7 +32,7 @@ export const useVideosStore = defineStore({
     },
 
     isDone(): boolean {
-      return (this.links.first !== null && this.links.next === null);
+      return this.links.next === null;
     },
   },
 

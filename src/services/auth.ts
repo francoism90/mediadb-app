@@ -2,6 +2,7 @@ import { useSessionStore } from 'src/store/session';
 import { SessionStorage } from 'quasar';
 import { auth, login, logout } from 'src/repositories/user';
 import { AuthUser, LoginUser } from 'src/interfaces/session';
+import { setAuthHeader } from 'src/boot/axios';
 
 export const store = useSessionStore();
 
@@ -17,6 +18,8 @@ export async function authenticate(payload: AuthUser): Promise<boolean> {
   const sessionToken = payload.token || getToken();
 
   try {
+    setAuthHeader(sessionToken || '');
+
     const response = await auth({ token: sessionToken || '' });
     store.initialize(response);
   } catch {
