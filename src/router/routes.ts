@@ -26,18 +26,18 @@ const routes: RouteRecordRaw[] = [
   //     },
   //   ],
   // },
-  // {
-  //   path: '/settings',
-  //   component: () => import('layouts/Main.vue'),
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'settings',
-  //       component: () => import('pages/Settings.vue'),
-  //       meta: { auth: true },
-  //     },
-  //   ],
-  // },
+  {
+    path: '/settings',
+    component: () => import('layouts/Main.vue'),
+    children: [
+      {
+        path: '',
+        name: 'settings',
+        component: () => import('pages/Settings.vue'),
+        meta: { auth: true },
+      },
+    ],
+  },
   {
     path: '/login',
     component: () => import('layouts/Auth.vue'),

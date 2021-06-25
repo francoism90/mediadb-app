@@ -12,7 +12,8 @@ export interface CsrfCookie {
 }
 
 export interface AuthUser {
-  token: string | null,
+  redirectUri?: string | null,
+  token?: string | null,
 }
 
 export interface LoginUser {

@@ -37,20 +37,14 @@ import { useMeta } from 'quasar';
 // import Filters from 'src/components/videos/Filters.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
-import { authenticate } from 'src/services/auth';
+import { check } from 'src/services/auth';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Videos',
 
-  async preFetch({ redirect, urlPath }) {
-    console.log(urlPath);
-
-    const authenticated = await authenticate({ redirectUri: urlPath });
-
-    if (!authenticated) {
-      redirect({ path: '/login' });
-    }
+  preFetch({ currentRoute }) {
+    check(currentRoute);
   },
 
   components: {
