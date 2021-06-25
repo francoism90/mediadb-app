@@ -950,17 +950,17 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
-"@capacitor/core@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.0.1.tgz#9e4498034b9e23ac7f3fcfd395fe79185c5d7779"
-  integrity sha512-17iFkpICdOdTqfbKh3oXFYbwXn9dSxLe85PWeptXSW5jkiHN/YhI+iedRpcukv1QXkR1P629B+7kDqBcrzKL9w==
+"@capacitor/core@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.0.2.tgz#57d20aab346804fdc0499185537c6cb0f8394a25"
+  integrity sha512-uvKvX++uj17pK2LYekPJlxsEprUTmqPk/SdDwczj5I/pmloAV8TkQ/zqwI+yOC9h6hEwRBZ689TGTS1GfPnYuA==
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/status-bar@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.1.tgz#08994946acfb31bb2e90136fd9d5fc302215e1d4"
-  integrity sha512-5JwaseLxyhT8P86WiL776+1UTxR3k7klH4hU+gBD5UdAHRP4/jyS1/FiEuUpkMAMy6yvCJcDwZl8b6P1zWbiMQ==
+"@capacitor/status-bar@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.2.tgz#b432403bab8ff5dc4b4f013c35aa1f85cc0651c8"
+  integrity sha512-NgAZIw8Uq2lm6Ln1lWipAqi/YxqIDd92boO4k81Z1WMOdZJt6oLxZB8LfJRDLXU7xNkpW97zHcNBf5pIXJIFqw==
 
 "@electron/get@^1.3.1":
   version "1.12.4"
@@ -2607,7 +2607,12 @@ core-js-compat@^3.14.0, core-js-compat@^3.6.5:
     browserslist "^4.16.6"
     semver "7.0.0"
 
-core-js@^3.15.0, core-js@^3.6.5:
+core-js@^3.15.1:
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.1.tgz#6c08ab88abdf56545045ccf5fd81f47f407e7f1a"
+  integrity sha512-h8VbZYnc9pDzueiS2610IULDkpFFPunHwIpl8yRwFahAEEdSpHlTy3h3z3rKq5h11CaUdBEeRViu9AYvbxiMeg==
+
+core-js@^3.6.5:
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.0.tgz#db9554ebce0b6fd90dc9b1f2465c841d2d055044"
   integrity sha512-GUbtPllXMYRzIgHNZ4dTYTcUemls2cni83Q4Q/TrFONHfhcg9oEGOtaGHfb0cpzec60P96UKPvMkjX1jET8rUw==
@@ -3275,10 +3280,10 @@ eslint-plugin-import@^2.23.4:
     resolve "^1.20.0"
     tsconfig-paths "^3.9.0"
 
-eslint-plugin-vue@^7.11.1:
-  version "7.11.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.11.1.tgz#77eb4b44032d5cca79f9af21d06991d8694a314a"
-  integrity sha512-lbw3vkEAGqYjqd1HpPFWHXtYaS8mILTJ5KOpJfRxO3Fo7o0wCf1zD7vSOasbm6nTA9xIgvZQ4VcyGIzQXxznHw==
+eslint-plugin-vue@^7.12.1:
+  version "7.12.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.12.1.tgz#ef6499ce4fe0566659c8e12c71713f5308630a76"
+  integrity sha512-xHf/wCt88qmzqQerjaSteUFGASj7fPreglKD4ijnvoKRkoSJ3/H3kuJE8QFFtc+2wjw6hRDs834HH7vpuTJQzg==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"

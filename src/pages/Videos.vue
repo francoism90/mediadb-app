@@ -80,9 +80,12 @@ export default defineComponent({
         component: Filters,
         componentProps: {
           position: 'left',
-          fullHeight: true,
           maximized: true,
+          transitionShow: 'slide-right',
+          transitionHide: 'slide-left',
         },
+        // transitionShow: 'slide-right',
+        // transitionHide: 'slide-right',
       });
     };
 

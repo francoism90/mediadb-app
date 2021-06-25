@@ -1,10 +1,9 @@
 <template>
   <q-dialog
     ref="dialogRef"
-    class="video-filters"
     @hide="onDialogHide"
   >
-    <div>
+    <div class="video-filters">
       <q-input
         v-model="store.query.filter.query"
       />
