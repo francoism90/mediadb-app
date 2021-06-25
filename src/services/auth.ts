@@ -2,7 +2,6 @@ import { useSessionStore } from 'src/store/session';
 import { SessionStorage } from 'quasar';
 import { auth, login, logout } from 'src/repositories/user';
 import { AuthUser, LoginUser } from 'src/interfaces/session';
-import { setCsrfCookie } from 'src/services/api';
 
 export const store = useSessionStore();
 
@@ -29,8 +28,6 @@ export async function authenticate(payload: AuthUser): Promise<boolean> {
 }
 
 export async function signIn(payload: LoginUser): Promise<void> {
-  await setCsrfCookie();
-
   const response = await login(payload);
 
   store.initialize(response);

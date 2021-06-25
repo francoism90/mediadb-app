@@ -69,7 +69,7 @@ export default defineComponent({
     const $q = useQuasar();
 
     const { router } = useRouter();
-    const { store } = useSession();
+    const { store, useCsrfCookie } = useSession();
 
     const formRef = ref<HTMLFormElement | null>(null);
     const form = reactive<LoginUser>({
@@ -83,7 +83,9 @@ export default defineComponent({
 
     const onSubmit = async (): Promise<void> => {
       try {
+        await useCsrfCookie();
         await signIn(form);
+
         await router.push(store.redirectUri || '/');
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
