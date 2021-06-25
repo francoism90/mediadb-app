@@ -40,7 +40,10 @@ export const useVideosStore = defineStore({
     reset(payload: VideosQuery | undefined): void {
       this.data = <VideoModel[]>[];
       this.meta = <VideosMeta>{};
-      this.links = <VideosLinks>{};
+      this.links = <VideosLinks>{
+        first: null,
+        next: null,
+      };
 
       if (payload) {
         this.query = assign(this.query, payload);

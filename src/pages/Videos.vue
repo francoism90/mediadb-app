@@ -44,8 +44,6 @@ export default defineComponent({
   name: 'Videos',
 
   async preFetch({ redirect, urlPath }) {
-    console.log(urlPath);
-
     const authenticated = await authenticate({ redirectUri: urlPath });
 
     if (!authenticated) {
