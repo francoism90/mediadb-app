@@ -1,8 +1,14 @@
 <template>
   <q-page class="container">
-    <!-- <q-toolbar class="q-py-lg">
-      <filters />
-    </q-toolbar> -->
+    <q-toolbar class="q-py-lg">
+      <q-btn
+        icon="filter_list"
+        label="Filters"
+        color="grey-5"
+        outline
+        @click="showFilters"
+      />
+    </q-toolbar>
 
     <q-pull-to-refresh
       :key="store.id"
@@ -33,8 +39,8 @@
 </template>
 
 <script lang="ts">
-import { useMeta } from 'quasar';
-// import Filters from 'src/components/videos/Filters.vue';
+import { useMeta, useQuasar } from 'quasar';
+import Filters from 'src/components/videos/Filters.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
 import { authenticate } from 'src/services/auth';
@@ -42,6 +48,10 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Videos',
+
+  components: {
+    Item,
+  },
 
   async preFetch({ redirect, urlPath }) {
     const authenticated = await authenticate({ redirectUri: urlPath });
@@ -51,12 +61,8 @@ export default defineComponent({
     }
   },
 
-  components: {
-    Item,
-    // Filters,
-  },
-
   setup() {
+    const $q = useQuasar();
     const { store, fetchAll, reset } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -67,6 +73,17 @@ export default defineComponent({
       } catch {
         await done(true);
       }
+    };
+
+    const showFilters = (): void => {
+      $q.dialog({
+        component: Filters,
+        componentProps: {
+          position: 'left',
+          fullHeight: true,
+          maximized: true,
+        },
+      });
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -82,6 +99,7 @@ export default defineComponent({
     return {
       onLoad,
       onRefresh,
+      showFilters,
       store,
     };
   },
