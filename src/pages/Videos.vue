@@ -65,8 +65,7 @@ export default defineComponent({
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
         await fetchAll();
-        // await done(store.isDone);
-        await done(true);
+        await done(store.isDone);
       } catch {
         await done(true);
       }
