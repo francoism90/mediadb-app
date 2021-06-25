@@ -10,6 +10,9 @@ export const useVideosStore = defineStore({
   state: () => (<VideosState>{
     id: null,
     query: <VideosQuery>{
+      filter: {
+        query: null,
+      },
       sort: 'recommended',
       'page[number]': 1,
       'page[size]': 12,

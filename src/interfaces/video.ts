@@ -17,6 +17,7 @@ export interface VideoResponse {
 }
 
 export interface VideosFilters {
+  query: string | null,
   actors: string[] | null,
   genres: string[] | null,
   languages: string[] | null,
