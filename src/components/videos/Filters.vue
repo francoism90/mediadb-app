@@ -51,6 +51,14 @@
 import { useDialogPluginComponent } from 'quasar';
 import useVideos from 'src/composables/useVideos';
 
+const sorters = [
+  { label: 'Recommended', value: 'recommended' },
+  { label: 'Trending', value: 'trending' },
+  { label: 'Most Recent', value: '-created_at' },
+  { label: 'Longest', value: '-duration' },
+  { label: 'Shortest', value: 'duration' },
+];
+
 export default {
   emits: [
     ...useDialogPluginComponent.emits,
@@ -64,6 +72,7 @@ export default {
       dialogRef,
       onDialogHide,
       store,
+      sorters,
     };
   },
 };

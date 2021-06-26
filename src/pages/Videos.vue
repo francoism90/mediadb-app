@@ -44,7 +44,7 @@ import Filters from 'src/components/videos/Filters.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
 import { authenticate } from 'src/services/auth';
-import { defineComponent } from 'vue';
+import { defineComponent, watch } from 'vue';
 
 export default defineComponent({
   name: 'Videos',
@@ -92,6 +92,8 @@ export default defineComponent({
       reset();
       done();
     };
+
+    watch(store.query, reset);
 
     useMeta(() => ({
       title: 'Videos',

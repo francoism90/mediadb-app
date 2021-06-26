@@ -2,7 +2,6 @@ import { api } from 'src/boot/axios';
 import { VideosQuery } from 'src/interfaces/video';
 import { all } from 'src/repositories/video';
 import { useVideosStore } from 'src/store/videos';
-import { watch } from 'vue';
 
 export default function useVideos() {
   const store = useVideosStore();
@@ -33,8 +32,6 @@ export default function useVideos() {
   const reset = (): void => {
     store.reset(<VideosQuery>{ 'page[number]': 1 });
   };
-
-  watch(store.query, reset);
 
   return {
     store,
