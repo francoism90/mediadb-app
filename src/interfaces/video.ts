@@ -2,13 +2,16 @@ import { MediaModel } from 'src/interfaces/media';
 import {
   Model, RepositoryLinks, RepositoryMeta, RepositoryQuery,
 } from 'src/interfaces/repository';
+import { TagModel } from 'src/interfaces/tag';
 
 export type VideosMeta = RepositoryMeta
 export type VideosLinks = RepositoryLinks
 
 export interface VideoModel extends Model {
   clip: MediaModel | null,
+  tags: TagModel[] | null,
   favorite?: boolean,
+  'release_date': string | null,
 }
 
 export interface VideoResponse {

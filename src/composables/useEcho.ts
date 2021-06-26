@@ -1,7 +1,8 @@
-import { initialize } from 'src/services/echo';
+import { echoKey } from 'src/services/echo';
+import { inject } from 'vue';
 
 export default function useEcho() {
-  const echo = initialize();
+  const echo = inject(echoKey);
 
   return {
     echo,
