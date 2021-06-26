@@ -18,10 +18,10 @@ export interface RepositoryMeta {
 }
 
 export interface RepositoryLinks {
-  first: string | null,
-  last: string | null,
-  next: string | null,
-  prev: string | null,
+  first?: string | null,
+  last?: string | null,
+  next?: string | null,
+  prev?: string | null,
 }
 
 export interface RepositoryQuery {
