@@ -10,7 +10,6 @@
       preload="metadata"
       autoplay
       class="col"
-      crossorigin="anonymous"
       controls
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
