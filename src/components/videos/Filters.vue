@@ -84,6 +84,7 @@
           <q-item-label class="full-width">
             <q-select
               v-model="store.query.filter.tags"
+              :options="tags"
               class="q-my-sm"
               counter
               dense
@@ -100,7 +101,6 @@
               square
               use-chips
               use-input
-              :options="tags"
               @filter="filterTags"
             >
               <template #option="scope">

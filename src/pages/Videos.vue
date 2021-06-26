@@ -13,16 +13,16 @@
 
       <q-select
         v-model="store.query.sort"
+        :options="sorters"
         borderless
+        class="text-caption"
         dense
         dropdown-icon="expand_more"
-        hide-bottom-space
         emit-value
+        hide-bottom-space
         map-options
         options-dense
-        class="text-caption"
         popup-content-class="bg-grey-10"
-        :options="sorters"
       >
         <template #prepend>
           <span class="text-caption">Sort by</span>
