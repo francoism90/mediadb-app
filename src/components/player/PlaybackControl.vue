@@ -38,7 +38,6 @@
 </template>
 
 <script lang="ts">
-import useEmittery from 'src/composables/useEmittery';
 import usePlayer from 'src/composables/usePlayer';
 import { computed, defineComponent } from 'vue';
 
@@ -46,22 +45,21 @@ export default defineComponent({
   name: 'PlaybackControl',
 
   setup() {
-    const { emitter } = useEmittery();
     const { store } = usePlayer();
 
     const icon = computed(() => (store.properties.paused === true ? 'play_arrow' : 'pause'));
 
     const decreaseTime = (): void => {
       const currentTime = store.properties.currentTime || 0;
-      emitter?.emit('player', { time: currentTime - 10 });
+      store.dispatch({ time: currentTime - 10 });
     };
 
     const increaseTime = (): void => {
       const currentTime = store.properties.currentTime || 0;
-      emitter?.emit('player', { time: currentTime + 10 });
+      store.dispatch({ time: currentTime + 10 });
     };
 
-    const togglePlayback = () => emitter?.emit('player', { playback: !store.properties.paused });
+    const togglePlayback = () => store.dispatch({ playback: !store.properties.paused });
 
     return {
       decreaseTime,

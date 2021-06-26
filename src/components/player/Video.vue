@@ -26,12 +26,11 @@
 
 <script lang="ts">
 import VideoControls from 'src/components/player/VideoControls.vue';
-import useEmittery from 'src/composables/useEmittery';
 import usePlayer from 'src/composables/usePlayer';
 import { PlayerRequest } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRefs,
+  defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRefs, watch,
 } from 'vue';
 
 export default defineComponent({
@@ -50,7 +49,7 @@ export default defineComponent({
 
   setup(props) {
     const { video } = toRefs(props);
-    const { emitter } = useEmittery();
+
     const {
       useVideo, destroy, useEvents, destroyEvents, store,
     } = usePlayer();
@@ -86,7 +85,7 @@ export default defineComponent({
       if (event && 'time' in event) setCurrentTime(event.time || 0);
     };
 
-    emitter?.on('player', (e) => playerEvent(e));
+    watch(() => store.$state.request, playerEvent);
 
     onMounted(async () => {
       resetMedia();
