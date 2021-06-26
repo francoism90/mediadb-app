@@ -17,11 +17,11 @@ export const usePlayerStore = defineStore({
   }),
 
   getters: {
-    isLoading(): boolean {
+    isReady(): boolean {
+      const readyState = this.properties.readyState || 0;
+
       return (
-        !this.properties.ended
-        && this.properties.readyState !== null
-        && this.properties.readyState < 3
+        this.properties.ended === false && readyState > 1
       );
     },
   },
