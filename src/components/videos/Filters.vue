@@ -35,7 +35,49 @@
           header
           class="video-filter-header"
         >
-          Filter List
+          Filter On List
+        </q-item-label>
+
+        <q-item
+          v-ripple
+          tag="label"
+        >
+          <q-item-section side>
+            <q-checkbox
+              v-model="store.query.filter.favorites"
+              size="sm"
+              :true-value="1"
+              :false-value="null"
+            />
+          </q-item-section>
+          <q-item-section>Bookmarks</q-item-section>
+        </q-item>
+
+        <q-item
+          v-ripple
+          tag="label"
+        >
+          <q-item-section side>
+            <q-checkbox
+              v-model="store.query.filter.favorites"
+              size="sm"
+              :true-value="1"
+              :false-value="null"
+            />
+          </q-item-section>
+          <q-item-section>Watchlist</q-item-section>
+        </q-item>
+
+        <q-separator
+          spaced
+          class="transparent"
+        />
+
+        <q-item-label
+          header
+          class="video-filter-header"
+        >
+          Filter On Tags
         </q-item-label>
 
         <q-item
