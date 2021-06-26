@@ -16,10 +16,7 @@
     </template>
 
     <template v-if="video && video.id">
-      <!-- <video-player
-        :module="`video-${id}`"
-        :video="video"
-      /> -->
+      <video-player :video="video" />
 
       <div class="container">
         <video-details
@@ -41,7 +38,7 @@
 <script lang="ts">
 import { useMeta } from 'quasar';
 import { authenticate } from 'src/services/auth';
-// import VideoPlayer from 'src/components/player/Video.vue';
+import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
 // import VideoRelated from 'src/components/video/Related.vue';
 import useVideo from 'src/composables/useVideo';
@@ -59,7 +56,7 @@ export default defineComponent({
 
   components: {
     VideoDetails,
-    // VideoPlayer,
+    VideoPlayer,
     // VideoRelated,
   },
 
