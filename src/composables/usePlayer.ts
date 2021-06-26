@@ -1,11 +1,13 @@
 import { Player } from 'shaka-player';
 import { VideoModel } from 'src/interfaces/video';
 import { initialize } from 'src/services/shaka';
-import { syncEvents } from 'src/services/player';
+import { readonlyProperties, syncEvents } from 'src/services/player';
 import { usePlayerStore } from 'src/store/player';
 import {
   Ref, ref,
 } from 'vue';
+import { debounce, pick } from 'lodash';
+import { PlayerProperties } from 'src/interfaces/player';
 
 interface Props {
   video?: Ref<VideoModel>
@@ -15,9 +17,14 @@ export default function usePlayer(props: Props) {
   const player = ref<Player>();
   const store = usePlayerStore();
 
-  const syncProperties = (): void => {
-    // store.populate(payload)
+  const setProperties = (event: Event | null): void => {
+    const target = event?.target as HTMLMediaElement;
+    const properties = <PlayerProperties>pick(target, readonlyProperties);
+
+    store.populate(properties);
   };
+
+  const syncProperties = debounce(setProperties, 100);
 
   const useVideo = async (dom: HTMLMediaElement | null): Promise<void> => {
     const source = props.video?.value.clip?.stream_url || '';
