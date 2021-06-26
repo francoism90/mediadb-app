@@ -55,7 +55,7 @@ export interface Props {
 }
 
 export default defineComponent({
-  name: 'VideoPage',
+  name: 'Video',
 
   components: {
     VideoDetails,

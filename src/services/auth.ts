@@ -17,6 +17,10 @@ export function setToken(payload: string | null): void {
 export async function authenticate(payload: AuthUser): Promise<boolean> {
   const sessionToken = payload.token || getToken();
 
+  console.log(payload.redirectUri);
+
+  store.redirectUri = payload.redirectUri || '/';
+
   try {
     setAuthHeader(sessionToken || '');
 
@@ -24,7 +28,6 @@ export async function authenticate(payload: AuthUser): Promise<boolean> {
     store.initialize(response);
   } catch {
     store.reset();
-    store.redirectUri = payload.redirectUri || '/';
   }
 
   return store.isAuthenticated;

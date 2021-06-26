@@ -86,7 +86,7 @@ export default defineComponent({
         await useCsrfCookie();
         await signIn(form);
 
-        await router.push(store.redirectUri || '/');
+        await router.replace(store.redirectUri || '/');
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 

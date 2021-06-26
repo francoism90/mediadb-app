@@ -3,32 +3,20 @@
 </template>
 
 <script lang="ts">
-import useRouter from 'src/composables/useRouter';
-import useSession from 'src/composables/useSession';
-import { AuthUser } from 'src/interfaces/session';
-import { signOut } from 'src/services/auth';
-import { defineComponent, onMounted, reactive } from 'vue';
+import { authenticate, getToken, signOut } from 'src/services/auth';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Logout',
 
-  setup() {
-    const { router } = useRouter();
-    const { store } = useSession();
+  async preFetch({ redirect }) {
+    const authenticated = await authenticate({ redirectUri: '/' });
 
-    const form = reactive<AuthUser>({
-      token: store.token || '',
-    });
+    if (authenticated) {
+      await signOut({ token: getToken() });
+    }
 
-    onMounted(async () => {
-      try {
-        await signOut(form);
-      } catch {
-        //
-      } finally {
-        await router.push({ name: 'home' });
-      }
-    });
+    redirect({ path: '/login' });
   },
 });
 </script>
