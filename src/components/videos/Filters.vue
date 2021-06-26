@@ -77,21 +77,27 @@
           header
           class="video-filter-header"
         >
-          Filter On Tags
+          Filter By Tag
         </q-item-label>
 
-        <q-item
-          v-ripple
-          tag="label"
-        >
-          <q-item-section>
+        <q-item>
+          <q-item-label>
             <q-select
               v-model="store.query.filter.tags"
+              class="q-my-sm"
+              counter
+              dense
               display-value="name"
-              option-value="id"
+              dropdown-icon="expand_more"
               emit-value
+              filled
               map-options
+              max-values="5"
               multiple
+              option-label="name"
+              option-value="slug"
+              popup-content-class="bg-grey-10"
+              square
               use-chips
               use-input
               :options="tags"
@@ -114,7 +120,7 @@
                 </q-item>
               </template>
             </q-select>
-          </q-item-section>
+          </q-item-label>
         </q-item>
       </q-list>
     </div>
@@ -123,6 +129,7 @@
 
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
+import { onBeforeMount } from 'vue';
 import useVideos from 'src/composables/useVideos';
 import useTagInput from 'src/composables/useTagInput';
 
@@ -144,16 +151,23 @@ export default {
     const { store } = useVideos();
     const { fetch: fetchTags, reset: resetTags, data: tags } = useTagInput();
 
+    onBeforeMount(async () => {
+      await fetchTags({
+        filter: { id: store.query.filter?.tags },
+        page: { number: 1, size: 5 },
+      });
+    });
+
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
+    const filterTags = async (val: string, update: Function): Promise<void> => {
       resetTags();
 
-      if (val.length < 1) {
-        abort();
-        return;
-      }
+      await fetchTags({
+        filter: { query: val },
+        page: { number: 1, size: 5 },
+        sort: val.length < 1 ? 'items' : 'recommended',
+      });
 
-      await fetchTags({ filter: { query: val }, page: { number: 1, size: 5 } });
       await update();
     };
 

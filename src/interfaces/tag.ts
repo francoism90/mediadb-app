@@ -18,6 +18,7 @@ export interface TagResponse {
 }
 
 export interface TagsFilters {
+  id?: string[] | null,
   type?: string | null,
   query?: string | null
 }
