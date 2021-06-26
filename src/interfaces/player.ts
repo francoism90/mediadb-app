@@ -2,7 +2,6 @@ import { VideoModel } from 'src/interfaces/video';
 
 export interface PlayerProperties {
   buffered: TimeRanges | null,
-  controls: boolean,
   currentSrc: string | null,
   currentTime: number | null,
   duration: number | null,
@@ -27,15 +26,22 @@ export interface PlayerTooltip {
   time: number,
 }
 
+export interface PlayerRequest {
+  controls?: number,
+  fullscreen?: number,
+  playback?: number,
+  rate?: number,
+  time?: number,
+}
+
 export interface PlayerState {
   id: string | number | null,
   source: string | null,
-  fullscreen: boolean | null,
-  playbackRate: number | null,
-  requestTime: number | null,
   // audio?: AudioModel,
   video?: VideoModel,
+  controls: boolean,
   properties: PlayerProperties,
+  request: PlayerRequest,
 }
 
 export interface PlayerVideo {

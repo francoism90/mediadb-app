@@ -50,16 +50,14 @@ export default defineComponent({
     const icon = computed(() => (store.properties.paused === true ? 'play_arrow' : 'pause'));
 
     const decreaseTime = () => {
-      store.requestTime = store.properties.currentTime || 0 - 10;
+      // store.requests.time = store.properties.currentTime || 0 - 10;
     };
 
     const increaseTime = () => {
-      store.requestTime = store.properties.currentTime || 0 + 10;
+      // store.requests.time = store.properties.currentTime || 0 + 10;
     };
 
-    const togglePlayback = () => {
-      store.properties.paused = !store.properties.paused;
-    };
+    const togglePlayback = () => store.dispatch({ playback: Date.now() });
 
     return {
       decreaseTime,

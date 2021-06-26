@@ -1,19 +1,14 @@
+import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerState } from 'src/interfaces/player';
+import { PlayerProperties, PlayerRequest, PlayerState } from 'src/interfaces/player';
 
 export const usePlayerStore = defineStore({
   id: 'player',
 
   state: () => (<PlayerState>{
     id: null,
-    fullscreen: false,
-    playbackRate: 1.0,
-    requestTime: 0,
-    properties: <PlayerProperties>{
-      controls: false,
-      played: null,
-      volume: 1,
-    },
+    properties: <PlayerProperties>{},
+    request: <PlayerRequest>{},
   }),
 
   getters: {
@@ -30,6 +25,10 @@ export const usePlayerStore = defineStore({
     populate(payload: PlayerProperties): void {
       const propValues = { ...this.properties, ...payload };
       this.properties = { ...this.properties, ...propValues };
+    },
+
+    dispatch(payload: PlayerRequest) {
+      this.request = assign(this.request, payload);
     },
   },
 });

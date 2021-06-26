@@ -15,6 +15,9 @@
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :poster="video.clip?.thumbnail_url"
+      :muted="store.properties.muted"
+      :playbackRate="store.properties.playbackRate"
+      :volume="store.properties.volume"
     />
 
     <video-controls />
@@ -24,6 +27,7 @@
 <script lang="ts">
 import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
+import { PlayerRequest } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import {
   defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRefs,
@@ -46,17 +50,26 @@ export default defineComponent({
   setup(props) {
     const { video } = toRefs(props);
     const {
-      useVideo, useEvents, destroyEvents, store,
+      useVideo, destroy, useEvents, destroyEvents, store,
     } = usePlayer();
 
     const containerDom = ref<HTMLDivElement | null>(null);
     const mediaDom = ref<HTMLMediaElement | null>(null);
 
+    // @doc https://stackoverflow.com/a/28060352
     const resetMediaDom = (): void => {
-      // @doc https://stackoverflow.com/a/28060352
       mediaDom.value?.pause();
       mediaDom.value?.removeAttribute('src');
       mediaDom.value?.load();
+    };
+
+    const togglePlayback = async (): Promise<void> => {
+      if (mediaDom.value?.paused) {
+        await mediaDom.value?.play();
+        return;
+      }
+
+      mediaDom.value?.pause();
     };
 
     onMounted(async () => {
@@ -69,9 +82,24 @@ export default defineComponent({
       });
     });
 
-    onBeforeUnmount(() => {
+    onBeforeUnmount(async () => {
       destroyEvents(mediaDom.value);
       resetMediaDom();
+
+      await destroy();
+    });
+
+    store.$onAction(({ name, args, after }) => {
+      after(() => {
+        if (name === 'dispatch') {
+          const request = args[0] as PlayerRequest;
+
+          console.log(request.playback);
+        }
+      });
+
+    // console.log('do');
+    // console.log(args);
     });
 
     return {

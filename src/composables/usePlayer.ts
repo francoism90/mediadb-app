@@ -43,7 +43,7 @@ export default function usePlayer() {
     });
   };
 
-  const destroyVideo = async (): Promise<void> => {
+  const destroy = async (): Promise<void> => {
     await player.value?.detach();
     await player.value?.destroy();
   };
@@ -51,7 +51,7 @@ export default function usePlayer() {
   return {
     useVideo,
     useEvents,
-    destroyVideo,
+    destroy,
     destroyEvents,
     player,
     store,
