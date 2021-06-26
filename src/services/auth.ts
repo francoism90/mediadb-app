@@ -1,5 +1,5 @@
 import { useSessionStore } from 'src/store/session';
-import { SessionStorage } from 'quasar';
+import { LocalStorage } from 'quasar';
 import { auth, login, logout } from 'src/repositories/user';
 import { AuthUser, LoginUser } from 'src/interfaces/session';
 import { setAuthHeader } from 'src/boot/axios';
@@ -7,11 +7,11 @@ import { setAuthHeader } from 'src/boot/axios';
 export const store = useSessionStore();
 
 export function getToken(): string | null {
-  return SessionStorage.getItem('token');
+  return LocalStorage.getItem('token');
 }
 
 export function setToken(payload: string | null): void {
-  SessionStorage.set('token', payload || '');
+  LocalStorage.set('token', payload || '');
 }
 
 export async function authenticate(payload: AuthUser): Promise<boolean> {
