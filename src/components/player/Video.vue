@@ -1,10 +1,10 @@
 <template>
   <div
-    ref="containerDom"
+    ref="container"
     class="relative-position row no-wrap justify-center items-center player-container"
   >
     <video
-      ref="mediaDom"
+      ref="media"
       autoPictureInPicture
       playsinline
       preload="metadata"
@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import VideoControls from 'src/components/player/VideoControls.vue';
+import useEmittery from 'src/composables/useEmittery';
 import usePlayer from 'src/composables/usePlayer';
 import { PlayerRequest } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
@@ -49,62 +50,65 @@ export default defineComponent({
 
   setup(props) {
     const { video } = toRefs(props);
+    const { emitter } = useEmittery();
     const {
       useVideo, destroy, useEvents, destroyEvents, store,
     } = usePlayer();
 
-    const containerDom = ref<HTMLDivElement | null>(null);
-    const mediaDom = ref<HTMLMediaElement | null>(null);
+    const container = ref<HTMLDivElement | null>(null);
+    const media = ref<HTMLMediaElement | null>(null);
 
-    // @doc https://stackoverflow.com/a/28060352
-    const resetMediaDom = (): void => {
-      mediaDom.value?.pause();
-      mediaDom.value?.removeAttribute('src');
-      mediaDom.value?.load();
+    const resetMedia = (): void => {
+      // @doc https://stackoverflow.com/a/28060352
+      media.value?.pause();
+      media.value?.removeAttribute('src');
+      media.value?.load();
+    };
+
+    const setCurrentTime = (value: number): void => {
+      if (media.value) {
+        media.value.currentTime = value;
+      }
     };
 
     const togglePlayback = async (): Promise<void> => {
-      if (mediaDom.value?.paused) {
-        await mediaDom.value?.play();
+      if (media.value?.paused) {
+        await media.value?.play();
         return;
       }
 
-      mediaDom.value?.pause();
+      media.value?.pause();
     };
 
+    const playerEvent = async (event: PlayerRequest | undefined): Promise<void> => {
+      console.log(event);
+      if (event && 'playback' in event) await togglePlayback();
+      if (event && 'time' in event) setCurrentTime(event.time || 0);
+    };
+
+    emitter?.on('player', (e) => playerEvent(e));
+
     onMounted(async () => {
-      useEvents(mediaDom.value);
+      resetMedia();
+      useEvents(media.value);
 
       await useVideo({
-        dom: mediaDom.value,
+        dom: media.value,
         model: video.value,
         source: video.value.clip?.stream_url,
       });
     });
 
     onBeforeUnmount(async () => {
-      destroyEvents(mediaDom.value);
-      resetMediaDom();
+      destroyEvents(media.value);
+      resetMedia();
 
       await destroy();
     });
 
-    store.$onAction(({ name, args, after }) => {
-      after(() => {
-        if (name === 'dispatch') {
-          const request = args[0] as PlayerRequest;
-
-          console.log(request.playback);
-        }
-      });
-
-    // console.log('do');
-    // console.log(args);
-    });
-
     return {
-      containerDom,
-      mediaDom,
+      container,
+      media,
       store,
     };
   },

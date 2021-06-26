@@ -31,6 +31,7 @@ module.exports = configure((ctx) => ({
     'pinia',
     'i18n',
     'axios',
+    'emittery',
     'echo',
   ],
 

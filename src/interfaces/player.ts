@@ -27,9 +27,9 @@ export interface PlayerTooltip {
 }
 
 export interface PlayerRequest {
-  controls?: number,
-  fullscreen?: number,
-  playback?: number,
+  controls?: boolean,
+  fullscreen?: boolean,
+  playback?: boolean,
   rate?: number,
   time?: number,
 }
@@ -41,7 +41,6 @@ export interface PlayerState {
   video?: VideoModel,
   controls: boolean,
   properties: PlayerProperties,
-  request: PlayerRequest,
 }
 
 export interface PlayerVideo {
