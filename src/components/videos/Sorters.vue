@@ -122,6 +122,30 @@
             </q-select>
           </q-item-label>
         </q-item>
+
+        <q-item-label
+          header
+          class="video-filter-header"
+        >
+          Sort By
+        </q-item-label>
+
+        <q-item>
+          <q-item-label class="full-width">
+            <q-select
+              v-model="store.query.sort"
+              class="q-my-sm"
+              dense
+              dropdown-icon="expand_more"
+              emit-value
+              filled
+              map-options
+              popup-content-class="bg-grey-10"
+              square
+              :options="sorters"
+            />
+          </q-item-label>
+        </q-item>
       </q-list>
     </div>
   </q-dialog>
@@ -132,6 +156,14 @@ import { useDialogPluginComponent } from 'quasar';
 import { onBeforeMount } from 'vue';
 import useVideos from 'src/composables/useVideos';
 import useTagInput from 'src/composables/useTagInput';
+
+const sorters = [
+  { label: 'Recommended', value: 'recommended' },
+  { label: 'Trending', value: 'trending' },
+  { label: 'Most Recent', value: '-created_at' },
+  { label: 'Longest', value: '-duration' },
+  { label: 'Shortest', value: 'duration' },
+];
 
 export default {
   emits: [
@@ -168,6 +200,7 @@ export default {
       onDialogHide,
       filterTags,
       store,
+      sorters,
       tags,
     };
   },
