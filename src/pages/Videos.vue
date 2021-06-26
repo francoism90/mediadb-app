@@ -8,6 +8,26 @@
         outline
         @click="showFilters"
       />
+
+      <q-space />
+
+      <q-select
+        v-model="store.query.sort"
+        borderless
+        dense
+        dropdown-icon="expand_more"
+        hide-bottom-space
+        emit-value
+        map-options
+        options-dense
+        class="text-caption"
+        popup-content-class="bg-grey-10"
+        :options="sorters"
+      >
+        <template #prepend>
+          <span class="text-caption">Sort by</span>
+        </template>
+      </q-select>
     </q-toolbar>
 
     <q-pull-to-refresh
@@ -45,6 +65,14 @@ import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
 import { authenticate } from 'src/services/auth';
 import { defineComponent, watch } from 'vue';
+
+const sorters = [
+  { label: 'Recommended', value: 'recommended' },
+  { label: 'Trending', value: 'trending' },
+  { label: 'Most Recent', value: '-created_at' },
+  { label: 'Longest', value: '-duration' },
+  { label: 'Shortest', value: 'duration' },
+];
 
 export default defineComponent({
   name: 'Videos',
@@ -104,6 +132,7 @@ export default defineComponent({
       onRefresh,
       showFilters,
       store,
+      sorters,
     };
   },
 });
