@@ -26,7 +26,7 @@ import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { VideoModel } from 'src/interfaces/video';
 import {
-  defineComponent, onMounted, PropType, ref, toRefs,
+  defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRefs,
 } from 'vue';
 
 export default defineComponent({
@@ -45,17 +45,33 @@ export default defineComponent({
 
   setup(props) {
     const { video } = toRefs(props);
-    const { useVideo, store } = usePlayer();
+    const {
+      useVideo, useEvents, destroyEvents, store,
+    } = usePlayer();
 
     const containerDom = ref<HTMLDivElement | null>(null);
     const mediaDom = ref<HTMLMediaElement | null>(null);
 
+    const resetMediaDom = (): void => {
+      // @doc https://stackoverflow.com/a/28060352
+      mediaDom.value?.pause();
+      mediaDom.value?.removeAttribute('src');
+      mediaDom.value?.load();
+    };
+
     onMounted(async () => {
+      useEvents(mediaDom.value);
+
       await useVideo({
         dom: mediaDom.value,
         model: video.value,
         source: video.value.clip?.stream_url,
       });
+    });
+
+    onBeforeUnmount(() => {
+      destroyEvents(mediaDom.value);
+      resetMediaDom();
     });
 
     return {
