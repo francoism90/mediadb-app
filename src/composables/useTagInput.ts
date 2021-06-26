@@ -30,5 +30,7 @@ export default function useTagInput() {
     fetch,
     reset,
     populate,
+    data,
+    meta,
   };
 }

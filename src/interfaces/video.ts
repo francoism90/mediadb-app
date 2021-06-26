@@ -17,16 +17,13 @@ export interface VideoResponse {
 }
 
 export interface VideosFilters {
-  query: string | null,
-  favorites: number | null,
-  actors: string[] | null,
-  genres: string[] | null,
-  languages: string[] | null,
-  studios: string[] | null,
+  favorites?: number | null,
+  query?: string | null,
+  tags?: string[] | null,
 }
 
 export interface VideosQuery extends RepositoryQuery {
-  filter: VideosFilters,
+  filter?: VideosFilters,
 }
 
 export interface VideosState {

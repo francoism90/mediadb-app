@@ -18,12 +18,12 @@ export interface TagResponse {
 }
 
 export interface TagsFilters {
-  type: string | null,
-  query: string | null
+  type?: string | null,
+  query?: string | null
 }
 
 export interface TagsQuery extends RepositoryQuery {
-  filter: TagsFilters
+  filter?: TagsFilters
 }
 
 export interface TagsResponse {
