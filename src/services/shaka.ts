@@ -28,6 +28,23 @@ export const ShakaConfig = {
   },
 };
 
+export const readonlyProperties = [
+  'buffered',
+  'currentSrc',
+  'currentTime',
+  'duration',
+  'ended',
+  'error',
+  'muted',
+  'networkState',
+  'paused',
+  'played',
+  'readyState',
+  'seekable',
+  'seeking',
+  'textTracks',
+];
+
 export function initialize(dom: HTMLMediaElement | null): Player {
   polyfill.installAll();
 

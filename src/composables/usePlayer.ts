@@ -15,12 +15,11 @@ export default function usePlayer(props: Props) {
   const store = usePlayerStore();
 
   const useVideo = async (dom: HTMLMediaElement | null): Promise<void> => {
-    const source = props.video?.value?.clip?.stream_url || ''; // TODO: add placeholder
+    const source = props.video?.value.clip?.stream_url || '';
 
     try {
-      player.value = initialize(dom);
-
-      await player.value.load(source);
+      const shakaPlayer = initialize(dom);
+      player.value = await shakaPlayer.load(source) as Player;
     } catch (e: unknown) {
       console.error(e);
     }
