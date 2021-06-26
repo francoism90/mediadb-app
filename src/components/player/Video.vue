@@ -16,10 +16,13 @@
       :width="video.clip?.width || 720"
       :poster="video.clip?.thumbnail_url"
     />
+
+    <video-controls />
   </div>
 </template>
 
 <script lang="ts">
+import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { VideoModel } from 'src/interfaces/video';
 import {
@@ -30,7 +33,7 @@ export default defineComponent({
   name: 'VideoPlayer',
 
   components: {
-    // ControlContainer,
+    VideoControls,
   },
 
   props: {
@@ -42,13 +45,17 @@ export default defineComponent({
 
   setup(props) {
     const { video } = toRefs(props);
-    const { useVideo, store } = usePlayer({ video });
+    const { useVideo, store } = usePlayer();
 
     const containerDom = ref<HTMLDivElement | null>(null);
     const mediaDom = ref<HTMLMediaElement | null>(null);
 
     onMounted(async () => {
-      await useVideo(mediaDom.value);
+      await useVideo({
+        dom: mediaDom.value,
+        model: video.value,
+        source: video.value.clip?.stream_url,
+      });
     });
 
     return {

@@ -6,12 +6,12 @@ export const usePlayerStore = defineStore({
 
   state: () => (<PlayerState>{
     id: null,
+    fullscreen: false,
+    playbackRate: 1.0,
+    requestTime: 0,
     properties: <PlayerProperties>{
       controls: false,
-      fullscreen: false,
-      playbackRate: 1.0,
       played: null,
-      requestTime: 0,
       volume: 1,
     },
   }),

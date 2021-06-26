@@ -1,19 +1,12 @@
 import { Player } from 'shaka-player';
-import { VideoModel } from 'src/interfaces/video';
 import { initialize } from 'src/services/shaka';
 import { readonlyProperties, syncEvents } from 'src/services/player';
 import { usePlayerStore } from 'src/store/player';
-import {
-  Ref, ref,
-} from 'vue';
+import { ref } from 'vue';
 import { debounce, pick } from 'lodash';
-import { PlayerProperties } from 'src/interfaces/player';
+import { PlayerProperties, PlayerVideo } from 'src/interfaces/player';
 
-interface Props {
-  video?: Ref<VideoModel>
-}
-
-export default function usePlayer(props: Props) {
+export default function usePlayer() {
   const player = ref<Player>();
   const store = usePlayerStore();
 
@@ -26,12 +19,13 @@ export default function usePlayer(props: Props) {
 
   const syncProperties = debounce(setProperties, 100);
 
-  const useVideo = async (dom: HTMLMediaElement | null): Promise<void> => {
-    const source = props.video?.value.clip?.stream_url || '';
+  const useVideo = async (props: PlayerVideo): Promise<void> => {
+    store.source = props.source || '';
+    store.video = props.model;
 
     try {
-      const shakaPlayer = initialize(dom);
-      player.value = await shakaPlayer.load(source) as Player;
+      const shakaPlayer = initialize(props.dom);
+      player.value = await shakaPlayer.load(store.source) as Player;
     } catch (e: unknown) {
       console.error(e);
     }

@@ -15,7 +15,6 @@ export interface PlayerProperties {
   playbackRate: number,
   played: TimeRanges | null,
   readyState: number | null,
-  requestTime: number,
   seekable: TimeRanges | null,
   seeking: boolean | null,
   textTracks: TextTrackList | null,
@@ -29,9 +28,18 @@ export interface PlayerTooltip {
 }
 
 export interface PlayerState {
-  ready: boolean,
   id: string | number | null,
+  source: string | null,
+  fullscreen: boolean | null,
+  playbackRate: number | null,
+  requestTime: number | null,
   // audio?: AudioModel,
   video?: VideoModel,
   properties: PlayerProperties,
+}
+
+export interface PlayerVideo {
+  dom: HTMLMediaElement | null,
+  model: VideoModel,
+  source: string | undefined | null,
 }
