@@ -43,8 +43,9 @@ import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { MediaModel } from 'src/interfaces/media';
+import { VideoModel } from 'src/interfaces/video';
 import { update } from 'src/repositories/media';
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ModelControl',
@@ -54,18 +55,20 @@ export default defineComponent({
 
     const { store } = usePlayer();
 
+    const model = computed(() => store.model as VideoModel);
+
     const editModel = (): void => {
       $q.dialog({
         component: VideoEdit,
         componentProps: {
-          video: store.video,
+          video: model.value,
         },
       });
     };
 
     const thumbnailMedia = async (): Promise<void> => {
       await update(<MediaModel>{
-        id: store.video?.clip?.id || '',
+        id: model.value.clip?.id || '',
         thumbnail: store.properties.currentTime || 10,
       });
 
@@ -76,7 +79,7 @@ export default defineComponent({
     };
 
     return {
-      store,
+      model,
       editModel,
       thumbnailMedia,
     };

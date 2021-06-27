@@ -19,10 +19,7 @@
       <video-player :video="video" />
 
       <div class="container">
-        <video-details
-          v-if="video.id"
-          :video="video"
-        />
+        <video-details :video="video" />
 
         <q-separator
           color="primary"
@@ -68,7 +65,6 @@ export default defineComponent({
 
     slug: {
       type: String as PropType<string>,
-      required: false,
       default: null,
     },
   },

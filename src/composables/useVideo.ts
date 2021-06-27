@@ -11,7 +11,7 @@ interface Props {
   id: Ref<string>
 }
 
-export default function useVideos(props: Props) {
+export default function useVideo(props: Props) {
   const { echo } = useEcho();
 
   const video = ref<VideoModel>();
@@ -47,7 +47,6 @@ export default function useVideos(props: Props) {
   };
 
   onMounted(fetch);
-
   watch(props.id, fetch);
 
   return {

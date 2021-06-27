@@ -111,7 +111,7 @@ export default defineComponent({
     const formRef = ref<HTMLFormElement | null>();
     const form = reactive<VideoModel>(<VideoModel>{
       id: props.video.id,
-      name: props.video.name || '',
+      name: props.video.name,
       overview: props.video.overview || '',
       tags: props.video.tags || [],
     });

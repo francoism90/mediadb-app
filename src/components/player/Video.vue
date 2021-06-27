@@ -74,6 +74,25 @@ export default defineComponent({
       media.value?.load();
     };
 
+    const loadVideo = async (): Promise<void> => {
+      resetMedia();
+      useEvents(media.value);
+
+      await useVideo({
+        type: 'video',
+        media: media.value,
+        model: video.value,
+        source: video.value.clip?.stream_url || '',
+      });
+    };
+
+    const unloadVideo = async (): Promise<void> => {
+      destroyEvents(media.value);
+      resetMedia();
+
+      await destroy();
+    };
+
     const setCurrentTime = (value: number): void => {
       if (media.value) {
         media.value.currentTime = value;
@@ -101,23 +120,8 @@ export default defineComponent({
 
     watch(() => store.$state.request, playerEvent);
 
-    onMounted(async () => {
-      resetMedia();
-      useEvents(media.value);
-
-      await useVideo({
-        dom: media.value,
-        model: video.value,
-        source: video.value.clip?.stream_url,
-      });
-    });
-
-    onBeforeUnmount(async () => {
-      destroyEvents(media.value);
-      resetMedia();
-
-      await destroy();
-    });
+    onMounted(loadVideo);
+    onBeforeUnmount(unloadVideo);
 
     return {
       container,

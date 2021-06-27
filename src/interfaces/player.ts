@@ -1,4 +1,5 @@
 import { DomOffset } from 'quasar';
+import { Model } from 'src/interfaces/repository';
 import { VideoModel } from 'src/interfaces/video';
 
 export interface PlayerProperties {
@@ -36,16 +37,16 @@ export interface PlayerRequest {
 
 export interface PlayerState {
   id: string | number | null,
-  source: string | null,
-  // audio?: AudioModel,
-  video?: VideoModel,
+  type: string,
+  model: Model,
+  source: string,
   controls: boolean,
   properties: PlayerProperties,
   request: PlayerRequest,
 }
-
-export interface PlayerVideo {
-  dom: HTMLMediaElement | null,
+export interface PlayerProps {
+  type: string | null,
+  media: HTMLMediaElement | null,
   model: VideoModel,
-  source: string | undefined | null,
+  source: string,
 }

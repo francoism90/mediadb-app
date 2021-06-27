@@ -4,7 +4,7 @@ import { readonlyProperties, syncEvents } from 'src/services/player';
 import { usePlayerStore } from 'src/store/player';
 import { ref } from 'vue';
 import { debounce, pick } from 'lodash';
-import { PlayerProperties, PlayerVideo } from 'src/interfaces/player';
+import { PlayerProperties, PlayerProps } from 'src/interfaces/player';
 
 export default function usePlayer() {
   const player = ref<Player>();
@@ -19,12 +19,11 @@ export default function usePlayer() {
 
   const syncProperties = debounce(setProperties, 100);
 
-  const useVideo = async (props: PlayerVideo): Promise<void> => {
-    store.source = props.source || '';
-    store.video = props.model;
+  const useVideo = async (payload: PlayerProps): Promise<void> => {
+    store.initialize(payload);
 
     try {
-      const shakaPlayer = initialize(props.dom);
+      const shakaPlayer = initialize(payload.media);
       player.value = await shakaPlayer.load(store.source) as Player;
     } catch (e: unknown) {
       console.error(e);

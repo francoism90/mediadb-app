@@ -1,11 +1,16 @@
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerRequest, PlayerState } from 'src/interfaces/player';
+import {
+  PlayerProperties, PlayerProps, PlayerRequest, PlayerState,
+} from 'src/interfaces/player';
+import { Model } from 'src/interfaces/repository';
 
 export const usePlayerStore = defineStore({
   id: 'player',
 
   state: () => (<PlayerState>{
     id: null,
+    type: 'auto',
+    model: <Model>{},
     properties: <PlayerProperties>{},
     request: <PlayerRequest>{},
   }),
@@ -21,6 +26,12 @@ export const usePlayerStore = defineStore({
   },
 
   actions: {
+    initialize(payload: PlayerProps): void {
+      this.model = Object.assign(this.model, payload.model);
+      this.source = payload.source;
+      this.type = payload.type || 'auto';
+    },
+
     dispatch(payload: PlayerRequest): void {
       this.request = payload;
     },
