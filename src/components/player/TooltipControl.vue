@@ -47,7 +47,6 @@ export default defineComponent({
     const position = computed(() => tooltip.value.clientX - tooltip.value.sliderOffset.left);
     const percent = computed(() => (position.value / tooltip.value.sliderWidth) * 100);
     const time = computed(() => duration.value * (percent.value / 100));
-
     const timestamp = computed(() => formatTime(time.value));
 
     const cue = computed(() => {
