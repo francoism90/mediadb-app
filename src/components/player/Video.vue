@@ -10,7 +10,6 @@
       preload="metadata"
       autoplay
       class="col"
-      controls
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :poster="video.clip?.thumbnail_url"

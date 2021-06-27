@@ -46,32 +46,22 @@
 
 .player-scrubber {
   z-index: 40;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
+  bottom: $space-base;
+  left: $space-base;
+  right: $space-base;
 
   .q-slider__track-container {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
 
     &::before {
       content: '';
       position: absolute;
-      left: var(--buffer);
-      top: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
+      width: var(--buffer);
       left: 0;
       top: 0;
       bottom: 0;
       right: 0;
-      background: rgba(255, 255, 255, 0.25);
-      z-index: -1;
+      background: rgba(255, 255, 255, 0.5);
     }
   }
 }
@@ -86,6 +76,6 @@
 
 .player-settings {
   z-index: 40;
-  top: 16px;
-  right: 16px;
+  top: $space-base;
+  right: $space-base;
 }
