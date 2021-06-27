@@ -1,6 +1,6 @@
 <template>
   <q-icon
-    name="closed_caption_off"
+    name="favorite_border"
     color="white"
     class="cursor-pointer"
     size="24px"

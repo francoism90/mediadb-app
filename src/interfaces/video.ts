@@ -10,7 +10,8 @@ export type VideosLinks = RepositoryLinks
 export interface VideoModel extends Model {
   clip: MediaModel | null,
   tags: TagModel[] | null,
-  favorite?: boolean,
+  favorite: boolean,
+  overview: string,
   'release_date': string | null,
 }
 
