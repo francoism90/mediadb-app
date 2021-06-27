@@ -55,7 +55,7 @@ export default defineComponent({
 
       return find(
         cues, (o) => o.startTime >= time.value || o.startTime >= (time.value - 30),
-      ) as VTTCue;
+      );
     });
 
     const tooltipStyle = computed(() => {
