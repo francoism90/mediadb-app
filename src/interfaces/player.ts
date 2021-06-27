@@ -24,8 +24,8 @@ export interface PlayerProperties {
 
 export interface PlayerTooltip {
   clientX: number,
-  sliderOffset: DomOffset | null,
-  sliderWidth: number | null,
+  sliderOffset: DomOffset,
+  sliderWidth: number,
 }
 
 export interface PlayerRequest {

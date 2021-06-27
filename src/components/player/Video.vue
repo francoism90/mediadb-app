@@ -10,13 +10,22 @@
       preload="metadata"
       autoplay
       class="col"
+      crossorigin="anonymous"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :poster="video.clip?.thumbnail_url"
       :muted="store.properties.muted"
       :playbackRate="store.properties.playbackRate"
       :volume="store.properties.volume"
-    />
+    >
+      <track
+        id="sprite"
+        default
+        kind="metadata"
+        srclang="en"
+        :src="video.clip?.sprite_url"
+      >
+    </video>
 
     <video-controls />
   </div>

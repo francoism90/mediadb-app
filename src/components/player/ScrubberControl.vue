@@ -87,7 +87,7 @@ export default defineComponent({
     const onMouseMove = (event: MouseEvent): void => {
       tooltip.value = {
         clientX: event.clientX,
-        sliderWidth: dom.width(slider.value?.$el),
+        sliderWidth: dom.width(slider.value?.$el || 0),
         sliderOffset: dom.offset(slider.value?.$el),
       };
     };

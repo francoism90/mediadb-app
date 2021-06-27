@@ -1,15 +1,17 @@
 <template>
-  <div
-    class="player-tooltip desktop-only"
-  >
+  <div class="player-tooltip desktop-only">
+    {{ position }}
     {{ tooltip }}
+    {{ time }}
   </div>
 </template>
 
 <script lang="ts">
+import useFilters from 'src/composables/useFilters';
+import usePlayer from 'src/composables/usePlayer';
 import { PlayerTooltip } from 'src/interfaces/player';
 import {
-  defineComponent, PropType,
+  computed, defineComponent, PropType, toRefs,
 } from 'vue';
 
 export default defineComponent({
@@ -23,10 +25,23 @@ export default defineComponent({
   },
 
   setup(props) {
+    const { tooltip } = toRefs(props);
+
+    const { formatTime } = useFilters();
+    const { store } = usePlayer();
+
+    const duration = computed(() => store.properties.duration || 0);
+    const position = computed(() => tooltip.value.clientX - tooltip.value.sliderOffset.left);
+    const percent = computed(() => (position.value / tooltip.value.sliderWidth) * 100);
+    const time = computed(() => formatTime(duration.value * (percent.value / 100)));
+
     console.log(props.tooltip);
+    console.log(store.source);
 
     return {
-      // sliderWidth,
+      position,
+      percent,
+      time,
     };
   },
 });
