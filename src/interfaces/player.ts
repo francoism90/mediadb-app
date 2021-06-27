@@ -8,6 +8,7 @@ export interface PlayerProperties {
   ended: boolean | null,
   error: string | null,
   fullscreen: boolean,
+  fullscreenEnabled: boolean,
   muted: boolean | null,
   networkState: number | null,
   paused: boolean | null,
@@ -27,6 +28,7 @@ export interface PlayerTooltip {
 }
 
 export interface PlayerRequest {
+  fullscreen?: boolean,
   playback?: boolean,
   time?: number
 }

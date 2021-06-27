@@ -25,6 +25,7 @@
 <script lang="ts">
 import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
+import { useQuasar } from 'quasar';
 import { PlayerRequest } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import {
@@ -48,6 +49,8 @@ export default defineComponent({
   setup(props) {
     const { video } = toRefs(props);
 
+    const $q = useQuasar();
+
     const {
       useVideo, destroy, useEvents, destroyEvents, store,
     } = usePlayer();
@@ -68,6 +71,10 @@ export default defineComponent({
       }
     };
 
+    const toggleFullscreen = async (): Promise<void> => {
+      await $q.fullscreen.toggle(<Element>container.value);
+    };
+
     const togglePlayback = async (): Promise<void> => {
       if (media.value?.paused) {
         await media.value?.play();
@@ -79,6 +86,7 @@ export default defineComponent({
 
     const playerEvent = async (event: PlayerRequest | undefined): Promise<void> => {
       console.log(event);
+      if (event && 'fullscreen' in event) await toggleFullscreen();
       if (event && 'playback' in event) await togglePlayback();
       if (event && 'time' in event) setCurrentTime(event.time || 0);
     };

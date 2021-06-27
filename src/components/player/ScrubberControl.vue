@@ -25,11 +25,11 @@
         </div>
       </div>
 
-      <!-- <div class="col-auto">
+      <div class="col-auto">
         <div class="q-col-gutter-sm">
-          <fullscreen-control :module="module" />
+          <fullscreen-control />
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -37,10 +37,15 @@
 <script lang="ts">
 import useFilters from 'src/composables/useFilters';
 import usePlayer from 'src/composables/usePlayer';
+import FullscreenControl from 'src/components/player/FullscreenControl.vue';
 import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   name: 'ScrubberControl',
+
+  components: {
+    FullscreenControl,
+  },
 
   setup() {
     const { formatTime } = useFilters();
