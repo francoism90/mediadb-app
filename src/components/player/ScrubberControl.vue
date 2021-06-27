@@ -18,21 +18,24 @@
       @update:model-value="setCurrentTime"
     />
 
-    <!-- <div class="row no-wrap justify-between items-center content-center">
+    <div class="row no-wrap justify-between items-center content-center">
       <div class="col">
-        <time-progress :module="module" />
+        <div class="text-caption text-white">
+          {{ currentTime }} / {{ duration }}
+        </div>
       </div>
 
-      <div class="col-auto">
+      <!-- <div class="col-auto">
         <div class="q-col-gutter-sm">
           <fullscreen-control :module="module" />
         </div>
-      </div>
-    </div> -->
+      </div> -->
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import useFilters from 'src/composables/useFilters';
 import usePlayer from 'src/composables/usePlayer';
 import { defineComponent, computed } from 'vue';
 
@@ -40,6 +43,7 @@ export default defineComponent({
   name: 'ScrubberControl',
 
   setup() {
+    const { formatTime } = useFilters();
     const { store } = usePlayer();
 
     const bufferedPct = computed(() => {
@@ -60,6 +64,9 @@ export default defineComponent({
       '--remaining': `${bufferedRemainingPct.value}%`,
     }));
 
+    const currentTime = computed(() => formatTime(store.properties.currentTime || 0));
+    const duration = computed(() => formatTime(store.properties.duration || 0));
+
     const setCurrentTime = (value: number): void => {
       store.dispatch({ time: value });
     };
@@ -67,6 +74,8 @@ export default defineComponent({
     return {
       setCurrentTime,
       bufferStyle,
+      currentTime,
+      duration,
       store,
     };
   },
