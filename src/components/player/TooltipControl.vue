@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="percent > 0"
     class="player-tooltip desktop-only"
     :style="tooltipStyle"
   >
@@ -65,6 +66,7 @@ export default defineComponent({
 
     return {
       cue,
+      percent,
       timestamp,
       tooltipStyle,
     };
