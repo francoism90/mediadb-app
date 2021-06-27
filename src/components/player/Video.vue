@@ -94,7 +94,6 @@ export default defineComponent({
     };
 
     const playerEvent = async (event: PlayerRequest | undefined): Promise<void> => {
-      console.log(event);
       if (event && 'fullscreen' in event) await toggleFullscreen();
       if (event && 'playback' in event) await togglePlayback();
       if (event && 'time' in event) setCurrentTime(event.time || 0);
