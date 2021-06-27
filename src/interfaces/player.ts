@@ -1,3 +1,4 @@
+import { DomOffset } from 'quasar';
 import { VideoModel } from 'src/interfaces/video';
 
 export interface PlayerProperties {
@@ -22,9 +23,9 @@ export interface PlayerProperties {
 }
 
 export interface PlayerTooltip {
-  cue: VTTCue | null,
-  position: number,
-  time: number,
+  clientX: number,
+  sliderOffset: DomOffset | null,
+  sliderWidth: number | null,
 }
 
 export interface PlayerRequest {

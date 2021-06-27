@@ -23,7 +23,6 @@ export default defineComponent({
     const { store } = usePlayer();
 
     const isFullscreen = ref<boolean>(false);
-
     const icon = computed(() => (isFullscreen.value === true ? 'fullscreen_exit' : 'fullscreen'));
 
     const toggleFullscreen = (): void => {

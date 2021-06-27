@@ -1,5 +1,5 @@
 .player-container {
-  background: #000;
+  background: black;
 
   video {
     z-index: 10;
@@ -40,8 +40,8 @@
   pointer-events: none;
 }
 
-.player-play {
-  z-index: 40;
+.player-playback {
+  z-index: 50;
 }
 
 .player-scrubber {
@@ -67,15 +67,15 @@
 }
 
 .player-tooltip {
-  z-index: 50;
+  z-index: 40;
   margin-bottom: $space-base;
-  background: #000;
+  background: black;
   height: 90px;
   width: 160px;
 }
 
 .player-settings {
-  z-index: 40;
+  z-index: 60;
   top: $space-base;
   right: $space-base;
 }

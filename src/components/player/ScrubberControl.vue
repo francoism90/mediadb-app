@@ -1,10 +1,9 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <!-- <tooltip-control
-      v-if="tooltip && tooltip.time"
-      :data="tooltip"
-      :style="tooltipStyle"
-    /> -->
+    <tooltip-control
+      v-if="slider && tooltip"
+      :tooltip="tooltip"
+    />
 
     <q-slider
       ref="slider"
@@ -15,6 +14,8 @@
       :step="0"
       :style="bufferStyle"
       color="primary"
+      @mousemove="onMouseMove"
+      @mouseleave="tooltip = null"
       @update:model-value="setCurrentTime"
     />
 
@@ -38,18 +39,25 @@
 import useFilters from 'src/composables/useFilters';
 import usePlayer from 'src/composables/usePlayer';
 import FullscreenControl from 'src/components/player/FullscreenControl.vue';
-import { defineComponent, computed } from 'vue';
+import TooltipControl from 'src/components/player/TooltipControl.vue';
+import { defineComponent, computed, ref } from 'vue';
+import { dom, QSlider } from 'quasar';
+import { PlayerTooltip } from 'src/interfaces/player';
 
 export default defineComponent({
   name: 'ScrubberControl',
 
   components: {
     FullscreenControl,
+    TooltipControl,
   },
 
   setup() {
     const { formatTime } = useFilters();
     const { store } = usePlayer();
+
+    const slider = ref<QSlider | null>();
+    const tooltip = ref<PlayerTooltip | null>();
 
     const bufferedPct = computed(() => {
       const buffered = store.properties.buffered || <TimeRanges>{};
@@ -72,16 +80,27 @@ export default defineComponent({
     const currentTime = computed(() => formatTime(store.properties.currentTime || 0));
     const duration = computed(() => formatTime(store.properties.duration || 0));
 
-    const setCurrentTime = (value: number): void => {
-      store.dispatch({ time: value });
+    const setCurrentTime = (payload: number): void => {
+      store.dispatch({ time: payload });
+    };
+
+    const onMouseMove = (event: MouseEvent): void => {
+      tooltip.value = {
+        clientX: event.clientX,
+        sliderWidth: dom.width(slider.value?.$el),
+        sliderOffset: dom.offset(slider.value?.$el),
+      };
     };
 
     return {
       setCurrentTime,
+      onMouseMove,
       bufferStyle,
       currentTime,
       duration,
+      slider,
       store,
+      tooltip,
     };
   },
 
