@@ -1,5 +1,8 @@
 <template>
-  <div class="player-tooltip desktop-only">
+  <div
+    class="player-tooltip desktop-only"
+    :style="tooltipStyle"
+  >
     <q-img
       :src="cue.text || ''"
       width="160px"
@@ -16,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { find } from 'lodash';
+import { clamp, find } from 'lodash';
 import useFilters from 'src/composables/useFilters';
 import usePlayer from 'src/composables/usePlayer';
 import { PlayerTooltip } from 'src/interfaces/player';
@@ -56,12 +59,15 @@ export default defineComponent({
       ) as VTTCue;
     });
 
+    const tooltipStyle = computed(() => {
+      const tooltipPosition = clamp(position.value - 80, 0, tooltip.value.sliderWidth - 160);
+      return { marginLeft: `${tooltipPosition}px` };
+    });
+
     return {
       cue,
       timestamp,
-      position,
-      percent,
-      time,
+      tooltipStyle,
     };
   },
 });
