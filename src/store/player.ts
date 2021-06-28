@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { merge } from 'lodash';
 import {
   PlayerProperties, PlayerRequest, PlayerState, PlayerSource,
 } from 'src/interfaces/player';
@@ -36,8 +37,7 @@ export const usePlayerStore = defineStore({
     },
 
     populate(payload: PlayerProperties): void {
-      const propValues = { ...this.properties, ...payload };
-      this.properties = { ...this.properties, ...propValues };
+      this.properties = merge(this.properties, payload);
     },
   },
 });

@@ -1,4 +1,4 @@
-import { assign } from 'lodash';
+import { merge } from 'lodash';
 import { defineStore } from 'pinia';
 import {
   VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
@@ -41,7 +41,7 @@ export const useRelatedStore = defineStore({
 
   actions: {
     reset(payload: VideosQuery): void {
-      this.query = assign(this.query, payload);
+      this.query = merge(this.query, payload);
     },
 
     reload(): void {
