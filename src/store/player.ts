@@ -11,7 +11,12 @@ export const usePlayerStore = defineStore({
   state: () => (<PlayerState>{
     ready: false,
     model: <Model>{},
-    properties: <PlayerProperties>{},
+    properties: <PlayerProperties>{
+      readyState: 0,
+      currentTime: 0,
+      duration: 0,
+      fullscreen: false,
+    },
     request: <PlayerRequest>{},
   }),
 
