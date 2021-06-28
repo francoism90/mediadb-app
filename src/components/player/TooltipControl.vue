@@ -44,14 +44,14 @@ export default defineComponent({
     const { formatTime } = useFilters();
     const { store } = usePlayer();
 
-    const duration = computed(() => store.properties.duration || 0);
+    const duration = computed(() => store.properties?.duration || 0);
     const position = computed(() => tooltip.value.clientX - tooltip.value.sliderOffset.left);
     const percent = computed(() => (position.value / tooltip.value.sliderWidth) * 100);
     const time = computed(() => duration.value * (percent.value / 100));
     const timestamp = computed(() => formatTime(time.value));
 
     const cue = computed(() => {
-      const track = find(store.properties.textTracks, { id: 'sprite' }) as TextTrack | null;
+      const track = find(store.properties?.textTracks, { id: 'sprite' }) as TextTrack | null;
       const cues = track?.cues as TextTrackCueList || undefined;
 
       return find(

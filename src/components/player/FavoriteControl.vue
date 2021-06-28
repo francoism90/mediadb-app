@@ -26,8 +26,6 @@ export default defineComponent({
     const { store } = usePlayer();
     const { setResponse } = useFormValidation();
 
-    console.log(store.model);
-
     const form = reactive(<Model>{
       id: store.model.id,
       favorite: store.model.favorite,
