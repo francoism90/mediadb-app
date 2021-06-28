@@ -122,6 +122,25 @@
             </q-select>
           </q-item-label>
         </q-item>
+
+        <q-item-label
+          header
+          class="video-filter-header"
+        />
+
+        <q-item>
+          <q-item-label class="full-width">
+            <q-btn
+              class="q-my-sm q-py-sm full-width"
+              color="grey-5"
+              icon="restart_alt"
+              label="Reset Filters"
+              no-caps
+              outline
+              @click="resetFilters"
+            />
+          </q-item-label>
+        </q-item>
       </q-list>
     </div>
   </q-dialog>
@@ -168,12 +187,25 @@ export default {
       await update();
     };
 
+    const resetFilters = (): void => {
+      store.reset({
+        sort: 'recommended',
+        page: { number: 1 },
+        filter: {
+          favorites: null,
+          tags: null,
+          query: null,
+        },
+      });
+    };
+
     onBeforeMount(populateTags);
 
     return {
       dialogRef,
       onDialogHide,
       filterTags,
+      resetFilters,
       store,
       tags,
     };

@@ -18,7 +18,7 @@ export const useTagsStore = defineStore({
       },
       page: {
         number: 1,
-        size: 12,
+        size: 24,
       },
     },
     data: <TagModel[]>[],
