@@ -4,8 +4,6 @@
       More Like This
     </h1>
 
-    {{ video.id }}
-
     <q-pull-to-refresh
       :key="store.id"
       @refresh="onRefresh"
