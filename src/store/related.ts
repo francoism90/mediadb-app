@@ -10,12 +10,14 @@ export const useRelatedStore = defineStore({
   state: () => (<VideosState>{
     id: null,
     query: <VideosQuery>{
+      sort: 'recommended',
       filter: {
         related: null,
       },
-      sort: 'recommended',
-      'page[number]': 1,
-      'page[size]': 12,
+      page: {
+        number: 1,
+        size: 12,
+      },
     },
     data: <VideoModel[]>[],
     meta: <VideosMeta>{},

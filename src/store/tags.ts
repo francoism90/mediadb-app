@@ -11,13 +11,15 @@ export const useTagsStore = defineStore({
     id: null,
     query: <TagsQuery>{
       append: ['items'],
+      sort: 'name',
       filter: {
         type: null,
         query: null,
       },
-      sort: 'name',
-      'page[number]': 1,
-      'page[size]': 12,
+      page: {
+        number: 1,
+        size: 12,
+      },
     },
     data: <TagModel[]>[],
     meta: <TagsMeta>{},

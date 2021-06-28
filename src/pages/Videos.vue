@@ -121,7 +121,7 @@ export default defineComponent({
       done();
     };
 
-    watch(store.$state.query, store.reload, { deep: true, immediate: true });
+    watch(store.query, store.reload, { deep: true, immediate: true });
 
     useMeta(() => ({
       title: 'Videos',

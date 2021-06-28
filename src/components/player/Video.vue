@@ -107,7 +107,7 @@ export default defineComponent({
     };
 
     watch(props.video, initialize, { deep: true });
-    watch(() => store.$state.request, playerEvent);
+    watch(() => store.request, playerEvent);
 
     onBeforeMount(initialize);
     onBeforeUnmount(() => destroy(media.value));

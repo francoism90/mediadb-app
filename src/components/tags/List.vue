@@ -35,6 +35,7 @@ export default defineComponent({
     const onClick = async (tag: TagModel) => {
       store.reset({
         filter: { tags: [tag.slug] },
+        page: { number: 1 },
       });
 
       await router.push({ name: 'home' });

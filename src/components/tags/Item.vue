@@ -56,6 +56,7 @@ export default defineComponent({
     const onClick = async () => {
       store.reset({
         filter: { tags: [props.tag.slug] },
+        page: { number: 1 },
       });
 
       await router.push({ name: 'home' });
