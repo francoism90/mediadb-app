@@ -91,7 +91,7 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store, fetchAll, reset } = useVideos();
+    const { store, fetchAll } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -117,11 +117,11 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
-      reset();
+      store.reload();
       done();
     };
 
-    watch(() => store.$state.query, reset);
+    watch(store.$state.query, store.reload, { deep: true });
 
     useMeta(() => ({
       title: 'Videos',
