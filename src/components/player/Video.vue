@@ -106,7 +106,7 @@ export default defineComponent({
       if (event && 'time' in event) setCurrentTime(event.time || 0);
     };
 
-    watch(video, initialize, { deep: true });
+    watch(props.video, initialize, { deep: true });
     watch(() => store.$state.request, playerEvent);
 
     onBeforeMount(initialize);

@@ -121,7 +121,7 @@ export default defineComponent({
       done();
     };
 
-    watch(store.query, reset);
+    watch(() => store.$state.query, reset);
 
     useMeta(() => ({
       title: 'Videos',

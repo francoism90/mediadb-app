@@ -6,11 +6,14 @@
     <span v-if="index != 0">, </span>
     <a
       class="cursor-pointer text-primary"
+      @click="onClick(tag)"
     >{{ tag.name }}</a>
   </span>
 </template>
 
 <script lang="ts">
+import useRouter from 'src/composables/useRouter';
+import useVideos from 'src/composables/useVideos';
 import { TagModel } from 'src/interfaces/tag';
 import { defineComponent, PropType } from 'vue';
 
@@ -26,10 +29,21 @@ export default defineComponent({
   },
 
   setup() {
-    // const { router } = useRouter();
+    const { store } = useVideos();
+    const { router } = useRouter();
+
+    const onClick = async (tag: TagModel) => {
+      store.reset({
+        filter: {
+          tags: [tag.slug],
+        },
+      });
+
+      await router.push({ name: 'home' });
+    };
 
     return {
-      // onClick,
+      onClick,
     };
   },
 });
