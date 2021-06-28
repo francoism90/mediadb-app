@@ -20,7 +20,7 @@ export async function all(params: VideosQuery): Promise<VideosResponse> {
   return response.data;
 }
 
-export async function update(params: VideoModel): Promise<VideoResponse> {
+export async function save(params: VideoModel): Promise<VideoResponse> {
   const response = await api.patch<VideoResponse, AxiosResponse<VideoResponse>>(
     `videos/${params.id}`, params,
   );

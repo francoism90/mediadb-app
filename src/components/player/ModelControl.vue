@@ -44,7 +44,7 @@ import VideoEdit from 'src/components/video/Edit.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { MediaModel } from 'src/interfaces/media';
 import { VideoModel } from 'src/interfaces/video';
-import { update } from 'src/repositories/media';
+import { save } from 'src/repositories/media';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -67,7 +67,7 @@ export default defineComponent({
     };
 
     const thumbnailMedia = async (): Promise<void> => {
-      await update(<MediaModel>{
+      await save(<MediaModel>{
         id: model.value.clip?.id || '',
         thumbnail: store.properties.currentTime || 10,
       });
