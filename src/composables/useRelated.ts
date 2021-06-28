@@ -1,9 +1,9 @@
 import { api } from 'src/boot/axios';
-import { VideosQuery } from 'src/interfaces/video';
+import { VideoModel, VideosQuery } from 'src/interfaces/video';
 import { all } from 'src/repositories/video';
 import { useVideosStore } from 'src/store/videos';
 
-export default function useVideos() {
+export default function useRelated() {
   const store = useVideosStore();
 
   const useQuery = async (): Promise<void> => {
@@ -29,8 +29,11 @@ export default function useVideos() {
     await useNext();
   };
 
-  const reset = (): void => {
-    store.reset(<VideosQuery>{ page: { number: 1 } });
+  const reset = (payload: VideoModel): void => {
+    store.reset(<VideosQuery>{
+      filter: { related: payload.id },
+      page: { number: 1 },
+    });
   };
 
   return {

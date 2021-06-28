@@ -1,6 +1,5 @@
 <template>
   <q-page :key="id">
-    {{ id }}
     <template v-if="errors && errors.message">
       <q-banner class="container q-py-lg">
         <template #avatar>
@@ -27,7 +26,7 @@
           size="3px"
         />
 
-        <!-- <video-related :video="video" /> -->
+        <video-related :video="video" />
       </div>
     </template>
   </q-page>
@@ -38,7 +37,7 @@ import { useMeta } from 'quasar';
 import { authenticate } from 'src/services/auth';
 import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
-// import VideoRelated from 'src/components/video/Related.vue';
+import VideoRelated from 'src/components/video/Related.vue';
 import useVideo from 'src/composables/useVideo';
 import {
   defineComponent, onBeforeUnmount, onMounted, PropType, toRefs, watch,
@@ -55,7 +54,7 @@ export default defineComponent({
   components: {
     VideoDetails,
     VideoPlayer,
-    // VideoRelated,
+    VideoRelated,
   },
 
   props: {
