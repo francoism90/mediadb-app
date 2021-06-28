@@ -1,8 +1,8 @@
 <template>
   <div class="player-controls absolute-full">
-    <playback-control :module="module" />
-    <scrubber-control :module="module" />
-    <settings-control :module="module" />
+    <playback-control />
+    <scrubber-control />
+    <settings-control />
   </div>
 </template>
 
@@ -10,22 +10,15 @@
 import PlaybackControl from 'src/components/player/PlaybackControl.vue';
 import ScrubberControl from 'src/components/player/ScrubberControl.vue';
 import SettingsControl from 'src/components/player/SettingsControl.vue';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'DefaultControls',
+  name: 'VideoControls',
 
   components: {
     PlaybackControl,
     ScrubberControl,
     SettingsControl,
-  },
-
-  props: {
-    module: {
-      type: String as PropType<string>,
-      required: true,
-    },
   },
 });
 </script>

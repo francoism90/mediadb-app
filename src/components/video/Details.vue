@@ -87,7 +87,7 @@
 import List from 'src/components/tags/List.vue';
 import Item from 'src/components/video/Item.vue';
 import useFilters from 'src/composables/useFilters';
-import { Video } from 'src/interfaces/video';
+import { VideoModel } from 'src/interfaces/video';
 import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -100,7 +100,7 @@ export default defineComponent({
 
   props: {
     video: {
-      type: Object as PropType<Video>,
+      type: Object as PropType<VideoModel>,
       required: true,
     },
   },

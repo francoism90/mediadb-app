@@ -1,18 +1,18 @@
-import { Model } from './repository';
+import { Model } from 'src/interfaces/repository';
 
 export interface UserSettings {
   [key: string]: string | number | null
 }
 
-export interface User extends Model {
-  'email': string | null
-  'avatar_url'?: string | null
-  'roles': string[]
-  'permissions': string[]
-  'settings'?: UserSettings[]
+export interface UserModel extends Model {
+  email: string,
+  roles: string[],
+  permissions: string[],
+  settings: UserSettings[],
+  'avatar_url'?: string | null,
 }
 
 export interface UserResponse {
-  data: User,
+  data: UserModel,
   meta: null
 }

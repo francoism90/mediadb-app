@@ -1,6 +1,14 @@
 <template>
   <q-page class="container">
     <q-toolbar class="q-py-lg">
+      <q-btn
+        icon="filter_list"
+        label="Filters"
+        color="grey-5"
+        outline
+        @click="showFilters"
+      />
+
       <q-space />
 
       <q-select
@@ -31,9 +39,9 @@
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 tag-item"
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
           >
-            <item :tag="item" />
+            <item :video="item" />
           </q-intersection>
         </div>
 
@@ -51,20 +59,23 @@
 </template>
 
 <script lang="ts">
-import { useMeta } from 'quasar';
-import Item from 'src/components/tags/Item.vue';
-import useTags from 'src/composables/useTags';
+import { useMeta, useQuasar } from 'quasar';
+import Filters from 'src/components/videos/Filters.vue';
+import Item from 'src/components/videos/Item.vue';
+import useVideos from 'src/composables/useVideos';
 import { authenticate } from 'src/services/auth';
 import { defineComponent, watch } from 'vue';
 
 const sorters = [
-  { label: 'Alphabetical', value: 'name' },
-  { label: 'Randomize', value: 'random' },
-  { label: 'Items', value: '-items' },
+  { label: 'Recommended', value: 'recommended' },
+  { label: 'Trending', value: 'trending' },
+  { label: 'Most Recent', value: '-created_at' },
+  { label: 'Longest', value: '-duration' },
+  { label: 'Shortest', value: 'duration' },
 ];
 
 export default defineComponent({
-  name: 'Tags',
+  name: 'Videos',
 
   components: {
     Item,
@@ -79,7 +90,8 @@ export default defineComponent({
   },
 
   setup() {
-    const { store, fetchAll } = useTags();
+    const $q = useQuasar();
+    const { store, fetchAll } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -91,6 +103,18 @@ export default defineComponent({
       }
     };
 
+    const showFilters = (): void => {
+      $q.dialog({
+        component: Filters,
+        componentProps: {
+          position: 'left',
+          maximized: true,
+          transitionShow: 'slide-right',
+          transitionHide: 'slide-left',
+        },
+      });
+    };
+
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
       store.reload();
@@ -100,12 +124,13 @@ export default defineComponent({
     watch(store.query, store.reload, { deep: true, immediate: true });
 
     useMeta(() => ({
-      title: 'Tags',
+      title: 'Videos',
     }));
 
     return {
       onLoad,
       onRefresh,
+      showFilters,
       store,
       sorters,
     };

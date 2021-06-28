@@ -1,36 +1,49 @@
-import { Media } from 'src/interfaces/media';
+import { DomOffset } from 'quasar';
 import { Model } from 'src/interfaces/repository';
-
-export interface PlayerProps {
-  module: string,
-  media?: Media,
-  model?: Model,
-}
 
 export interface PlayerProperties {
   buffered: TimeRanges | null,
-  controls: boolean,
-  currentSrc: string,
-  currentTime: number,
-  duration: number,
-  ended: boolean,
+  currentSrc: string | null,
+  currentTime: number | null,
+  duration: number | null,
+  ended: boolean | null,
   error: string | null,
   fullscreen: boolean,
-  muted: boolean,
-  networkState: number,
-  paused: boolean,
+  fullscreenEnabled: boolean,
+  muted: boolean | null,
+  networkState: number | null,
+  paused: boolean | null,
   playbackRate: number,
   played: TimeRanges | null,
-  readyState: number,
-  requestTime: number,
+  readyState: number | null,
   seekable: TimeRanges | null,
-  seeking: boolean,
+  seeking: boolean | null,
   textTracks: TextTrackList | null,
   volume: number,
 }
 
 export interface PlayerTooltip {
-  cue: VTTCue | null,
-  position: number,
-  time: number,
+  clientX: number,
+  sliderOffset: DomOffset,
+  sliderWidth: number,
+}
+
+export interface PlayerRequest {
+  fullscreen?: boolean,
+  playback?: boolean,
+  time?: number
+}
+
+export interface PlayerState {
+  ready: boolean,
+  model: Model,
+  source: string,
+  controls: boolean,
+  properties: PlayerProperties,
+  request: PlayerRequest,
+}
+
+export interface PlayerSource {
+  model: Model,
+  source: string | null,
 }

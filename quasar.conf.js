@@ -22,15 +22,15 @@ module.exports = configure((ctx) => ({
   },
 
   // https://v2.quasar.dev/quasar-cli/prefetch-feature
-  // preFetch: true,
+  preFetch: true,
 
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
   // https://v2.quasar.dev/quasar-cli/boot-files
   boot: [
+    'pinia',
     'i18n',
     'axios',
-    'auth',
     'echo',
   ],
 
@@ -51,12 +51,12 @@ module.exports = configure((ctx) => ({
 
     vueRouterMode: 'history', // available values: 'hash', 'history'
 
-    transpile: true,
+    // transpile: true,
 
     // Add dependencies for transpiling with Babel (Array of string/regex)
     // (from node_modules, which are by default not transpiled).
     // Applies only if "transpile" is set to true.
-    transpileDependencies: [/vuex-composition-helpers/],
+    // transpileDependencies: [],
 
     // rtl: true, // https://v2.quasar.dev/options/rtl-support
     // preloadChunks: true,
@@ -102,8 +102,10 @@ module.exports = configure((ctx) => ({
       'AppFullscreen',
       'Dialog',
       'Loading',
+      'LocalStorage',
       'Meta',
       'Notify',
+      'SessionStorage',
     ]
   },
 

@@ -1,5 +1,5 @@
 .player-container {
-  background: #000;
+  background: black;
 
   video {
     z-index: 10;
@@ -40,52 +40,42 @@
   pointer-events: none;
 }
 
-.player-play {
-  z-index: 40;
+.player-playback {
+  z-index: 50;
 }
 
 .player-scrubber {
   z-index: 40;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
+  bottom: $space-base;
+  left: $space-base;
+  right: $space-base;
 
   .q-slider__track-container {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
 
     &::before {
       content: '';
       position: absolute;
-      left: var(--buffer);
-      top: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
+      width: var(--buffer);
       left: 0;
       top: 0;
       bottom: 0;
       right: 0;
-      background: rgba(255, 255, 255, 0.25);
-      z-index: -1;
+      background: rgba(255, 255, 255, 0.5);
     }
   }
 }
 
 .player-tooltip {
-  z-index: 50;
+  z-index: 40;
   margin-bottom: $space-base;
-  background: #000;
+  background: black;
   height: 90px;
   width: 160px;
 }
 
 .player-settings {
-  z-index: 40;
-  top: 16px;
-  right: 16px;
+  z-index: 60;
+  top: $space-base;
+  right: $space-base;
 }

@@ -67,12 +67,12 @@ export default defineComponent({
   name: 'AppDrawer',
 
   setup() {
-    const { user } = useSession();
+    const { store } = useSession();
     //
 
     return {
       menuList,
-      user,
+      store,
     };
   },
 });

@@ -4,37 +4,37 @@
     color="white"
     class="cursor-pointer"
     size="24px"
-    @click="setFullscreen"
+    @click="toggleFullscreen"
   />
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import usePlayer from 'src/composables/usePlayer';
-import { computed, defineComponent, PropType } from 'vue';
+import {
+  computed, defineComponent, ref, watch,
+} from 'vue';
 
 export default defineComponent({
   name: 'FullscreenControl',
 
-  props: {
-    module: {
-      type: String as PropType<string>,
-      required: true,
-    },
-  },
+  setup() {
+    const $q = useQuasar();
+    const { store } = usePlayer();
 
-  setup(props) {
-    const { properties, setProperties } = usePlayer({ module: props.module });
+    const isFullscreen = ref<boolean>(false);
+    const icon = computed(() => (isFullscreen.value === true ? 'fullscreen_exit' : 'fullscreen'));
 
-    const icon = computed(() => (properties.value?.fullscreen === true ? 'fullscreen_exit' : 'fullscreen'));
-
-    const setFullscreen = () => {
-      setProperties({ fullscreen: !properties.value?.fullscreen });
+    const toggleFullscreen = (): void => {
+      store.dispatch({ fullscreen: !store.properties.fullscreen });
     };
 
+    watch(() => $q.fullscreen.isActive, (val: boolean) => { isFullscreen.value = val; });
+
     return {
+      store,
       icon,
-      properties,
-      setFullscreen,
+      toggleFullscreen,
     };
   },
 });

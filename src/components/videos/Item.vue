@@ -38,7 +38,7 @@
 <script lang="ts">
 import Chips from 'src/components/tags/Chips.vue';
 import useFilters from 'src/composables/useFilters';
-import { Video } from 'src/interfaces/video';
+import { VideoModel } from 'src/interfaces/video';
 import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -50,7 +50,7 @@ export default defineComponent({
 
   props: {
     video: {
-      type: Object as PropType<Video>,
+      type: Object as PropType<VideoModel>,
       required: true,
     },
   },

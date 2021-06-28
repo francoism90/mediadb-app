@@ -1,148 +1,69 @@
-import { pick, debounce } from 'lodash';
-import { useQuasar } from 'quasar';
-import * as shaka from 'shaka-player';
-import { PlayerProps } from 'src/interfaces/player';
-import { PlayerState } from 'src/interfaces/store';
-import { useStore } from 'src/store';
-import playerModule from 'src/store/player';
-import { ref, watch } from 'vue';
-import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers';
+import { Player } from 'shaka-player';
+import { initialize } from 'src/services/shaka';
+import { readonlyProperties, syncEvents } from 'src/services/player';
+import { usePlayerStore } from 'src/store/player';
+import { ref } from 'vue';
+import { debounce, pick } from 'lodash';
+import { PlayerProperties, PlayerSource } from 'src/interfaces/player';
 
-export default function usePlayer(props: PlayerProps) {
-  const $q = useQuasar();
-  const $store = useStore();
+export default function usePlayer() {
+  const player = ref<Player>();
+  const store = usePlayerStore();
 
-  const player = ref(<shaka.Player | null>(null));
+  const setProperties = (event: Event | null): void => {
+    const target = event?.target as HTMLMediaElement;
+    const properties = <PlayerProperties>pick(target, readonlyProperties);
 
-  if (!$store.hasModule(props.module)) {
-    $store.registerModule(props.module, playerModule);
-  }
+    store.populate(properties);
+  };
 
-  const { media, model, properties } = useNamespacedState<PlayerState>(props.module, [
-    'media',
-    'model',
-    'properties',
-  ]);
+  const syncProperties = debounce(setProperties, 100);
 
-  const { resetStore, initialize, setProperties } = useNamespacedActions(props.module, [
-    'resetStore',
-    'initialize',
-    'setProperties',
-  ]);
+  const useVideo = (payload: PlayerSource): void => {
+    store.$reset();
+    store.initialize(payload);
+  };
 
-  const { isLoading } = useNamespacedGetters(props.module, [
-    'isLoading',
-  ]);
-
-  if (props.module && props.media) {
-    initialize(props);
-  }
-
-  const initPlayer = async (dom: HTMLMediaElement | null): Promise<void> => {
-    const shakaPlayer = new shaka.Player(dom);
-
-    shakaPlayer.configure({
-      manifest: {
-        dash: {
-          ignoreMinBufferTime: true,
-        },
-        retryParameters: {
-          timeout: 10000,
-          stallTimeout: 5000,
-          connectionTimeout: 10000,
-          maxAttempts: 3,
-          baseDelay: 1000,
-          backoffFactor: 2,
-          fuzzFactor: 0.5,
-        },
-      },
-      streaming: {
-        jumpLargeGaps: true,
-        rebufferingGoal: 2,
-        bufferingGoal: 60,
-        bufferBehind: 30,
-        ignoreTextStreamFailures: true,
-        alwaysStreamText: true,
-        stallEnabled: true,
-        stallSkip: 10,
-        stallThreshold: 1,
-      },
+  const useEvents = (dom: HTMLMediaElement | null): void => {
+    syncEvents.forEach((event) => {
+      dom?.addEventListener(event, syncProperties);
     });
+  };
 
+  const destroyEvents = (dom: HTMLMediaElement | null): void => {
+    syncEvents.forEach((event) => {
+      dom?.removeEventListener(event, syncProperties);
+    });
+  };
+
+  const loadVideo = async (dom: HTMLMediaElement | null): Promise<void> => {
     try {
-      player.value = await shakaPlayer.load(props.media?.stream_url || '') as shaka.Player;
+      const shakaPlayer = initialize(dom);
+      player.value = await shakaPlayer.load(store.source) as Player;
     } catch (e: unknown) {
       console.error(e);
     }
   };
 
-  const createPlayer = async (dom: HTMLMediaElement | null): Promise<void> => {
-    if (!dom) {
-      console.debug('Waiting for HTMLVideoElement..');
-      return;
-    }
+  const destroy = async (dom: HTMLMediaElement | null): Promise<void> => {
+    destroyEvents(dom);
 
-    shaka.polyfill.installAll();
-
-    if (shaka.Player.isBrowserSupported()) {
-      await initPlayer(dom);
-    } else {
-      console.error('Browser not supported');
-    }
-  };
-
-  const destroyPlayer = async (): Promise<void> => {
     await player.value?.detach();
     await player.value?.destroy();
+
+    // @doc https://stackoverflow.com/a/28060352
+    dom?.pause();
+    dom?.removeAttribute('src');
+    dom?.load();
   };
-
-  const readonlyProperties = (event: Event | null): void => {
-    const target = event?.target as HTMLMediaElement;
-
-    if (!event || !target) {
-      console.debug('Waiting for HTMLMediaElement..');
-      return;
-    }
-
-    setProperties(pick(target, [
-      'buffered',
-      'currentSrc',
-      'currentTime',
-      'duration',
-      'ended',
-      'error',
-      'muted',
-      'networkState',
-      'paused',
-      'played',
-      'readyState',
-      'seekable',
-      'seeking',
-      'textTracks',
-    ]));
-  };
-
-  const syncProperties = debounce(readonlyProperties, 100);
-
-  // watch(() => player.value?.getTextTracks(), value => {
-  //   setProperties({ textTracks: value })
-  // })
-
-  watch(() => $q.fullscreen.isActive, (value) => {
-    setProperties({ fullscreen: value });
-  });
 
   return {
-    resetStore,
-    initialize,
-    setProperties,
-    syncProperties,
-    createPlayer,
-    destroyPlayer,
-    isLoading,
+    useEvents,
+    destroy,
+    destroyEvents,
+    loadVideo,
+    useVideo,
     player,
-    model,
-    media,
-    properties,
+    store,
   };
 }

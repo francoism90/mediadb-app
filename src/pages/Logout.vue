@@ -3,30 +3,20 @@
 </template>
 
 <script lang="ts">
-import useSession from 'src/composables/useSession';
-import { logout } from 'src/repositories/user';
-import { router } from 'src/router';
-import { defineComponent, onMounted } from 'vue';
+import { authenticate, getToken, signOut } from 'src/services/auth';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'LogoutPage',
+  name: 'Logout',
 
-  setup() {
-    const { resetStore, token } = useSession();
+  async preFetch({ redirect }) {
+    const authenticated = await authenticate({ redirectUri: '/' });
 
-    const logOut = async (): Promise<void> => {
-      try {
-        await logout({ token: token.value || '' });
-        await resetStore();
-      } catch (e: unknown) {
-        //
-      }
-    };
+    if (authenticated) {
+      await signOut({ token: getToken() });
+    }
 
-    onMounted(async () => {
-      await logOut();
-      await router.push({ name: 'home' });
-    });
+    redirect({ path: '/login' });
   },
 });
 </script>

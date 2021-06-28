@@ -60,19 +60,41 @@
             type="text"
           />
 
-          <tag-input
-            v-model:tags="form.tags"
+          <q-select
+            v-model="form.tags"
+            :options="tags"
             :error-message="getError('tags')[0]"
             :error="hasError('tags')"
-            :max-values="15"
             counter
-            hide-dropdown-icon
+            display-value="name"
+            dropdown-icon="expand_more"
             label="Tags"
+            max-values="15"
             multiple
-            stack-label
+            option-label="name"
+            popup-content-class="bg-grey-9"
+            square
             use-chips
             use-input
-          />
+            @filter="filterTags"
+          >
+            <template #option="scope">
+              <q-item v-bind="scope.itemProps">
+                <q-item-section>
+                  <q-item-label>
+                    {{ scope.opt.name }}
+                  </q-item-label>
+
+                  <q-item-label
+                    caption
+                    class="text-capitalize"
+                  >
+                    {{ scope.opt.type }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -96,22 +118,21 @@
 <script lang="ts">
 import { AxiosError } from 'axios';
 import { useDialogPluginComponent } from 'quasar';
-import TagInput from 'src/components/form/TagInput.vue';
 import useFormValidation from 'src/composables/useFormValidation';
+import useTagInput from 'src/composables/useTagInput';
 import { ValidationResponse } from 'src/interfaces/form';
-import { Video } from 'src/interfaces/video';
-import { remove, update } from 'src/repositories/video';
+import { VideoModel } from 'src/interfaces/video';
+import { remove, save } from 'src/repositories/video';
 import {
   defineComponent, PropType, reactive, ref,
 } from 'vue';
 
 export default defineComponent({
   name: 'VideoEdit',
-  components: { TagInput },
 
   props: {
     video: {
-      type: Object as PropType<Video>,
+      type: Object as PropType<VideoModel>,
       required: true,
     },
   },
@@ -122,21 +143,34 @@ export default defineComponent({
 
   setup(props) {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
+    const { getError, hasError, setResponse } = useFormValidation();
+    const { fetch: fetchTags, reset: resetTags, data: tags } = useTagInput();
 
-    const deleteDialog = ref(false);
-    const formRef = ref<HTMLFormElement | null>(null);
-    const form = reactive<Video>({
+    const deleteDialog = ref<boolean>(false);
+    const formRef = ref<HTMLFormElement | null>();
+    const form = reactive<VideoModel>(<VideoModel>{
       id: props.video.id,
-      name: props.video.name || '',
+      name: props.video.name,
       overview: props.video.overview || '',
       tags: props.video.tags || [],
     });
 
-    const { getError, hasError, setResponse } = useFormValidation();
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const filterTags = async (val: string, update: Function): Promise<void> => {
+      resetTags();
+
+      await fetchTags({
+        filter: { query: val },
+        page: { number: 1, size: 5 },
+        sort: val.length < 1 ? 'items' : 'recommended',
+      });
+
+      await update();
+    };
 
     const onSubmit = async (): Promise<void> => {
       try {
-        await update(form);
+        await save(form);
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 
@@ -165,13 +199,15 @@ export default defineComponent({
     };
 
     return {
+      filterTags,
       getError,
       hasError,
+      onDelete,
+      onSubmit,
       deleteDialog,
       formRef,
       form,
-      onDelete,
-      onSubmit,
+      tags,
       dialogRef,
       onDialogHide,
       onDialogCancel,

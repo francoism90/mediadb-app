@@ -1,7 +1,7 @@
 <template>
-  <div class="absolute-center player-play">
+  <div class="absolute-center player-playback">
     <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
-      <template v-if="isLoading">
+      <template v-if="store.isLoading">
         <q-spinner-dots
           color="white"
           size="64px"
@@ -22,7 +22,7 @@
           class="cursor-pointer"
           color="white"
           size="72px"
-          @click="setPause"
+          @click="togglePlayback"
         />
 
         <q-icon
@@ -39,41 +39,33 @@
 
 <script lang="ts">
 import usePlayer from 'src/composables/usePlayer';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'PlaybackControl',
 
-  props: {
-    module: {
-      type: String as PropType<string>,
-      required: true,
-    },
-  },
+  setup() {
+    const { store } = usePlayer();
 
-  setup(props) {
-    const { isLoading, properties, setProperties } = usePlayer({ module: props.module });
+    const icon = computed(() => (store.properties.paused === true ? 'play_arrow' : 'pause'));
 
-    const icon = computed(() => (properties.value?.paused === true ? 'play_arrow' : 'pause'));
-
-    const decreaseTime = () => {
-      setProperties({ requestTime: properties.value?.currentTime - 10 });
+    const decreaseTime = (): void => {
+      const currentTime = store.properties.currentTime || 0;
+      store.dispatch({ time: currentTime - 10 });
     };
 
-    const increaseTime = () => {
-      setProperties({ requestTime: properties.value?.currentTime + 10 });
+    const increaseTime = (): void => {
+      const currentTime = store.properties.currentTime || 0;
+      store.dispatch({ time: currentTime + 10 });
     };
 
-    const setPause = () => {
-      setProperties({ paused: !properties.value?.paused });
-    };
+    const togglePlayback = () => store.dispatch({ playback: !store.properties.paused });
 
     return {
-      properties,
-      isLoading,
       decreaseTime,
       increaseTime,
-      setPause,
+      togglePlayback,
+      store,
       icon,
     };
   },

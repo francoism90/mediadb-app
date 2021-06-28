@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios';
-import { echoKey } from 'src/boot/echo';
+import useEcho from 'src/composables/useEcho';
 import { ErrorResponse } from 'src/interfaces/api';
-import { Video } from 'src/interfaces/video';
+import { VideoModel } from 'src/interfaces/video';
 import { find } from 'src/repositories/video';
 import {
-  inject, onMounted, Ref, ref, watch,
+  Ref, ref, watch,
 } from 'vue';
 
 interface Props {
@@ -12,18 +12,17 @@ interface Props {
 }
 
 export default function useVideo(props: Props) {
-  const video = ref(<Video>{});
-  const errors = ref(<ErrorResponse>{});
+  const { echo } = useEcho();
 
-  const echo = inject(echoKey);
+  const video = ref<VideoModel>();
+  const errors = ref<ErrorResponse>();
 
-  const fetchVideo = async (): Promise<void> => {
+  const fetch = async (): Promise<void> => {
     errors.value = <ErrorResponse>{};
-    video.value = <Video>{};
+    video.value = <VideoModel>{};
 
     try {
       const response = await find(props.id.value);
-
       video.value = response.data;
     } catch (e: unknown) {
       const error = e as AxiosError<ErrorResponse>;
@@ -39,20 +38,17 @@ export default function useVideo(props: Props) {
 
   const subscribe = (id: string | number): void => {
     echo?.private(`video.${id}`)
-      .listen('.video.deleted', fetchVideo)
-      .listen('.video.updated', fetchVideo);
+      .listen('.video.deleted', fetch)
+      .listen('.video.updated', fetch);
   };
 
   const unsubscribe = (id: string | number): void => {
     echo?.leave(`video.${id}`);
   };
 
-  onMounted(fetchVideo);
-
-  watch(props.id, fetchVideo);
+  watch(props.id, fetch, { immediate: true });
 
   return {
-    fetchVideo,
     subscribe,
     unsubscribe,
     errors,

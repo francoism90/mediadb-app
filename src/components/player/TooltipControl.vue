@@ -1,7 +1,11 @@
 <template>
-  <div class="player-tooltip desktop-only">
+  <div
+    v-if="cue && percent > 0"
+    class="player-tooltip desktop-only"
+    :style="tooltipStyle"
+  >
     <q-img
-      :src="thumbnail?.text || ''"
+      :src="cue.text || ''"
       width="160px"
       height="90px"
       no-spinner
@@ -10,58 +14,61 @@
     />
 
     <div class="text-white text-center q-py-xs">
-      {{ time }}
+      {{ timestamp }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { clamp, find } from 'lodash';
 import useFilters from 'src/composables/useFilters';
+import usePlayer from 'src/composables/usePlayer';
 import { PlayerTooltip } from 'src/interfaces/player';
 import {
-  computed, defineComponent, onMounted, PropType, ref, watch,
+  computed, defineComponent, PropType, toRefs,
 } from 'vue';
 
 export default defineComponent({
   name: 'TooltipControl',
 
   props: {
-    data: {
+    tooltip: {
       type: Object as PropType<PlayerTooltip>,
       required: true,
     },
   },
 
   setup(props) {
-    const thumbnail = ref<VTTCue | null>(null);
-    const thumbnailTimer = ref<number | undefined>(0);
+    const { tooltip } = toRefs(props);
 
     const { formatTime } = useFilters();
+    const { store } = usePlayer();
 
-    const time = computed(() => formatTime(props.data?.time || 0));
+    const duration = computed(() => store.properties?.duration || 0);
+    const position = computed(() => tooltip.value.clientX - tooltip.value.sliderOffset.left);
+    const percent = computed(() => (position.value / tooltip.value.sliderWidth) * 100);
+    const time = computed(() => duration.value * (percent.value / 100));
+    const timestamp = computed(() => formatTime(time.value));
 
-    const setThumbnail = () => {
-      thumbnail.value = null;
+    const cue = computed(() => {
+      const track = find(store.properties?.textTracks, { id: 'sprite' }) as TextTrack | null;
+      const cues = track?.cues as TextTrackCueList || undefined;
 
-      clearTimeout(thumbnailTimer.value);
-      if (props.data.cue && props.data.cue.text) {
-        thumbnailTimer.value = window.setTimeout(() => {
-          thumbnail.value = props.data.cue;
-        }, 100);
-      }
-    };
+      return find(
+        cues, (o) => o.startTime >= time.value || o.startTime >= (time.value - 30),
+      );
+    });
 
-    onMounted(() => setThumbnail);
-
-    watch(() => props.data, (value) => {
-      if (value.cue?.text !== thumbnail.value?.text) {
-        setThumbnail();
-      }
+    const tooltipStyle = computed(() => {
+      const tooltipPosition = clamp(position.value - 80, 0, tooltip.value.sliderWidth - 160);
+      return { marginLeft: `${tooltipPosition}px` };
     });
 
     return {
-      thumbnail,
-      time,
+      cue,
+      percent,
+      timestamp,
+      tooltipStyle,
     };
   },
 });

@@ -8,17 +8,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'CaptionControl',
-
-  props: {
-    module: {
-      type: String as PropType<string>,
-      required: true,
-    },
-  },
 
   setup() {
     //

@@ -16,16 +16,10 @@
     </template>
 
     <template v-if="video && video.id">
-      <video-player
-        :module="`video-${id}`"
-        :video="video"
-      />
+      <video-player :video="video" />
 
       <div class="container">
-        <video-details
-          v-if="video.id"
-          :video="video"
-        />
+        <video-details :video="video" />
 
         <q-separator
           color="primary"
@@ -40,6 +34,7 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
+import { authenticate } from 'src/services/auth';
 import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
 import VideoRelated from 'src/components/video/Related.vue';
@@ -54,7 +49,7 @@ export interface Props {
 }
 
 export default defineComponent({
-  name: 'VideoPage',
+  name: 'Video',
 
   components: {
     VideoDetails,
@@ -70,9 +65,16 @@ export default defineComponent({
 
     slug: {
       type: String as PropType<string>,
-      required: false,
       default: null,
     },
+  },
+
+  async preFetch({ redirect, urlPath }) {
+    const authenticated = await authenticate({ redirectUri: urlPath });
+
+    if (!authenticated) {
+      redirect({ path: '/login' });
+    }
   },
 
   setup(props: Props) {
@@ -87,13 +89,12 @@ export default defineComponent({
     }));
 
     onMounted(() => subscribe(id.value));
+    onBeforeUnmount(() => unsubscribe(id.value));
 
     watch(id, (value, oldValue): void => {
       subscribe(value);
       unsubscribe(oldValue);
     });
-
-    onBeforeUnmount(() => unsubscribe(id.value));
 
     return {
       errors,

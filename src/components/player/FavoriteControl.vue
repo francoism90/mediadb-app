@@ -15,28 +15,20 @@ import usePlayer from 'src/composables/usePlayer';
 import { Model } from 'src/interfaces/repository';
 import { favorite } from 'src/repositories/user';
 import {
-  computed, defineComponent, PropType, reactive,
+  computed, defineComponent, reactive,
 } from 'vue';
 import useFormValidation from 'src/composables/useFormValidation';
 
 export default defineComponent({
   name: 'FavoriteControl',
 
-  props: {
-    module: {
-      type: String as PropType<string>,
-      required: true,
-    },
-  },
-
-  setup(props) {
-    const { model } = usePlayer({ module: props.module });
-
+  setup() {
+    const { store } = usePlayer();
     const { setResponse } = useFormValidation();
 
-    const form = reactive<Model>({
-      id: model.value.id,
-      favorite: model.value.favorite,
+    const form = reactive(<Model>{
+      id: store.model.id,
+      favorite: store.model.favorite || false,
     });
 
     const icon = computed(() => (form.favorite === true ? 'favorite' : 'favorite_border'));
@@ -44,7 +36,6 @@ export default defineComponent({
     const onSubmit = async (): Promise<void> => {
       try {
         const response = await favorite(form);
-
         form.favorite = response.data?.favorite || false;
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
@@ -59,6 +50,7 @@ export default defineComponent({
     };
 
     return {
+      store,
       icon,
       onSubmit,
     };

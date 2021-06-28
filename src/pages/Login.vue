@@ -55,12 +55,11 @@
 import { AxiosError } from 'axios';
 import { useMeta, useQuasar } from 'quasar';
 import useFormValidation from 'src/composables/useFormValidation';
+import useRouter from 'src/composables/useRouter';
 import useSession from 'src/composables/useSession';
 import { ValidationResponse } from 'src/interfaces/form';
 import { LoginUser } from 'src/interfaces/session';
-import { login } from 'src/repositories/user';
-import { router } from 'src/router';
-import { setCsrfCookie } from 'src/services/api';
+import { signIn } from 'src/services/auth';
 import { defineComponent, reactive, ref } from 'vue';
 
 export default defineComponent({
@@ -69,7 +68,8 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
 
-    const { redirectPath, initialize } = useSession();
+    const { router } = useRouter();
+    const { store, useCsrfCookie } = useSession();
 
     const formRef = ref<HTMLFormElement | null>(null);
     const form = reactive<LoginUser>({
@@ -83,15 +83,10 @@ export default defineComponent({
 
     const onSubmit = async (): Promise<void> => {
       try {
-        // CSRF is only useful on SPA
-        if (!$q.platform.is.capacitor && !$q.platform.is.cordova) {
-          await setCsrfCookie();
-        }
+        await useCsrfCookie();
+        await signIn(form);
 
-        const response = await login(form);
-        await initialize(response);
-
-        await router.push(redirectPath.value || '/');
+        await router.replace(store.redirectUri || '/');
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 

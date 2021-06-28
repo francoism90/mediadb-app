@@ -1,6 +1,7 @@
-import { Model, ModelResponse } from './repository';
+import { Model } from 'src/interfaces/repository';
 
-export interface Media extends Model {
+export interface MediaModel extends Model {
+  id: string,
   duration?: number | null,
   kind?: string | null,
   locale?: string | null,
@@ -15,7 +16,7 @@ export interface Media extends Model {
   'thumbnail_url'?: string | null,
 }
 
-export interface MediaResponse extends ModelResponse {
-  data: Media,
-  meta: null
+export interface MediaResponse {
+  data: MediaModel,
+  meta: null,
 }

@@ -1,14 +1,10 @@
 <template>
   <div
-    ref="videoContainer"
+    ref="container"
     class="relative-position row no-wrap justify-center items-center player-container"
-    @mouseenter="activateControls"
-    @touchstart="activateControls"
-    @mousemove="activateControls"
-    @mouseleave="deactivateControls"
   >
     <video
-      ref="videoElement"
+      ref="media"
       autoPictureInPicture
       playsinline
       preload="metadata"
@@ -18,29 +14,9 @@
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :poster="video.clip?.thumbnail_url"
-      :src="video.clip?.stream_url"
-      :muted="properties.muted"
-      :playbackRate="properties.playbackRate"
-      :volume="properties.volume"
-      @abort="syncProperties"
-      @canplay="syncProperties"
-      @canplaythrough="syncProperties"
-      @cuechange="syncProperties"
-      @durationchange="syncProperties"
-      @ended="syncProperties"
-      @error="syncProperties"
-      @loadeddata="syncProperties"
-      @loadedmetadata="syncProperties"
-      @pause="syncProperties"
-      @play="syncProperties"
-      @playing="syncProperties"
-      @progress="syncProperties"
-      @ratechange="syncProperties"
-      @seeking="syncProperties"
-      @seeked="syncProperties"
-      @stalled="syncProperties"
-      @timeupdate="syncProperties"
-      @waiting="syncProperties"
+      :muted="store.properties?.muted || false"
+      :playbackRate="store.properties?.playbackRate || 1.0"
+      :volume="store.properties?.volume || 1"
     >
       <track
         id="sprite"
@@ -51,132 +27,96 @@
       >
     </video>
 
-    <transition
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-    >
-      <default-controls
-        v-show="properties.controls"
-        :module="module"
-      />
-    </transition>
+    <video-controls v-if="store.ready" />
   </div>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, ref, watch,
-} from 'vue';
-import { useQuasar } from 'quasar';
-import { Video } from 'src/interfaces/video';
-import DefaultControls from 'src/components/player/DefaultControls.vue';
+import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
+import { useQuasar } from 'quasar';
+import { PlayerRequest } from 'src/interfaces/player';
+import { VideoModel } from 'src/interfaces/video';
+import {
+  defineComponent, onBeforeMount, onBeforeUnmount, onMounted, PropType, ref, toRefs, watch,
+} from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
 
   components: {
-    DefaultControls,
+    VideoControls,
   },
 
   props: {
-    module: {
-      type: String as PropType<string>,
-      required: true,
-    },
-
     video: {
-      type: Object as PropType<Video>,
+      type: Object as PropType<VideoModel>,
       required: true,
     },
   },
 
   setup(props) {
+    const { video } = toRefs(props);
+
     const $q = useQuasar();
 
     const {
-      createPlayer, destroyPlayer, setProperties, syncProperties, properties,
-    } = usePlayer({
-      module: props.module,
-      model: props.video,
-      media: props.video.clip,
-    });
+      useVideo, loadVideo, destroy, useEvents, store,
+    } = usePlayer();
 
-    const videoContainer = ref<HTMLDivElement | null>(null);
-    const videoElement = ref<HTMLMediaElement | null>(null);
-    const controlTimer = ref<number | undefined>(0);
+    const container = ref<HTMLDivElement | null>(null);
+    const media = ref<HTMLMediaElement | null>(null);
 
-    const activateControls = () => {
-      setProperties({ controls: true });
-
-      clearTimeout(controlTimer.value);
-      controlTimer.value = window.setTimeout(() => {
-        setProperties({ controls: false });
-      }, 3500);
+    const initialize = (): void => {
+      useVideo({
+        model: video.value,
+        source: video.value.clip?.stream_url || '',
+      });
     };
 
-    const deactivateControls = (): void => {
-      setProperties({ controls: false });
+    const load = async (): Promise<void> => {
+      await destroy(media.value);
+      await loadVideo(media.value);
+
+      useEvents(media.value);
     };
 
     const setCurrentTime = (value: number): void => {
-      if (videoElement.value) {
-        videoElement.value.currentTime = value;
+      if (media.value) {
+        media.value.currentTime = value;
       }
     };
 
-    const setFullscreen = async (value: boolean): Promise<void> => {
-      if (value === true) {
-        await videoContainer.value?.requestFullscreen();
+    const toggleFullscreen = async (): Promise<void> => {
+      await $q.fullscreen.toggle(<Element>container.value);
+    };
+
+    const togglePlayback = async (): Promise<void> => {
+      if (media.value?.paused) {
+        await media.value?.play();
         return;
       }
 
-      await $q.fullscreen.exit();
+      media.value?.pause();
     };
 
-    const setPause = async (value: boolean): Promise<void> => {
-      if (value === true) {
-        videoElement.value?.pause();
-        return;
-      }
-
-      await videoElement.value?.play();
+    const playerEvent = async (event: PlayerRequest | undefined): Promise<void> => {
+      if (event && 'fullscreen' in event) await toggleFullscreen();
+      if (event && 'playback' in event) await togglePlayback();
+      if (event && 'time' in event) setCurrentTime(event.time || 0);
     };
 
-    onMounted(async () => {
-      await createPlayer(videoElement.value);
-    });
+    watch(props.video, initialize, { deep: true });
+    watch(() => store.request, playerEvent);
 
-    onBeforeUnmount(async () => {
-      // https://stackoverflow.com/a/28060352
-      videoElement.value?.pause();
-      videoElement.value?.removeAttribute('src');
-      videoElement.value?.load();
-
-      await destroyPlayer();
-    });
-
-    watch(properties, async (value, oldValue): Promise<void> => {
-      if (value.requestTime !== oldValue.requestTime) {
-        setCurrentTime(value.requestTime);
-      }
-
-      if (value.paused !== oldValue.paused) {
-        await setPause(value.paused);
-      }
-
-      if (value.fullscreen !== oldValue.fullscreen) {
-        await setFullscreen(value.fullscreen);
-      }
-    });
+    onBeforeMount(initialize);
+    onBeforeUnmount(() => destroy(media.value));
+    onMounted(load);
 
     return {
-      videoContainer,
-      videoElement,
-      activateControls,
-      deactivateControls,
-      syncProperties,
-      properties,
+      container,
+      media,
+      store,
     };
   },
 });

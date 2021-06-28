@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
 import {
-  Video, VideoResponse, VideosParameters, VideosResponse,
+  VideoModel, VideoResponse, VideosQuery, VideosResponse,
 } from 'src/interfaces/video';
 
 export async function find(id: string | number): Promise<VideoResponse> {
@@ -12,7 +12,7 @@ export async function find(id: string | number): Promise<VideoResponse> {
   return response.data;
 }
 
-export async function all(params: VideosParameters): Promise<VideosResponse> {
+export async function all(params: VideosQuery): Promise<VideosResponse> {
   const response = await api.get<VideosResponse, AxiosResponse<VideosResponse>>(
     'videos', { params },
   );
@@ -20,7 +20,7 @@ export async function all(params: VideosParameters): Promise<VideosResponse> {
   return response.data;
 }
 
-export async function update(params: Video): Promise<VideoResponse> {
+export async function save(params: VideoModel): Promise<VideoResponse> {
   const response = await api.patch<VideoResponse, AxiosResponse<VideoResponse>>(
     `videos/${params.id}`, params,
   );
@@ -28,7 +28,7 @@ export async function update(params: Video): Promise<VideoResponse> {
   return response.data;
 }
 
-export async function remove(params: Video): Promise<VideoResponse> {
+export async function remove(params: VideoModel): Promise<VideoResponse> {
   const response = await api.delete<VideoResponse, AxiosResponse<VideoResponse>>(
     `videos/${params.id}`,
   );

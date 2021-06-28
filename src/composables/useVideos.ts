@@ -1,43 +1,35 @@
-import useRepository from 'src/composables/useRepository';
-import useRepositoryGetters from 'src/composables/useRepositoryGetters';
-import useRepositoryState from 'src/composables/useRepositoryState';
-import { RepositoryProps } from 'src/interfaces/repository';
-import { VideosParameters } from 'src/interfaces/video';
+import { api } from 'src/boot/axios';
 import { all } from 'src/repositories/video';
+import { useVideosStore } from 'src/store/videos';
 
-export default function useVideos(props: RepositoryProps) {
-  const {
-    resetModels, resetStore, setParams, setResponse,
-  } = useRepository(props);
+export default function useVideos() {
+  const store = useVideosStore();
 
-  const {
-    getParam, getParams, isLoadable, nextPage,
-  } = useRepositoryGetters(props.module);
-
-  const { id, data, meta } = useRepositoryState(props.module);
-
-  const fetchVideos = async (): Promise<void> => {
-    const fetch = isLoadable.value as boolean;
-
-    if (fetch) {
-      const pageNumber = nextPage.value as number;
-      const pageParams = { ...getParams.value, ...{ 'page[number]': pageNumber } } as VideosParameters;
-      await setParams({ params: pageParams });
-
-      const response = await all(pageParams);
-      await setResponse(response);
+  const useQuery = async (): Promise<void> => {
+    if (!store.firstLoad || !store.query) {
+      return;
     }
+
+    const response = await all(store.query);
+    store.populate(response);
+  };
+
+  const useNext = async (): Promise<void> => {
+    if (!store.isLoadable || !store.links.next) {
+      return;
+    }
+
+    const response = await api.get(store.links.next);
+    store.populate(response.data);
+  };
+
+  const fetchAll = async (): Promise<void> => {
+    await useQuery();
+    await useNext();
   };
 
   return {
-    fetchVideos,
-    resetModels,
-    resetStore,
-    getParam,
-    setParams,
-    isLoadable,
-    id,
-    data,
-    meta,
+    store,
+    fetchAll,
   };
 }

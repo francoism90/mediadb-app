@@ -34,9 +34,9 @@
 </template>
 
 <script lang="ts">
-import useRepository from 'src/composables/useRepository';
 import useRouter from 'src/composables/useRouter';
-import { Tag } from 'src/interfaces/tag';
+import useVideos from 'src/composables/useVideos';
+import { TagModel } from 'src/interfaces/tag';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -44,19 +44,19 @@ export default defineComponent({
 
   props: {
     tag: {
-      type: Object as PropType<Tag>,
+      type: Object as PropType<TagModel>,
       required: true,
     },
   },
 
   setup(props) {
+    const { store } = useVideos();
     const { router } = useRouter();
-    const { setParams: setModuleParams } = useRepository({ module: 'videos' });
 
     const onClick = async () => {
-      await setModuleParams({
-        params: { 'filter[query]': props.tag.name },
-        reset: true,
+      store.reset({
+        filter: { tags: [props.tag.slug] },
+        page: { number: 1 },
       });
 
       await router.push({ name: 'home' });

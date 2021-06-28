@@ -1,9 +1,10 @@
 import { api } from 'src/boot/axios';
-import { all } from 'src/repositories/tag';
-import { useTagsStore } from 'src/store/tags';
+import { VideoModel, VideosQuery } from 'src/interfaces/video';
+import { all } from 'src/repositories/video';
+import { useRelatedStore } from 'src/store/related';
 
-export default function useTags() {
-  const store = useTagsStore();
+export default function useRelated() {
+  const store = useRelatedStore();
 
   const useQuery = async (): Promise<void> => {
     if (!store.firstLoad || !store.query) {
@@ -28,8 +29,18 @@ export default function useTags() {
     await useNext();
   };
 
+  const initialize = (payload: VideoModel): void => {
+    store.reset(<VideosQuery>{
+      filter: { related: payload.id },
+      page: { number: 1 },
+    });
+
+    store.reload();
+  };
+
   return {
-    store,
     fetchAll,
+    initialize,
+    store,
   };
 }

@@ -5,13 +5,13 @@
     </h1>
 
     <q-pull-to-refresh
-      :key="id"
+      :key="store.id"
       @refresh="onRefresh"
     >
       <q-infinite-scroll @load="onLoad">
         <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
-            v-for="(item, index) in data"
+            v-for="(item, index) in store.data"
             :key="index"
             class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
           >
@@ -34,12 +34,14 @@
 
 <script lang="ts">
 import Item from 'src/components/videos/Item.vue';
-import useVideos from 'src/composables/useVideos';
-import { Video, VideosParameters } from 'src/interfaces/video';
-import { defineComponent, PropType, toRefs } from 'vue';
+import useRelated from 'src/composables/useRelated';
+import { VideoModel } from 'src/interfaces/video';
+import {
+  defineComponent, PropType, onBeforeMount, watch,
+} from 'vue';
 
 export default defineComponent({
-  name: 'VideoDetails',
+  name: 'VideoRelated',
 
   components: {
     Item,
@@ -47,51 +49,37 @@ export default defineComponent({
 
   props: {
     video: {
-      type: Object as PropType<Video>,
+      type: Object as PropType<VideoModel>,
       required: true,
     },
   },
 
   setup(props) {
-    const { video } = toRefs(props);
-
-    const {
-      fetchVideos, isLoadable, setParams, id, data,
-    } = useVideos({
-      module: `video-related-${video.value.id}`,
-      params: <VideosParameters>{
-        sort: 'recommended',
-        'filter[related]': video.value.id,
-        'page[number]': 1,
-        'page[size]': 12,
-      },
-    });
+    const { fetchAll, initialize, store } = useRelated();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetchVideos();
-        await done(!isLoadable.value);
+        await fetchAll();
+        await done(store.isDone);
       } catch {
         await done(true);
       }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onRefresh = async (done: Function): Promise<void> => {
-      await setParams({
-        params: { 'page[number]': 1 },
-        reset: true,
-      });
-
+    const onRefresh = (done: Function): void => {
+      initialize(props.video);
       done();
     };
+
+    onBeforeMount(() => initialize(props.video));
+    watch(props.video, () => initialize(props.video), { deep: true });
 
     return {
       onLoad,
       onRefresh,
-      id,
-      data,
+      store,
     };
   },
 });

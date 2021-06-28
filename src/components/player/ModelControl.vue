@@ -42,23 +42,19 @@
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
 import usePlayer from 'src/composables/usePlayer';
-import { update } from 'src/repositories/media';
-import { defineComponent, PropType } from 'vue';
+import { MediaModel } from 'src/interfaces/media';
+import { VideoModel } from 'src/interfaces/video';
+import { save } from 'src/repositories/media';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Menu',
+  name: 'ModelControl',
 
-  props: {
-    module: {
-      type: String as PropType<string>,
-      required: true,
-    },
-  },
-
-  setup(props) {
+  setup() {
     const $q = useQuasar();
+    const { store } = usePlayer();
 
-    const { media, model, properties } = usePlayer({ module: props.module });
+    const model = computed(() => store.model as VideoModel);
 
     const editModel = (): void => {
       $q.dialog({
@@ -70,9 +66,9 @@ export default defineComponent({
     };
 
     const thumbnailMedia = async (): Promise<void> => {
-      await update({
-        id: media.value?.id || '',
-        thumbnail: properties.value?.currentTime || 10,
+      await save(<MediaModel>{
+        id: model.value.clip?.id || '',
+        thumbnail: store.properties.currentTime || 10,
       });
 
       $q.notify({
@@ -82,7 +78,7 @@ export default defineComponent({
     };
 
     return {
-      properties,
+      model,
       editModel,
       thumbnailMedia,
     };

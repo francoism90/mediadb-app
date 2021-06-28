@@ -29,7 +29,7 @@
 
           <q-item-section>
             <q-item-label>
-              {{ user.name }}
+              {{ store.user?.name }}
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -64,10 +64,10 @@ export default defineComponent({
   name: 'AppAccount',
 
   setup() {
-    const { user } = useSession();
+    const { store } = useSession();
 
     return {
-      user,
+      store,
     };
   },
 });

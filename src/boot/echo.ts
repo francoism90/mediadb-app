@@ -1,54 +1,10 @@
-import Echo from 'laravel-echo';
-import { PusherChannel } from 'laravel-echo/dist/channel';
-import Pusher from 'pusher-js';
 import { boot } from 'quasar/wrappers';
-import { api } from 'src/boot/axios';
-import { StoreState } from 'src/interfaces/store';
-import { InjectionKey } from 'vue';
-import { Store } from 'vuex';
+import { initialize, echoKey } from 'src/services/echo';
+import Pusher from 'pusher-js';
 
-function createEcho(store: Store<StoreState>): Echo {
-  const authToken = store.state.session.token || '';
+const echo = initialize();
 
-  return new Echo({
-    broadcaster: 'pusher',
-    key: process.env.WS_KEY,
-    cluster: process.env.WS_CLUSTER,
-    wsHost: process.env.WS_HOST,
-    wsPort: process.env.WS_PORT,
-    wssPort: process.env.WS_PORT,
-    disableStats: true,
-    forceTLS: process.env.WS_TLS,
-    enabledTransports: ['ws', 'wss'],
-    authEndpoint: `${process.env.API_URL}/broadcasting/auth`,
-    auth: {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
-    authorizer: (channel: PusherChannel) => ({
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      authorize: async (socketId: string, callback: Function) => {
-        try {
-          const response = await api.post('/broadcasting/auth', {
-            socket_id: socketId,
-            channel_name: channel.name as string,
-          });
-
-          callback(false, response.data);
-        } catch (error) {
-          callback(true, error);
-        }
-      },
-    }),
-  });
-}
-
-export const echoKey: InjectionKey<Echo> = Symbol('echo-key');
-
-export default boot(({ app, store }) => {
-  const echo = createEcho(store);
-
+export default boot(({ app }) => {
   app.provide(echoKey, echo);
 
   app.config.globalProperties.$pusher = Pusher;

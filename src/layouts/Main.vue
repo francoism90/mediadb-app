@@ -38,7 +38,7 @@
       class="drawer"
       bordered
       overlay
-      :width="260"
+      :width="300"
     >
       <drawer />
     </q-drawer>
@@ -59,16 +59,15 @@ export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    Drawer,
     Account,
+    Drawer,
   },
 
   setup() {
     const drawer = ref(false);
 
-    const { user } = useSession();
-
-    const layoutKey = computed(() => user.value.id || +new Date());
+    const { store } = useSession();
+    const layoutKey = computed(() => store.user?.id || +new Date());
 
     const toggleDrawer = (): void => {
       drawer.value = !drawer.value;
@@ -76,8 +75,8 @@ export default defineComponent({
 
     return {
       layoutKey,
-      drawer,
       toggleDrawer,
+      drawer,
     };
   },
 });

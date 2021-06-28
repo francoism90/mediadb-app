@@ -1,63 +1,31 @@
-import { some } from 'lodash';
-import { SessionState } from 'src/interfaces/store';
-import { useNamespacedActions, useNamespacedGetters, useNamespacedState } from 'vuex-composition-helpers';
+import { includes } from 'lodash';
+import { useQuasar } from 'quasar';
+import { setCsrfCookie } from 'src/services/api';
+import { useSessionStore } from 'src/store/session';
 
 export default function useSession() {
-  const { resetStore, resetUser, initialize } = useNamespacedActions('session', ['resetStore', 'resetUser', 'initialize']);
-  const { isAuthenticated } = useNamespacedGetters('session', ['isAuthenticated']);
-  const { redirectPath, token, user } = useNamespacedState<SessionState>('session', [
-    'redirectPath',
-    'token',
-    'user',
-  ]);
+  const $q = useQuasar();
+  const store = useSessionStore();
 
-  const hasRole = (payload: string): boolean | undefined => {
-    if (!isAuthenticated || !user.value.roles) {
-      return false;
+  const roles = store.user?.roles || [];
+  const permissions = store.user?.permissions || [];
+
+  const hasRole = (key: string | string[]): boolean => includes(roles, key);
+  const hasPermission = (key: string | string[]): boolean => includes(permissions, key);
+
+  const useCsrfCookie = async (): Promise<void> => {
+    // CSRF is only useful on SPA/PWA
+    if (!$q.platform.is.capacitor && !$q.platform.is.cordova) {
+      await setCsrfCookie();
     }
-
-    return user.value.roles.includes(payload);
-  };
-
-  const hasAnyRole = (payload: string): boolean => {
-    if (!isAuthenticated || !user.value.roles) {
-      return false;
-    }
-
-    const roles = payload.split(',');
-
-    return some(user.value.roles, roles);
-  };
-
-  const hasPermission = (payload: string): boolean | undefined => {
-    if (!isAuthenticated || !user.value.permissions) {
-      return false;
-    }
-
-    return user.value.permissions.includes(payload);
-  };
-
-  const hasAnyPermissions = (payload: string): boolean | undefined => {
-    if (!isAuthenticated || !user.value.permissions) {
-      return false;
-    }
-
-    const permissions = payload.split(',');
-
-    return some(user.value.roles, permissions);
   };
 
   return {
-    resetStore,
-    resetUser,
-    initialize,
-    isAuthenticated,
+    store,
+    roles,
+    permissions,
     hasRole,
-    hasAnyRole,
     hasPermission,
-    hasAnyPermissions,
-    redirectPath,
-    token,
-    user,
+    useCsrfCookie,
   };
 }
