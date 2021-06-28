@@ -29,16 +29,18 @@ export default function useRelated() {
     await useNext();
   };
 
-  const reset = (payload: VideoModel): void => {
+  const initialize = (payload: VideoModel): void => {
     store.reset(<VideosQuery>{
       filter: { related: payload.id },
       page: { number: 1 },
     });
+
+    store.reload();
   };
 
   return {
-    store,
     fetchAll,
-    reset,
+    initialize,
+    store,
   };
 }

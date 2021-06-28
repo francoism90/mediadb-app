@@ -40,18 +40,15 @@ export const useRelatedStore = defineStore({
   },
 
   actions: {
-    reset(payload: VideosQuery | undefined): void {
+    reset(payload: VideosQuery): void {
+      this.query = assign(this.query, payload);
+    },
+
+    reload(): void {
       this.data = <VideoModel[]>[];
       this.meta = <VideosMeta>{};
-      this.links = <VideosLinks>{
-        first: null,
-        next: null,
-      };
-
-      if (payload) {
-        this.query = assign(this.query, payload);
-        this.id = Date.now();
-      }
+      this.links = <VideosLinks>{ first: null, next: null };
+      this.id = Date.now();
     },
 
     populate(payload: VideosResponse): void {

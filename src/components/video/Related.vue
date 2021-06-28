@@ -55,7 +55,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { store, fetchAll, reset } = useRelated();
+    const { fetchAll, initialize, store } = useRelated();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -69,12 +69,12 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
-      reset(props.video);
+      initialize(props.video);
       done();
     };
 
-    onBeforeMount(() => reset(props.video));
-    watch(props.video, () => reset(props.video), { deep: true });
+    onBeforeMount(() => initialize(props.video));
+    watch(props.video, () => initialize(props.video), { deep: true });
 
     return {
       onLoad,

@@ -4,7 +4,7 @@ import { ErrorResponse } from 'src/interfaces/api';
 import { VideoModel } from 'src/interfaces/video';
 import { find } from 'src/repositories/video';
 import {
-  onMounted, Ref, ref, watch,
+  Ref, ref, watch,
 } from 'vue';
 
 interface Props {
@@ -46,8 +46,7 @@ export default function useVideo(props: Props) {
     echo?.leave(`video.${id}`);
   };
 
-  onMounted(fetch);
-  watch(props.id, fetch);
+  watch(props.id, fetch, { immediate: true });
 
   return {
     subscribe,
