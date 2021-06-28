@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="percent > 0"
+    v-if="cue && percent > 0"
     class="player-tooltip desktop-only"
     :style="tooltipStyle"
   >
