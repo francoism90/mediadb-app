@@ -28,7 +28,7 @@ export default defineComponent({
 
     const form = reactive(<Model>{
       id: store.model.id,
-      favorite: store.model.favorite,
+      favorite: store.model.favorite || false,
     });
 
     const icon = computed(() => (form.favorite === true ? 'favorite' : 'favorite_border'));

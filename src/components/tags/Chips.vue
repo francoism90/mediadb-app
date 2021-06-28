@@ -23,7 +23,7 @@ import { TagModel } from 'src/interfaces/tag';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
-  name: 'TagList',
+  name: 'TagChips',
 
   props: {
     tags: {
