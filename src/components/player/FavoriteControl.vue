@@ -36,7 +36,7 @@ export default defineComponent({
     const onSubmit = async (): Promise<void> => {
       try {
         const response = await favorite(form);
-        form.favorite = response.data.favorite || false;
+        form.favorite = response.data?.favorite || false;
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 
