@@ -52,7 +52,6 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-
     const { store } = usePlayer();
 
     const model = computed(() => store.model as VideoModel);

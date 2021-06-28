@@ -4,7 +4,7 @@ import { readonlyProperties, syncEvents } from 'src/services/player';
 import { usePlayerStore } from 'src/store/player';
 import { ref } from 'vue';
 import { debounce, pick } from 'lodash';
-import { PlayerProperties, PlayerProps } from 'src/interfaces/player';
+import { PlayerProperties, PlayerSource } from 'src/interfaces/player';
 
 export default function usePlayer() {
   const player = ref<Player>();
@@ -19,15 +19,9 @@ export default function usePlayer() {
 
   const syncProperties = debounce(setProperties, 100);
 
-  const useVideo = async (payload: PlayerProps): Promise<void> => {
+  const useVideo = (payload: PlayerSource): void => {
+    store.$reset();
     store.initialize(payload);
-
-    try {
-      const shakaPlayer = initialize(payload.media);
-      player.value = await shakaPlayer.load(store.source) as Player;
-    } catch (e: unknown) {
-      console.error(e);
-    }
   };
 
   const useEvents = (dom: HTMLMediaElement | null): void => {
@@ -42,16 +36,33 @@ export default function usePlayer() {
     });
   };
 
-  const destroy = async (): Promise<void> => {
+  const loadVideo = async (dom: HTMLMediaElement | null): Promise<void> => {
+    try {
+      const shakaPlayer = initialize(dom);
+      player.value = await shakaPlayer.load(store.source) as Player;
+    } catch (e: unknown) {
+      console.error(e);
+    }
+  };
+
+  const destroy = async (dom: HTMLMediaElement | null): Promise<void> => {
+    destroyEvents(dom);
+
     await player.value?.detach();
     await player.value?.destroy();
+
+    // @doc https://stackoverflow.com/a/28060352
+    dom?.pause();
+    dom?.removeAttribute('src');
+    dom?.load();
   };
 
   return {
-    useVideo,
     useEvents,
     destroy,
     destroyEvents,
+    loadVideo,
+    useVideo,
     player,
     store,
   };

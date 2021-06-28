@@ -27,7 +27,7 @@
       >
     </video>
 
-    <video-controls />
+    <video-controls v-if="store.ready" />
   </div>
 </template>
 
@@ -38,7 +38,7 @@ import { useQuasar } from 'quasar';
 import { PlayerRequest } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRefs, watch,
+  defineComponent, onBeforeMount, onBeforeUnmount, onMounted, PropType, ref, toRefs, watch,
 } from 'vue';
 
 export default defineComponent({
@@ -61,36 +61,24 @@ export default defineComponent({
     const $q = useQuasar();
 
     const {
-      useVideo, destroy, useEvents, destroyEvents, store,
+      useVideo, loadVideo, destroy, useEvents, store,
     } = usePlayer();
 
     const container = ref<HTMLDivElement | null>(null);
     const media = ref<HTMLMediaElement | null>(null);
 
-    const resetMedia = (): void => {
-      // @doc https://stackoverflow.com/a/28060352
-      media.value?.pause();
-      media.value?.removeAttribute('src');
-      media.value?.load();
-    };
-
-    const loadVideo = async (): Promise<void> => {
-      resetMedia();
-      useEvents(media.value);
-
-      await useVideo({
-        type: 'video',
-        media: media.value,
+    const initialize = (): void => {
+      useVideo({
         model: video.value,
         source: video.value.clip?.stream_url || '',
       });
     };
 
-    const unloadVideo = async (): Promise<void> => {
-      destroyEvents(media.value);
-      resetMedia();
+    const load = async (): Promise<void> => {
+      await destroy(media.value);
+      await loadVideo(media.value);
 
-      await destroy();
+      useEvents(media.value);
     };
 
     const setCurrentTime = (value: number): void => {
@@ -118,10 +106,12 @@ export default defineComponent({
       if (event && 'time' in event) setCurrentTime(event.time || 0);
     };
 
+    watch(video, initialize, { deep: true });
     watch(() => store.$state.request, playerEvent);
 
-    onMounted(loadVideo);
-    onBeforeUnmount(unloadVideo);
+    onBeforeMount(initialize);
+    onBeforeUnmount(() => destroy(media.value));
+    onMounted(load);
 
     return {
       container,

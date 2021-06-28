@@ -3,8 +3,15 @@ export interface Model {
   slug: string,
   name: string,
   description: string,
+  favorite?: boolean,
   'created_at': Date,
   'updated_at': Date,
+}
+
+export interface ModelResponse extends Model {
+  data: Model,
+  exception?: string | null
+  message?: string | null
 }
 
 export interface RepositoryMeta {

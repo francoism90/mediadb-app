@@ -143,12 +143,12 @@ export default {
     const { store } = useVideos();
     const { fetch: fetchTags, reset: resetTags, data: tags } = useTagInput();
 
-    onBeforeMount(async () => {
+    const populateTags = async (): Promise<void> => {
       await fetchTags({
         filter: { id: store.query.filter?.tags },
         page: { number: 1, size: 5 },
       });
-    });
+    };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const filterTags = async (val: string, update: Function): Promise<void> => {
@@ -162,6 +162,8 @@ export default {
 
       await update();
     };
+
+    onBeforeMount(populateTags);
 
     return {
       dialogRef,

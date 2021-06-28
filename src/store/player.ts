@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import {
-  PlayerProperties, PlayerProps, PlayerRequest, PlayerState,
+  PlayerProperties, PlayerRequest, PlayerState, PlayerSource,
 } from 'src/interfaces/player';
 import { Model } from 'src/interfaces/repository';
 
@@ -8,28 +8,27 @@ export const usePlayerStore = defineStore({
   id: 'player',
 
   state: () => (<PlayerState>{
-    id: null,
-    type: 'auto',
+    ready: false,
     model: <Model>{},
     properties: <PlayerProperties>{},
     request: <PlayerRequest>{},
   }),
 
   getters: {
-    isReady(): boolean {
+    isLoading(): boolean {
       const readyState = this.properties.readyState || 0;
 
       return (
-        this.properties.ended === false && readyState > 1
+        this.properties.ended === false && readyState < 3
       );
     },
   },
 
   actions: {
-    initialize(payload: PlayerProps): void {
+    initialize(payload: PlayerSource): void {
       this.model = Object.assign(this.model, payload.model);
-      this.source = payload.source;
-      this.type = payload.type || 'auto';
+      this.source = payload.source || '';
+      this.ready = true;
     },
 
     dispatch(payload: PlayerRequest): void {
