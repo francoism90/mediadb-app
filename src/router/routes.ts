@@ -25,6 +25,17 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/tags',
+    component: () => import('layouts/Main.vue'),
+    children: [
+      {
+        path: '',
+        name: 'tags',
+        component: () => import('pages/Tags.vue'),
+      },
+    ],
+  },
+  {
     path: '/settings',
     component: () => import('layouts/Main.vue'),
     children: [
