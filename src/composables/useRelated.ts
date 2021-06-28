@@ -1,10 +1,10 @@
 import { api } from 'src/boot/axios';
 import { VideoModel, VideosQuery } from 'src/interfaces/video';
 import { all } from 'src/repositories/video';
-import { useVideosStore } from 'src/store/videos';
+import { useRelatedStore } from 'src/store/related';
 
 export default function useRelated() {
-  const store = useVideosStore();
+  const store = useRelatedStore();
 
   const useQuery = async (): Promise<void> => {
     if (!store.firstLoad || !store.query) {
