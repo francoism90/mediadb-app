@@ -151,13 +151,18 @@ export default {
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const filterTags = async (val: string, update: Function): Promise<void> => {
+    const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
+      if (val.length < 1) {
+        abort();
+        return;
+      }
+
       resetTags();
 
       await fetchTags({
         filter: { query: val },
         page: { number: 1, size: 5 },
-        sort: val.length < 1 ? 'items' : 'recommended',
+        sort: 'recommended',
       });
 
       await update();
