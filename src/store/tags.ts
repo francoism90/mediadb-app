@@ -46,6 +46,7 @@ export const useTagsStore = defineStore({
   actions: {
     reset(payload: TagsQuery): void {
       this.query = merge(this.query, payload);
+      this.reload();
     },
 
     reload(): void {
