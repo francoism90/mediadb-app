@@ -44,6 +44,7 @@ export const useRelatedStore = defineStore({
   actions: {
     reset(payload: VideosQuery): void {
       this.query = merge(this.query, payload);
+      this.reload();
     },
 
     reload(): void {

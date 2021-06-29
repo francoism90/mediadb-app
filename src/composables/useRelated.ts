@@ -32,10 +32,7 @@ export default function useRelated() {
   const initialize = (payload: VideoModel): void => {
     store.reset(<VideosQuery>{
       filter: { related: payload.id },
-      page: { number: 1 },
     });
-
-    store.reload();
   };
 
   return {

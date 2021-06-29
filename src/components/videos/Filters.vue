@@ -190,7 +190,6 @@ export default {
     const resetFilters = (): void => {
       store.reset({
         sort: 'recommended',
-        page: { number: 1 },
         filter: {
           favorites: null,
           tags: null,

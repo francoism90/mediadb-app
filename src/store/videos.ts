@@ -46,6 +46,7 @@ export const useVideosStore = defineStore({
   actions: {
     reset(payload: VideosQuery): void {
       this.query = merge(this.query, payload);
+      this.reload();
     },
 
     reload(): void {
