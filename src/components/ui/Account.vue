@@ -12,6 +12,8 @@
       class="menu"
       self="top left"
       square
+      transition-hide="none"
+      transition-show="none"
       transition-duration="0"
     >
       <q-list

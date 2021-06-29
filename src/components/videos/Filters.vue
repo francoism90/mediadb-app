@@ -158,7 +158,7 @@ export default {
   ],
 
   setup() {
-    const { dialogRef, onDialogHide } = useDialogPluginComponent();
+    const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
     const { store } = useVideos();
     const { fetch: fetchTags, reset: resetTags, data: tags } = useTagInput();
 
@@ -197,6 +197,8 @@ export default {
           query: null,
         },
       });
+
+      window.setTimeout(() => onDialogOK(), 300);
     };
 
     onBeforeMount(populateTags);
