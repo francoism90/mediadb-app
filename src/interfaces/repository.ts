@@ -2,7 +2,7 @@ export interface Model {
   id: string,
   slug: string,
   name: string,
-  description: string,
+  description?: string,
   favorite?: boolean,
   'created_at': Date,
   'updated_at': Date,

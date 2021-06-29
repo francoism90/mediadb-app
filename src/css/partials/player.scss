@@ -32,12 +32,12 @@
   background: rgba(0, 0, 0, 0.10);
   content: '';
   display: block;
-  height: 100%;
   position: absolute;
   bottom: 0;
+  height: 100%;
   width: 100%;
-  z-index: 30;
   pointer-events: none;
+  z-index: 30;
 }
 
 .player-playback {

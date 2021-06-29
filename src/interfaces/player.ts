@@ -38,7 +38,6 @@ export interface PlayerState {
   ready: boolean,
   model: Model,
   source: string,
-  controls: boolean,
   properties: PlayerProperties,
   request: PlayerRequest,
 }
