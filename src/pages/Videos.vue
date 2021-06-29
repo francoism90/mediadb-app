@@ -25,7 +25,7 @@
         popup-content-class="bg-grey-10"
       >
         <template #prepend>
-          <span class="text-caption">Sort by</span>
+          <span class="mobile-hide text-caption">Sort by</span>
         </template>
       </q-select>
     </q-toolbar>
