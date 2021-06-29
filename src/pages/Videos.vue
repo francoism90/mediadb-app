@@ -1,16 +1,6 @@
 <template>
   <q-page class="container">
     <q-toolbar class="q-py-lg">
-      <q-btn
-        icon="filter_list"
-        label="Filters"
-        color="grey-5"
-        outline
-        @click="showFilters"
-      />
-
-      <q-space />
-
       <q-select
         v-model="store.query.sort"
         :options="sorters"
@@ -28,6 +18,16 @@
           <span class="mobile-hide text-caption">Sort by</span>
         </template>
       </q-select>
+
+      <q-space />
+
+      <q-btn
+        icon="filter_list"
+        label="Filters"
+        color="grey-5"
+        outline
+        @click="showFilters"
+      />
     </q-toolbar>
 
     <q-pull-to-refresh
@@ -107,10 +107,10 @@ export default defineComponent({
       $q.dialog({
         component: Filters,
         componentProps: {
-          position: 'left',
+          position: 'right',
           maximized: true,
-          transitionShow: 'slide-right',
-          transitionHide: 'slide-left',
+          transitionShow: 'slide-left',
+          transitionHide: 'slide-right',
         },
       });
     };

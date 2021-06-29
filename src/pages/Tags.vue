@@ -1,8 +1,6 @@
 <template>
   <q-page class="container">
     <q-toolbar class="q-py-lg">
-      <q-space />
-
       <q-select
         v-model="store.query.sort"
         :options="sorters"
