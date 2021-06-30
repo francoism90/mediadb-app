@@ -5,7 +5,7 @@
         v-model="store.query.sort"
         :options="sorters"
         borderless
-        class="text-caption"
+        class="q-px-none text-caption"
         dense
         dropdown-icon="expand_more"
         emit-value
