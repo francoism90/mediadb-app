@@ -1,15 +1,16 @@
 <template>
   <div
-    v-if="cue && percent > 0"
+    v-if="percent > 0"
     class="player-tooltip desktop-only"
     :style="tooltipStyle"
   >
     <q-img
+      v-if="cue"
       :src="cue.text || ''"
-      width="160px"
-      height="90px"
       no-spinner
       no-transition
+      width="160px"
+      height="90px"
       class="player-tooltip-thumbnail"
     />
 
