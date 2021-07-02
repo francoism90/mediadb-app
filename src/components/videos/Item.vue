@@ -18,11 +18,11 @@
 
     <q-card-section class="q-px-none q-py-dm">
       <div class="text-weight-medium ellipsis-2-lines">
-        {{ video.name }}
+        {{ name }}
       </div>
 
       <div class="q-py-xs text-caption text-grey-5">
-        <span>{{ clipDuration }}</span>
+        <span>{{ duration }}</span>
         <span class="q-px-sm">•</span>
         <span>{{ video.clip?.resolution }}</span>
       </div>
@@ -56,12 +56,18 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { formatTime } = useFilters();
+    const { formatTime, formatTitle } = useFilters();
 
-    const clipDuration = computed(() => formatTime(props.video.clip?.duration || 0));
+    const name = computed(() => formatTitle([
+      [props.video.season_number, props.video.episode_number].join(''),
+      props.video.name,
+    ]));
+
+    const duration = computed(() => formatTime(props.video.clip?.duration || 0));
 
     return {
-      clipDuration,
+      duration,
+      name,
     };
   },
 });

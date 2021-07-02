@@ -45,7 +45,7 @@ import usePlayer from 'src/composables/usePlayer';
 import { MediaModel } from 'src/interfaces/media';
 import { VideoModel } from 'src/interfaces/video';
 import { save } from 'src/repositories/media';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   name: 'ModelControl',
@@ -55,6 +55,7 @@ export default defineComponent({
     const { store } = usePlayer();
 
     const model = computed(() => store.model as VideoModel);
+    const media = reactive(<MediaModel>model.value.clip);
 
     const editModel = (): void => {
       $q.dialog({
@@ -66,10 +67,10 @@ export default defineComponent({
     };
 
     const thumbnailMedia = async (): Promise<void> => {
-      await save(<MediaModel>{
-        id: model.value.clip?.id || '',
-        thumbnail: store.properties.currentTime || 10,
-      });
+      media.id = model.value.clip?.id || '';
+      media.thumbnail = store.properties.currentTime || 10;
+
+      await save(media);
 
       $q.notify({
         type: 'positive',

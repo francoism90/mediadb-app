@@ -8,8 +8,11 @@ export default function useFilters() {
 
   const formatDate = (value: string | number | Date): string => dayjs(value).format('D MMMM YYYY');
 
+  const formatTitle = (value: string[]): string => value.filter((n) => n).join(' - ');
+
   return {
     formatDate,
     formatTime,
+    formatTitle,
   };
 }

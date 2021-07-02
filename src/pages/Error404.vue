@@ -33,9 +33,7 @@ export default defineComponent({
   name: 'Error404',
 
   setup() {
-    useMeta(() => ({
-      title: '404 - Not Found',
-    }));
+    useMeta(() => ({ title: '404 - Not Found' }));
   },
 });
 </script>

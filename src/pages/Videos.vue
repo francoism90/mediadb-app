@@ -123,9 +123,7 @@ export default defineComponent({
 
     watch(store.query, store.reload, { deep: true });
 
-    useMeta(() => ({
-      title: 'Videos',
-    }));
+    useMeta(() => ({ title: 'Videos' }));
 
     return {
       onLoad,

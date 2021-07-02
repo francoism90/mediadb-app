@@ -95,6 +95,28 @@
               </q-item>
             </template>
           </q-select>
+
+          <q-input
+            v-model.trim="form.episode_number"
+            :error-message="getError('episode_number')[0]"
+            :error="hasError('episode_number')"
+            :maxlength="255"
+            autofocus
+            counter
+            label="Episode"
+            type="text"
+          />
+
+          <q-input
+            v-model.trim="form.season_number"
+            :error-message="getError('season_number')[0]"
+            :error="hasError('season_number')"
+            :maxlength="255"
+            autofocus
+            counter
+            label="Season"
+            type="text"
+          />
         </q-card-section>
 
         <q-card-actions align="right">
@@ -143,7 +165,9 @@ export default defineComponent({
 
   setup(props) {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
-    const { getError, hasError, setResponse } = useFormValidation();
+    const {
+      getError, hasError, resetResponse, setResponse,
+    } = useFormValidation();
     const { fetch: fetchTags, reset: resetTags, data: tags } = useTagInput();
 
     const deleteDialog = ref<boolean>(false);
@@ -151,6 +175,8 @@ export default defineComponent({
     const form = reactive<VideoModel>(<VideoModel>{
       id: props.video.id,
       name: props.video.name,
+      season_number: props.video.season_number,
+      episode_number: props.video.episode_number,
       overview: props.video.overview || '',
       tags: props.video.tags || [],
     });
@@ -169,6 +195,8 @@ export default defineComponent({
     };
 
     const onSubmit = async (): Promise<void> => {
+      resetResponse();
+
       try {
         await save(form);
       } catch (e: unknown) {
@@ -184,6 +212,8 @@ export default defineComponent({
     };
 
     const onDelete = async (): Promise<void> => {
+      resetResponse();
+
       try {
         await remove(form);
       } catch (e: unknown) {

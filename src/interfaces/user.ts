@@ -6,9 +6,9 @@ export interface UserSettings {
 
 export interface UserModel extends Model {
   email: string,
-  roles: string[],
-  permissions: string[],
-  settings: UserSettings[],
+  roles?: string[],
+  permissions?: string[],
+  settings?: UserSettings[],
   'avatar_url'?: string | null,
 }
 

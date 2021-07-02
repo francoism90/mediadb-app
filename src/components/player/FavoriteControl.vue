@@ -24,7 +24,7 @@ export default defineComponent({
 
   setup() {
     const { store } = usePlayer();
-    const { setResponse } = useFormValidation();
+    const { resetResponse, setResponse } = useFormValidation();
 
     const form = reactive(<Model>{
       id: store.model.id,
@@ -34,6 +34,8 @@ export default defineComponent({
     const icon = computed(() => (form.favorite === true ? 'favorite' : 'favorite_border'));
 
     const onSubmit = async (): Promise<void> => {
+      resetResponse();
+
       try {
         const response = await favorite(form);
         form.favorite = response.data?.favorite || false;

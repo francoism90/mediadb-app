@@ -97,9 +97,7 @@ export default defineComponent({
 
     watch(store.query, store.reload, { deep: true });
 
-    useMeta(() => ({
-      title: 'Tags',
-    }));
+    useMeta(() => ({ title: 'Tags' }));
 
     return {
       onLoad,

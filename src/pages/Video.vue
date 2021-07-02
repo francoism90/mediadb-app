@@ -40,8 +40,9 @@ import VideoDetails from 'src/components/video/Details.vue';
 import VideoRelated from 'src/components/video/Related.vue';
 import useVideo from 'src/composables/useVideo';
 import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, toRefs, watch,
+  defineComponent, computed, onBeforeUnmount, onMounted, PropType, toRefs, watch,
 } from 'vue';
+import useFilters from 'src/composables/useFilters';
 
 export interface Props {
   id: string,
@@ -80,13 +81,18 @@ export default defineComponent({
   setup(props: Props) {
     const { id } = toRefs(props);
 
+    const { formatTitle } = useFilters();
+
     const {
       subscribe, unsubscribe, errors, video,
     } = useVideo({ id });
 
-    useMeta(() => ({
-      title: video.value?.name || '',
-    }));
+    const name = computed(() => formatTitle([
+      [video.value?.season_number, video.value?.episode_number].join(''),
+      video.value?.name || '',
+    ]));
+
+    useMeta(() => ({ title: name.value }));
 
     onMounted(() => subscribe(id.value));
     onBeforeUnmount(() => unsubscribe(id.value));

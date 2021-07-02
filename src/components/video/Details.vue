@@ -1,7 +1,7 @@
 <template>
   <div class="video-details q-py-md">
     <h1 class="text-h3 text-white ellipsis-2-lines">
-      {{ video.name }}
+      {{ name }}
     </h1>
 
     <div class="q-gutter-sm text-white">
@@ -24,6 +24,27 @@
       dense
       class="q-py-md video-details-list"
     >
+      <item v-if="video.season_number">
+        <template #label>
+          Season :
+        </template>
+        {{ video.season_number }}
+      </item>
+
+      <item v-if="video.episode_number">
+        <template #label>
+          Episode :
+        </template>
+        {{ video.episode_number }}
+      </item>
+
+      <item v-if="video.released_at">
+        <template #label>
+          Released Date :
+        </template>
+        {{ released }}
+      </item>
+
       <item v-if="languages.length">
         <template #label>
           Languages :
@@ -66,13 +87,6 @@
         {{ video.clip?.resolution }}
       </item>
 
-      <item v-if="video.release_date">
-        <template #label>
-          Release Date :
-        </template>
-        {{ released }}
-      </item>
-
       <item v-if="video.created_at">
         <template #label>
           Upload Date :
@@ -106,20 +120,26 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { formatDate, formatTime } = useFilters();
+    const { formatDate, formatTime, formatTitle } = useFilters();
 
     const tagsByType = (type: string) => props.video.tags?.filter((tag) => tag.type === type);
+
+    const name = computed(() => formatTitle([
+      [props.video.season_number, props.video.episode_number].join(''),
+      props.video.name,
+    ]));
+
+    const duration = computed(() => formatTime(props.video.clip?.duration || 0));
+    const created = computed(() => formatDate(props.video.created_at || Date.now()));
+    const released = computed(() => formatDate(props.video.release_date || Date.now()));
 
     const cast = computed(() => tagsByType('actor'));
     const languages = computed(() => tagsByType('language'));
     const genres = computed(() => tagsByType('genre'));
     const studios = computed(() => tagsByType('studio'));
 
-    const duration = computed(() => formatTime(props.video.clip?.duration || 0));
-    const created = computed(() => formatDate(props.video.created_at || Date.now()));
-    const released = computed(() => formatDate(props.video.release_date || Date.now()));
-
     return {
+      name,
       cast,
       languages,
       genres,

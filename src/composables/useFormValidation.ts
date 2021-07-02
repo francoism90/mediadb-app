@@ -9,6 +9,10 @@ export default function useFormValidation() {
     validator.value = response;
   };
 
+  const resetResponse = () => {
+    validator.value = <ValidationResponse>{};
+  };
+
   const hasError = (field: string): boolean => has(validator.value.errors, field);
 
   const getError = (field: string): FieldError => get(
@@ -26,5 +30,6 @@ export default function useFormValidation() {
     getMessage,
     hasMessage,
     setResponse,
+    resetResponse,
   };
 }

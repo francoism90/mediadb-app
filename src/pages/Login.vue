@@ -79,9 +79,13 @@ export default defineComponent({
       remember_me: true,
     });
 
-    const { getError, hasError, setResponse } = useFormValidation();
+    const {
+      getError, hasError, resetResponse, setResponse,
+    } = useFormValidation();
 
     const onSubmit = async (): Promise<void> => {
+      resetResponse();
+
       try {
         await useCsrfCookie();
         await signIn(form);
@@ -99,9 +103,7 @@ export default defineComponent({
       }
     };
 
-    useMeta(() => ({
-      title: 'Log In',
-    }));
+    useMeta(() => ({ title: 'Log In' }));
 
     return {
       getError,

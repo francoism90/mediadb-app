@@ -10,9 +10,9 @@ export default function useTagInput() {
   const links = ref<TagsLinks>();
 
   const reset = (): void => {
-    data.value = [];
-    meta.value = {};
-    links.value = {};
+    data.value = <TagModel[]>[];
+    meta.value = <TagsMeta>{};
+    links.value = <TagsLinks>{};
   };
 
   const populate = (payload: TagsResponse): void => {

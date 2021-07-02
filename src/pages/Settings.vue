@@ -21,9 +21,7 @@ export default defineComponent({
   },
 
   setup() {
-    useMeta(() => ({
-      title: 'Settings',
-    }));
+    useMeta(() => ({ title: 'Settings' }));
   },
 });
 </script>
