@@ -68,12 +68,17 @@
 
 .player-tooltip {
   z-index: 40;
-  margin-bottom: $space-base;
-  background: black;
+  height: 120px;
+  width: 160px;
+  min-height: 120px;
+  min-width: 160px;
+}
+
+.player-tooltip-thumbnail {
+  background-position: center !important;
+  background-size: 100% 100% !important;
   height: 90px;
   width: 160px;
-  min-height: 90px;
-  min-width: 160px;
 }
 
 .player-settings {

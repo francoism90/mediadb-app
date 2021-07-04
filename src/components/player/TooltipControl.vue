@@ -1,17 +1,19 @@
 <template>
   <div
-    v-if="percent > 0"
+    v-show="percent > 0"
     class="player-tooltip desktop-only"
     :style="tooltipStyle"
   >
     <q-img
-      v-if="cue"
+      :key="cue.startTime || Date.now()"
       :src="cue.text || ''"
       no-spinner
       no-transition
+      loading="eager"
       width="160px"
       height="90px"
       class="player-tooltip-thumbnail"
+      img-class="player-tooltip-thumbnail"
     />
 
     <div class="text-white text-center q-py-xs">
@@ -35,7 +37,7 @@ export default defineComponent({
   props: {
     tooltip: {
       type: Object as PropType<PlayerTooltip>,
-      required: true,
+      default: () => (<PlayerTooltip>{}),
     },
   },
 
@@ -51,14 +53,11 @@ export default defineComponent({
     const time = computed(() => duration.value * (percent.value / 100));
     const timestamp = computed(() => formatTime(time.value));
 
-    const cue = computed(() => {
-      const track = find(store.properties?.textTracks, { id: 'sprite' }) as TextTrack | null;
-      const cues = track?.cues as TextTrackCueList || undefined;
+    const sprite = computed(() => find<TextTrack>(store.properties?.textTracks, { id: 'sprite' }));
 
-      return find(
-        cues, (o) => o.startTime >= time.value || o.startTime >= (time.value - 30),
-      );
-    });
+    const cue = computed(() => find(
+      sprite.value?.cues, (o) => o.startTime >= time.value || o.startTime >= (time.value - 30),
+    ));
 
     const tooltipStyle = computed(() => {
       const tooltipPosition = clamp(position.value - 80, 0, tooltip.value.sliderWidth - 160);
@@ -68,6 +67,7 @@ export default defineComponent({
     return {
       cue,
       percent,
+      time,
       timestamp,
       tooltipStyle,
     };

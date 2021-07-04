@@ -1,16 +1,16 @@
 <template>
   <div class="player-scrubber absolute-bottom">
     <tooltip-control
-      v-if="slider && tooltip"
+      v-if="tooltip"
       :tooltip="tooltip"
     />
 
     <q-slider
       ref="slider"
       :disable="store.properties.readyState === 0"
-      :model-value="store.properties.currentTime"
+      :model-value="store.properties.currentTime || 0"
       :min="0.0"
-      :max="store.properties.duration"
+      :max="store.properties.duration || 0"
       :step="0"
       :style="bufferStyle"
       color="primary"
