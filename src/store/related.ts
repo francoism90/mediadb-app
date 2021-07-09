@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge, findIndex, remove } from 'lodash';
 import { defineStore } from 'pinia';
 import {
   VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
@@ -33,7 +33,7 @@ export const useRelatedStore = defineStore({
     },
 
     isLoadable(): boolean {
-      return (this.links.first !== null && this.links.next !== null);
+      return (this.links.next !== null);
     },
 
     isDone(): boolean {
@@ -58,6 +58,18 @@ export const useRelatedStore = defineStore({
       this.data = this.data.concat(payload.data);
       this.links = payload.links;
       this.meta = payload.meta;
+    },
+
+    delete(payload: VideoModel): void {
+      remove(this.data, { id: payload.id });
+    },
+
+    update(payload: VideoModel): void {
+      const index = findIndex(this.data, { id: payload.id });
+
+      if (index >= 0) {
+        this.data.splice(index, 1, payload);
+      }
     },
   },
 });

@@ -1,3 +1,5 @@
+import { useRelatedStore } from 'src/store/related';
+import { useVideosStore } from 'src/store/videos';
 import { AxiosError } from 'axios';
 import useEcho from 'src/composables/useEcho';
 import { ErrorResponse } from 'src/interfaces/api';
@@ -12,6 +14,9 @@ interface Props {
 }
 
 export default function useVideo(props: Props) {
+  const related = useRelatedStore();
+  const videos = useVideosStore();
+
   const { echo } = useEcho();
 
   const video = ref<VideoModel>();
@@ -24,6 +29,10 @@ export default function useVideo(props: Props) {
     try {
       const response = await find(props.id.value);
       video.value = response.data;
+
+      // Update stores
+      related.update(video.value);
+      videos.update(video.value);
     } catch (e: unknown) {
       const error = e as AxiosError<ErrorResponse>;
 
@@ -36,9 +45,19 @@ export default function useVideo(props: Props) {
     }
   };
 
+  const remove = async (): Promise<void> => {
+    // Update stores
+    if (video.value) {
+      related.delete(video.value);
+      videos.delete(video.value);
+    }
+
+    await fetch();
+  };
+
   const subscribe = (id: string | number): void => {
     echo?.private(`video.${id}`)
-      .listen('.video.deleted', fetch)
+      .listen('.video.deleted', remove)
       .listen('.video.updated', fetch);
   };
 
