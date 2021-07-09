@@ -101,7 +101,6 @@
             :error-message="getError('episode_number')[0]"
             :error="hasError('episode_number')"
             :maxlength="255"
-            autofocus
             counter
             label="Episode"
             type="text"
@@ -112,7 +111,6 @@
             :error-message="getError('season_number')[0]"
             :error="hasError('season_number')"
             :maxlength="255"
-            autofocus
             counter
             label="Season"
             type="text"
