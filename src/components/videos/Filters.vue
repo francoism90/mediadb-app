@@ -13,7 +13,7 @@
           class="video-filter-search"
         >
           <q-input
-            v-model="store.query.filter.query"
+            v-model.lazy="store.query.filter.query"
             autofocus
             borderless
             color="grey-10"
@@ -83,7 +83,7 @@
         <q-item>
           <q-item-label class="full-width">
             <q-select
-              v-model="store.query.filter.tags"
+              v-model.lazy="store.query.filter.tags"
               :options="tags"
               class="q-my-sm"
               counter

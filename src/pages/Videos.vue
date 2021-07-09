@@ -2,7 +2,7 @@
   <q-page class="container">
     <q-toolbar class="q-py-lg">
       <q-select
-        v-model="store.query.sort"
+        v-model.lazy="store.query.sort"
         :options="sorters"
         borderless
         class="q-px-none text-caption"

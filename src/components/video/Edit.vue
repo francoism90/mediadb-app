@@ -61,7 +61,7 @@
           />
 
           <q-select
-            v-model="form.tags"
+            v-model.lazy="form.tags"
             :options="tags"
             :error-message="getError('tags')[0]"
             :error="hasError('tags')"
