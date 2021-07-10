@@ -4,6 +4,7 @@ export interface Model {
   name: string,
   description?: string,
   favorite?: boolean,
+  following?: boolean,
   'created_at': Date,
   'updated_at': Date,
 }

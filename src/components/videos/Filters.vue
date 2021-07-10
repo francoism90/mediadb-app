@@ -59,7 +59,7 @@
         >
           <q-item-section side>
             <q-checkbox
-              v-model="store.query.filter.favorites"
+              v-model="store.query.filter.followings"
               size="sm"
               :true-value="1"
               :false-value="null"
@@ -192,6 +192,7 @@ export default {
         sort: 'recommended',
         filter: {
           favorites: null,
+          followings: null,
           tags: null,
           query: null,
         },

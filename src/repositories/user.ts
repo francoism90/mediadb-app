@@ -35,3 +35,11 @@ export async function favorite(params: Model): Promise<ModelResponse> {
 
   return response.data;
 }
+
+export async function follow(params: Model): Promise<ModelResponse> {
+  const response = await api.post<ModelResponse, AxiosResponse<ModelResponse>>(
+    'user/follow', params,
+  );
+
+  return response.data;
+}

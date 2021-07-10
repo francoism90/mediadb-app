@@ -13,6 +13,7 @@ export const useVideosStore = defineStore({
       sort: 'recommended',
       filter: {
         favorites: null,
+        followings: null,
         tags: null,
         query: null,
       },
