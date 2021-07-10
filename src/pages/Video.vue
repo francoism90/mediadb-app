@@ -98,8 +98,8 @@ export default defineComponent({
     onBeforeUnmount(() => unsubscribe(id.value));
 
     watch(id, (value, oldValue): void => {
-      subscribe(value);
       unsubscribe(oldValue);
+      subscribe(value);
     });
 
     return {

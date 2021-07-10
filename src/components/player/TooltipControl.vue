@@ -5,8 +5,8 @@
     :style="tooltipStyle"
   >
     <q-img
-      :key="cue.startTime || Date.now()"
-      :src="cue.text || ''"
+      v-if="cue && cue.text"
+      :src="cue.text"
       no-spinner
       no-transition
       loading="eager"
@@ -53,7 +53,7 @@ export default defineComponent({
     const time = computed(() => duration.value * (percent.value / 100));
     const timestamp = computed(() => formatTime(time.value));
 
-    const sprite = computed(() => find<TextTrack>(store.properties?.textTracks, { id: 'sprite' }));
+    const sprite = computed(() => find(store.properties?.textTracks, { id: 'sprite' }));
 
     const cue = computed(() => find(
       sprite.value?.cues, (o) => o.startTime >= time.value || o.startTime >= (time.value - 30),

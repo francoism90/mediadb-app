@@ -14,18 +14,14 @@ interface Props {
 }
 
 export default function useVideo(props: Props) {
+  const { echo } = useEcho();
   const related = useRelatedStore();
   const videos = useVideosStore();
-
-  const { echo } = useEcho();
 
   const video = ref<VideoModel>();
   const errors = ref<ErrorResponse>();
 
   const fetch = async (): Promise<void> => {
-    errors.value = <ErrorResponse>{};
-    video.value = <VideoModel>{};
-
     try {
       const response = await find(props.id.value);
       video.value = response.data;
@@ -45,14 +41,21 @@ export default function useVideo(props: Props) {
     }
   };
 
+  const reset = async (): Promise<void> => {
+    errors.value = <ErrorResponse>{};
+    video.value = <VideoModel>{};
+
+    await fetch();
+  };
+
   const remove = async (): Promise<void> => {
-    // Update stores
     if (video.value) {
+      // Update stores
       related.delete(video.value);
       videos.delete(video.value);
     }
 
-    await fetch();
+    await reset();
   };
 
   const subscribe = (id: string | number): void => {
@@ -65,9 +68,11 @@ export default function useVideo(props: Props) {
     echo?.leave(`video.${id}`);
   };
 
-  watch(props.id, fetch, { immediate: true });
+  watch(props.id, reset, { immediate: true });
 
   return {
+    fetch,
+    reset,
     subscribe,
     unsubscribe,
     errors,
