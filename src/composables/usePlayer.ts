@@ -4,7 +4,7 @@ import { readonlyProperties, syncEvents } from 'src/services/player';
 import { usePlayerStore } from 'src/store/player';
 import { ref } from 'vue';
 import { debounce, pick } from 'lodash';
-import { PlayerProperties, PlayerSource } from 'src/interfaces/player';
+import { PlayerProperties } from 'src/interfaces/player';
 
 export default function usePlayer() {
   const player = ref<Player>();
@@ -18,11 +18,6 @@ export default function usePlayer() {
   };
 
   const syncProperties = debounce(setProperties, 100);
-
-  const useVideo = (payload: PlayerSource): void => {
-    store.$reset();
-    store.initialize(payload);
-  };
 
   const useEvents = (dom: HTMLMediaElement | null): void => {
     syncEvents.forEach((event) => {
@@ -62,7 +57,6 @@ export default function usePlayer() {
     destroy,
     destroyEvents,
     loadVideo,
-    useVideo,
     player,
     store,
   };

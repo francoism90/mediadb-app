@@ -61,14 +61,15 @@ export default defineComponent({
     const $q = useQuasar();
 
     const {
-      useVideo, loadVideo, destroy, useEvents, store,
+      loadVideo, destroy, useEvents, store,
     } = usePlayer();
 
     const container = ref<HTMLDivElement | null>(null);
     const media = ref<HTMLMediaElement | null>(null);
 
-    const initialize = (): void => {
-      useVideo({
+    const reset = (): void => {
+      store.$reset();
+      store.initialize({
         model: video.value,
         source: video.value.clip?.stream_url || '',
       });
@@ -106,10 +107,10 @@ export default defineComponent({
       if (event && 'time' in event) setCurrentTime(event.time || 0);
     };
 
-    watch(props.video, initialize, { deep: true });
+    watch(props.video, reset, { deep: true });
     watch(() => store.request, playerEvent);
 
-    onBeforeMount(initialize);
+    onBeforeMount(reset);
     onBeforeUnmount(() => destroy(media.value));
     onMounted(load);
 
