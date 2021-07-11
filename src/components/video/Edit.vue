@@ -170,6 +170,7 @@ export default defineComponent({
 
     const deleteDialog = ref<boolean>(false);
     const formRef = ref<HTMLFormElement | null>();
+
     const form = reactive<VideoModel>(<VideoModel>{
       id: props.video.id,
       name: props.video.name,

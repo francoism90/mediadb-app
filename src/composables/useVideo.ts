@@ -22,6 +22,9 @@ export default function useVideo(props: Props) {
   const errors = ref<ErrorResponse>();
 
   const fetch = async (): Promise<void> => {
+    errors.value = <ErrorResponse>{};
+    video.value = <VideoModel>{};
+
     try {
       const response = await find(props.id.value);
       video.value = response.data;
@@ -41,13 +44,6 @@ export default function useVideo(props: Props) {
     }
   };
 
-  const reset = async (): Promise<void> => {
-    errors.value = <ErrorResponse>{};
-    video.value = <VideoModel>{};
-
-    await fetch();
-  };
-
   const remove = async (): Promise<void> => {
     if (video.value) {
       // Update stores
@@ -55,7 +51,7 @@ export default function useVideo(props: Props) {
       videos.delete(video.value);
     }
 
-    await reset();
+    await fetch();
   };
 
   const subscribe = (id: string | number): void => {
@@ -68,11 +64,10 @@ export default function useVideo(props: Props) {
     echo?.leave(`video.${id}`);
   };
 
-  watch(props.id, reset, { immediate: true });
+  watch(props.id, fetch, { immediate: true });
 
   return {
     fetch,
-    reset,
     subscribe,
     unsubscribe,
     errors,
