@@ -12,8 +12,7 @@ export const useVideosStore = defineStore({
     query: <VideosQuery>{
       sort: 'recommended',
       filter: {
-        favorites: null,
-        followings: null,
+        type: '*',
         tags: null,
         query: null,
       },

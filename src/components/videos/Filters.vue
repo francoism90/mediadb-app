@@ -43,11 +43,22 @@
           tag="label"
         >
           <q-item-section side>
-            <q-checkbox
-              v-model="store.query.filter.favorites"
-              size="sm"
-              :true-value="1"
-              :false-value="null"
+            <q-radio
+              v-model="store.query.filter.type"
+              val="*"
+            />
+          </q-item-section>
+          <q-item-section>Show All</q-item-section>
+        </q-item>
+
+        <q-item
+          v-ripple
+          tag="label"
+        >
+          <q-item-section side>
+            <q-radio
+              v-model="store.query.filter.type"
+              val="favorites"
             />
           </q-item-section>
           <q-item-section>Bookmarks</q-item-section>
@@ -58,11 +69,9 @@
           tag="label"
         >
           <q-item-section side>
-            <q-checkbox
-              v-model="store.query.filter.followings"
-              size="sm"
-              :true-value="1"
-              :false-value="null"
+            <q-radio
+              v-model="store.query.filter.type"
+              val="followings"
             />
           </q-item-section>
           <q-item-section>Watchlist</q-item-section>
@@ -191,8 +200,7 @@ export default {
       store.reset({
         sort: 'recommended',
         filter: {
-          favorites: null,
-          followings: null,
+          type: '*',
           tags: null,
           query: null,
         },

@@ -28,8 +28,7 @@ export interface VideoResponse {
 }
 
 export interface VideosFilters {
-  favorites?: number | null,
-  followings?: number | null,
+  type?: string | null,
   related?: string | string[] | null,
   query?: string | null,
   tags?: string[] | null,
