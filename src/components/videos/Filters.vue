@@ -71,10 +71,23 @@
           <q-item-section side>
             <q-radio
               v-model="store.query.filter.type"
-              val="followings"
+              val="following"
             />
           </q-item-section>
           <q-item-section>Watchlist</q-item-section>
+        </q-item>
+
+        <q-item
+          v-ripple
+          tag="label"
+        >
+          <q-item-section side>
+            <q-radio
+              v-model="store.query.filter.type"
+              val="viewed"
+            />
+          </q-item-section>
+          <q-item-section>History</q-item-section>
         </q-item>
 
         <q-separator

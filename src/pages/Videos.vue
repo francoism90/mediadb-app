@@ -70,6 +70,7 @@ const sorters = [
   { label: 'Recommended', value: 'recommended' },
   { label: 'Trending', value: 'trending' },
   { label: 'Most Recent', value: '-created_at' },
+  { label: 'Most Views', value: '-views' },
   { label: 'Longest', value: '-duration' },
   { label: 'Shortest', value: 'duration' },
 ];
