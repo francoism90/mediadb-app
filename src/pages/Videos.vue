@@ -1,35 +1,5 @@
 <template>
-  <q-page class="container">
-    <q-toolbar class="q-py-lg">
-      <q-select
-        v-model.lazy="store.query.sort"
-        :options="sorters"
-        borderless
-        class="q-px-none text-caption"
-        dense
-        dropdown-icon="expand_more"
-        emit-value
-        hide-bottom-space
-        map-options
-        options-dense
-        popup-content-class="bg-grey-10"
-      >
-        <template #prepend>
-          <span class="mobile-hide text-caption">Sort by</span>
-        </template>
-      </q-select>
-
-      <q-space />
-
-      <q-btn
-        icon="filter_list"
-        label="Filters"
-        color="grey-5"
-        outline
-        @click="showFilters"
-      />
-    </q-toolbar>
-
+  <q-page class="container video-list-container">
     <q-pull-to-refresh
       :key="store.id"
       @refresh="onRefresh"
@@ -55,6 +25,41 @@
         </template>
       </q-infinite-scroll>
     </q-pull-to-refresh>
+
+    <q-page-sticky
+      expand
+      position="top"
+    >
+      <q-toolbar class="bg-grey-12 container q-py-md">
+        <q-select
+          v-model.lazy="store.query.sort"
+          :options="sorters"
+          borderless
+          class="q-px-none text-caption"
+          dense
+          dropdown-icon="expand_more"
+          emit-value
+          hide-bottom-space
+          map-options
+          options-dense
+          popup-content-class="bg-grey-10"
+        >
+          <template #prepend>
+            <span class="mobile-hide text-caption">Sort by</span>
+          </template>
+        </q-select>
+
+        <q-space />
+
+        <q-btn
+          icon="filter_list"
+          label="Filters"
+          color="grey-5"
+          outline
+          @click="showFilters"
+        />
+      </q-toolbar>
+    </q-page-sticky>
   </q-page>
 </template>
 
