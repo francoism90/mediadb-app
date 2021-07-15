@@ -23,14 +23,14 @@
     "pusher-js": "^7.0.3",
     "qs": "^6.10.1",
     "quasar": "^2.0.2",
-    "shaka-player": "^3.1.1",
-    "vue-i18n": "^9.1.4"
+    "shaka-player": "^3.2.0",
+    "vue-i18n": "^9.1.7"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
     "@quasar/app": "^3.0.2",
     "@types/lodash": "^4.14.171",
-    "@types/node": "^16.3.1",
+    "@types/node": "^16.3.2",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
     "dotenv": "^10.0.0",
