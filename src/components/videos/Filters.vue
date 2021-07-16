@@ -3,7 +3,7 @@
     ref="dialogRef"
     @hide="onDialogHide"
   >
-    <div class="video-filter-container">
+    <div class="video-filter-container scroll fit">
       <q-list
         dense
         class="video-filter-list"
