@@ -20,6 +20,8 @@ export interface VideoModel extends Model {
   tags?: TagModel[],
   favorite?: boolean,
   overview?: string,
+  'thumbnail_url'?: string
+  'vod_url'?: string
 }
 
 export interface VideoResponse {

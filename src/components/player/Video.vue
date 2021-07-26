@@ -10,7 +10,7 @@
       preload="metadata"
       autoplay
       class="col"
-      crossorigin="anonymous"
+      crossorigin="use-credentials"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :poster="video.clip?.thumbnail_url"
@@ -71,7 +71,7 @@ export default defineComponent({
       store.$reset();
       store.initialize({
         model: video.value,
-        source: video.value.clip?.stream_url || '',
+        source: video.value.vod_url || '',
       });
     };
 

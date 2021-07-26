@@ -1,4 +1,5 @@
 import { Player, polyfill } from 'shaka-player';
+import { getToken } from './auth';
 
 export const ShakaConfig = {
   manifest: {
@@ -37,6 +38,12 @@ export function initialize(dom: HTMLMediaElement | null): Player {
 
   const player = new Player(dom);
   player.configure(ShakaConfig);
+
+  // Set Authorization header
+  player.getNetworkingEngine()?.registerRequestFilter((type, request) => {
+    const token = getToken() || '';
+    request.headers.Authorization = `Bearer ${token}`;
+  });
 
   return player;
 }
