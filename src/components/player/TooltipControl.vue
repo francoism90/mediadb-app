@@ -63,12 +63,10 @@ export default defineComponent({
     const createPreview = async (): Promise<void> => {
       const ctx = preview.value?.getContext('2d');
       const img = new Image(160, 90);
-
       const response = await capture(props.model.id, Math.ceil(time.value));
 
       img.crossOrigin = 'anonymous';
       img.src = response.thumb_url || '';
-
       img.onload = () => {
         ctx?.drawImage(img, 0, 0);
       };
