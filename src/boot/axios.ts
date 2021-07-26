@@ -9,7 +9,11 @@ const api = axios.create({
     'X-Requested-With': 'XMLHttpRequest',
   },
   paramsSerializer(params) {
-    return stringify(params, { encode: false });
+    return stringify(params, {
+      encodeValuesOnly: true,
+      arrayFormat: 'comma',
+      skipNulls: true,
+    });
   },
 });
 
