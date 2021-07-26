@@ -4,16 +4,11 @@
     class="player-tooltip desktop-only"
     :style="tooltipStyle"
   >
-    <q-img
-      v-if="cue && cue.text"
-      :src="cue.text"
-      no-spinner
-      no-transition
-      loading="eager"
-      width="160px"
-      height="90px"
+    <canvas
+      ref="preview"
+      width="160"
+      height="90"
       class="player-tooltip-thumbnail"
-      img-class="player-tooltip-thumbnail"
     />
 
     <div class="text-white text-center q-py-xs">
@@ -23,18 +18,25 @@
 </template>
 
 <script lang="ts">
-import { clamp, find } from 'lodash';
+import { clamp, debounce } from 'lodash';
 import useFilters from 'src/composables/useFilters';
 import usePlayer from 'src/composables/usePlayer';
 import { PlayerTooltip } from 'src/interfaces/player';
+import { VideoModel } from 'src/interfaces/video';
+import { capture } from 'src/services/vod';
 import {
-  computed, defineComponent, PropType, toRefs,
+  computed, defineComponent, PropType, ref, watch,
 } from 'vue';
 
 export default defineComponent({
   name: 'TooltipControl',
 
   props: {
+    model: {
+      type: Object as PropType<VideoModel>,
+      default: () => (<VideoModel>{}),
+    },
+
     tooltip: {
       type: Object as PropType<PlayerTooltip>,
       default: () => (<PlayerTooltip>{}),
@@ -42,30 +44,38 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { tooltip } = toRefs(props);
-
     const { formatTime } = useFilters();
     const { store } = usePlayer();
 
+    const preview = ref<HTMLCanvasElement | null>();
+
     const duration = computed(() => store.properties?.duration || 0);
-    const position = computed(() => tooltip.value.clientX - tooltip.value.sliderOffset.left);
-    const percent = computed(() => (position.value / tooltip.value.sliderWidth) * 100);
+    const position = computed(() => props.tooltip.clientX - props.tooltip.sliderOffset.left);
+    const percent = computed(() => (position.value / props.tooltip.sliderWidth) * 100);
     const time = computed(() => duration.value * (percent.value / 100));
     const timestamp = computed(() => formatTime(time.value));
 
-    const sprite = computed(() => find(store.properties?.textTracks, { id: 'sprite' }));
-
-    const cue = computed(() => find(
-      sprite.value?.cues, (o) => o.startTime >= time.value || o.startTime >= (time.value - 30),
-    ));
-
     const tooltipStyle = computed(() => {
-      const tooltipPosition = clamp(position.value - 80, 0, tooltip.value.sliderWidth - 160);
+      const tooltipPosition = clamp(position.value - 80, 0, props.tooltip.sliderWidth - 160);
       return { marginLeft: `${tooltipPosition}px` };
     });
 
+    const createPreview = async (): Promise<void> => {
+      const response = await capture(props.model.id, Math.ceil(time.value));
+      const ctx = preview.value?.getContext('2d');
+      const img = new Image(160, 90);
+
+      img.crossOrigin = 'anonymous';
+      img.src = response.thumb_url || '';
+      img.onload = () => {
+        ctx?.drawImage(img, 0, 0);
+      };
+    };
+
+    watch(percent, debounce(createPreview, 100));
+
     return {
-      cue,
+      preview,
       percent,
       time,
       timestamp,

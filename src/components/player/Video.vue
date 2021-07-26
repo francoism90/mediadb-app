@@ -17,15 +17,7 @@
       :muted="store.properties?.muted || false"
       :playbackRate="store.properties?.playbackRate || 1.0"
       :volume="store.properties?.volume || 1"
-    >
-      <track
-        id="sprite"
-        default
-        kind="metadata"
-        srclang="en"
-        :src="video.clip?.sprite_url"
-      >
-    </video>
+    />
 
     <video-controls v-if="store.ready" />
   </div>
@@ -71,7 +63,7 @@ export default defineComponent({
       store.$reset();
       store.initialize({
         model: video.value,
-        source: video.value.clip?.stream_url || '',
+        source: video.value.vod_url || '',
       });
     };
 

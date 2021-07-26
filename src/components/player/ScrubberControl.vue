@@ -2,6 +2,7 @@
   <div class="player-scrubber absolute-bottom">
     <tooltip-control
       v-if="tooltip && tooltip.clientX > 0"
+      :model="store.model"
       :tooltip="tooltip"
     />
 

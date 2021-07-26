@@ -14,9 +14,6 @@ export interface MediaModel extends Model {
   width?: number | null,
   thumbnail?: number,
   'download_url'?: string | null,
-  'stream_url'?: string | null,
-  'sprite_url'?: string | null,
-  'thumbnail_url'?: string | null,
 }
 
 export interface MediaResponse {
