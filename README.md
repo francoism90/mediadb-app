@@ -1,6 +1,6 @@
 # MediaDB app
 
-**MediaDB** is a web-based video streaming service written in Laravel, TypeScript and Vue 3 ([Quasar](https://next.quasar.dev/)).
+**MediaDB** is a web-based video streaming service written in Laravel, TypeScript and Vue 3 ([Quasar](https://quasar.dev/)).
 
 MediaDB is very much in development and may not be suitable for production purposes.
 It is recommended to fork the project.
@@ -22,8 +22,8 @@ yarn install
 
 Please consult the following links to learn more about Quasar:
 
-- <https://next.quasar.dev>
-- <https://next.quasar.dev/quasar-cli/installation>
+- <https://quasar.dev>
+- <https://quasar.dev/quasar-cli/installation>
 
 When using Capacitor, update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` so it reflects your own configured domains.
 
@@ -45,7 +45,7 @@ quasar dev -m spa
 
 Please consult the following links to learn more about Capacitor:
 
-- <https://next.quasar.dev/quasar-cli/developing-capacitor-apps/introduction>
+- <https://quasar.dev/quasar-cli/developing-capacitor-apps/introduction>
 - <https://capacitorjs.com/>
 
 ```bash

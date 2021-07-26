@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="percent > 0"
     class="player-tooltip desktop-only"
     :style="tooltipStyle"
   >
@@ -24,7 +25,7 @@ import { PlayerTooltip } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import { capture } from 'src/services/vod';
 import {
-  computed, defineComponent, PropType, watch, ref,
+  computed, defineComponent, PropType, ref, watch,
 } from 'vue';
 
 export default defineComponent({

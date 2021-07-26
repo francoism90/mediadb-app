@@ -10,6 +10,7 @@ export const useVideosStore = defineStore({
   state: () => (<VideosState>{
     id: null,
     query: <VideosQuery>{
+      append: ['clip', 'thumbnail_url'],
       sort: 'recommended',
       filter: {
         type: '*',

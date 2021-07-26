@@ -8,7 +8,7 @@
     <router-link :to="{ name: 'video', params: { id: video.id, slug: video.slug }}">
       <q-img
         :alt="video.name"
-        :src="video.clip?.thumbnail_url"
+        :src="video.thumbnail_url"
         loading="lazy"
         placeholder-src="~assets/placeholder/16x16.webp"
         class="video-item-placeholder cursor-pointer"
