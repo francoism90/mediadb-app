@@ -10,22 +10,14 @@
       preload="metadata"
       autoplay
       class="col"
-      crossorigin="use-credentials"
+      crossorigin="anonymous"
       :height="video.clip?.height || 360"
       :width="video.clip?.width || 720"
       :poster="video.clip?.thumbnail_url"
       :muted="store.properties?.muted || false"
       :playbackRate="store.properties?.playbackRate || 1.0"
       :volume="store.properties?.volume || 1"
-    >
-      <track
-        id="sprite"
-        default
-        kind="metadata"
-        srclang="en"
-        :src="video.clip?.sprite_url"
-      >
-    </video>
+    />
 
     <video-controls v-if="store.ready" />
   </div>
