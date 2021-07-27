@@ -1,22 +1,25 @@
 <template>
   <div
-    class="player-controls absolute-full"
+    class="absolute-full"
     @mouseenter="activate"
     @touchstart="activate"
     @mousemove="activate"
     @mouseleave="deactivate"
   >
-    <template v-if="controls">
-      <transition-group
-        appear
-        enter-active-class="animated fadeIn"
-        leave-active-class="animated fadeOut"
+    <transition
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <div
+        v-if="controls"
+        class="absolute-full player-controls"
       >
-        <playback-control key="playback" />
-        <scrubber-control key="scrubber" />
-        <settings-control key="settings" />
-      </transition-group>
-    </template>
+        <playback-control />
+        <scrubber-control />
+        <settings-control />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -41,7 +44,7 @@ export default defineComponent({
 
     const deactivate = (): void => {
       clearTimeout(timer.value);
-      timer.value = window.setTimeout(() => { controls.value = false; }, 3000);
+      timer.value = window.setTimeout(() => { controls.value = false; }, 1500);
     };
 
     const activate = (): void => {
