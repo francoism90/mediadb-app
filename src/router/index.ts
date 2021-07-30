@@ -17,12 +17,9 @@ import {
  * with the Router instance.
  */
 
-// eslint-disable-next-line no-nested-ternary
 const createHistory = process.env.SERVER
   ? createMemoryHistory
-  : process.env.VUE_ROUTER_MODE === 'history'
-    ? createWebHistory
-    : createWebHashHistory;
+  : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
 export const router = createRouter({
   scrollBehavior: (to, from, savedPosition) => {
