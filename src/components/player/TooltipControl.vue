@@ -72,7 +72,7 @@ export default defineComponent({
       };
     };
 
-    watch(percent, debounce(createPreview, 100));
+    watch(percent, debounce(createPreview, 50));
 
     return {
       preview,
