@@ -66,7 +66,7 @@ export default defineComponent({
       const img = new Image(160, 90);
 
       img.crossOrigin = 'anonymous';
-      img.src = response.thumb_url || '';
+      img.src = response.data?.capture_url || '';
       img.onload = () => {
         ctx?.drawImage(img, 0, 0);
       };

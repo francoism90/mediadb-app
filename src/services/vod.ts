@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios';
+import { VideoResponse } from 'src/interfaces/video';
 import { api } from 'boot/axios';
-import { CaptureResponse } from 'src/interfaces/vod';
 
-export async function capture(id: string | number, offset: number): Promise<CaptureResponse> {
-  const response = await api.get<CaptureResponse, AxiosResponse<CaptureResponse>>(
+export async function capture(id: string | number, offset: number): Promise<VideoResponse> {
+  const response = await api.get<VideoResponse, AxiosResponse<VideoResponse>>(
     `vod/capture/${id}/${offset}`,
   );
 
