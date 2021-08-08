@@ -16,10 +16,10 @@
         </div>
 
         <template #loading>
-          <div class="row no-wrap justify-center q-my-md">
-            <q-spinner-orbit
+          <div class="row no-wrap justify-center q-py-lg">
+            <q-spinner-oval
               color="primary"
-              size="3em"
+              size="2em"
             />
           </div>
         </template>
