@@ -4,11 +4,11 @@
       More Like This
     </h1>
 
-    <q-pull-to-refresh
-      :key="store.id"
-      @refresh="onRefresh"
-    >
-      <q-infinite-scroll @load="onLoad">
+    <q-pull-to-refresh @refresh="onRefresh">
+      <q-infinite-scroll
+        :key="store.id"
+        @load="onLoad"
+      >
         <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
             v-for="(item, index) in store.data"

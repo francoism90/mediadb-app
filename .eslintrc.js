@@ -71,11 +71,12 @@ module.exports = {
 
   // add your custom rules here
   rules: {
-    'no-param-reassign': 'off',
-    'no-console': 'off',
-    'no-void': 'off',
-    'no-nested-ternary': 'off',
     'max-classes-per-file': 'off',
+    'no-console': 'off',
+    'no-nested-ternary': 'off',
+    'no-param-reassign': 'off',
+    'no-void': 'off',
+    'object-curly-newline': 'off',
 
     'import/first': 'off',
     'import/named': 'error',

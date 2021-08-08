@@ -1,10 +1,40 @@
 <template>
-  <q-page class="container video-list-container">
-    <q-pull-to-refresh
-      :key="store.id"
-      @refresh="onRefresh"
-    >
-      <q-infinite-scroll @load="onLoad">
+  <q-page class="container">
+    <q-toolbar class="bg-grey-12 q-py-md">
+      <q-select
+        v-model.lazy="store.query.sort"
+        :options="sorters"
+        borderless
+        class="q-px-none text-caption"
+        dense
+        dropdown-icon="expand_more"
+        emit-value
+        hide-bottom-space
+        map-options
+        options-dense
+        popup-content-class="bg-grey-10"
+      >
+        <template #prepend>
+          <span class="mobile-hide text-caption">Sort by</span>
+        </template>
+      </q-select>
+
+      <q-space />
+
+      <q-btn
+        icon="filter_list"
+        label="Filters"
+        color="grey-5"
+        outline
+        @click="showFilters"
+      />
+    </q-toolbar>
+
+    <q-pull-to-refresh @refresh="onRefresh">
+      <q-infinite-scroll
+        :key="store.id"
+        @load="onLoad"
+      >
         <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
             v-for="(item, index) in store.data"
@@ -25,49 +55,14 @@
         </template>
       </q-infinite-scroll>
     </q-pull-to-refresh>
-
-    <q-page-sticky
-      expand
-      position="top"
-    >
-      <q-toolbar class="bg-grey-12 container q-py-md">
-        <q-select
-          v-model.lazy="store.query.sort"
-          :options="sorters"
-          borderless
-          class="q-px-none text-caption"
-          dense
-          dropdown-icon="expand_more"
-          emit-value
-          hide-bottom-space
-          map-options
-          options-dense
-          popup-content-class="bg-grey-10"
-        >
-          <template #prepend>
-            <span class="mobile-hide text-caption">Sort by</span>
-          </template>
-        </q-select>
-
-        <q-space />
-
-        <q-btn
-          icon="filter_list"
-          label="Filters"
-          color="grey-5"
-          outline
-          @click="showFilters"
-        />
-      </q-toolbar>
-    </q-page-sticky>
   </q-page>
 </template>
 
 <script lang="ts">
-import { useMeta, useQuasar } from 'quasar';
 import Filters from 'src/components/videos/Filters.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
+import { useMeta, useQuasar } from 'quasar';
 import { authenticate } from 'src/services/auth';
 import { defineComponent, watch } from 'vue';
 
@@ -99,16 +94,6 @@ export default defineComponent({
     const $q = useQuasar();
     const { store, fetchAll } = useVideos();
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    const onLoad = async (index: number, done: Function): Promise<void> => {
-      try {
-        await fetchAll();
-        await done(store.isDone);
-      } catch {
-        await done(true);
-      }
-    };
-
     const showFilters = (): void => {
       $q.dialog({
         component: Filters,
@@ -119,6 +104,16 @@ export default defineComponent({
           transitionHide: 'slide-right',
         },
       });
+    };
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const onLoad = async (index: number, done: Function): Promise<void> => {
+      try {
+        await fetchAll();
+        await done(store.isDone);
+      } catch {
+        await done(true);
+      }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types

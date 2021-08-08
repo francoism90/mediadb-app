@@ -1,10 +1,30 @@
 <template>
-  <q-page class="container tag-list-container">
-    <q-pull-to-refresh
-      :key="store.id"
-      @refresh="onRefresh"
-    >
-      <q-infinite-scroll @load="onLoad">
+  <q-page class="container">
+    <q-toolbar class="bg-grey-12 q-py-md">
+      <q-select
+        v-model.lazy="store.query.sort"
+        :options="sorters"
+        borderless
+        class="q-px-none text-caption"
+        dense
+        dropdown-icon="expand_more"
+        emit-value
+        hide-bottom-space
+        map-options
+        options-dense
+        popup-content-class="bg-grey-10"
+      >
+        <template #prepend>
+          <span class="mobile-hide text-caption">Sort by</span>
+        </template>
+      </q-select>
+    </q-toolbar>
+
+    <q-pull-to-refresh @refresh="onRefresh">
+      <q-infinite-scroll
+        :key="store.id"
+        @load="onLoad"
+      >
         <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
             v-for="(item, index) in store.data"
@@ -25,31 +45,6 @@
         </template>
       </q-infinite-scroll>
     </q-pull-to-refresh>
-
-    <q-page-sticky
-      expand
-      position="top"
-    >
-      <q-toolbar class="bg-grey-12 container q-py-md">
-        <q-select
-          v-model.lazy="store.query.sort"
-          :options="sorters"
-          borderless
-          class="q-px-none text-caption"
-          dense
-          dropdown-icon="expand_more"
-          emit-value
-          hide-bottom-space
-          map-options
-          options-dense
-          popup-content-class="bg-grey-10"
-        >
-          <template #prepend>
-            <span class="mobile-hide text-caption">Sort by</span>
-          </template>
-        </q-select>
-      </q-toolbar>
-    </q-page-sticky>
   </q-page>
 </template>
 
