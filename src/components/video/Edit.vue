@@ -187,7 +187,7 @@ export default defineComponent({
       await fetchTags({
         filter: { query: val },
         page: { number: 1, size: 5 },
-        sort: val.length < 1 ? 'items' : 'recommended',
+        sort: val.length < 1 ? 'items' : 'relevance',
       });
 
       await update();

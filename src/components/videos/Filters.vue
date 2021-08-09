@@ -45,7 +45,7 @@
           <q-item-section side>
             <q-radio
               v-model="store.query.filter.type"
-              val="*"
+              :val="null"
             />
           </q-item-section>
           <q-item-section>Show All</q-item-section>
@@ -203,7 +203,7 @@ export default {
       await fetchTags({
         filter: { query: val },
         page: { number: 1, size: 5 },
-        sort: 'recommended',
+        sort: 'relevance',
       });
 
       await update();
@@ -211,9 +211,9 @@ export default {
 
     const resetFilters = (): void => {
       store.reset({
-        sort: 'recommended',
+        sort: 'relevance',
         filter: {
-          type: '*',
+          type: null,
           tags: null,
           query: null,
         },

@@ -23,9 +23,9 @@
 
       <q-btn
         icon="filter_list"
-        label="Filters"
         color="grey-5"
         outline
+        :label="`Filters (${filters.length})`"
         @click="showFilters"
       />
     </q-toolbar>
@@ -64,10 +64,11 @@ import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
 import { useMeta, useQuasar } from 'quasar';
 import { authenticate } from 'src/services/auth';
-import { defineComponent, watch } from 'vue';
+import { computed, defineComponent, watch } from 'vue';
+import { filter } from 'lodash';
 
 const sorters = [
-  { label: 'Recommended', value: 'recommended' },
+  { label: 'Relevance', value: 'relevance' },
   { label: 'Trending', value: 'trending' },
   { label: 'Most Recent', value: '-created_at' },
   { label: 'Most Views', value: '-views' },
@@ -122,6 +123,8 @@ export default defineComponent({
       done();
     };
 
+    const filters = computed(() => filter(store.query.filter));
+
     watch(store.query, store.reload, { deep: true });
 
     useMeta(() => ({ title: 'Videos' }));
@@ -130,6 +133,7 @@ export default defineComponent({
       onLoad,
       onRefresh,
       showFilters,
+      filters,
       store,
       sorters,
     };

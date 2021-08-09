@@ -11,7 +11,7 @@ export const useRelatedStore = defineStore({
     id: null,
     query: <VideosQuery>{
       append: ['clip', 'thumbnail_url'],
-      sort: 'recommended',
+      sort: 'relevance',
       filter: {
         related: null,
       },
