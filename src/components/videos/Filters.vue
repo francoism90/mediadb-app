@@ -39,55 +39,18 @@
         </q-item-label>
 
         <q-item
+          v-for="(list, index) in lists"
+          :key="index"
           v-ripple
           tag="label"
         >
           <q-item-section side>
             <q-radio
               v-model="store.query.filter.type"
-              :val="null"
+              :val="list.value"
             />
           </q-item-section>
-          <q-item-section>Show All</q-item-section>
-        </q-item>
-
-        <q-item
-          v-ripple
-          tag="label"
-        >
-          <q-item-section side>
-            <q-radio
-              v-model="store.query.filter.type"
-              val="favorites"
-            />
-          </q-item-section>
-          <q-item-section>Bookmarks</q-item-section>
-        </q-item>
-
-        <q-item
-          v-ripple
-          tag="label"
-        >
-          <q-item-section side>
-            <q-radio
-              v-model="store.query.filter.type"
-              val="following"
-            />
-          </q-item-section>
-          <q-item-section>Watchlist</q-item-section>
-        </q-item>
-
-        <q-item
-          v-ripple
-          tag="label"
-        >
-          <q-item-section side>
-            <q-radio
-              v-model="store.query.filter.type"
-              val="viewed"
-            />
-          </q-item-section>
-          <q-item-section>History</q-item-section>
+          <q-item-section>{{ list.label }}</q-item-section>
         </q-item>
 
         <q-separator
@@ -174,6 +137,13 @@ import { onBeforeMount } from 'vue';
 import useVideos from 'src/composables/useVideos';
 import useTagInput from 'src/composables/useTagInput';
 
+const lists = [
+  { label: 'Recommended', value: null },
+  { label: 'Bookmarks', value: 'favorites' },
+  { label: 'Watchlist', value: 'following' },
+  { label: 'History', value: 'viewed' },
+];
+
 export default {
   emits: [
     ...useDialogPluginComponent.emits,
@@ -192,18 +162,13 @@ export default {
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const filterTags = async (val: string, update: Function, abort: Function): Promise<void> => {
-      if (val.length < 1) {
-        abort();
-        return;
-      }
-
+    const filterTags = async (val: string, update: Function): Promise<void> => {
       resetTags();
 
       await fetchTags({
         filter: { query: val },
         page: { number: 1, size: 5 },
-        sort: 'relevance',
+        sort: val.length < 1 ? 'random' : 'relevance',
       });
 
       await update();
@@ -230,6 +195,7 @@ export default {
       filterTags,
       resetFilters,
       store,
+      lists,
       tags,
     };
   },
