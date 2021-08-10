@@ -6,7 +6,7 @@ import {
 import { VideoModel } from 'src/interfaces/video';
 
 export const useStore = defineStore({
-  id: 'player',
+  id: 'video-player',
 
   state: () => (<PlayerState>{
     model: <VideoModel>{},

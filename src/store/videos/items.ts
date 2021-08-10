@@ -5,7 +5,7 @@ import {
 } from 'src/interfaces/video';
 
 export const useStore = defineStore({
-  id: 'video-items',
+  id: 'videos',
 
   state: () => (<VideosState>{
     id: Date.now(),
@@ -24,15 +24,12 @@ export const useStore = defineStore({
     },
     data: <VideoModel[]>[],
     meta: <VideosMeta>{},
-    links: <VideosLinks>{
-      first: null,
-      next: null,
-    },
+    links: <VideosLinks>{},
   }),
 
   getters: {
     isQueryable(): boolean {
-      return (this.links.first === null && this.links.next === null);
+      return this.links.first === undefined && this.links.next === undefined;
     },
 
     isFetchable(): boolean {
@@ -42,22 +39,17 @@ export const useStore = defineStore({
 
   actions: {
     reset(payload?: VideosQuery): void {
-      this.$patch({
-        query: merge(this.query, payload || {}),
-        data: <VideoModel[]>[],
-        meta: <VideosMeta>{},
-        links: <VideosLinks>{},
-      });
-
+      this.query = merge(this.query, payload || {});
+      this.data = <VideoModel[]>[];
+      this.meta = <VideosMeta>{};
+      this.links = <VideosLinks>{};
       this.id = Date.now();
     },
 
     populate(payload: VideosResponse): void {
-      this.$patch({
-        data: this.data.concat(payload.data),
-        links: payload.links,
-        meta: payload.meta,
-      });
+      this.data = this.data.concat(payload.data);
+      this.meta = payload.meta;
+      this.links = payload.links;
     },
 
     delete(payload: VideoModel): void {
@@ -67,13 +59,9 @@ export const useStore = defineStore({
     replace(payload: VideoModel): void {
       const index = findIndex(this.data, { id: payload.id });
 
-      if (index < 0) {
-        return;
+      if (index >= 0) {
+        this.data = this.data.splice(index, 1, payload);
       }
-
-      this.$patch((state) => {
-        state.data.splice(index, 1, payload);
-      });
     },
   },
 });

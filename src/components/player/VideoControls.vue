@@ -44,7 +44,7 @@ export default defineComponent({
 
     const deactivate = (): void => {
       clearTimeout(timer.value);
-      timer.value = window.setTimeout(() => { controls.value = false; }, 1500);
+      timer.value = window.setTimeout(() => { controls.value = false; }, 2000);
     };
 
     const activate = (): void => {

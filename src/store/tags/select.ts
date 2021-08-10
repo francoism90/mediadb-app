@@ -5,7 +5,7 @@ import {
 } from 'src/interfaces/tag';
 
 export const useStore = defineStore({
-  id: 'tags',
+  id: 'tag-select',
 
   state: () => (<TagsState>{
     id: Date.now(),
@@ -18,7 +18,7 @@ export const useStore = defineStore({
       },
       page: {
         number: 1,
-        size: 24,
+        size: 5,
       },
     },
     data: <TagModel[]>[],

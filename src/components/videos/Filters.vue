@@ -69,7 +69,7 @@
           <q-item-label class="full-width">
             <q-select
               v-model.lazy="store.query.filter.tags"
-              :options="tags"
+              :options="tagStore.data"
               class="q-my-sm"
               counter
               dense
@@ -81,12 +81,12 @@
               max-values="5"
               multiple
               option-label="name"
-              option-value="slug"
+              option-value="name"
               popup-content-class="bg-grey-10"
               square
               use-chips
               use-input
-              @filter="filterTags"
+              @filter="onTagsFilter"
             >
               <template #option="scope">
                 <q-item v-bind="scope.itemProps">
@@ -132,8 +132,8 @@
 </template>
 
 <script lang="ts">
-import { useDialogPluginComponent } from 'quasar';
 import { onBeforeMount } from 'vue';
+import { useDialogPluginComponent } from 'quasar';
 import useVideos from 'src/composables/useVideos';
 import useTagInput from 'src/composables/useTagInput';
 
@@ -152,25 +152,24 @@ export default {
   setup() {
     const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
     const { store } = useVideos();
-    const { fetch: fetchTags, reset: resetTags, data: tags } = useTagInput();
+    const { fetch: fetchTags, store: tagStore } = useTagInput();
 
-    const populateTags = async (): Promise<void> => {
-      await fetchTags({
+    const initialize = async (): Promise<void> => {
+      tagStore.reset({
         filter: { id: store.query.filter?.tags },
-        page: { number: 1, size: 5 },
       });
+
+      await fetchTags();
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const filterTags = async (val: string, update: Function): Promise<void> => {
-      resetTags();
-
-      await fetchTags({
-        filter: { query: val },
-        page: { number: 1, size: 5 },
+    const onTagsFilter = async (val: string, update: Function): Promise<void> => {
+      tagStore.reset({
+        filter: { id: null, query: val },
         sort: val.length < 1 ? 'random' : 'relevance',
       });
 
+      await fetchTags();
       await update();
     };
 
@@ -179,16 +178,16 @@ export default {
       window.setTimeout(() => onDialogOK(), 300);
     };
 
-    onBeforeMount(populateTags);
+    onBeforeMount(initialize);
 
     return {
-      dialogRef,
       onDialogHide,
-      filterTags,
+      onTagsFilter,
       resetFilters,
+      dialogRef,
       store,
+      tagStore,
       lists,
-      tags,
     };
   },
 };
