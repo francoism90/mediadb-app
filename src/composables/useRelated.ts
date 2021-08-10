@@ -6,6 +6,12 @@ import { useStore } from 'src/store/videos/related';
 export default function useQueue() {
   const store = useStore();
 
+  const initialize = (payload: VideoModel): void => {
+    store.reset({
+      filter: { related: payload.id },
+    });
+  };
+
   const fetchQuery = async (): Promise<void> => {
     if (!store.isQueryable) {
       return;
@@ -16,11 +22,11 @@ export default function useQueue() {
   };
 
   const fetchNext = async (): Promise<void> => {
-    if (!store.isFetchable) {
+    if (!store.isFetchable || !store.links.next) {
       return;
     }
 
-    const response = await api.get(store.links.next || '');
+    const response = await api.get(store.links.next);
     store.populate(response.data);
   };
 
@@ -29,15 +35,9 @@ export default function useQueue() {
     await fetchNext();
   };
 
-  const initialize = (payload: VideoModel): void => {
-    store.reset({
-      filter: { related: payload.id },
-    });
-  };
-
   return {
-    fetch,
     initialize,
+    fetch,
     store,
   };
 }

@@ -53,10 +53,10 @@ export const useStore = defineStore({
     },
 
     populate(payload: VideosResponse): void {
-      this.$patch((state) => {
-        state.data.concat(payload.data);
-        state.links = payload.links;
-        state.meta = payload.meta;
+      this.$patch({
+        data: this.data.concat(payload.data),
+        links: payload.links,
+        meta: payload.meta,
       });
     },
 

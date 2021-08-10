@@ -1,7 +1,7 @@
 import { includes } from 'lodash';
 import { useQuasar } from 'quasar';
 import { setCsrfCookie } from 'src/services/api';
-import { useStore } from 'src/store/shared/session';
+import { useStore } from 'src/store/session';
 
 export default function useSession() {
   const $q = useQuasar();

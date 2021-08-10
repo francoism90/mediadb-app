@@ -19,7 +19,7 @@
       :volume="store.properties?.volume || 1"
     />
 
-    <video-controls v-if="store.ready" />
+    <video-controls v-if="store.isReady" />
   </div>
 </template>
 

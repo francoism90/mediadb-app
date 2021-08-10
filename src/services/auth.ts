@@ -1,4 +1,4 @@
-import { useStore } from 'src/store/shared/session';
+import { useStore } from 'src/store/session';
 import { LocalStorage } from 'quasar';
 import { auth, login, logout } from 'src/repositories/user';
 import { AuthUser, LoginUser } from 'src/interfaces/session';
@@ -16,7 +16,6 @@ export function setToken(payload: string | null): void {
 
 export async function authenticate(payload: AuthUser): Promise<boolean> {
   const sessionToken = payload.token || getToken();
-
   store.redirectUri = payload.redirectUri || '/';
 
   try {
@@ -33,7 +32,6 @@ export async function authenticate(payload: AuthUser): Promise<boolean> {
 
 export async function signIn(payload: LoginUser): Promise<void> {
   const response = await login(payload);
-
   store.initialize(response);
   setToken(store.token);
 

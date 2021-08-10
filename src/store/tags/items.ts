@@ -8,7 +8,7 @@ export const useStore = defineStore({
   id: 'tags',
 
   state: () => (<TagsState>{
-    id: +new Date(),
+    id: Date.now(),
     query: <TagsQuery>{
       append: ['items'],
       sort: 'name',
@@ -30,36 +30,33 @@ export const useStore = defineStore({
   }),
 
   getters: {
-    firstLoad(): boolean {
+    isQueryable(): boolean {
       return (this.links.first === null && this.links.next === null);
     },
 
-    isLoadable(): boolean {
-      return (this.links.next !== null);
-    },
-
-    isDone(): boolean {
-      return this.links.next === null;
+    isFetchable(): boolean {
+      return this.links.next !== null;
     },
   },
 
   actions: {
-    reset(payload: TagsQuery): void {
-      this.query = merge(this.query, payload);
-      this.reload();
-    },
+    reset(payload?: TagsQuery): void {
+      this.$patch({
+        query: merge(this.query, payload || {}),
+        data: [],
+        meta: {},
+        links: {},
+      });
 
-    reload(): void {
-      this.data = <TagModel[]>[];
-      this.meta = <TagsMeta>{};
-      this.links = <TagsLinks>{ first: null, next: null };
       this.id = Date.now();
     },
 
     populate(payload: TagsResponse): void {
-      this.data = this.data.concat(payload.data);
-      this.links = payload.links;
-      this.meta = payload.meta;
+      this.$patch({
+        data: this.data.concat(payload.data),
+        links: payload.links,
+        meta: payload.meta,
+      });
     },
   },
 });

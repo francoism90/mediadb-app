@@ -15,11 +15,11 @@ export default function useVideos() {
   };
 
   const fetchNext = async (): Promise<void> => {
-    if (!store.isFetchable) {
+    if (!store.isFetchable || !store.links.next) {
       return;
     }
 
-    const response = await api.get(store.links.next || '');
+    const response = await api.get(store.links.next);
     store.populate(response.data);
   };
 
