@@ -4,11 +4,11 @@ import {
   VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
 } from 'src/interfaces/video';
 
-export const useVideosStore = defineStore({
-  id: 'videos',
+export const useStore = defineStore({
+  id: 'video-items',
 
   state: () => (<VideosState>{
-    id: null,
+    id: Date.now(),
     query: <VideosQuery>{
       append: ['clip', 'thumbnail_url'],
       sort: 'relevance',
@@ -31,48 +31,49 @@ export const useVideosStore = defineStore({
   }),
 
   getters: {
-    firstLoad(): boolean {
+    isQueryable(): boolean {
       return (this.links.first === null && this.links.next === null);
     },
 
-    isLoadable(): boolean {
+    isFetchable(): boolean {
       return this.links.next !== null;
-    },
-
-    isDone(): boolean {
-      return this.links.next === null;
     },
   },
 
   actions: {
-    reset(payload: VideosQuery): void {
-      this.query = merge(this.query, payload);
-      this.reload();
-    },
+    reset(payload?: VideosQuery): void {
+      this.$patch({
+        query: merge(this.query, payload || {}),
+        data: <VideoModel[]>[],
+        meta: <VideosMeta>{},
+        links: <VideosLinks>{},
+      });
 
-    reload(): void {
-      this.data = <VideoModel[]>[];
-      this.meta = <VideosMeta>{};
-      this.links = <VideosLinks>{ first: null, next: null };
       this.id = Date.now();
     },
 
     populate(payload: VideosResponse): void {
-      this.data = this.data.concat(payload.data);
-      this.links = payload.links;
-      this.meta = payload.meta;
+      this.$patch((state) => {
+        state.data.concat(payload.data);
+        state.links = payload.links;
+        state.meta = payload.meta;
+      });
     },
 
     delete(payload: VideoModel): void {
       remove(this.data, { id: payload.id });
     },
 
-    update(payload: VideoModel): void {
+    replace(payload: VideoModel): void {
       const index = findIndex(this.data, { id: payload.id });
 
-      if (index >= 0) {
-        this.data.splice(index, 1, payload);
+      if (index < 0) {
+        return;
       }
+
+      this.$patch((state) => {
+        state.data.splice(index, 1, payload);
+      });
     },
   },
 });

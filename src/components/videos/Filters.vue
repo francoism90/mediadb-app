@@ -175,15 +175,7 @@ export default {
     };
 
     const resetFilters = (): void => {
-      store.reset({
-        sort: 'relevance',
-        filter: {
-          type: null,
-          tags: null,
-          query: null,
-        },
-      });
-
+      store.$reset();
       window.setTimeout(() => onDialogOK(), 300);
     };
 

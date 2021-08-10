@@ -55,13 +55,13 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { fetchAll, initialize, store } = useRelated();
+    const { initialize, fetch, store } = useRelated();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetchAll();
-        await done(store.isDone);
+        await fetch();
+        await done(!store.isFetchable);
       } catch {
         await done(true);
       }

@@ -1,9 +1,9 @@
 import { api } from 'src/boot/axios';
 import { all } from 'src/repositories/tag';
-import { useTagsStore } from 'src/store/tags';
+import { useStore } from 'src/store/tags/tags';
 
 export default function useTags() {
-  const store = useTagsStore();
+  const store = useStore();
 
   const useQuery = async (): Promise<void> => {
     if (!store.firstLoad || !store.query) {

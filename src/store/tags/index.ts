@@ -4,11 +4,11 @@ import {
   TagModel, TagsLinks, TagsMeta, TagsQuery, TagsResponse, TagsState,
 } from 'src/interfaces/tag';
 
-export const useTagsStore = defineStore({
+export const useStore = defineStore({
   id: 'tags',
 
   state: () => (<TagsState>{
-    id: null,
+    id: +new Date(),
     query: <TagsQuery>{
       append: ['items'],
       sort: 'name',

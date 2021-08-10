@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { AuthResponse, SessionState } from 'src/interfaces/session';
 
-export const useSessionStore = defineStore({
+export const useStore = defineStore({
   id: 'session',
 
   state: () => (<SessionState>{

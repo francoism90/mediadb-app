@@ -1,5 +1,5 @@
-import { useRelatedStore } from 'src/store/related';
-import { useVideosStore } from 'src/store/videos';
+import { useStore as useNextStore } from 'src/store/videos/videos-next';
+import { useStore as useVideosStore } from 'src/store/videos/videos';
 import { AxiosError } from 'axios';
 import useEcho from 'src/composables/useEcho';
 import { ErrorResponse } from 'src/interfaces/api';
@@ -15,7 +15,7 @@ interface Props {
 
 export default function useVideo(props: Props) {
   const { echo } = useEcho();
-  const related = useRelatedStore();
+  const next = useNextStore();
   const videos = useVideosStore();
 
   const video = ref<VideoModel>();
@@ -30,7 +30,7 @@ export default function useVideo(props: Props) {
       video.value = response.data;
 
       // Update stores
-      related.update(video.value);
+      next.update(video.value);
       videos.update(video.value);
     } catch (e: unknown) {
       const error = e as AxiosError<ErrorResponse>;
@@ -47,7 +47,7 @@ export default function useVideo(props: Props) {
   const remove = async (): Promise<void> => {
     if (video.value) {
       // Update stores
-      related.delete(video.value);
+      next.delete(video.value);
       videos.delete(video.value);
     }
 
