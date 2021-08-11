@@ -1,11 +1,11 @@
 import { includes } from 'lodash';
 import { useQuasar } from 'quasar';
 import { setCsrfCookie } from 'src/services/api';
-import { useSessionStore } from 'src/store/session';
+import { useStore } from 'src/store/session';
 
 export default function useSession() {
   const $q = useQuasar();
-  const store = useSessionStore();
+  const store = useStore();
 
   const roles = store.user?.roles || [];
   const permissions = store.user?.permissions || [];

@@ -93,7 +93,7 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store, fetchAll } = useVideos();
+    const { store, fetch } = useVideos();
 
     const showFilters = (): void => {
       $q.dialog({
@@ -110,8 +110,8 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetchAll();
-        await done(store.isDone);
+        await fetch();
+        await done(!store.isFetchable);
       } catch {
         await done(true);
       }
@@ -119,14 +119,13 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
-      store.reload();
+      store.reset();
       done();
     };
 
     const filters = computed(() => filter(store.query.filter));
 
-    watch(store.query, store.reload, { deep: true });
-
+    watch(store.query, store.reset, { deep: true });
     useMeta(() => ({ title: 'Videos' }));
 
     return {

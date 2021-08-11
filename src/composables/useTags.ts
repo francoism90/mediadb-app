@@ -1,21 +1,12 @@
 import { api } from 'src/boot/axios';
 import { all } from 'src/repositories/tag';
-import { useTagsStore } from 'src/store/tags';
+import { useStore } from 'src/store/tags/items';
 
 export default function useTags() {
-  const store = useTagsStore();
+  const store = useStore();
 
-  const useQuery = async (): Promise<void> => {
-    if (!store.firstLoad || !store.query) {
-      return;
-    }
-
-    const response = await all(store.query);
-    store.populate(response);
-  };
-
-  const useNext = async (): Promise<void> => {
-    if (!store.isLoadable || !store.links.next) {
+  const fetchNext = async (): Promise<void> => {
+    if (!store.isFetchable || !store.links.next) {
       return;
     }
 
@@ -23,13 +14,22 @@ export default function useTags() {
     store.populate(response.data);
   };
 
-  const fetchAll = async (): Promise<void> => {
-    await useQuery();
-    await useNext();
+  const fetchQuery = async (): Promise<void> => {
+    if (!store.isQueryable) {
+      return;
+    }
+
+    const response = await all(store.query);
+    store.populate(response);
+  };
+
+  const fetch = async (): Promise<void> => {
+    await fetchNext();
+    await fetchQuery();
   };
 
   return {
     store,
-    fetchAll,
+    fetch,
   };
 }

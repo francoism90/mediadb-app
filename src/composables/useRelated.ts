@@ -1,22 +1,19 @@
 import { api } from 'src/boot/axios';
-import { VideoModel, VideosQuery } from 'src/interfaces/video';
+import { VideoModel } from 'src/interfaces/video';
 import { all } from 'src/repositories/video';
-import { useRelatedStore } from 'src/store/related';
+import { useStore } from 'src/store/videos/related';
 
-export default function useRelated() {
-  const store = useRelatedStore();
+export default function useQueue() {
+  const store = useStore();
 
-  const useQuery = async (): Promise<void> => {
-    if (!store.firstLoad || !store.query) {
-      return;
-    }
-
-    const response = await all(store.query);
-    store.populate(response);
+  const initialize = (payload: VideoModel): void => {
+    store.reset({
+      filter: { related: payload.id },
+    });
   };
 
-  const useNext = async (): Promise<void> => {
-    if (!store.isLoadable || !store.links.next) {
+  const fetchNext = async (): Promise<void> => {
+    if (!store.isFetchable || !store.links.next) {
       return;
     }
 
@@ -24,20 +21,23 @@ export default function useRelated() {
     store.populate(response.data);
   };
 
-  const fetchAll = async (): Promise<void> => {
-    await useQuery();
-    await useNext();
+  const fetchQuery = async (): Promise<void> => {
+    if (!store.isQueryable) {
+      return;
+    }
+
+    const response = await all(store.query);
+    store.populate(response);
   };
 
-  const initialize = (payload: VideoModel): void => {
-    store.reset(<VideosQuery>{
-      filter: { related: payload.id },
-    });
+  const fetch = async (): Promise<void> => {
+    await fetchNext();
+    await fetchQuery();
   };
 
   return {
-    fetchAll,
     initialize,
+    fetch,
     store,
   };
 }

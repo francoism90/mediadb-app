@@ -77,13 +77,13 @@ export default defineComponent({
   },
 
   setup() {
-    const { store, fetchAll } = useTags();
+    const { store, fetch } = useTags();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetchAll();
-        await done(store.isDone);
+        await fetch();
+        await done(!store.isFetchable);
       } catch {
         await done(true);
       }
@@ -91,12 +91,11 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
-      store.reload();
+      store.reset();
       done();
     };
 
-    watch(store.query, store.reload, { deep: true });
-
+    watch(store.query, store.reset, { deep: true });
     useMeta(() => ({ title: 'Tags' }));
 
     return {

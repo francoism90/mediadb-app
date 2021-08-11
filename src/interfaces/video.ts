@@ -41,8 +41,12 @@ export interface VideosQuery extends RepositoryQuery {
   filter?: VideosFilters,
 }
 
+export interface VideoState {
+  data: VideoModel,
+  meta: null,
+}
+
 export interface VideosState {
-  ready: boolean,
   id: string | number | null,
   query: VideosQuery,
   data: VideoModel[],

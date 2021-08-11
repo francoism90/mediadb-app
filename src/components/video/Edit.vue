@@ -61,8 +61,8 @@
           />
 
           <q-select
-            v-model.lazy="form.tags"
-            :options="tags"
+            v-model="form.tags"
+            :options="tagStore.data"
             :error-message="getError('tags')[0]"
             :error="hasError('tags')"
             counter
@@ -166,7 +166,7 @@ export default defineComponent({
     const {
       getError, hasError, resetResponse, setResponse,
     } = useFormValidation();
-    const { fetch: fetchTags, reset: resetTags, data: tags } = useTagInput();
+    const { fetch: fetchTags, store: tagStore } = useTagInput();
 
     const deleteDialog = ref<boolean>(false);
     const formRef = ref<HTMLFormElement | null>();
@@ -182,14 +182,13 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const filterTags = async (val: string, update: Function): Promise<void> => {
-      resetTags();
-
-      await fetchTags({
+      tagStore.reset({
         filter: { query: val },
         page: { number: 1, size: 5 },
         sort: val.length < 1 ? 'items' : 'relevance',
       });
 
+      await fetchTags();
       await update();
     };
 
@@ -233,13 +232,13 @@ export default defineComponent({
       hasError,
       onDelete,
       onSubmit,
-      deleteDialog,
-      formRef,
-      form,
-      tags,
-      dialogRef,
       onDialogHide,
       onDialogCancel,
+      deleteDialog,
+      dialogRef,
+      formRef,
+      form,
+      tagStore,
     };
   },
 });

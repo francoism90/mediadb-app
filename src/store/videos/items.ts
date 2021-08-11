@@ -1,19 +1,21 @@
-import { merge, findIndex, remove } from 'lodash';
+import { findIndex, merge, remove } from 'lodash';
 import { defineStore } from 'pinia';
 import {
   VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
 } from 'src/interfaces/video';
 
-export const useRelatedStore = defineStore({
-  id: 'related',
+export const useStore = defineStore({
+  id: 'videos',
 
   state: () => (<VideosState>{
-    id: null,
+    id: Date.now(),
     query: <VideosQuery>{
       append: ['clip', 'thumbnail_url'],
       sort: 'relevance',
       filter: {
-        related: null,
+        type: null,
+        tags: null,
+        query: null,
       },
       page: {
         number: 1,
@@ -22,50 +24,39 @@ export const useRelatedStore = defineStore({
     },
     data: <VideoModel[]>[],
     meta: <VideosMeta>{},
-    links: <VideosLinks>{
-      first: null,
-      next: null,
-    },
+    links: <VideosLinks>{},
   }),
 
   getters: {
-    firstLoad(): boolean {
-      return (this.links.first === null && this.links.next === null);
+    isQueryable(): boolean {
+      return !this.links.first && !this.links.next;
     },
 
-    isLoadable(): boolean {
-      return (this.links.next !== null);
-    },
-
-    isDone(): boolean {
-      return this.links.next === null;
+    isFetchable(): boolean {
+      return typeof this.links.next === 'string';
     },
   },
 
   actions: {
-    reset(payload: VideosQuery): void {
-      this.query = merge(this.query, payload);
-      this.reload();
-    },
-
-    reload(): void {
+    reset(payload?: VideosQuery): void {
+      this.query = merge(this.query, payload || {});
       this.data = <VideoModel[]>[];
       this.meta = <VideosMeta>{};
-      this.links = <VideosLinks>{ first: null, next: null };
+      this.links = <VideosLinks>{};
       this.id = Date.now();
     },
 
     populate(payload: VideosResponse): void {
       this.data = this.data.concat(payload.data);
-      this.links = payload.links;
       this.meta = payload.meta;
+      this.links = payload.links;
     },
 
     delete(payload: VideoModel): void {
       remove(this.data, { id: payload.id });
     },
 
-    update(payload: VideoModel): void {
+    replace(payload: VideoModel): void {
       const index = findIndex(this.data, { id: payload.id });
 
       if (index >= 0) {

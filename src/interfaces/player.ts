@@ -35,7 +35,6 @@ export interface PlayerRequest {
 }
 
 export interface PlayerState {
-  ready: boolean,
   model: Model,
   source: string,
   properties: PlayerProperties,

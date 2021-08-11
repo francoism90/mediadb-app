@@ -1,36 +1,35 @@
-import { ref } from 'vue';
-import {
-  TagModel, TagsQuery, TagsLinks, TagsMeta, TagsResponse,
-} from 'src/interfaces/tag';
+import { api } from 'src/boot/axios';
 import { all } from 'src/repositories/tag';
+import { useStore } from 'src/store/tags/select';
 
 export default function useTagInput() {
-  const data = ref<TagModel[]>();
-  const meta = ref<TagsMeta>();
-  const links = ref<TagsLinks>();
+  const store = useStore();
 
-  const reset = (): void => {
-    data.value = <TagModel[]>[];
-    meta.value = <TagsMeta>{};
-    links.value = <TagsLinks>{};
+  const fetchNext = async (): Promise<void> => {
+    if (!store.isFetchable || !store.links.next) {
+      return;
+    }
+
+    const response = await api.get(store.links.next);
+    store.populate(response.data);
   };
 
-  const populate = (payload: TagsResponse): void => {
-    data.value = payload.data;
-    meta.value = payload.meta;
-    links.value = payload.links;
+  const fetchQuery = async (): Promise<void> => {
+    if (!store.isQueryable) {
+      return;
+    }
+
+    const response = await all(store.query);
+    store.populate(response);
   };
 
-  const fetch = async (payload: TagsQuery): Promise<void> => {
-    const response = await all(payload);
-    populate(response);
+  const fetch = async (): Promise<void> => {
+    await fetchNext();
+    await fetchQuery();
   };
 
   return {
+    store,
     fetch,
-    reset,
-    populate,
-    data,
-    meta,
   };
 }
