@@ -68,7 +68,7 @@
         <q-item>
           <q-item-label class="full-width">
             <q-select
-              v-model.lazy="store.query.filter.tags"
+              v-model="store.query.filter.tags"
               :options="tagStore.data"
               class="q-my-sm"
               counter

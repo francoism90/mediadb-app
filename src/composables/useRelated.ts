@@ -12,15 +12,6 @@ export default function useQueue() {
     });
   };
 
-  const fetchQuery = async (): Promise<void> => {
-    if (!store.isQueryable) {
-      return;
-    }
-
-    const response = await all(store.query);
-    store.populate(response);
-  };
-
   const fetchNext = async (): Promise<void> => {
     if (!store.isFetchable || !store.links.next) {
       return;
@@ -30,9 +21,18 @@ export default function useQueue() {
     store.populate(response.data);
   };
 
+  const fetchQuery = async (): Promise<void> => {
+    if (!store.isQueryable) {
+      return;
+    }
+
+    const response = await all(store.query);
+    store.populate(response);
+  };
+
   const fetch = async (): Promise<void> => {
-    await fetchQuery();
     await fetchNext();
+    await fetchQuery();
   };
 
   return {

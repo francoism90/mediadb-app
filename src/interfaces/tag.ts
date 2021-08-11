@@ -28,7 +28,6 @@ export interface TagsQuery extends RepositoryQuery {
 }
 
 export interface TagsState {
-  ready: boolean,
   id: string | number | null,
   query: TagsQuery,
   data: TagModel[],

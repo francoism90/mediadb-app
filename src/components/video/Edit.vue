@@ -61,8 +61,8 @@
           />
 
           <q-select
-            v-model.lazy="form.tags"
-            :options="tags"
+            v-model="form.tags"
+            :options="tagStore.data"
             :error-message="getError('tags')[0]"
             :error="hasError('tags')"
             counter
@@ -185,7 +185,7 @@ export default defineComponent({
       tagStore.reset({
         filter: { query: val },
         page: { number: 1, size: 5 },
-        sort: val.length < 1 ? 'random' : 'relevance',
+        sort: val.length < 1 ? 'items' : 'relevance',
       });
 
       await fetchTags();

@@ -9,9 +9,10 @@ export const useStore = defineStore({
 
   state: () => (<TagsState>{
     id: Date.now(),
+    loading: false,
     query: <TagsQuery>{
       append: ['items'],
-      sort: 'name',
+      sort: 'random',
       filter: {
         type: null,
         query: null,
@@ -28,11 +29,11 @@ export const useStore = defineStore({
 
   getters: {
     isQueryable(): boolean {
-      return this.links.first === undefined && this.links.next === undefined;
+      return !this.links.first && !this.links.next;
     },
 
     isFetchable(): boolean {
-      return this.links.next !== null;
+      return typeof this.links.next === 'string';
     },
   },
 

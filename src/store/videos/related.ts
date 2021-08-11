@@ -27,11 +27,11 @@ export const useStore = defineStore({
 
   getters: {
     isQueryable(): boolean {
-      return this.links.first === undefined && this.links.next === undefined;
+      return !this.links.first && !this.links.next;
     },
 
     isFetchable(): boolean {
-      return this.links.next !== null;
+      return typeof this.links.next === 'string';
     },
   },
 
@@ -58,7 +58,7 @@ export const useStore = defineStore({
       const index = findIndex(this.data, { id: payload.id });
 
       if (index >= 0) {
-        this.data = this.data.splice(index, 1, payload);
+        this.data.splice(index, 1, payload);
       }
     },
   },

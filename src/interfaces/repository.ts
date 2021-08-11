@@ -33,9 +33,9 @@ export interface RepositoryLinks {
 }
 
 export interface RepositoryQuery {
-  include?: string[] | null,
-  fields?: string[] | null,
-  append?: string[] | null,
+  include?: string | string[] | null,
+  fields?: string | string[] | null,
+  append?: string | string[] | null,
   sort?: string | string[] | null,
   page?: {
     number?: number | null,
