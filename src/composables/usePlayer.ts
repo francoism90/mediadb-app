@@ -1,7 +1,7 @@
 import { Player } from 'shaka-player';
 import { initialize } from 'src/services/shaka';
 import { readonlyProperties, syncEvents } from 'src/services/player';
-import { useStore } from 'src/store/videos/player';
+import { useStore } from 'src/store/player';
 import { ref } from 'vue';
 import { debounce, pick } from 'lodash';
 import { PlayerProperties } from 'src/interfaces/player';

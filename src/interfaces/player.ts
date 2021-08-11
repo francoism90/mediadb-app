@@ -1,4 +1,3 @@
-import { VideoModel } from 'src/interfaces/video';
 import { DomOffset } from 'quasar';
 import { Model } from 'src/interfaces/repository';
 
@@ -36,7 +35,7 @@ export interface PlayerRequest {
 }
 
 export interface PlayerState {
-  model: VideoModel,
+  model: Model,
   source: string,
   properties: PlayerProperties,
   request: PlayerRequest,

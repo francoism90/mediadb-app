@@ -1,36 +1,34 @@
+import { Model } from 'src/interfaces/repository';
 import { defineStore } from 'pinia';
 import { merge } from 'lodash';
 import {
   PlayerProperties, PlayerRequest, PlayerState, PlayerSource,
 } from 'src/interfaces/player';
-import { VideoModel } from 'src/interfaces/video';
 
 export const useStore = defineStore({
-  id: 'video-player',
+  id: 'player',
 
   state: () => (<PlayerState>{
-    model: <VideoModel>{},
+    model: <Model>{},
     properties: <PlayerProperties>{},
     request: <PlayerRequest>{},
   }),
 
   getters: {
     isReady(): boolean {
-      return (this.model !== null && this.source !== null);
+      return typeof this.model.id === 'string' && typeof this.source === 'string';
     },
 
     isLoading(): boolean {
       const readyState = this.properties.readyState || 0;
-      return (this.properties.ended === false && readyState < 3);
+      return this.properties.ended === false && readyState < 3;
     },
   },
 
   actions: {
     initialize(payload: PlayerSource): void {
-      this.$patch({
-        model: payload.model,
-        source: payload.source || '',
-      });
+      this.model = payload.model;
+      this.source = payload.source || '';
     },
 
     dispatch(payload: PlayerRequest): void {

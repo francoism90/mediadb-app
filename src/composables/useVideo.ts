@@ -53,13 +53,13 @@ export default function useVideo(props: Props) {
     await fetch();
   };
 
-  const subscribe = (id: string | number): void => {
+  const subscribe = (id: string): void => {
     echo?.private(`video.${id}`)
       .listen('.video.deleted', remove)
       .listen('.video.updated', fetch);
   };
 
-  const unsubscribe = (id: string | number): void => {
+  const unsubscribe = (id: string): void => {
     echo?.leave(`video.${id}`);
   };
 
