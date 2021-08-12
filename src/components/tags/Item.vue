@@ -25,7 +25,7 @@
         caption
         class="tag-item-description"
       >
-        <span class="text-capitalize">{{ tag.type || 0 }}</span>
+        <span class="text-capitalize">{{ tag.type || '' }}</span>
         <span class="q-px-sm">•</span>
         <span>{{ tag.items || 0 }} items</span>
       </q-item-label>
@@ -55,7 +55,7 @@ export default defineComponent({
 
     const onClick = async () => {
       store.reset({
-        filter: { tags: [props.tag.slug] },
+        filter: { tags: [props.tag.name] },
       });
 
       await router.push({ name: 'home' });

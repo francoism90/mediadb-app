@@ -25,9 +25,15 @@
         icon="filter_list"
         color="grey-5"
         outline
-        :label="`Filters (${filters.length})`"
+        label="Filters"
         @click="showFilters"
-      />
+      >
+        <q-badge
+          v-if="filters.length > 0"
+          :label="filters.length"
+          floating
+        />
+      </q-btn>
     </q-toolbar>
 
     <q-pull-to-refresh @refresh="onRefresh">
@@ -124,9 +130,11 @@ export default defineComponent({
     };
 
     const filters = computed(() => filter(store.query.filter));
+    const sort = computed(() => store.query.sort);
 
-    watch(store.query, store.reset, { deep: true });
     useMeta(() => ({ title: 'Videos' }));
+    watch(filters, store.reset, { deep: true });
+    watch(sort, store.reset, { deep: true });
 
     return {
       onLoad,

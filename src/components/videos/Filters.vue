@@ -46,7 +46,7 @@
         >
           <q-item-section side>
             <q-radio
-              v-model="store.query.filter.type"
+              v-model.lazy="store.query.filter.type"
               :val="list.value"
             />
           </q-item-section>
@@ -132,7 +132,6 @@
 </template>
 
 <script lang="ts">
-import { onBeforeMount } from 'vue';
 import { useDialogPluginComponent } from 'quasar';
 import useVideos from 'src/composables/useVideos';
 import useTagInput from 'src/composables/useTagInput';
@@ -154,14 +153,6 @@ export default {
     const { store } = useVideos();
     const { fetch: fetchTags, store: tagStore } = useTagInput();
 
-    const initialize = async (): Promise<void> => {
-      tagStore.reset({
-        filter: { id: store.query.filter?.tags },
-      });
-
-      await fetchTags();
-    };
-
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function): Promise<void> => {
       tagStore.reset({
@@ -177,8 +168,6 @@ export default {
       store.$reset();
       window.setTimeout(() => onDialogOK(), 300);
     };
-
-    onBeforeMount(initialize);
 
     return {
       onDialogHide,

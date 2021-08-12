@@ -49,11 +49,12 @@
 </template>
 
 <script lang="ts">
+import { filter } from 'lodash';
 import { useMeta } from 'quasar';
 import Item from 'src/components/tags/Item.vue';
 import useTags from 'src/composables/useTags';
 import { authenticate } from 'src/services/auth';
-import { defineComponent, watch } from 'vue';
+import { defineComponent, computed, watch } from 'vue';
 
 const sorters = [
   { label: 'Alphabetical', value: 'name' },
@@ -95,8 +96,12 @@ export default defineComponent({
       done();
     };
 
-    watch(store.query, store.reset, { deep: true });
+    const filters = computed(() => filter(store.query.filter));
+    const sort = computed(() => store.query.sort);
+
     useMeta(() => ({ title: 'Tags' }));
+    watch(filters, store.reset, { deep: true });
+    watch(sort, store.reset, { deep: true });
 
     return {
       onLoad,
