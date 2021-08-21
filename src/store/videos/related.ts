@@ -4,9 +4,7 @@ import {
   VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
 } from 'src/interfaces/video';
 
-export const useStore = defineStore({
-  id: 'video-related',
-
+export const useStore = defineStore('video-related', {
   state: () => (<VideosState>{
     id: Date.now(),
     query: <VideosQuery>{

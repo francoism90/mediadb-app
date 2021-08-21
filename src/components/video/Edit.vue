@@ -171,13 +171,13 @@ export default defineComponent({
     const deleteDialog = ref<boolean>(false);
     const formRef = ref<HTMLFormElement | null>();
 
-    const form = reactive<VideoModel>(<VideoModel>{
+    const form = reactive(<VideoModel>{
       id: props.video.id,
       name: props.video.name,
       season_number: props.video.season_number,
       episode_number: props.video.episode_number,
-      overview: props.video.overview || '',
-      tags: props.video.tags || [],
+      overview: props.video.overview,
+      tags: props.video.tags,
     });
 
     // eslint-disable-next-line @typescript-eslint/ban-types

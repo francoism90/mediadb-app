@@ -100,8 +100,8 @@ export default defineComponent({
     const sort = computed(() => store.query.sort);
 
     useMeta(() => ({ title: 'Tags' }));
-    watch(filters, store.reset, { deep: true });
-    watch(sort, store.reset, { deep: true });
+    watch(filters, () => store.reset(), { deep: true });
+    watch(sort, () => store.reset(), { deep: true });
 
     return {
       onLoad,

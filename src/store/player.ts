@@ -5,9 +5,7 @@ import {
   PlayerProperties, PlayerRequest, PlayerState, PlayerSource,
 } from 'src/interfaces/player';
 
-export const useStore = defineStore({
-  id: 'player',
-
+export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
     model: <Model>{},
     properties: <PlayerProperties>{},

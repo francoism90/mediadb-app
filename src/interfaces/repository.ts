@@ -5,11 +5,11 @@ export interface Model {
   description?: string,
   favorite?: boolean,
   following?: boolean,
-  'created_at': Date,
-  'updated_at': Date,
+  'created_at': string,
+  'updated_at': string,
 }
 
-export interface ModelResponse extends Model {
+export interface ModelResponse {
   data: Model,
   exception?: string | null
   message?: string | null

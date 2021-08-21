@@ -2,9 +2,7 @@ import { defineStore } from 'pinia';
 import { AuthResponse, SessionState } from 'src/interfaces/session';
 import { UserModel } from '../interfaces/user';
 
-export const useStore = defineStore({
-  id: 'session',
-
+export const useStore = defineStore('session', {
   state: () => (<SessionState>{
     redirectUri: null,
     timestamp: null,

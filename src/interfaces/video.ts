@@ -11,7 +11,7 @@ export interface VideoModel extends Model {
   type: string,
   'season_number': string,
   'episode_number': string,
-  'release_date': Date | string,
+  'release_date': string,
   status: string,
   views: number,
   clip?: MediaModel,
