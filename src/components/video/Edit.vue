@@ -4,7 +4,7 @@
     @hide="onDialogHide"
   >
     <q-card
-      class="bg-grey-10 q-pa-md q-dialog-plugin"
+      class="bg-grey-12 q-pa-md q-dialog-plugin"
       style="width: 400px; max-width: 100vw;"
       square
     >

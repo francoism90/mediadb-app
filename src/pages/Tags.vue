@@ -1,6 +1,6 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-grey-12 q-py-md">
+    <q-toolbar class="bg-dark q-py-md">
       <q-select
         v-model.lazy="store.query.sort"
         :options="sorters"
