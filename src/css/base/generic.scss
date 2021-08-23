@@ -1,12 +1,12 @@
 @supports (font-variation-settings: normal) {
   html {
-    font-family: 'Inter var', sans-serif;
+    font-family: "Inter var", sans-serif;
   }
 }
 
 body.body--light,
 body.body--dark {
-  background: $grey-12;
+  background: $dark-page;
 }
 
 ::-moz-focus-inner {

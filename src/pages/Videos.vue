@@ -1,6 +1,6 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-grey-12 q-py-md">
+    <q-toolbar class="bg-dark q-py-md">
       <q-select
         v-model.lazy="store.query.sort"
         :options="sorters"
@@ -41,7 +41,7 @@
         :key="store.id"
         @load="onLoad"
       >
-        <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
+        <div class="row wrap justify-start items-start content-start q-col-gutter-sm">
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"

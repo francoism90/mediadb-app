@@ -1,5 +1,10 @@
 import { Model } from 'src/interfaces/repository';
 
+export interface MediaResolution {
+  width: string,
+  icon: string | null,
+}
+
 export interface MediaModel extends Model {
   id: string,
   'mime_type': string,
@@ -9,7 +14,7 @@ export interface MediaModel extends Model {
   bitrate?: number | null,
   'codec_name'?: string | null,
   duration?: number | null,
-  resolution?: string | null,
+  resolution?: MediaResolution,
   height?: number | null,
   width?: number | null,
   thumbnail?: number,

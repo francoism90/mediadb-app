@@ -5,26 +5,35 @@
     flat
     square
   >
-    <router-link :to="{ name: 'video', params: { id: video.id, slug: video.slug }}">
+    <router-link
+      :to="{ name: 'video', params: { id: video.id, slug: video.slug }}"
+      class="video-item-placeholder"
+    >
       <q-img
         :alt="video.name"
         :src="video.thumbnail_url"
         loading="lazy"
         placeholder-src="~assets/placeholder/16x16.webp"
-        class="video-item-placeholder cursor-pointer"
-        img-class="video-item-placeholder"
+        class="video-item-thumbnail"
+        img-class="video-item-thumbnail"
+        no-spinner
+        no-transition
       />
+
+      <div class="absolute-bottom-right">
+        <q-chip
+          class="transparent"
+          size="16px"
+          :icon="`${video.clip?.resolution.icon}`"
+        >
+          <span class="text-caption">{{ duration }}</span>
+        </q-chip>
+      </div>
     </router-link>
 
-    <q-card-section class="q-px-none q-py-dm">
-      <div class="text-weight-medium ellipsis-2-lines">
+    <q-card-section class="q-py-none q-px-sm">
+      <div class="q-py-sm text-weight-medium ellipsis-2-lines">
         {{ name }}
-      </div>
-
-      <div class="q-py-xs text-caption text-grey-5">
-        <span>{{ duration }}</span>
-        <span class="q-px-sm">•</span>
-        <span>{{ video.clip?.resolution }}</span>
       </div>
 
       <chips

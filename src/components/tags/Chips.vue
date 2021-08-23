@@ -9,7 +9,7 @@
       color="grey-10"
       text-color="grey-5"
       class="text-caption"
-      size="0.875em"
+      size="0.925em"
       square
       @click="onClick(tag)"
     />

@@ -84,7 +84,7 @@
         <template #label>
           Resolution :
         </template>
-        {{ video.clip?.resolution }}
+        {{ video.clip?.resolution?.label }}
       </item>
 
       <item v-if="video.created_at">

@@ -5,7 +5,7 @@
   >
     <q-header
       bordered
-      class="row no-wrap items-center content-center header"
+      class="header row no-wrap items-center content-center bg-dark"
       height-hint="58"
     >
       <q-toolbar>
