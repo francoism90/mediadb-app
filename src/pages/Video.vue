@@ -15,18 +15,20 @@
       </q-banner>
     </template>
 
-    <template v-if="video && video.id">
-      <video-player :video="video" />
+    {{ videoStore.data.id }}
+
+    <template v-if="videoStore.isReady">
+      <video-player v-if="playerStore.isReady" />
 
       <div class="container">
-        <video-details :video="video" />
+        <!-- <video-details /> -->
 
         <q-separator
           color="primary"
           size="3px"
         />
 
-        <video-related :video="video" />
+        <!-- <video-related /> -->
       </div>
     </template>
   </q-page>
@@ -36,26 +38,21 @@
 import { useMeta } from 'quasar';
 import { authenticate } from 'src/services/auth';
 import VideoPlayer from 'src/components/player/Video.vue';
-import VideoDetails from 'src/components/video/Details.vue';
-import VideoRelated from 'src/components/video/Related.vue';
+// import VideoDetails from 'src/components/video/Details.vue';
+// import VideoRelated from 'src/components/video/Related.vue';
 import useVideo from 'src/composables/useVideo';
 import {
-  defineComponent, computed, onBeforeUnmount, onMounted, PropType, toRefs, watch,
+  defineComponent, onBeforeUnmount, PropType, watch,
 } from 'vue';
-import useFilters from 'src/composables/useFilters';
-
-export interface Props {
-  id: string,
-  slug?: string | null
-}
+import usePlayer from 'src/composables/usePlayer';
 
 export default defineComponent({
   name: 'Video',
 
   components: {
-    VideoDetails,
+    // VideoDetails,
     VideoPlayer,
-    VideoRelated,
+    // VideoRelated,
   },
 
   props: {
@@ -78,33 +75,32 @@ export default defineComponent({
     }
   },
 
-  setup(props: Props) {
-    const { id } = toRefs(props);
+  setup(props) {
+    const { initialize, subscribe, unsubscribe, errors, store: videoStore } = useVideo();
+    const { store: playerStore } = usePlayer();
 
-    const { formatTitle } = useFilters();
+    onBeforeUnmount(() => unsubscribe(props.id));
+    useMeta(() => ({ title: videoStore.data.name || '' }));
 
-    const {
-      subscribe, unsubscribe, errors, video,
-    } = useVideo({ id });
+    watch(props, async (value, oldValue): Promise<void> => {
+      await initialize(props.id);
 
-    const name = computed(() => formatTitle([
-      [video.value?.season_number, video.value?.episode_number].join(''),
-      video.value?.name || '',
-    ]));
+      // Player
+      playerStore.populate({
+        media: videoStore.data.clip,
+        live_url: videoStore.data.live_url,
+        vod_url: videoStore.data.vod_url,
+      });
 
-    useMeta(() => ({ title: name.value }));
-
-    onMounted(() => subscribe(id.value));
-    onBeforeUnmount(() => unsubscribe(id.value));
-
-    watch(id, (value, oldValue): void => {
-      unsubscribe(oldValue);
-      subscribe(value);
-    });
+      // WebSockets
+      unsubscribe(oldValue?.id || '');
+      subscribe(props?.id || '');
+    }, { immediate: true });
 
     return {
       errors,
-      video,
+      playerStore,
+      videoStore,
     };
   },
 });

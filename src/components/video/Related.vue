@@ -48,7 +48,7 @@ export default defineComponent({
   },
 
   props: {
-    video: {
+    model: {
       type: Object as PropType<VideoModel>,
       required: true,
     },
@@ -69,12 +69,12 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
-      initialize(props.video);
+      initialize(props.model);
       done();
     };
 
-    onBeforeMount(() => initialize(props.video));
-    watch(props.video, () => initialize(props.video), { deep: true });
+    onBeforeMount(() => initialize(props.model));
+    watch(props.model, () => initialize(props.model), { deep: true });
 
     return {
       onLoad,

@@ -10,38 +10,29 @@ export default function usePlayer() {
   const player = ref<Player>();
   const store = useStore();
 
-  const setProperties = (event: Event | null): void => {
-    const target = event?.target as HTMLMediaElement;
+  const setProperties = (event: Event): void => {
+    const target = event.target as HTMLMediaElement;
     const properties = <PlayerProperties>pick(target, readonlyProperties);
 
-    store.populate(properties);
+    store.update(properties);
   };
 
   const syncProperties = debounce(setProperties, 100);
 
-  const useEvents = (dom: HTMLMediaElement | null): void => {
+  const addListenters = (dom: HTMLMediaElement | undefined): void => {
     syncEvents.forEach((event) => {
       dom?.addEventListener(event, syncProperties);
     });
   };
 
-  const destroyEvents = (dom: HTMLMediaElement | null): void => {
+  const removeListenters = (dom: HTMLMediaElement | undefined): void => {
     syncEvents.forEach((event) => {
       dom?.removeEventListener(event, syncProperties);
     });
   };
 
-  const loadVideo = async (dom: HTMLMediaElement | null): Promise<void> => {
-    try {
-      const shakaPlayer = initialize(dom);
-      player.value = await shakaPlayer.load(store.source) as Player;
-    } catch (e: unknown) {
-      console.error(e);
-    }
-  };
-
-  const destroy = async (dom: HTMLMediaElement | null): Promise<void> => {
-    destroyEvents(dom);
+  const detach = async (dom: HTMLMediaElement | undefined): Promise<Promise<void>> => {
+    removeListenters(dom);
 
     await player.value?.detach();
     await player.value?.destroy();
@@ -52,11 +43,36 @@ export default function usePlayer() {
     dom?.load();
   };
 
+  const attach = async (dom: HTMLMediaElement | undefined): Promise<void> => {
+    try {
+      const video = store.source?.vod_url || store.source?.live_url || null;
+
+      if (video) {
+        const shakaPlayer = initialize(dom);
+        player.value = await shakaPlayer.load(video) as Player;
+      }
+
+      addListenters(dom);
+    } catch (e: unknown) {
+      console.error(e);
+    }
+  };
+
+  const load = async (dom: HTMLMediaElement | undefined): Promise<void> => {
+    await detach(dom);
+    await attach(dom);
+  };
+
+  const destroy = async (dom: HTMLMediaElement | undefined): Promise<void> => {
+    store.$reset();
+    await detach(dom);
+  };
+
   return {
-    useEvents,
+    load,
+    attach,
+    detach,
     destroy,
-    destroyEvents,
-    loadVideo,
     player,
     store,
   };

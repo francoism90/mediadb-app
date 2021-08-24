@@ -4,57 +4,29 @@
     color="white"
     class="cursor-pointer"
     size="24px"
-    @click="onSubmit"
+    @click="onClick"
   />
 </template>
 
 <script lang="ts">
-import { AxiosError } from 'axios';
-import { ValidationResponse } from 'src/interfaces/form';
-import usePlayer from 'src/composables/usePlayer';
-import { Model } from 'src/interfaces/repository';
-import { favorite } from 'src/repositories/user';
-import {
-  computed, defineComponent, reactive,
-} from 'vue';
-import useFormValidation from 'src/composables/useFormValidation';
+import { computed, defineComponent } from 'vue';
+import useAcquaintances from 'src/composables/useAcquaintances';
+import useVideo from 'src/composables/useVideo';
 
 export default defineComponent({
   name: 'FavoriteControl',
 
   setup() {
-    const { store } = usePlayer();
-    const { resetResponse, setResponse } = useFormValidation();
+    const { toggleFavorite } = useAcquaintances();
+    const { store } = useVideo();
 
-    const form = reactive(<Model>{
-      id: store.model.id,
-      favorite: store.model.favorite || false,
-    });
-
-    const icon = computed(() => (form.favorite === true ? 'favorite' : 'favorite_border'));
-
-    const onSubmit = async (): Promise<void> => {
-      resetResponse();
-
-      try {
-        const response = await favorite(form);
-        form.favorite = response.data?.favorite || false;
-      } catch (e: unknown) {
-        const error = e as AxiosError<ValidationResponse>;
-
-        if (error.response) {
-          setResponse(error.response.data);
-          return;
-        }
-
-        throw error;
-      }
-    };
+    const onClick = () => toggleFavorite(store.data);
+    const icon = computed(() => (store.data.favorite === true ? 'favorite' : 'favorite_border'));
 
     return {
+      onClick,
       store,
       icon,
-      onSubmit,
     };
   },
 });

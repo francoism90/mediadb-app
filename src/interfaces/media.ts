@@ -17,7 +17,7 @@ export interface MediaModel extends Model {
   resolution?: MediaResolution,
   height?: number | null,
   width?: number | null,
-  thumbnail?: number,
+  timecode?: number,
   'download_url'?: string | null,
 }
 

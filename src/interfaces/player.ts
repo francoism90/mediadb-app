@@ -1,5 +1,5 @@
+import { MediaModel } from 'src/interfaces/media';
 import { DomOffset } from 'quasar';
-import { Model } from 'src/interfaces/repository';
 
 export interface PlayerProperties {
   buffered: TimeRanges | null,
@@ -34,14 +34,14 @@ export interface PlayerRequest {
   time?: number
 }
 
-export interface PlayerState {
-  model: Model,
-  source: string,
-  properties: PlayerProperties,
-  request: PlayerRequest,
+export interface PlayerSource {
+  media: MediaModel | undefined,
+  'live_url'?: string,
+  'vod_url'?: string,
 }
 
-export interface PlayerSource {
-  model: Model,
-  source: string | null,
+export interface PlayerState {
+  source: PlayerSource,
+  properties: PlayerProperties,
+  request: PlayerRequest,
 }

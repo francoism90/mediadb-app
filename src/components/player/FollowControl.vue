@@ -4,35 +4,29 @@
     color="white"
     class="cursor-pointer"
     size="24px"
-    @click="onSubmit"
+    @click="onClick"
   />
 </template>
 
 <script lang="ts">
+import { computed, defineComponent } from 'vue';
 import useAcquaintances from 'src/composables/useAcquaintances';
-import usePlayer from 'src/composables/usePlayer';
-import {
-  computed, defineComponent, reactive,
-} from 'vue';
+import useVideo from 'src/composables/useVideo';
 
 export default defineComponent({
-  name: 'FollowControl',
+  name: 'FavoriteControl',
 
   setup() {
-    const { store } = usePlayer();
-    const { toggleFollow } = useAcquaintances();
+    const { toggleFavorite } = useAcquaintances();
+    const { store } = useVideo();
 
-    const icon = computed(() => (form.following === true ? 'watch_later' : 'o_watch_later'));
-
-    const onSubmit = async (): Promise<void> => {
-      const response = await follow(form);
-      form.following = response.data?.following || false;
-    };
+    const onClick = () => toggleFavorite(store.data);
+    const icon = computed(() => (store.data.favorite === true ? 'favorite' : 'favorite_border'));
 
     return {
+      onClick,
       store,
       icon,
-      onSubmit,
     };
   },
 });

@@ -28,7 +28,7 @@ export const ShakaConfig = {
   },
 };
 
-export function initialize(dom: HTMLMediaElement | null): Player {
+export function initialize(dom: HTMLMediaElement | undefined): Player {
   polyfill.installAll();
 
   if (!Player.isBrowserSupported()) {
