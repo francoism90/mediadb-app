@@ -1,4 +1,4 @@
-import { findIndex, merge, remove } from 'lodash';
+import { find, findIndex, merge, remove } from 'lodash';
 import { defineStore } from 'pinia';
 import {
   VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
@@ -59,6 +59,14 @@ export const useStore = defineStore('videos', {
 
       if (index >= 0) {
         this.data.splice(index, 1, payload);
+      }
+    },
+
+    update(payload: VideoModel): void {
+      const model = find(this.data, { id: payload.id });
+
+      if (model) {
+        this.replace(merge(payload, model));
       }
     },
   },

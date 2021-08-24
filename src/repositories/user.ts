@@ -30,7 +30,7 @@ export async function logout(params: AuthUser): Promise<AuthResponse> {
 
 export async function favorite(params: Model): Promise<ModelResponse> {
   const response = await api.post<ModelResponse, AxiosResponse<ModelResponse>>(
-    'user/favorite', params,
+    `user/favorite/${params.id}`,
   );
 
   return response.data;
@@ -38,7 +38,7 @@ export async function favorite(params: Model): Promise<ModelResponse> {
 
 export async function follow(params: Model): Promise<ModelResponse> {
   const response = await api.post<ModelResponse, AxiosResponse<ModelResponse>>(
-    'user/follow', params,
+    `user/follow/${params.id}`,
   );
 
   return response.data;
