@@ -4,12 +4,12 @@
       v-for="(tag, index) in tags"
       :key="index"
       :label="tag.name"
-      clickable
-      dense
-      color="grey-10"
-      text-color="grey-5"
       class="text-caption"
-      size="0.925em"
+      clickable
+      color="grey-10"
+      size="0.95em"
+      text-color="grey-5"
+      dense
       square
       @click="onClick(tag)"
     />

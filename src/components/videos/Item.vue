@@ -20,26 +20,75 @@
         no-transition
       />
 
-      <div class="absolute-bottom-right">
+      <div class="absolute-bottom-right q-mx-sm">
         <q-chip
-          class="transparent"
-          size="16px"
+          :clickable="false"
           :icon="`${video.clip?.resolution.icon}`"
+          class="transparent"
+          dense
+          size="16px"
         >
           <span class="text-caption">{{ duration }}</span>
         </q-chip>
       </div>
     </router-link>
 
-    <q-card-section class="q-py-none q-px-sm">
-      <div class="q-py-sm text-weight-medium ellipsis-2-lines">
-        {{ name }}
-      </div>
+    <q-card-section class="q-pa-none">
+      <div class="row">
+        <div class="col q-pa-sm">
+          <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
+            {{ name }}
+          </div>
 
-      <chips
-        v-if="video.tags.length"
-        :tags="video.tags"
-      />
+          <chips
+            v-if="video.tags.length"
+            :tags="video.tags"
+          />
+        </div>
+
+        <div class="col-auto">
+          <q-btn
+            class="q-my-sm q-mx-xs"
+            icon="more_vert"
+            padding="xs"
+            size="14px"
+            fab
+          >
+            <q-menu
+              anchor="top right"
+              class="menu"
+              self="top right"
+              square
+              transition-duration="0"
+            >
+              <q-list
+                bordered
+                dense
+                padding
+                style="width: 200px; max-width: 100vw;"
+              >
+                <q-item
+                  v-close-popup
+                  clickable
+                >
+                  <q-item-section>
+                    <q-item-label>Save to Watch later</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item
+                  v-close-popup
+                  clickable
+                >
+                  <q-item-section>
+                    <q-item-label>Save to Favorites</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
+        </div>
+      </div>
     </q-card-section>
   </q-card>
 </template>

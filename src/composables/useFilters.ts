@@ -6,9 +6,11 @@ export default function useFilters() {
     .substr(11, 8)
     .replace(/^0(?:0:0?)?/, '');
 
-  const formatDate = (value: string | number | Date): string => dayjs(value).format('D MMMM YYYY');
+  const formatDate = (value: string | number | Date): string => dayjs(value)
+    .format('D MMMM YYYY');
 
-  const formatTitle = (value: string[]): string => value.filter((n) => n).join(' - ');
+  const formatTitle = (value: string[]): string => value.filter((n) => n)
+    .join(' - ');
 
   return {
     formatDate,
