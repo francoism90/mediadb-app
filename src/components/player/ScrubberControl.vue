@@ -1,6 +1,6 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <tooltip-control />
+    <tooltip-control v-show="tooltip" />
 
     <q-slider
       ref="slider"
@@ -12,7 +12,7 @@
       :style="bufferStyle"
       color="primary"
       @mousemove="onMouseHover"
-      @mouseleave="onMouseHover"
+      @mouseleave="tooltip = false"
       @update:model-value="setCurrentTime"
     />
 
@@ -53,6 +53,7 @@ export default defineComponent({
     const { store } = usePlayer();
 
     const slider = ref<QSlider>();
+    const tooltip = ref<boolean>();
 
     const bufferedPct = computed(() => {
       const buffered = store.properties.buffered || <TimeRanges>{};
@@ -85,6 +86,8 @@ export default defineComponent({
         sliderWidth: dom.width(slider.value?.$el || 0),
         sliderOffset: dom.offset(slider.value?.$el || 0),
       });
+
+      tooltip.value = true;
     };
 
     return {
@@ -95,6 +98,7 @@ export default defineComponent({
       duration,
       slider,
       store,
+      tooltip,
     };
   },
 

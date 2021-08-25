@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="percent > 0"
+    v-if="percent > 0 && percent < 100"
     class="player-tooltip desktop-only"
     :style="tooltipStyle"
   >
@@ -52,7 +52,8 @@ export default defineComponent({
     });
 
     const createPreview = async (): Promise<void> => {
-      const response = await capture(videoStore.data?.id || '', Math.ceil(time.value));
+      const frame = clamp(Math.ceil(time.value), 1, duration.value - 1);
+      const response = await capture(videoStore.data?.id || '', frame);
       const ctx = preview.value?.getContext('2d');
       const img = new Image(160, 90);
 
