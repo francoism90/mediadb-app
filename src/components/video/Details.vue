@@ -12,33 +12,33 @@
         :ripple="false"
         dense
       >
-        <span class="q-ml-xs text-body1">{{ model.views || 0 }} views</span>
+        <span class="q-ml-xs text-body1">{{ store.data?.views || 0 }} views</span>
       </q-chip>
     </div>
 
-    <p v-if="model.overview">
-      {{ model.overview }}
+    <p v-if="store.data?.overview">
+      {{ store.data.overview }}
     </p>
 
     <q-list
       dense
       class="q-py-md video-details-list"
     >
-      <item v-if="model.season_number">
+      <item v-if="store.data?.season_number">
         <template #label>
           Season :
         </template>
-        {{ model.season_number }}
+        {{ store.data.season_number }}
       </item>
 
-      <item v-if="model.episode_number">
+      <item v-if="store.data?.episode_number">
         <template #label>
           Episode :
         </template>
-        {{ model.episode_number }}
+        {{ store.data.episode_number }}
       </item>
 
-      <item v-if="model.released_at">
+      <item v-if="store.data?.released_at">
         <template #label>
           Released Date :
         </template>
@@ -80,14 +80,14 @@
         {{ duration }}
       </item>
 
-      <item v-if="model.clip?.resolution">
+      <item v-if="store.data?.clip?.resolution">
         <template #label>
           Resolution :
         </template>
-        {{ model.clip?.resolution?.label }}
+        {{ store.data.clip.resolution.label }}
       </item>
 
-      <item v-if="model.created_at">
+      <item v-if="store.data.created_at">
         <template #label>
           Upload Date :
         </template>
@@ -133,6 +133,7 @@ export default defineComponent({
     const studios = computed(() => tagsByType('studio'));
 
     return {
+      store,
       title,
       cast,
       languages,

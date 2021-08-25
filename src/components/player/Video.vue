@@ -3,7 +3,6 @@
     ref="container"
     class="player-container relative-position row no-wrap justify-center items-center"
   >
-    {{ store.source.vod_url }}
     <video
       ref="video"
       autoPictureInPicture

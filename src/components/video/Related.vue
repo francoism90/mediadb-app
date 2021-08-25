@@ -6,12 +6,12 @@
 
     <q-pull-to-refresh @refresh="onRefresh">
       <q-infinite-scroll
-        :key="store.id"
+        :key="relatedStore.id"
         @load="onLoad"
       >
         <div class="row wrap justify-start items-start content-start q-col-gutter-sm">
           <q-intersection
-            v-for="(item, index) in store.data"
+            v-for="(item, index) in relatedStore.data"
             :key="index"
             class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
           >
@@ -33,12 +33,11 @@
 </template>
 
 <script lang="ts">
+import { filter } from 'lodash';
 import Item from 'src/components/videos/Item.vue';
 import useRelated from 'src/composables/useRelated';
-import { VideoModel } from 'src/interfaces/video';
-import {
-  defineComponent, PropType, onBeforeMount, watch,
-} from 'vue';
+import useVideo from 'src/composables/useVideo';
+import { defineComponent, computed, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoRelated',
@@ -47,21 +46,15 @@ export default defineComponent({
     Item,
   },
 
-  props: {
-    model: {
-      type: Object as PropType<VideoModel>,
-      required: true,
-    },
-  },
-
-  setup(props) {
-    const { initialize, fetch, store } = useRelated();
+  setup() {
+    const { store: relatedStore, fetch } = useRelated();
+    const { store: videoStore } = useVideo();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
         await fetch();
-        await done(!store.isFetchable);
+        await done(!relatedStore.isFetchable);
       } catch {
         await done(true);
       }
@@ -69,17 +62,23 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
-      initialize(props.model);
+      relatedStore.reset();
       done();
     };
 
-    onBeforeMount(() => initialize(props.model));
-    watch(props.model, () => initialize(props.model), { deep: true });
+    const videoId = computed(() => videoStore.data?.id || null);
+    const filters = computed(() => filter(relatedStore.query.filter));
+    const sort = computed(() => relatedStore.query.sort);
+
+    watch(videoId, () => relatedStore.filter({ related: videoId.value }), { immediate: true });
+    watch(filters, () => relatedStore.reset(), { deep: true });
+    watch(sort, () => relatedStore.reset(), { deep: true });
 
     return {
       onLoad,
       onRefresh,
-      store,
+      relatedStore,
+      videoStore,
     };
   },
 });

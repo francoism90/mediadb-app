@@ -44,6 +44,14 @@ export const useStore = defineStore('videos', {
       this.id = Date.now();
     },
 
+    filter(payload: VideosQuery): void {
+      this.query.filter = merge(this.query.filter, payload);
+    },
+
+    sort(payload: string | string[] | null): void {
+      this.query.sort = payload;
+    },
+
     populate(payload: VideosResponse): void {
       this.data = this.data.concat(payload.data);
       this.meta = payload.meta;

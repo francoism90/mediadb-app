@@ -64,8 +64,8 @@ export default function usePlayer() {
   };
 
   const destroy = async (dom: HTMLMediaElement | undefined): Promise<void> => {
-    store.$reset();
     await detach(dom);
+    store.$reset();
   };
 
   return {

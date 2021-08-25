@@ -15,20 +15,18 @@
       </q-banner>
     </template>
 
-    {{ videoStore.data.id }}
-
     <template v-if="videoStore.isReady">
       <video-player v-if="playerStore.isReady" />
 
       <div class="container">
-        <!-- <video-details /> -->
+        <video-details />
 
         <q-separator
           color="primary"
           size="3px"
         />
 
-        <!-- <video-related /> -->
+        <video-related />
       </div>
     </template>
   </q-page>
@@ -38,8 +36,8 @@
 import { useMeta } from 'quasar';
 import { authenticate } from 'src/services/auth';
 import VideoPlayer from 'src/components/player/Video.vue';
-// import VideoDetails from 'src/components/video/Details.vue';
-// import VideoRelated from 'src/components/video/Related.vue';
+import VideoDetails from 'src/components/video/Details.vue';
+import VideoRelated from 'src/components/video/Related.vue';
 import useVideo from 'src/composables/useVideo';
 import {
   defineComponent, onBeforeUnmount, PropType, watch,
@@ -50,9 +48,9 @@ export default defineComponent({
   name: 'Video',
 
   components: {
-    // VideoDetails,
+    VideoDetails,
     VideoPlayer,
-    // VideoRelated,
+    VideoRelated,
   },
 
   props: {
@@ -79,23 +77,23 @@ export default defineComponent({
     const { initialize, subscribe, unsubscribe, errors, store: videoStore } = useVideo();
     const { store: playerStore } = usePlayer();
 
-    onBeforeUnmount(() => unsubscribe(props.id));
-    useMeta(() => ({ title: videoStore.data.name || '' }));
-
     watch(props, async (value, oldValue): Promise<void> => {
       await initialize(props.id);
 
       // Player
       playerStore.populate({
-        media: videoStore.data.clip,
-        live_url: videoStore.data.live_url,
-        vod_url: videoStore.data.vod_url,
+        media: videoStore.data?.clip,
+        live_url: videoStore.data?.live_url,
+        vod_url: videoStore.data?.vod_url,
       });
 
       // WebSockets
       unsubscribe(oldValue?.id || '');
       subscribe(props?.id || '');
     }, { immediate: true });
+
+    onBeforeUnmount(() => unsubscribe(props.id));
+    useMeta(() => ({ title: videoStore.data?.name || '' }));
 
     return {
       errors,

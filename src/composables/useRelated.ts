@@ -1,16 +1,9 @@
 import { api } from 'src/boot/axios';
-import { VideoModel } from 'src/interfaces/video';
 import { all } from 'src/repositories/video';
 import { useStore } from 'src/store/videos/related';
 
-export default function useQueue() {
+export default function useRelated() {
   const store = useStore();
-
-  const initialize = (payload: VideoModel): void => {
-    store.reset({
-      filter: { related: payload.id },
-    });
-  };
 
   const fetchNext = async (): Promise<void> => {
     if (!store.isFetchable || !store.links.next) {
@@ -36,8 +29,7 @@ export default function useQueue() {
   };
 
   return {
-    initialize,
-    fetch,
     store,
+    fetch,
   };
 }
