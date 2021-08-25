@@ -23,7 +23,7 @@
       <div class="absolute-bottom-right q-mx-sm">
         <q-chip
           :clickable="false"
-          :icon="`${video.clip?.resolution.icon}`"
+          :icon="`${video.clip?.resolution?.icon}`"
           class="transparent"
           dense
           size="16px"

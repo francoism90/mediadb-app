@@ -48,23 +48,23 @@ export default defineComponent({
     const { store } = usePlayer();
 
     const icon = computed(() => (
-      store.properties.paused === true
+      store.properties?.paused === true
         ? 'play_arrow'
         : 'pause'
     ));
 
     const decreaseTime = (): void => {
-      const currentTime = store.properties.currentTime || 0;
+      const currentTime = store.properties?.currentTime || 0;
       store.dispatch({ time: currentTime - 10 });
     };
 
     const increaseTime = (): void => {
-      const currentTime = store.properties.currentTime || 0;
+      const currentTime = store.properties?.currentTime || 0;
       store.dispatch({ time: currentTime + 10 });
     };
 
     const togglePlayback = () => store.dispatch({
-      playback: !store.properties.paused,
+      playback: !store.properties?.paused || false,
     });
 
     return {

@@ -20,23 +20,32 @@ export const useStore = defineStore({
 
   actions: {
     populate(payload: VideoResponse): void {
+      this.$patch(payload);
+      this.update(payload.data);
+    },
+
+    delete(payload: VideoModel): void {
       const related = useRelatedStore();
       const videos = useVideosStore();
 
-      this.$patch(payload);
-
-      if (typeof payload.data === 'object') {
-        related.update(payload.data);
-        videos.update(payload.data);
+      if (this.data.id === payload.id) {
+        this.$reset();
       }
+
+      related.delete(payload);
+      videos.delete(payload);
     },
 
     update(payload: VideoModel): void {
-      if (typeof this.data === 'undefined' || this.data.id !== payload.id) {
-        return;
+      const related = useRelatedStore();
+      const videos = useVideosStore();
+
+      if (typeof this.data === 'object' && this.data.id === payload.id) {
+        this.data = merge(this.data, payload);
       }
 
-      this.data = merge(this.data, payload);
+      related.update(payload);
+      videos.update(payload);
     },
   },
 });

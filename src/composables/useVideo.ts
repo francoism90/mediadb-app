@@ -4,6 +4,7 @@ import { find } from 'src/repositories/video';
 import { ref } from 'vue';
 import { useStore } from 'src/store/videos/item';
 import useEcho from 'src/composables/useEcho';
+import { VideoModel } from 'src/interfaces/video';
 
 export default function useVideo() {
   const { echo } = useEcho();
@@ -27,9 +28,14 @@ export default function useVideo() {
     }
   };
 
+  const deleted = async (id: string): Promise<void> => {
+    store.delete(<VideoModel>{ id });
+    await initialize(id);
+  };
+
   const subscribe = (id: string): void => {
     echo?.private(`video.${id}`)
-      .listen('.video.deleted', () => initialize(id))
+      .listen('.video.deleted', () => deleted(id))
       .listen('.video.updated', () => initialize(id));
   };
 
