@@ -31,11 +31,11 @@ export const useStore = defineStore('player', {
 
   actions: {
     populate(payload: PlayerSource): void {
-      this.source = Object.assign(this.source, payload);
+      this.source = payload;
     },
 
     dispatch(payload: PlayerRequest): void {
-      this.request = Object.assign(this.request, payload);
+      this.request = payload;
     },
 
     update(payload: PlayerProperties): void {
@@ -43,7 +43,7 @@ export const useStore = defineStore('player', {
     },
 
     capture(payload: PlayerTooltip): void {
-      this.tooltip = Object.assign(this.tooltip, payload);
+      this.tooltip = payload;
     },
   },
 });

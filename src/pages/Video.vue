@@ -81,6 +81,7 @@ export default defineComponent({
       await initialize(props.id);
 
       // Player
+      playerStore.$reset();
       playerStore.populate({
         media: videoStore.data?.clip,
         live_url: videoStore.data?.live_url,

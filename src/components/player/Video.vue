@@ -71,8 +71,8 @@ export default defineComponent({
       if (event && 'time' in event) setCurrentTime(event.time || 0);
     };
 
-    watch(store.request, playerEvent, { deep: true });
-    watch(store.source, () => load(video.value), { deep: true });
+    watch(() => store.request, playerEvent, { deep: true });
+    watch(() => store.source, () => load(video.value), { deep: true });
     onMounted(() => load(video.value));
     onBeforeUnmount(() => destroy(video.value));
 
