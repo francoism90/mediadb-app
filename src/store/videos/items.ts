@@ -8,7 +8,7 @@ export const useStore = defineStore('videos', {
   state: () => (<VideosState>{
     id: Date.now(),
     query: <VideosQuery>{
-      append: ['clip', 'thumbnail_url'],
+      append: ['clip', 'favorite', 'following', 'thumbnail_url'],
       sort: 'relevance',
       filter: {
         type: null,
@@ -74,7 +74,7 @@ export const useStore = defineStore('videos', {
       const model = find(this.data, { id: payload.id });
 
       if (model) {
-        this.replace(merge(payload, model));
+        this.replace(merge(model, payload));
       }
     },
   },

@@ -16,7 +16,7 @@
     </template>
 
     <template v-if="videoStore.isReady">
-      <video-player v-if="playerStore.isReady" />
+      <video-player />
 
       <div class="container">
         <video-details />

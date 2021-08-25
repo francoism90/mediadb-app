@@ -12,16 +12,21 @@
 import { computed, defineComponent } from 'vue';
 import useAcquaintances from 'src/composables/useAcquaintances';
 import useVideo from 'src/composables/useVideo';
+import { VideoModel } from 'src/interfaces/video';
 
 export default defineComponent({
-  name: 'FavoriteControl',
+  name: 'FollowControl',
 
   setup() {
-    const { toggleFavorite } = useAcquaintances();
+    const { toggleFollow } = useAcquaintances();
     const { store } = useVideo();
 
-    const onClick = () => toggleFavorite(store.data);
-    const icon = computed(() => (store.data.favorite === true ? 'favorite' : 'favorite_border'));
+    const icon = computed(() => (store.data.following === true ? 'watch_later' : 'o_watch_later'));
+
+    const onClick = async () => {
+      const response = await toggleFollow(store.data);
+      store.update(<VideoModel>response.data);
+    };
 
     return {
       onClick,

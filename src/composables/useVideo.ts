@@ -12,7 +12,7 @@ export default function useVideo() {
   const errors = ref<ErrorResponse>();
 
   const initialize = async (id: string): Promise<void> => {
-    if (typeof store.data !== 'undefined' && store.data.id !== id) {
+    if (typeof store.data === 'object' && store.data.id !== id) {
       store.$reset();
     }
 
