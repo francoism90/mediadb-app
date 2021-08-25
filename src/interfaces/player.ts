@@ -44,4 +44,5 @@ export interface PlayerState {
   source: PlayerSource,
   properties: PlayerProperties,
   request: PlayerRequest,
+  tooltip: PlayerTooltip,
 }

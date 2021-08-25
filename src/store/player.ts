@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { merge } from 'lodash';
 import {
-  PlayerProperties, PlayerRequest, PlayerState,
+  PlayerProperties, PlayerRequest, PlayerState, PlayerTooltip,
 } from 'src/interfaces/player';
 import { MediaModel } from '../interfaces/media';
 import { PlayerSource } from '../interfaces/player';
@@ -11,6 +11,7 @@ export const useStore = defineStore('player', {
     source: <PlayerSource>{},
     properties: <PlayerProperties>{},
     request: <PlayerRequest>{},
+    tooltip: <PlayerTooltip>{},
   }),
 
   getters: {
@@ -39,6 +40,10 @@ export const useStore = defineStore('player', {
 
     update(payload: PlayerProperties): void {
       this.properties = merge(this.properties, payload);
+    },
+
+    capture(payload: PlayerTooltip): void {
+      this.tooltip = Object.assign(this.tooltip, payload);
     },
   },
 });

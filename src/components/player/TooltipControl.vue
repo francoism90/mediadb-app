@@ -21,47 +21,38 @@
 import { clamp, debounce } from 'lodash';
 import useFilters from 'src/composables/useFilters';
 import usePlayer from 'src/composables/usePlayer';
-import { PlayerTooltip } from 'src/interfaces/player';
-import { VideoModel } from 'src/interfaces/video';
+import useVideo from 'src/composables/useVideo';
 import { capture } from 'src/services/vod';
 import {
-  computed, defineComponent, PropType, ref, watch,
+  computed, defineComponent, ref, watch,
 } from 'vue';
 
 export default defineComponent({
   name: 'TooltipControl',
 
-  props: {
-    model: {
-      type: Object as PropType<VideoModel>,
-      default: () => (<VideoModel>{}),
-    },
-
-    tooltip: {
-      type: Object as PropType<PlayerTooltip>,
-      default: () => (<PlayerTooltip>{}),
-    },
-  },
-
-  setup(props) {
+  setup() {
     const { formatTime } = useFilters();
-    const { store } = usePlayer();
+    const { store: playerStore } = usePlayer();
+    const { store: videoStore } = useVideo();
 
     const preview = ref<HTMLCanvasElement | null>();
 
-    const duration = computed(() => store.properties?.duration || 0);
-    const position = computed(() => props.tooltip.clientX - props.tooltip.sliderOffset.left);
-    const percent = computed(() => (position.value / props.tooltip.sliderWidth) * 100);
+    const duration = computed(() => playerStore.properties?.duration || 0);
+    const clientX = computed(() => playerStore.tooltip?.clientX || 0);
+    const width = computed(() => playerStore.tooltip?.sliderWidth || 0);
+    const offset = computed(() => playerStore.tooltip?.sliderOffset?.left || 0);
+    const position = computed(() => clientX.value - offset.value);
+    const percent = computed(() => (position.value / width.value) * 100 || 0);
     const time = computed(() => duration.value * (percent.value / 100));
     const timestamp = computed(() => formatTime(time.value));
 
     const tooltipStyle = computed(() => {
-      const tooltipPosition = clamp(position.value - 80, 0, props.tooltip.sliderWidth - 160);
+      const tooltipPosition = clamp(position.value - 80, 0, width.value - 160);
       return { marginLeft: `${tooltipPosition}px` };
     });
 
     const createPreview = async (): Promise<void> => {
-      const response = await capture(props.model.id, Math.ceil(time.value));
+      const response = await capture(videoStore.data?.id || '', Math.ceil(time.value));
       const ctx = preview.value?.getContext('2d');
       const img = new Image(160, 90);
 
@@ -75,6 +66,8 @@ export default defineComponent({
     watch(percent, debounce(createPreview, 50));
 
     return {
+      playerStore,
+      videoStore,
       preview,
       percent,
       time,
