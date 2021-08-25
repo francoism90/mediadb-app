@@ -1,7 +1,7 @@
 <template>
   <div class="video-details q-py-md">
     <h1 class="text-h3 text-white ellipsis-2-lines">
-      {{ name }}
+      {{ title }}
     </h1>
 
     <div class="q-gutter-sm text-white">
@@ -12,33 +12,33 @@
         :ripple="false"
         dense
       >
-        <span class="q-ml-xs text-body1">{{ video.views || 0 }} views</span>
+        <span class="q-ml-xs text-body1">{{ store.data?.views || 0 }} views</span>
       </q-chip>
     </div>
 
-    <p v-if="video.overview">
-      {{ video.overview }}
+    <p v-if="store.data?.overview">
+      {{ store.data.overview }}
     </p>
 
     <q-list
       dense
       class="q-py-md video-details-list"
     >
-      <item v-if="video.season_number">
+      <item v-if="store.data?.season_number">
         <template #label>
           Season :
         </template>
-        {{ video.season_number }}
+        {{ store.data.season_number }}
       </item>
 
-      <item v-if="video.episode_number">
+      <item v-if="store.data?.episode_number">
         <template #label>
           Episode :
         </template>
-        {{ video.episode_number }}
+        {{ store.data.episode_number }}
       </item>
 
-      <item v-if="video.released_at">
+      <item v-if="store.data?.released_at">
         <template #label>
           Released Date :
         </template>
@@ -80,14 +80,14 @@
         {{ duration }}
       </item>
 
-      <item v-if="video.clip?.resolution">
+      <item v-if="store.data?.clip?.resolution">
         <template #label>
           Resolution :
         </template>
-        {{ video.clip?.resolution?.label }}
+        {{ store.data.clip.resolution.label }}
       </item>
 
-      <item v-if="video.created_at">
+      <item v-if="store.data.created_at">
         <template #label>
           Upload Date :
         </template>
@@ -101,8 +101,8 @@
 import List from 'src/components/tags/List.vue';
 import Item from 'src/components/video/Item.vue';
 import useFilters from 'src/composables/useFilters';
-import { VideoModel } from 'src/interfaces/video';
-import { computed, defineComponent, PropType } from 'vue';
+import useVideo from 'src/composables/useVideo';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoDetails',
@@ -112,26 +112,20 @@ export default defineComponent({
     List,
   },
 
-  props: {
-    video: {
-      type: Object as PropType<VideoModel>,
-      required: true,
-    },
-  },
-
-  setup(props) {
+  setup() {
+    const { store } = useVideo();
     const { formatDate, formatTime, formatTitle } = useFilters();
 
-    const tagsByType = (type: string) => props.video.tags?.filter((tag) => tag.type === type);
+    const tagsByType = (type: string) => store.data.tags?.filter((tag) => tag.type === type);
 
-    const name = computed(() => formatTitle([
-      [props.video.season_number, props.video.episode_number].join(''),
-      props.video.name,
+    const title = computed(() => formatTitle([
+      [store.data.season_number, store.data.episode_number].join(''),
+      store.data.name,
     ]));
 
-    const duration = computed(() => formatTime(props.video.clip?.duration || 0));
-    const created = computed(() => formatDate(props.video.created_at || Date.now()));
-    const released = computed(() => formatDate(props.video.release_date || Date.now()));
+    const duration = computed(() => formatTime(store.data.clip?.duration || 0));
+    const created = computed(() => formatDate(store.data.created_at || Date.now()));
+    const released = computed(() => formatDate(store.data.release_date || Date.now()));
 
     const cast = computed(() => tagsByType('actor'));
     const languages = computed(() => tagsByType('language'));
@@ -139,7 +133,8 @@ export default defineComponent({
     const studios = computed(() => tagsByType('studio'));
 
     return {
-      name,
+      store,
+      title,
       cast,
       languages,
       genres,

@@ -21,7 +21,7 @@
         <q-item
           v-close-popup
           clickable
-          @click="editModel"
+          @click="edit"
         >
           <q-item-section>Edit Model</q-item-section>
         </q-item>
@@ -29,7 +29,7 @@
         <q-item
           v-close-popup
           clickable
-          @click="thumbnailMedia"
+          @click="capture"
         >
           <q-item-section>Set Thumbnail</q-item-section>
         </q-item>
@@ -42,35 +42,25 @@
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
 import usePlayer from 'src/composables/usePlayer';
-import { MediaModel } from 'src/interfaces/media';
-import { VideoModel } from 'src/interfaces/video';
+import useVideo from 'src/composables/useVideo';
 import { save } from 'src/repositories/media';
-import { computed, defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ModelControl',
 
   setup() {
+    const { store: playerStore } = usePlayer();
+    const { store: videoStore } = useVideo();
     const $q = useQuasar();
-    const { store } = usePlayer();
 
-    const model = computed(() => store.model as VideoModel);
-    const media = reactive(<MediaModel>model.value.clip);
+    const capture = async (): Promise<void> => {
+      if (!playerStore.media) return;
 
-    const editModel = (): void => {
-      $q.dialog({
-        component: VideoEdit,
-        componentProps: {
-          video: model.value,
-        },
+      await save({
+        ...playerStore.media,
+        ...{ thumbnail: playerStore.properties?.currentTime || 0 },
       });
-    };
-
-    const thumbnailMedia = async (): Promise<void> => {
-      media.id = model.value.clip?.id || '';
-      media.thumbnail = store.properties.currentTime || 10;
-
-      await save(media);
 
       $q.notify({
         type: 'positive',
@@ -78,10 +68,18 @@ export default defineComponent({
       });
     };
 
+    const edit = (): void => {
+      $q.dialog({
+        component: VideoEdit,
+        componentProps: {
+          video: videoStore.data,
+        },
+      });
+    };
+
     return {
-      model,
-      editModel,
-      thumbnailMedia,
+      capture,
+      edit,
     };
   },
 });

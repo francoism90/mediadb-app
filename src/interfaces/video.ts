@@ -22,6 +22,7 @@ export interface VideoModel extends Model {
   overview?: string,
   'capture_url'?: string
   'thumbnail_url'?: string
+  'live_url'?: string
   'vod_url'?: string
 }
 

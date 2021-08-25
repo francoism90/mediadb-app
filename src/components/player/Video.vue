@@ -1,25 +1,25 @@
 <template>
   <div
     ref="container"
-    class="relative-position row no-wrap justify-center items-center player-container"
+    class="player-container relative-position row no-wrap justify-center items-center"
   >
     <video
-      ref="media"
+      ref="video"
       autoPictureInPicture
       playsinline
       preload="metadata"
       autoplay
       class="col"
       crossorigin="anonymous"
-      :height="video.clip?.height || 360"
-      :width="video.clip?.width || 720"
-      :poster="video.clip?.thumbnail_url"
+      :height="store.media?.height || 360"
+      :width="store.media?.width || 720"
+      :poster="store.media?.thumbnail_url"
       :muted="store.properties?.muted || false"
       :playbackRate="store.properties?.playbackRate || 1.0"
       :volume="store.properties?.volume || 1"
     />
 
-    <video-controls v-if="store.isReady" />
+    <video-controls />
   </div>
 </template>
 
@@ -28,9 +28,8 @@ import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { useQuasar } from 'quasar';
 import { PlayerRequest } from 'src/interfaces/player';
-import { VideoModel } from 'src/interfaces/video';
 import {
-  defineComponent, onBeforeMount, onBeforeUnmount, onMounted, PropType, ref, toRefs, watch,
+  defineComponent, onMounted, onBeforeUnmount, ref, watch,
 } from 'vue';
 
 export default defineComponent({
@@ -40,43 +39,16 @@ export default defineComponent({
     VideoControls,
   },
 
-  props: {
-    video: {
-      type: Object as PropType<VideoModel>,
-      required: true,
-    },
-  },
-
-  setup(props) {
-    const { video } = toRefs(props);
-
+  setup() {
     const $q = useQuasar();
+    const { load, destroy, store } = usePlayer();
 
-    const {
-      loadVideo, destroy, useEvents, store,
-    } = usePlayer();
-
-    const container = ref<HTMLDivElement | null>(null);
-    const media = ref<HTMLMediaElement | null>(null);
-
-    const reset = (): void => {
-      store.$reset();
-      store.initialize({
-        model: video.value,
-        source: video.value.vod_url || '',
-      });
-    };
-
-    const load = async (): Promise<void> => {
-      await destroy(media.value);
-      await loadVideo(media.value);
-
-      useEvents(media.value);
-    };
+    const container = ref<HTMLDivElement>();
+    const video = ref<HTMLMediaElement>();
 
     const setCurrentTime = (value: number): void => {
-      if (media.value) {
-        media.value.currentTime = value;
+      if (video.value) {
+        video.value.currentTime = value;
       }
     };
 
@@ -85,12 +57,12 @@ export default defineComponent({
     };
 
     const togglePlayback = async (): Promise<void> => {
-      if (media.value?.paused) {
-        await media.value?.play();
+      if (video.value?.paused) {
+        await video.value?.play();
         return;
       }
 
-      media.value?.pause();
+      video.value?.pause();
     };
 
     const playerEvent = async (event: PlayerRequest | undefined): Promise<void> => {
@@ -99,16 +71,14 @@ export default defineComponent({
       if (event && 'time' in event) setCurrentTime(event.time || 0);
     };
 
-    watch(props.video, reset, { deep: true });
-    watch(() => store.request, playerEvent);
-
-    onBeforeMount(reset);
-    onBeforeUnmount(() => destroy(media.value));
-    onMounted(load);
+    watch(() => store.request, playerEvent, { deep: true });
+    watch(() => store.source, () => load(video.value), { deep: true });
+    onMounted(() => load(video.value));
+    onBeforeUnmount(() => destroy(video.value));
 
     return {
       container,
-      media,
+      video,
       store,
     };
   },

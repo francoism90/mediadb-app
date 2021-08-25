@@ -1,37 +1,21 @@
-import { useStore as useRelatedStore } from 'src/store/videos/related';
-import { useStore as useVideosStore } from 'src/store/videos/items';
 import { AxiosError } from 'axios';
-import useEcho from 'src/composables/useEcho';
 import { ErrorResponse } from 'src/interfaces/api';
-import { VideoModel } from 'src/interfaces/video';
 import { find } from 'src/repositories/video';
-import {
-  Ref, ref, watch,
-} from 'vue';
+import { ref } from 'vue';
+import { useStore } from 'src/store/videos/item';
+import useEcho from 'src/composables/useEcho';
+import { VideoModel } from 'src/interfaces/video';
 
-interface Props {
-  id: Ref<string>
-}
-
-export default function useVideo(props: Props) {
+export default function useVideo() {
   const { echo } = useEcho();
-  const related = useRelatedStore();
-  const videos = useVideosStore();
+  const store = useStore();
 
-  const video = ref<VideoModel>();
   const errors = ref<ErrorResponse>();
 
-  const fetch = async (): Promise<void> => {
-    errors.value = <ErrorResponse>{};
-    video.value = <VideoModel>{};
-
+  const initialize = async (id: string): Promise<void> => {
     try {
-      const response = await find(props.id.value);
-      video.value = response.data;
-
-      // Update stores
-      related.replace(video.value);
-      videos.replace(video.value);
+      const response = await find(id);
+      store.populate(response);
     } catch (e: unknown) {
       const error = e as AxiosError<ErrorResponse>;
 
@@ -44,32 +28,26 @@ export default function useVideo(props: Props) {
     }
   };
 
-  const remove = async (): Promise<void> => {
-    if (video.value) {
-      related.delete(video.value);
-      videos.delete(video.value);
-    }
-
-    await fetch();
+  const deleted = async (id: string): Promise<void> => {
+    store.delete(<VideoModel>{ id });
+    await initialize(id);
   };
 
   const subscribe = (id: string): void => {
     echo?.private(`video.${id}`)
-      .listen('.video.deleted', remove)
-      .listen('.video.updated', fetch);
+      .listen('.video.deleted', () => deleted(id))
+      .listen('.video.updated', () => initialize(id));
   };
 
   const unsubscribe = (id: string): void => {
     echo?.leave(`video.${id}`);
   };
 
-  watch(props.id, fetch, { immediate: true });
-
   return {
-    fetch,
+    initialize,
     subscribe,
     unsubscribe,
+    store,
     errors,
-    video,
   };
 }
