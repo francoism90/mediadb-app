@@ -34,15 +34,15 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
-import { authenticate } from 'src/services/auth';
 import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
 import VideoRelated from 'src/components/video/Related.vue';
+import usePlayer from 'src/composables/usePlayer';
 import useVideo from 'src/composables/useVideo';
+import { authenticate } from 'src/services/auth';
 import {
   defineComponent, onBeforeUnmount, PropType, watch,
 } from 'vue';
-import usePlayer from 'src/composables/usePlayer';
 
 export default defineComponent({
   name: 'Video',

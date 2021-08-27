@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+
 module.exports = {
   // https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
   // This option interrupts the configuration hierarchy at this file
@@ -21,7 +22,8 @@ module.exports = {
   },
 
   env: {
-    browser: true
+    browser: true,
+    es6: true,
   },
 
   // Rules order is important, please avoid shuffling them
@@ -54,6 +56,8 @@ module.exports = {
     // required to lint *.vue files
     'vue',
 
+    // https://github.com/lydell/eslint-plugin-simple-import-sort
+    'simple-import-sort',
   ],
 
   globals: {
@@ -78,16 +82,21 @@ module.exports = {
     'no-void': 'off',
     'object-curly-newline': 'off',
 
-    'import/first': 'off',
+    'import/first': 'error',
     'import/named': 'error',
     'import/namespace': 'error',
+    'import/newline-after-import': 'error',
     'import/default': 'error',
     'import/export': 'error',
     'import/extensions': 'off',
+    'import/no-duplicates': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
+
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
 
     // TypeScript
     quotes: ['warn', 'single', { avoidEscape: true }],

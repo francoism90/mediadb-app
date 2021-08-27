@@ -65,13 +65,13 @@
 </template>
 
 <script lang="ts">
+import { filter } from 'lodash';
+import { useMeta, useQuasar } from 'quasar';
 import Filters from 'src/components/videos/Filters.vue';
 import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
-import { useMeta, useQuasar } from 'quasar';
 import { authenticate } from 'src/services/auth';
 import { computed, defineComponent, watch } from 'vue';
-import { filter } from 'lodash';
 
 const sorters = [
   { label: 'Relevance', value: 'relevance' },
