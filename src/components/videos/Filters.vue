@@ -133,8 +133,8 @@
 
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import useVideos from 'src/composables/useVideos';
 import useTagInput from 'src/composables/useTagInput';
+import useVideos from 'src/composables/useVideos';
 
 const lists = [
   { label: 'Recommended', value: null },

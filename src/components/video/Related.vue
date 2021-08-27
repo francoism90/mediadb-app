@@ -37,7 +37,7 @@ import { filter } from 'lodash';
 import Item from 'src/components/videos/Item.vue';
 import useRelated from 'src/composables/useRelated';
 import useVideo from 'src/composables/useVideo';
-import { defineComponent, computed, watch } from 'vue';
+import { computed, defineComponent, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoRelated',

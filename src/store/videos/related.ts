@@ -1,9 +1,6 @@
 import { find, findIndex, merge, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import {
-  VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
-} from 'src/interfaces/video';
-import { VideosFilters } from '../../interfaces/video';
+import { VideoModel, VideosFilters, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
 
 export const useStore = defineStore('video-related', {
   state: () => (<VideosState>{

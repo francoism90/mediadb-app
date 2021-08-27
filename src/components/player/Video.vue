@@ -24,12 +24,12 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
-import { useQuasar } from 'quasar';
 import { PlayerRequest } from 'src/interfaces/player';
 import {
-  defineComponent, onMounted, onBeforeUnmount, ref, watch,
+  defineComponent, onBeforeUnmount, onMounted, ref, watch,
 } from 'vue';
 
 export default defineComponent({

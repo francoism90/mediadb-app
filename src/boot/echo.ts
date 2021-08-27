@@ -1,6 +1,6 @@
-import { boot } from 'quasar/wrappers';
-import { initialize, echoKey } from 'src/services/echo';
 import Pusher from 'pusher-js';
+import { boot } from 'quasar/wrappers';
+import { echoKey, initialize } from 'src/services/echo';
 
 const echo = initialize();
 

@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios';
 import { ErrorResponse } from 'src/interfaces/api';
 import { Model } from 'src/interfaces/repository';
+import { ModelResponse } from 'src/interfaces/repository';
 import { favorite, follow } from 'src/repositories/user';
-import { ModelResponse } from '../interfaces/repository';
 
 export default function useAcquaintances() {
   const toggleFavorite = async (payload: Model): Promise<ModelResponse> => {

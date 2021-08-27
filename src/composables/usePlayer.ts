@@ -1,10 +1,10 @@
+import { debounce, pick } from 'lodash';
 import { Player } from 'shaka-player';
-import { initialize } from 'src/services/shaka';
+import { PlayerProperties } from 'src/interfaces/player';
 import { readonlyProperties, syncEvents } from 'src/services/player';
+import { initialize } from 'src/services/shaka';
 import { useStore } from 'src/store/player';
 import { ref } from 'vue';
-import { debounce, pick } from 'lodash';
-import { PlayerProperties } from 'src/interfaces/player';
 
 export default function usePlayer() {
   const player = ref<Player>();

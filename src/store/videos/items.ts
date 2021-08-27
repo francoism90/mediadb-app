@@ -1,8 +1,6 @@
 import { find, findIndex, merge, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import {
-  VideosState, VideosQuery, VideosMeta, VideosLinks, VideoModel, VideosResponse,
-} from 'src/interfaces/video';
+import { VideoModel, VideosFilters, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
 
 export const useStore = defineStore('videos', {
   state: () => (<VideosState>{
@@ -44,7 +42,7 @@ export const useStore = defineStore('videos', {
       this.id = Date.now();
     },
 
-    filter(payload: VideosQuery): void {
+    filter(payload: VideosFilters): void {
       this.query.filter = merge(this.query.filter, payload);
     },
 

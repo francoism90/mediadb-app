@@ -1,8 +1,8 @@
-import { useStore } from 'src/store/session';
 import { LocalStorage } from 'quasar';
-import { auth, login, logout } from 'src/repositories/user';
-import { AuthUser, LoginUser } from 'src/interfaces/session';
 import { setAuthHeader } from 'src/boot/axios';
+import { AuthUser, LoginUser } from 'src/interfaces/session';
+import { auth, login, logout } from 'src/repositories/user';
+import { useStore } from 'src/store/session';
 
 export const store = useStore();
 

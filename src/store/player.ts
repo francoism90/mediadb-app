@@ -1,10 +1,7 @@
-import { defineStore } from 'pinia';
 import { merge } from 'lodash';
-import {
-  PlayerProperties, PlayerRequest, PlayerState, PlayerTooltip,
-} from 'src/interfaces/player';
-import { MediaModel } from '../interfaces/media';
-import { PlayerSource } from '../interfaces/player';
+import { defineStore } from 'pinia';
+import { MediaModel } from 'src/interfaces/media';
+import { PlayerProperties, PlayerRequest, PlayerSource, PlayerState, PlayerTooltip } from 'src/interfaces/player';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{

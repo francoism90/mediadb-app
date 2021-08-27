@@ -54,7 +54,7 @@ import { useMeta } from 'quasar';
 import Item from 'src/components/tags/Item.vue';
 import useTags from 'src/composables/useTags';
 import { authenticate } from 'src/services/auth';
-import { defineComponent, computed, watch } from 'vue';
+import { computed, defineComponent, watch } from 'vue';
 
 const sorters = [
   { label: 'Alphabetical', value: 'name' },

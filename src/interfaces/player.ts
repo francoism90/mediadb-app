@@ -1,5 +1,5 @@
-import { MediaModel } from 'src/interfaces/media';
 import { DomOffset } from 'quasar';
+import { MediaModel } from 'src/interfaces/media';
 
 export interface PlayerProperties {
   buffered: TimeRanges | null,

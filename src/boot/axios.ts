@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
-import { boot } from 'quasar/wrappers';
 import { stringify } from 'qs';
+import { boot } from 'quasar/wrappers';
 
 const api = axios.create({
   baseURL: process.env.API_URL,

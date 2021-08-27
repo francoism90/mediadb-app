@@ -1,8 +1,8 @@
-import { useStore as useRelatedStore } from 'src/store/videos/related';
-import { useStore as useVideosStore } from 'src/store/videos/items';
-import { defineStore } from 'pinia';
-import { VideoState, VideoModel, VideoResponse } from 'src/interfaces/video';
 import { merge } from 'lodash';
+import { defineStore } from 'pinia';
+import { VideoModel, VideoResponse, VideoState } from 'src/interfaces/video';
+import { useStore as useVideosStore } from 'src/store/videos/items';
+import { useStore as useRelatedStore } from 'src/store/videos/related';
 
 export const useStore = defineStore({
   id: 'video',

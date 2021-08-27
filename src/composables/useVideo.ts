@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios';
-import { ErrorResponse } from 'src/interfaces/api';
-import { find } from 'src/repositories/video';
-import { ref } from 'vue';
-import { useStore } from 'src/store/videos/item';
 import useEcho from 'src/composables/useEcho';
+import { ErrorResponse } from 'src/interfaces/api';
 import { VideoModel } from 'src/interfaces/video';
+import { find } from 'src/repositories/video';
+import { useStore } from 'src/store/videos/item';
+import { ref } from 'vue';
 
 export default function useVideo() {
   const { echo } = useEcho();

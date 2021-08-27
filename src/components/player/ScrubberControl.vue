@@ -33,12 +33,12 @@
 </template>
 
 <script lang="ts">
-import useFilters from 'src/composables/useFilters';
-import usePlayer from 'src/composables/usePlayer';
+import { dom, QSlider } from 'quasar';
 import FullscreenControl from 'src/components/player/FullscreenControl.vue';
 import TooltipControl from 'src/components/player/TooltipControl.vue';
-import { defineComponent, computed, ref } from 'vue';
-import { dom, QSlider } from 'quasar';
+import useFilters from 'src/composables/useFilters';
+import usePlayer from 'src/composables/usePlayer';
+import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'ScrubberControl',

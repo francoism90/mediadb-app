@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
 import useAcquaintances from 'src/composables/useAcquaintances';
 import useVideo from 'src/composables/useVideo';
 import { VideoModel } from 'src/interfaces/video';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'FollowControl',
