@@ -5,9 +5,9 @@ import { ModelResponse } from 'src/interfaces/repository';
 import { favorite, follow } from 'src/repositories/user';
 
 export default function useAcquaintances() {
-  const toggleFavorite = async (payload: Model): Promise<ModelResponse> => {
+  const toggleFavorite = async (model: Model, force?: boolean): Promise<ModelResponse> => {
     try {
-      const response = await favorite(payload);
+      const response = await favorite(model, force);
 
       return response;
     } catch (e: unknown) {
@@ -16,9 +16,9 @@ export default function useAcquaintances() {
     }
   };
 
-  const toggleFollow = async (payload: Model): Promise<ModelResponse> => {
+  const toggleFollow = async (model: Model, force?: boolean): Promise<ModelResponse> => {
     try {
-      const response = await follow(payload);
+      const response = await follow(model, force);
 
       return response;
     } catch (e: unknown) {

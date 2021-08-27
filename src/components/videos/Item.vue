@@ -70,18 +70,24 @@
                 <q-item
                   v-close-popup
                   clickable
+                  @click="follow"
                 >
                   <q-item-section>
-                    <q-item-label>Save to Watch later</q-item-label>
+                    <q-item-label>
+                      Save to Watch later
+                    </q-item-label>
                   </q-item-section>
                 </q-item>
 
                 <q-item
                   v-close-popup
                   clickable
+                  @click="favorite"
                 >
                   <q-item-section>
-                    <q-item-label>Save to Favorites</q-item-label>
+                    <q-item-label>
+                      Save to Favorites
+                    </q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -94,8 +100,11 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import Chips from 'src/components/tags/Chips.vue';
+import useAcquaintances from 'src/composables/useAcquaintances';
 import useFilters from 'src/composables/useFilters';
+import useVideo from 'src/composables/useVideo';
 import { VideoModel } from 'src/interfaces/video';
 import { computed, defineComponent, PropType } from 'vue';
 
@@ -114,7 +123,30 @@ export default defineComponent({
   },
 
   setup(props) {
+    const $q = useQuasar();
     const { formatTime, formatTitle } = useFilters();
+    const { store } = useVideo();
+    const { toggleFavorite, toggleFollow } = useAcquaintances();
+
+    const favorite = async () => {
+      const response = await toggleFavorite(props.video, true);
+      store.update(<VideoModel>response.data);
+
+      $q.notify({
+        message: 'Added to bookmarks',
+        icon: 'favorite',
+      });
+    };
+
+    const follow = async () => {
+      const response = await toggleFollow(props.video, true);
+      store.update(<VideoModel>response.data);
+
+      $q.notify({
+        message: 'Added to watchlist',
+        icon: 'watch_later',
+      });
+    };
 
     const name = computed(() => formatTitle([
       [props.video.season_number, props.video.episode_number].join(''),
@@ -124,8 +156,11 @@ export default defineComponent({
     const duration = computed(() => formatTime(props.video.clip?.duration || 0));
 
     return {
+      favorite,
+      follow,
       duration,
       name,
+      store,
     };
   },
 });

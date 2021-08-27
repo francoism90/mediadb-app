@@ -28,17 +28,21 @@ export async function logout(params: AuthUser): Promise<AuthResponse> {
   return response.data;
 }
 
-export async function favorite(params: Model): Promise<ModelResponse> {
+export async function favorite(params: Model, force?: boolean): Promise<ModelResponse> {
   const response = await api.post<ModelResponse, AxiosResponse<ModelResponse>>(
-    `user/favorite/${params.id}`,
+    `user/favorite/${params.id}`, {
+      favorite: force,
+    },
   );
 
   return response.data;
 }
 
-export async function follow(params: Model): Promise<ModelResponse> {
+export async function follow(params: Model, force?: boolean): Promise<ModelResponse> {
   const response = await api.post<ModelResponse, AxiosResponse<ModelResponse>>(
-    `user/follow/${params.id}`,
+    `user/follow/${params.id}`, {
+      follow: force,
+    },
   );
 
   return response.data;
