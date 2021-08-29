@@ -21,7 +21,7 @@ export interface VideoModel extends Model {
   favorite?: boolean,
   overview?: string,
   'capture_url'?: string
-  'thumbnail_url'?: string
+  'poster_url'?: string
   'live_url'?: string
   'vod_url'?: string
 }
@@ -32,10 +32,10 @@ export interface VideoResponse {
 }
 
 export interface VideosFilters {
-  type?: string | null,
-  related?: string | string[] | null,
   query?: string | null,
+  similar?: string | string[] | null,
   tags?: string[] | null,
+  type?: string | null,
 }
 
 export interface VideosQuery extends RepositoryQuery {

@@ -26,7 +26,7 @@
           size="3px"
         />
 
-        <video-related />
+        <video-similar />
       </div>
     </template>
   </q-page>
@@ -36,7 +36,7 @@
 import { useMeta } from 'quasar';
 import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
-import VideoRelated from 'src/components/video/Related.vue';
+import VideoSimilar from 'src/components/video/Similar.vue';
 import usePlayer from 'src/composables/usePlayer';
 import useVideo from 'src/composables/useVideo';
 import { authenticate } from 'src/services/auth';
@@ -50,7 +50,7 @@ export default defineComponent({
   components: {
     VideoDetails,
     VideoPlayer,
-    VideoRelated,
+    VideoSimilar,
   },
 
   props: {

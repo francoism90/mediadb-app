@@ -2,14 +2,14 @@ import { find, findIndex, merge, remove } from 'lodash';
 import { defineStore } from 'pinia';
 import { VideoModel, VideosFilters, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
 
-export const useStore = defineStore('video-related', {
+export const useStore = defineStore('video-similar', {
   state: () => (<VideosState>{
     id: Date.now(),
     query: <VideosQuery>{
-      append: ['clip', 'favorite', 'following', 'thumbnail_url'],
+      append: ['clip', 'favorite', 'following', 'poster_url'],
       sort: 'relevance',
       filter: {
-        related: null,
+        similar: null,
       },
       page: {
         number: 1,

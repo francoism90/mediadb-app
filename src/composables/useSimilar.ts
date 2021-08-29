@@ -1,8 +1,8 @@
 import { api } from 'src/boot/axios';
 import { all } from 'src/repositories/video';
-import { useStore } from 'src/store/videos/related';
+import { useStore } from 'src/store/videos/similar';
 
-export default function useRelated() {
+export default function useSimilar() {
   const store = useStore();
 
   const fetchNext = async (): Promise<void> => {

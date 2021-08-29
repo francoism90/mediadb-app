@@ -13,7 +13,7 @@
       crossorigin="anonymous"
       :height="store.media?.height || 360"
       :width="store.media?.width || 720"
-      :poster="store.media?.thumbnail_url"
+      :poster="store.media?.poster_url"
       :muted="store.properties?.muted || false"
       :playbackRate="store.properties?.playbackRate || 1.0"
       :volume="store.properties?.volume || 1"

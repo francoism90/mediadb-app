@@ -11,7 +11,7 @@
     >
       <q-img
         :alt="video.name"
-        :src="video.thumbnail_url"
+        :src="video.poster_url"
         loading="lazy"
         placeholder-src="~assets/placeholder/16x16.webp"
         class="video-item-thumbnail"
