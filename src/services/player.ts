@@ -1,4 +1,4 @@
-export const readonlyProperties = [
+export const videoProperties = [
   'buffered',
   'currentSrc',
   'currentTime',

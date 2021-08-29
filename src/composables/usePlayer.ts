@@ -1,7 +1,6 @@
 import { debounce, pick } from 'lodash';
 import { Player } from 'shaka-player';
-import { PlayerProperties } from 'src/interfaces/player';
-import { readonlyProperties, syncEvents } from 'src/services/player';
+import { syncEvents, videoProperties } from 'src/services/player';
 import { initialize } from 'src/services/shaka';
 import { useStore } from 'src/store/player';
 import { ref } from 'vue';
@@ -12,9 +11,8 @@ export default function usePlayer() {
 
   const setProperties = (event: Event): void => {
     const target = event.target as HTMLMediaElement;
-    const properties = <PlayerProperties>pick(target, readonlyProperties);
-
-    store.update(properties);
+    const properties = <HTMLVideoElement>pick(target, videoProperties);
+    store.sync(properties);
   };
 
   const syncProperties = debounce(setProperties, 100);

@@ -1,13 +1,13 @@
 import { merge } from 'lodash';
 import { defineStore } from 'pinia';
 import { MediaModel } from 'src/interfaces/media';
-import { PlayerProperties, PlayerRequest, PlayerSource, PlayerState, PlayerTooltip } from 'src/interfaces/player';
+import { PlayerRequest, PlayerSource, PlayerState, PlayerTooltip } from 'src/interfaces/player';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
-    source: <PlayerSource>{},
-    properties: <PlayerProperties>{},
+    properties: <HTMLVideoElement>{},
     request: <PlayerRequest>{},
+    source: <PlayerSource>{},
     tooltip: <PlayerTooltip>{},
   }),
 
@@ -35,7 +35,7 @@ export const useStore = defineStore('player', {
       this.request = payload;
     },
 
-    update(payload: PlayerProperties): void {
+    sync(payload: HTMLVideoElement): void {
       this.properties = merge(this.properties, payload);
     },
 

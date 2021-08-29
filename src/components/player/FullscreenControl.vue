@@ -26,7 +26,7 @@ export default defineComponent({
     const icon = computed(() => (isFullscreen.value === true ? 'fullscreen_exit' : 'fullscreen'));
 
     const toggleFullscreen = (): void => {
-      store.dispatch({ fullscreen: !store.properties.fullscreen });
+      store.dispatch({ fullscreen: Date.now() });
     };
 
     watch(() => $q.fullscreen.isActive, (val: boolean) => { isFullscreen.value = val; });

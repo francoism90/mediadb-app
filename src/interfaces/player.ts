@@ -1,27 +1,6 @@
 import { DomOffset } from 'quasar';
 import { MediaModel } from 'src/interfaces/media';
 
-export interface PlayerProperties {
-  buffered: TimeRanges | null,
-  currentSrc: string | null,
-  currentTime: number | null,
-  duration: number | null,
-  ended: boolean | null,
-  error: string | null,
-  fullscreen: boolean,
-  fullscreenEnabled: boolean,
-  muted: boolean | null,
-  networkState: number | null,
-  paused: boolean | null,
-  playbackRate: number,
-  played: TimeRanges | null,
-  readyState: number | null,
-  seekable: TimeRanges | null,
-  seeking: boolean | null,
-  textTracks: TextTrackList | null,
-  volume: number,
-}
-
 export interface PlayerTooltip {
   clientX: number,
   sliderOffset: DomOffset,
@@ -29,7 +8,7 @@ export interface PlayerTooltip {
 }
 
 export interface PlayerRequest {
-  fullscreen?: boolean,
+  fullscreen?: number,
   playback?: boolean,
   time?: number
 }
@@ -41,8 +20,8 @@ export interface PlayerSource {
 }
 
 export interface PlayerState {
-  source: PlayerSource,
-  properties: PlayerProperties,
+  properties: HTMLVideoElement,
   request: PlayerRequest,
+  source: PlayerSource,
   tooltip: PlayerTooltip,
 }
