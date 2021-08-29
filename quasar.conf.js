@@ -53,7 +53,7 @@ module.exports = configure((ctx) => ({
 
     vueRouterMode: 'history', // available values: 'hash', 'history'
 
-    // transpile: true,
+    // transpile: false,
 
     // Add dependencies for transpiling with Babel (Array of string/regex)
     // (from node_modules, which are by default not transpiled).
@@ -89,8 +89,8 @@ module.exports = configure((ctx) => ({
       dark: true
     },
 
-    // iconSet: 'material-icons', // Quasar icon set
-    // lang: 'en-US', // Quasar language pack
+    iconSet: 'material-icons', // Quasar icon set
+    lang: 'en-US', // Quasar language pack
 
     // For special cases outside of where the auto-import stategy can have an impact
     // (like functional components as one of the examples),
@@ -113,10 +113,7 @@ module.exports = configure((ctx) => ({
 
   // animations: 'all', // --- includes all animations
   // https://v2.quasar.dev/options/animations
-  animations: [
-    'fadeIn',
-    'fadeOut',
-  ],
+  animations: [],
 
   // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
   ssr: {
