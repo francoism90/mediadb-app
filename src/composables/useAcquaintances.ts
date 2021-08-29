@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { ErrorResponse } from 'src/interfaces/api';
-import { Model } from 'src/interfaces/repository';
-import { ModelResponse } from 'src/interfaces/repository';
+import { Model, ModelResponse } from 'src/interfaces/repository';
 import { favorite, follow } from 'src/repositories/user';
 
 export default function useAcquaintances() {

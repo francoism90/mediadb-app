@@ -44,6 +44,11 @@ module.exports = {
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
+    // https://github.com/lydell/eslint-plugin-simple-import-sort
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+
+    // https://github.com/airbnb/javascript
     'airbnb-base'
 
   ],
@@ -81,19 +86,12 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-void': 'off',
     'object-curly-newline': 'off',
-
-    'import/first': 'error',
-    'import/named': 'error',
-    'import/namespace': 'error',
-    'import/newline-after-import': 'error',
-    'import/default': 'error',
-    'import/export': 'error',
-    'import/extensions': 'off',
-    'import/no-duplicates': 'off',
-    'import/no-unresolved': 'off',
-    'import/no-extraneous-dependencies': 'off',
-    'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
+
+    'import/extensions': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off',
+    'import/prefer-default-export': 'off',
 
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
