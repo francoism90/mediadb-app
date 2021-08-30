@@ -15,7 +15,7 @@ export interface VideoModel extends Model {
   status: string,
   views: number,
   clip?: MediaModel,
-  tracks?: MediaModel,
+  captions?: MediaModel[],
   model?: Model,
   tags?: TagModel[],
   favorite?: boolean,

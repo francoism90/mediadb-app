@@ -2,8 +2,7 @@
 
 **MediaDB** is a web-based video streaming service written in Laravel, TypeScript and Vue 3 ([Quasar](https://quasar.dev/)).
 
-Note: MediaDB is very much in development and may not be suitable for production purposes.
-It is recommended to fork the project.
+Note: MediaDB is still under development. It is recommended to create a fork and sync it with the `main` branch.
 
 ## Installation
 
