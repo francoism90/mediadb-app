@@ -1206,10 +1206,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.10.11":
-  version "1.10.11"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.10.11.tgz#19c4f197453c44140400443312f9e50355c252db"
-  integrity sha512-/zJiT8iExl0j2k1zA21Eho8SPMtG5ehcYayszunrq/z7zDp728oWSteI9AfQFnF8/+M06f5HUzy+Vssf6IKH/g==
+"@quasar/extras@^1.10.12":
+  version "1.10.12"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.10.12.tgz#a0724bce058de6cea44519be45ab2af35496a88b"
+  integrity sha512-CVSxLw/Z6kaEYrooJX7mpby6YDm0eSa8D9/1+KEfiTYfLrPE4wTRuNGKN5liuLtVhFMdGrEkj6T6DInKpQWW9A==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
@@ -1420,10 +1420,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.3.tgz#c01c1a215721f6dec71b47d88b4687463601ba48"
   integrity sha512-GKM4FLMkWDc0sfx7tXqPWkM6NBow1kge0fgQh0bOnlqo4iT1kvTvMEKE0c1RtUGnbLlGRXiAA8SumE//90uKAg==
 
-"@types/node@^16.7.5":
-  version "16.7.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.5.tgz#96142b243977b03d99c338fdb09241d286102711"
-  integrity sha512-E7SpxDXoHEpmZ9C1gSqwadhE6zPRtf3g0gJy9Y51DsImnR5TcDs3QEiV/3Q7zOM8LWaZp5Gph71NK6ElVMG1IQ==
+"@types/node@^16.7.6":
+  version "16.7.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.6.tgz#8666478db8095aa66e25b7e469f3e7b53ea2855e"
+  integrity sha512-VESVNFoa/ahYA62xnLBjo5ur6gPsgEE5cNRy8SrdnkZ2nwJSW0kJ4ufbFr2zuU9ALtHM8juY53VcRoTA7htXSg==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2620,10 +2620,10 @@ core-js-compat@^3.14.0, core-js-compat@^3.15.0, core-js-compat@^3.6.5:
     browserslist "^4.16.6"
     semver "7.0.0"
 
-core-js@^3.16.3:
-  version "3.16.3"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.16.3.tgz#1f2d43c51a9ed014cc6c83440af14697ae4b75f2"
-  integrity sha512-lM3GftxzHNtPNUJg0v4pC2RC6puwMd6VZA7vXUczi+SKmCWSf4JwO89VJGMqbzmB7jlK7B5hr3S64PqwFL49cA==
+core-js@^3.16.4:
+  version "3.16.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.16.4.tgz#0fb1029a554fc2688c0963d7c900e188188a78e0"
+  integrity sha512-Tq4GVE6XCjE+hcyW6hPy0ofN3hwtLudz5ZRdrlCnsnD/xkm/PWQRudzYHiKgZKUcefV6Q57fhDHjZHJP5dpfSg==
 
 core-js@^3.6.5:
   version "3.15.2"

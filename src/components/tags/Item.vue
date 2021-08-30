@@ -12,7 +12,7 @@
         text-color="white"
         size="48px"
       >
-        {{ tag.name.charAt(0) }}
+        {{ tag.name.substring(0, 2) }}
       </q-avatar>
     </q-item-section>
 
