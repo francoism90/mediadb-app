@@ -6,10 +6,8 @@ export type TagsMeta = RepositoryMeta
 export type TagsLinks = RepositoryLinks
 
 export interface TagModel extends Model {
-  overview: string | null,
-  type: string | null,
-  items: number | null,
-  views: number | null,
+  type: string,
+  items?: number,
 }
 
 export interface TagResponse {

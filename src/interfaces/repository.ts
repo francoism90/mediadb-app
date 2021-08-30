@@ -1,7 +1,7 @@
 export interface Model {
   id: string,
-  slug: string,
   name: string,
+  slug?: string,
   description?: string,
   favorite?: boolean,
   following?: boolean,
