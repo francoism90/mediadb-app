@@ -1,8 +1,8 @@
 <template>
   <div
     class="player-controls-container absolute-full"
-    @mousemove="activate"
     @mouseenter="activate"
+    @mousemove="activate"
     @mouseleave="deactivate"
     @touchstart="activate"
   >
@@ -24,12 +24,10 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar';
 import PlaybackControl from 'src/components/player/PlaybackControl.vue';
 import ScrubberControl from 'src/components/player/ScrubberControl.vue';
 import SettingsControl from 'src/components/player/SettingsControl.vue';
-import usePlayer from 'src/composables/usePlayer';
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'VideoControls',
@@ -41,31 +39,18 @@ export default defineComponent({
   },
 
   setup() {
-    const $q = useQuasar();
-    const { store } = usePlayer();
-
     const controls = ref<boolean>(true);
-    const fullscreen = ref<boolean>(false);
     const timer = ref<number | undefined>(0);
 
     const deactivate = (): void => {
-      if (store.properties.paused === true) return;
       clearTimeout(timer.value);
       timer.value = window.setTimeout(() => { controls.value = false; }, 2000);
     };
 
     const activate = (): void => {
       controls.value = true;
-
-      if (fullscreen.value === true) {
-        deactivate();
-      }
+      deactivate();
     };
-
-    watch(() => $q.fullscreen.isActive, (value) => {
-      fullscreen.value = value;
-      activate();
-    });
 
     return {
       activate,
