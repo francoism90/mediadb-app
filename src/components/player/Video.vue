@@ -14,7 +14,7 @@
       :height="store.media?.height || 360"
       :width="store.media?.width || 720"
       :poster="store.media?.poster_url"
-      :muted="store.properties?.muted || false"
+      :muted="store.properties?.muted"
       :playbackRate="store.properties?.playbackRate || 1.0"
       :volume="store.properties?.volume || 1"
     />

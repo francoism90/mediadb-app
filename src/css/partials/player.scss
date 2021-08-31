@@ -28,6 +28,10 @@
   }
 }
 
+.player-controls-container {
+  z-index: 20;
+}
+
 .player-controls {
   background: rgba(0, 0, 0, 0.25);
   height: 100%;
@@ -49,7 +53,7 @@
     background: rgba(255, 255, 255, 0.2);
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       width: var(--buffer);
       left: 0;

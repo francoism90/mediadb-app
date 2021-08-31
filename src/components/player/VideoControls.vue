@@ -1,10 +1,10 @@
 <template>
   <div
-    class="absolute-full"
-    @mouseenter="activate"
-    @touchstart="activate"
+    class="player-controls-container absolute-full"
     @mousemove="activate"
+    @mouseenter="activate"
     @mouseleave="deactivate"
+    @touchstart="activate"
   >
     <transition
       appear
@@ -12,8 +12,8 @@
       leave-active-class="animated fadeOut"
     >
       <div
-        v-if="controls"
-        class="absolute-full player-controls"
+        v-show="controls"
+        class="player-controls absolute-full"
       >
         <playback-control />
         <scrubber-control />
@@ -24,10 +24,12 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import PlaybackControl from 'src/components/player/PlaybackControl.vue';
 import ScrubberControl from 'src/components/player/ScrubberControl.vue';
 import SettingsControl from 'src/components/player/SettingsControl.vue';
-import { defineComponent, ref } from 'vue';
+import usePlayer from 'src/composables/usePlayer';
+import { defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoControls',
@@ -39,18 +41,31 @@ export default defineComponent({
   },
 
   setup() {
+    const $q = useQuasar();
+    const { store } = usePlayer();
+
     const controls = ref<boolean>(true);
+    const fullscreen = ref<boolean>(false);
     const timer = ref<number | undefined>(0);
 
     const deactivate = (): void => {
+      if (store.properties.paused === true) return;
       clearTimeout(timer.value);
       timer.value = window.setTimeout(() => { controls.value = false; }, 2000);
     };
 
     const activate = (): void => {
       controls.value = true;
-      deactivate();
+
+      if (fullscreen.value === true) {
+        deactivate();
+      }
     };
+
+    watch(() => $q.fullscreen.isActive, (value) => {
+      fullscreen.value = value;
+      activate();
+    });
 
     return {
       activate,

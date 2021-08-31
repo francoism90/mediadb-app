@@ -17,6 +17,7 @@
         dense
         padding
         style="width: 200px; max-width: 100vw;"
+        tabindex="0"
       >
         <q-item
           v-close-popup

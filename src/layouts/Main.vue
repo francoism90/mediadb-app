@@ -20,7 +20,7 @@
         <q-toolbar-title>
           <router-link
             to="/"
-            class="text-body2 cursor-pointer"
+            class="text-body2 text-weight-medium"
           >
             MediaDB
           </router-link>
