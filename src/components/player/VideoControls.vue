@@ -39,7 +39,7 @@ export default defineComponent({
   },
 
   setup() {
-    const controls = ref<boolean>(true);
+    const controls = ref<boolean>(false);
     const timer = ref<number | undefined>(0);
 
     const deactivate = (): void => {
