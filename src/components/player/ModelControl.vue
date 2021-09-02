@@ -42,8 +42,7 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
-import usePlayer from 'src/composables/useDash';
-import useVideo from 'src/composables/useVideo';
+import useDash from 'src/composables/useDash';
 import { save } from 'src/repositories/media';
 import { defineComponent } from 'vue';
 
@@ -51,16 +50,17 @@ export default defineComponent({
   name: 'ModelControl',
 
   setup() {
-    const { store: playerStore } = usePlayer();
-    const { store: videoStore } = useVideo();
+    const { store } = useDash();
     const $q = useQuasar();
 
     const capture = async (): Promise<void> => {
-      if (!playerStore.media) return;
+      if (!store.model?.clip) {
+        return;
+      }
 
       await save({
-        ...playerStore.media,
-        // ...{ thumbnail: playerStore.properties?.currentTime || 0 },
+        ...store.model.clip,
+        ...{ thumbnail: store.properties?.time || 0 },
       });
 
       $q.notify({
@@ -73,7 +73,7 @@ export default defineComponent({
       $q.dialog({
         component: VideoEdit,
         componentProps: {
-          video: videoStore.data,
+          video: store.model,
         },
       });
     };

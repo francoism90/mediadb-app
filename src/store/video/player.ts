@@ -1,3 +1,4 @@
+import { merge } from 'lodash';
 import { defineStore } from 'pinia';
 import { PlayerProperties, PlayerState, PlayerTooltip } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
@@ -5,15 +6,15 @@ import { VideoModel } from 'src/interfaces/video';
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
     model: <VideoModel>{},
-    requestTime: 0,
     requestFullscreen: false,
     requestPause: false,
+    requestTime: 0,
     properties: <PlayerProperties>{},
     tooltip: <PlayerTooltip>{},
   }),
 
   getters: {
-    isLoading(): boolean {
+    isWaiting(): boolean {
       return !this.properties.ready || this.properties.seeking;
     },
   },
@@ -21,6 +22,18 @@ export const useStore = defineStore('player', {
   actions: {
     capture(payload: PlayerTooltip): void {
       this.tooltip = payload;
+    },
+
+    delete(payload: VideoModel): void {
+      if (this.model.id === payload.id) {
+        this.$reset();
+      }
+    },
+
+    update(payload: VideoModel): void {
+      if (this.model.id === payload.id) {
+        this.model = merge(this.model, payload);
+      }
     },
   },
 });

@@ -1,7 +1,7 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { VideoModel } from 'src/interfaces/video';
 import { dashjs } from 'src/services/player';
-import { useStore } from 'src/store/player';
+import { useStore } from 'src/store/video/player';
 import { ref } from 'vue';
 
 export default function useDash() {

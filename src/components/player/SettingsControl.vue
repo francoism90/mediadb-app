@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute-top-right player-settings">
+  <div class="absolute-top-right">
     <div class="q-col-gutter-md">
       <favorite-control />
       <follow-control />
