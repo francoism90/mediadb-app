@@ -1,5 +1,19 @@
 import { DomOffset } from 'quasar';
-import { MediaModel } from 'src/interfaces/media';
+import { VideoModel } from 'src/interfaces/video';
+
+export interface PlayerProperties {
+  ready: boolean,
+  autoplay: boolean,
+  buffered: number,
+  duration: number,
+  muted: boolean,
+  paused: boolean,
+  playbackRate: number,
+  quality: number,
+  seeking: boolean,
+  time: number,
+  volume: number,
+}
 
 export interface PlayerTooltip {
   clientX: number,
@@ -7,21 +21,11 @@ export interface PlayerTooltip {
   sliderWidth: number,
 }
 
-export interface PlayerRequest {
-  fullscreen?: number,
-  playback?: boolean,
-  time?: number
-}
-
-export interface PlayerSource {
-  media: MediaModel | undefined,
-  'live_url'?: string,
-  'vod_url'?: string,
-}
-
 export interface PlayerState {
-  properties: HTMLVideoElement,
-  request: PlayerRequest,
-  source: PlayerSource,
+  model: VideoModel,
+  requestFullscreen: boolean,
+  requestPause: boolean,
+  requestTime: number,
+  properties: PlayerProperties,
   tooltip: PlayerTooltip,
 }

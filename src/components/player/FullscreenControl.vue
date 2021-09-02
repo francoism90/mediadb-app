@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import usePlayer from 'src/composables/usePlayer';
+import useDash from 'src/composables/useDash';
 import {
   computed, defineComponent, ref, watch,
 } from 'vue';
@@ -20,16 +20,16 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store } = usePlayer();
+    const { store } = useDash();
 
     const isFullscreen = ref<boolean>(false);
-    const icon = computed(() => (isFullscreen.value === true ? 'fullscreen_exit' : 'fullscreen'));
+    const icon = computed(() => (isFullscreen.value ? 'fullscreen_exit' : 'fullscreen'));
 
     const toggleFullscreen = (): void => {
-      store.dispatch({ fullscreen: Date.now() });
+      store.requestFullscreen = !store.requestFullscreen;
     };
 
-    watch(() => $q.fullscreen.isActive, (val: boolean) => { isFullscreen.value = val; });
+    watch(() => $q.fullscreen.isActive, (value: boolean) => { isFullscreen.value = value; });
 
     return {
       store,

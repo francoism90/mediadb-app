@@ -1,6 +1,6 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <tooltip-control v-show="tooltip" />
+    <!-- <tooltip-control v-show="tooltip" /> -->
 
     <q-slider
       ref="slider"
@@ -35,9 +35,9 @@
 <script lang="ts">
 import { dom, QSlider } from 'quasar';
 import FullscreenControl from 'src/components/player/FullscreenControl.vue';
-import TooltipControl from 'src/components/player/TooltipControl.vue';
+import useDash from 'src/composables/useDash';
+// import TooltipControl from 'src/components/player/TooltipControl.vue';
 import useFilters from 'src/composables/useFilters';
-import usePlayer from 'src/composables/usePlayer';
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -45,39 +45,28 @@ export default defineComponent({
 
   components: {
     FullscreenControl,
-    TooltipControl,
+    // TooltipControl,
   },
 
   setup() {
     const { formatTime } = useFilters();
-    const { store } = usePlayer();
+    const { store } = useDash();
 
     const slider = ref<QSlider>();
     const tooltip = ref<boolean>();
 
-    const bufferedPct = computed(() => {
-      const buffered = store.properties.buffered || <TimeRanges>{};
-      const duration = store.properties.duration || 0;
-
-      if (!(buffered instanceof TimeRanges) || buffered.length === 0) {
-        return 0;
-      }
-
-      return Math.round((buffered.end(0) / duration) * 100);
-    });
-
-    const bufferedRemainingPct = computed(() => Math.round(100 - bufferedPct.value));
-
-    const bufferStyle = computed(() => ({
-      '--buffer': `${bufferedPct.value}%`,
-      '--remaining': `${bufferedRemainingPct.value}%`,
-    }));
-
-    const currentTime = computed(() => formatTime(store.properties.currentTime || 0));
+    const buffered = computed(() => Math.round(store.properties?.buffered || 0));
+    const bufferedRemaining = computed(() => Math.round(100 - buffered.value));
+    const currentTime = computed(() => formatTime(store.properties.time || 0));
     const duration = computed(() => formatTime(store.properties.duration || 0));
 
+    const bufferStyle = computed(() => ({
+      '--buffer': `${buffered.value}%`,
+      '--remaining': `${bufferedRemaining.value}%`,
+    }));
+
     const setCurrentTime = (payload: number): void => {
-      store.dispatch({ time: payload });
+      store.requestTime = payload;
     };
 
     const onMouseHover = (event: MouseEvent): void => {

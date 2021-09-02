@@ -42,7 +42,7 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
-import usePlayer from 'src/composables/usePlayer';
+import usePlayer from 'src/composables/useDash';
 import useVideo from 'src/composables/useVideo';
 import { save } from 'src/repositories/media';
 import { defineComponent } from 'vue';
@@ -60,7 +60,7 @@ export default defineComponent({
 
       await save({
         ...playerStore.media,
-        ...{ thumbnail: playerStore.properties?.currentTime || 0 },
+        // ...{ thumbnail: playerStore.properties?.currentTime || 0 },
       });
 
       $q.notify({

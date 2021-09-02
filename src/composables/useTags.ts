@@ -1,6 +1,6 @@
 import { api } from 'src/boot/axios';
 import { all } from 'src/repositories/tag';
-import { useStore } from 'src/store/tags/items';
+import { useStore } from 'src/store/tag/items';
 
 export default function useTags() {
   const store = useStore();

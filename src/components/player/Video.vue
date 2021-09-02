@@ -8,15 +8,11 @@
       autoPictureInPicture
       playsinline
       preload="metadata"
-      autoplay
       class="col"
       crossorigin="anonymous"
       :height="store.media?.height || 360"
       :width="store.media?.width || 720"
       :poster="store.media?.poster_url"
-      :muted="store.properties?.muted"
-      :playbackRate="store.properties?.playbackRate || 1.0"
-      :volume="store.properties?.volume || 1"
     />
 
     <video-controls />
@@ -26,10 +22,10 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import VideoControls from 'src/components/player/VideoControls.vue';
-import usePlayer from 'src/composables/usePlayer';
-import { PlayerRequest } from 'src/interfaces/player';
+import useDash from 'src/composables/useDash';
+import { VideoModel } from 'src/interfaces/video';
 import {
-  defineComponent, onBeforeUnmount, onMounted, ref, watch,
+  defineComponent, onBeforeUnmount, onMounted, PropType, ref, watch,
 } from 'vue';
 
 export default defineComponent({
@@ -39,41 +35,38 @@ export default defineComponent({
     VideoControls,
   },
 
-  setup() {
+  props: {
+    model: {
+      type: Object as PropType<VideoModel>,
+      required: true,
+    },
+  },
+
+  setup(props) {
     const $q = useQuasar();
-    const { load, destroy, store } = usePlayer();
+    const { load, destroy, player, store } = useDash();
 
     const container = ref<HTMLDivElement>();
     const video = ref<HTMLMediaElement>();
-
-    const setCurrentTime = (value: number): void => {
-      if (video.value) {
-        video.value.currentTime = value;
-      }
-    };
 
     const toggleFullscreen = async (): Promise<void> => {
       await $q.fullscreen.toggle(<Element>container.value);
     };
 
-    const togglePlayback = async (): Promise<void> => {
-      if (video.value?.paused) {
-        await video.value?.play();
-        return;
+    const togglePlayback = (): void => {
+      if (player.value?.isPaused()) {
+        return player.value.play();
       }
 
-      video.value?.pause();
+      return player.value?.pause();
     };
 
-    const playerEvent = async (event: PlayerRequest | undefined): Promise<void> => {
-      if (event && 'fullscreen' in event) await toggleFullscreen();
-      if (event && 'playback' in event) await togglePlayback();
-      if (event && 'time' in event) setCurrentTime(event.time || 0);
-    };
+    watch(() => props.model, () => load(props.model, video.value), { deep: true });
+    watch(() => store.requestFullscreen, toggleFullscreen);
+    watch(() => store.requestPause, togglePlayback);
+    watch(() => store.requestTime, (value: number) => player.value?.seek(value));
 
-    watch(() => store.request, playerEvent, { deep: true });
-    watch(() => store.source, () => load(video.value), { deep: true });
-    onMounted(() => load(video.value));
+    onMounted(() => load(props.model, video.value));
     onBeforeUnmount(() => destroy(video.value));
 
     return {
