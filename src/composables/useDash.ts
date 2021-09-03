@@ -1,6 +1,6 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs';
-import { find } from 'lodash';
 import { VideoModel } from 'src/interfaces/video';
+import { getToken } from 'src/services/auth';
 import { dashjs } from 'src/services/player';
 import { useStore } from 'src/store/video/player';
 import { ref } from 'vue';
@@ -13,6 +13,8 @@ export default function useDash() {
   const video = ref<HTMLMediaElement>();
 
   const listener = (): void => {
+    console.log('tracks', video.value?.textTracks);
+
     store.$patch({
       properties: {
         ready: player.value?.isReady(),
@@ -31,33 +33,10 @@ export default function useDash() {
     });
   };
 
-  const tracksListener = (): void => {
-    const spriteCue = find(video.value?.textTracks, { label: 'sprite' });
-    const spriteTrack = find(player.value?.getTracksFor('text'), { lang: 'sprite' });
-
-    // player.value?.setTextTrack(0);
-    // player.value?.setTextTrack(1);
-    player.value?.setTextTrack(2);
-    // player.value?.setTextTrack(3);
-
-    console.log('cue', spriteCue);
-    console.log('track', spriteTrack);
-    console.log('tracks', video.value?.textTracks);
-
-    // player.value?.setTextTrack(-1);
-
-    if (spriteCue) {
-      // player.value?.setTextTrack(sprite.);
-      spriteCue.mode = 'showing';
-    }
-  };
-
   const addListeners = (): void => {
     dashjs.listeners.forEach((event) => {
       player.value?.on(event, listener);
     });
-
-    player.value?.on('allTextTracksAdded', tracksListener);
   };
 
   const removeListeners = (): void => {
@@ -82,11 +61,19 @@ export default function useDash() {
     store.model = model;
 
     const manifestUri = store.model?.vod_url || store.model?.live_url || '';
+    const token = getToken() || '';
 
     player.value = MediaPlayer().create();
 
+    player.value?.extend('RequestModifier', () => ({
+      modifyRequestHeader(xhr: XMLHttpRequest) {
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+        return xhr;
+      },
+    }), true);
+
     player.value?.initialize(video.value, manifestUri, false);
-    player.value?.enableForcedTextStreaming(true);
+    // player.value?.enableForcedTextStreaming(true);
 
     addListeners();
   };
