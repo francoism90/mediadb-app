@@ -20,10 +20,6 @@ export const useStore = defineStore('player', {
   },
 
   actions: {
-    capture(payload: PlayerTooltip): void {
-      this.tooltip = payload;
-    },
-
     delete(payload: VideoModel): void {
       if (this.model.id === payload.id) {
         this.$reset();

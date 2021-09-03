@@ -1,6 +1,8 @@
 <template>
   <div class="absolute-center player-playback">
     <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
+      {{ store.properties?.textTracks }}
+
       <template v-if="store.isWaiting">
         <q-spinner-dots
           color="white"

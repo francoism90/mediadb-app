@@ -25,7 +25,7 @@ import VideoControls from 'src/components/player/VideoControls.vue';
 import useDash from 'src/composables/useDash';
 import { VideoModel } from 'src/interfaces/video';
 import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, ref, watch,
+  defineComponent, onBeforeUnmount, onMounted, PropType, watch,
 } from 'vue';
 
 export default defineComponent({
@@ -44,10 +44,7 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { load, destroy, player, store } = useDash();
-
-    const container = ref<HTMLDivElement>();
-    const video = ref<HTMLMediaElement>();
+    const { load, destroy, container, video, player, store } = useDash();
 
     const toggleFullscreen = async (): Promise<void> => {
       await $q.fullscreen.toggle(<Element>container.value);
@@ -61,13 +58,13 @@ export default defineComponent({
       return player.value?.pause();
     };
 
-    watch(() => props.model, () => load(props.model, video.value), { deep: true });
+    watch(() => props.model, () => load(props.model), { deep: true });
     watch(() => store.requestFullscreen, toggleFullscreen);
     watch(() => store.requestPause, togglePlayback);
     watch(() => store.requestTime, (value: number) => player.value?.seek(value));
 
-    onMounted(() => load(props.model, video.value));
-    onBeforeUnmount(() => destroy(video.value));
+    onMounted(() => load(props.model));
+    onBeforeUnmount(() => destroy);
 
     return {
       container,

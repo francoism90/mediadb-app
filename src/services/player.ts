@@ -1,5 +1,6 @@
 export const dashjs = {
   listeners: [
+    'allTextTracksAdded',
     'bufferLevelUpdated',
     'bufferLoaded',
     'bufferStalled',
@@ -24,5 +25,7 @@ export const dashjs = {
     'playbackStarted',
     'playbackTimeUpdated',
     'playbackWaiting',
+    'textTrackAdded',
+    'trackChangeRendered',
   ],
 };

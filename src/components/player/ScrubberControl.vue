@@ -1,6 +1,6 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <!-- <tooltip-control v-show="tooltip" /> -->
+    <tooltip-control v-if="tooltip" />
 
     <q-slider
       ref="slider"
@@ -35,8 +35,8 @@
 <script lang="ts">
 import { dom, QSlider } from 'quasar';
 import FullscreenControl from 'src/components/player/FullscreenControl.vue';
+import TooltipControl from 'src/components/player/TooltipControl.vue';
 import useDash from 'src/composables/useDash';
-// import TooltipControl from 'src/components/player/TooltipControl.vue';
 import useFilters from 'src/composables/useFilters';
 import { computed, defineComponent, ref } from 'vue';
 
@@ -45,7 +45,7 @@ export default defineComponent({
 
   components: {
     FullscreenControl,
-    // TooltipControl,
+    TooltipControl,
   },
 
   setup() {
@@ -70,10 +70,12 @@ export default defineComponent({
     };
 
     const onMouseHover = (event: MouseEvent): void => {
-      store.capture({
-        clientX: event.clientX,
-        sliderWidth: dom.width(slider.value?.$el || 0),
-        sliderOffset: dom.offset(slider.value?.$el || 0),
+      store.$patch({
+        tooltip: {
+          clientX: event.clientX,
+          sliderOffset: dom.offset(slider.value?.$el || 0),
+          sliderWidth: dom.width(slider.value?.$el || 0),
+        },
       });
 
       tooltip.value = true;

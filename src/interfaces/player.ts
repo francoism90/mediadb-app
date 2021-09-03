@@ -11,6 +11,7 @@ export interface PlayerProperties {
   playbackRate: number,
   quality: number,
   seeking: boolean,
+  textTracks: TextTrackList,
   time: number,
   volume: number,
 }
