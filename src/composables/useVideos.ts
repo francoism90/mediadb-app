@@ -1,6 +1,6 @@
 import { api } from 'src/boot/axios';
 import { all } from 'src/repositories/video';
-import { useStore } from 'src/store/videos/items';
+import { useStore } from 'src/store/video/items';
 
 export default function useVideos() {
   const store = useStore();

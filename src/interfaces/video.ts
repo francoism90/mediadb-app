@@ -8,17 +8,14 @@ export type VideosMeta = RepositoryMeta
 export type VideosLinks = RepositoryLinks
 
 export interface VideoModel extends Model {
-  'capture_url'?: string
   'episode_number': string,
-  'live_url'?: string
-  'poster_url'?: string
   'release_date': string,
   'season_number': string,
+  'live_url'?: string
+  'poster_url'?: string
+  'sprite_url'?: string
   'vod_url'?: string
-  captions?: MediaModel[],
   clip?: MediaModel,
-  favorite?: boolean,
-  following?: boolean,
   model?: Model,
   overview?: string,
   status: string,

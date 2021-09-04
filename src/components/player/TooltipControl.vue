@@ -1,14 +1,15 @@
 <template>
   <div
-    v-if="percent > 0 && percent < 100"
     class="player-tooltip desktop-only"
-    :style="tooltipStyle"
+    :style="{ marginLeft: `${margin}px` }"
   >
-    <canvas
-      ref="preview"
-      width="160"
-      height="90"
+    <q-img
+      :src="thumbnail"
       class="player-tooltip-thumbnail"
+      height="90"
+      no-spinner
+      no-transition
+      width="160"
     />
 
     <div class="text-white text-center q-py-xs">
@@ -18,11 +19,10 @@
 </template>
 
 <script lang="ts">
-import { clamp, debounce } from 'lodash';
+import { clamp, debounce, find, inRange } from 'lodash';
+import useDash from 'src/composables/useDash';
 import useFilters from 'src/composables/useFilters';
-import usePlayer from 'src/composables/usePlayer';
-import useVideo from 'src/composables/useVideo';
-import { capture } from 'src/services/vod';
+import { getBlob } from 'src/services/api';
 import {
   computed, defineComponent, ref, watch,
 } from 'vue';
@@ -32,48 +32,42 @@ export default defineComponent({
 
   setup() {
     const { formatTime } = useFilters();
-    const { store: playerStore } = usePlayer();
-    const { store: videoStore } = useVideo();
+    const { store } = useDash();
 
-    const preview = ref<HTMLCanvasElement | null>();
+    const thumbnail = ref<string>();
 
-    const duration = computed(() => playerStore.properties?.duration || 0);
-    const clientX = computed(() => playerStore.tooltip?.clientX || 0);
-    const width = computed(() => playerStore.tooltip?.sliderWidth || 0);
-    const offset = computed(() => playerStore.tooltip?.sliderOffset?.left || 0);
-    const position = computed(() => clientX.value - offset.value);
-    const percent = computed(() => (position.value / width.value) * 100 || 0);
-    const time = computed(() => duration.value * (percent.value / 100));
-    const timestamp = computed(() => formatTime(time.value));
+    const offset = computed(() => store.tooltip.sliderOffset?.left || 0);
+    const width = computed(() => store.tooltip?.sliderWidth || 0);
+    const position = computed(() => store.tooltip?.clientX - offset.value || 0);
+    const margin = computed(() => clamp(position.value - 80, 0, width.value - 160));
+    const percent = computed(() => clamp((position.value / width.value) * 100, 0, 100));
+    const time = computed(() => (store.properties?.duration || 0) * (percent.value / 100));
+    const timestamp = computed(() => formatTime(time.value || 0));
 
-    const tooltipStyle = computed(() => {
-      const tooltipPosition = clamp(position.value - 80, 0, width.value - 160);
-      return { marginLeft: `${tooltipPosition}px` };
-    });
+    const render = async (): Promise<void> => {
+      const cue = find(
+        store.sprite?.cues,
+        (o: VTTCue) => inRange(time.value, o.startTime, o.endTime),
+      ) as VTTCue;
 
-    const createPreview = async (): Promise<void> => {
-      const frame = clamp(Math.ceil(time.value), 1, duration.value - 1);
-      const response = await capture(videoStore.data?.id || '', frame);
-      const ctx = preview.value?.getContext('2d');
-      const img = new Image(160, 90);
+      const response = await getBlob(cue?.text || '');
+      const reader = new window.FileReader();
 
-      img.crossOrigin = 'anonymous';
-      img.src = response.data?.capture_url || '';
-      img.onload = () => {
-        ctx?.drawImage(img, 0, 0);
+      reader.readAsDataURL(response);
+      reader.onload = () => {
+        thumbnail.value = reader.result?.toString() || '';
       };
     };
 
-    watch(percent, debounce(createPreview, 50));
+    watch(percent, debounce(render, 50));
 
     return {
-      playerStore,
-      videoStore,
-      preview,
+      store,
+      margin,
       percent,
+      thumbnail,
       time,
       timestamp,
-      tooltipStyle,
     };
   },
 });

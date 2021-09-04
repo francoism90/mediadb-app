@@ -15,8 +15,8 @@
       </q-banner>
     </template>
 
-    <template v-if="videoStore.isReady">
-      <video-player />
+    <template v-if="store.isReady">
+      <video-player :model="store.data" />
 
       <div class="container">
         <video-details />
@@ -37,7 +37,6 @@ import { useMeta } from 'quasar';
 import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
 import VideoSimilar from 'src/components/video/Similar.vue';
-import usePlayer from 'src/composables/usePlayer';
 import useVideo from 'src/composables/useVideo';
 import { authenticate } from 'src/services/auth';
 import {
@@ -74,19 +73,10 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { initialize, subscribe, unsubscribe, errors, store: videoStore } = useVideo();
-    const { store: playerStore } = usePlayer();
+    const { initialize, subscribe, unsubscribe, errors, store } = useVideo();
 
     watch(props, async (value, oldValue): Promise<void> => {
       await initialize(props.id);
-
-      // Player
-      playerStore.$reset();
-      playerStore.populate({
-        media: videoStore.data?.clip,
-        live_url: videoStore.data?.live_url,
-        vod_url: videoStore.data?.vod_url,
-      });
 
       // WebSockets
       unsubscribe(oldValue?.id || '');
@@ -94,12 +84,11 @@ export default defineComponent({
     }, { immediate: true });
 
     onBeforeUnmount(() => unsubscribe(props.id));
-    useMeta(() => ({ title: videoStore.data?.name || '' }));
+    useMeta(() => ({ title: store.data?.name || '' }));
 
     return {
       errors,
-      playerStore,
-      videoStore,
+      store,
     };
   },
 });

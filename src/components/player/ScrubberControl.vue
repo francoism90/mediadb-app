@@ -36,8 +36,8 @@
 import { dom, QSlider } from 'quasar';
 import FullscreenControl from 'src/components/player/FullscreenControl.vue';
 import TooltipControl from 'src/components/player/TooltipControl.vue';
+import useDash from 'src/composables/useDash';
 import useFilters from 'src/composables/useFilters';
-import usePlayer from 'src/composables/usePlayer';
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -50,41 +50,32 @@ export default defineComponent({
 
   setup() {
     const { formatTime } = useFilters();
-    const { store } = usePlayer();
+    const { store } = useDash();
 
     const slider = ref<QSlider>();
     const tooltip = ref<boolean>();
 
-    const bufferedPct = computed(() => {
-      const buffered = store.properties.buffered || <TimeRanges>{};
-      const duration = store.properties.duration || 0;
-
-      if (!(buffered instanceof TimeRanges) || buffered.length === 0) {
-        return 0;
-      }
-
-      return Math.round((buffered.end(0) / duration) * 100);
-    });
-
-    const bufferedRemainingPct = computed(() => Math.round(100 - bufferedPct.value));
+    const buffered = computed(() => Math.round(store.properties?.buffered || 0));
+    const bufferedRemaining = computed(() => Math.round(100 - buffered.value));
+    const currentTime = computed(() => formatTime(store.properties?.time || 0));
+    const duration = computed(() => formatTime(store.properties?.duration || 0));
 
     const bufferStyle = computed(() => ({
-      '--buffer': `${bufferedPct.value}%`,
-      '--remaining': `${bufferedRemainingPct.value}%`,
+      '--buffer': `${buffered.value}%`,
+      '--remaining': `${bufferedRemaining.value}%`,
     }));
 
-    const currentTime = computed(() => formatTime(store.properties.currentTime || 0));
-    const duration = computed(() => formatTime(store.properties.duration || 0));
-
     const setCurrentTime = (payload: number): void => {
-      store.dispatch({ time: payload });
+      store.requestTime = payload;
     };
 
     const onMouseHover = (event: MouseEvent): void => {
-      store.capture({
-        clientX: event.clientX,
-        sliderWidth: dom.width(slider.value?.$el || 0),
-        sliderOffset: dom.offset(slider.value?.$el || 0),
+      store.$patch({
+        tooltip: {
+          clientX: event.clientX,
+          sliderOffset: dom.offset(slider.value?.$el || 0),
+          sliderWidth: dom.width(slider.value?.$el || 0),
+        },
       });
 
       tooltip.value = true;

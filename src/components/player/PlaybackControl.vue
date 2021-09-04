@@ -1,7 +1,7 @@
 <template>
   <div class="absolute-center player-playback">
     <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
-      <template v-if="store.isLoading">
+      <template v-if="store.isWaiting">
         <q-spinner-dots
           color="white"
           size="64px"
@@ -38,34 +38,34 @@
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer';
+import useDash from 'src/composables/useDash';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'PlaybackControl',
 
   setup() {
-    const { store } = usePlayer();
+    const { store } = useDash();
 
     const icon = computed(() => (
-      store.properties?.paused === true
+      store.properties?.paused
         ? 'play_arrow'
         : 'pause'
     ));
 
     const decreaseTime = (): void => {
-      const currentTime = store.properties?.currentTime || 0;
-      store.dispatch({ time: currentTime - 10 });
+      const time = store.properties?.time || 0;
+      store.requestTime = time - 10;
     };
 
     const increaseTime = (): void => {
-      const currentTime = store.properties?.currentTime || 0;
-      store.dispatch({ time: currentTime + 10 });
+      const time = store.properties?.time || 0;
+      store.requestTime = time + 10;
     };
 
-    const togglePlayback = () => store.dispatch({
-      playback: !store.properties?.paused || false,
-    });
+    const togglePlayback = (): void => {
+      store.requestPause = !store.requestPause;
+    };
 
     return {
       decreaseTime,
