@@ -19,7 +19,7 @@ export const useStore = defineStore('player', {
     },
 
     isWaiting(): boolean {
-      return this.properties?.ready || this.properties?.seeking;
+      return !this.properties?.ready || this.properties?.seeking;
     },
 
     sprite(): TextTrack | undefined {
