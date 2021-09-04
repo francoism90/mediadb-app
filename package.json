@@ -14,7 +14,7 @@
     "@capacitor/status-bar": "^1.0.3",
     "@quasar/extras": "^1.10.12",
     "@types/qs": "^6.9.7",
-    "axios": "^0.21.2",
+    "axios": "^0.21.3",
     "core-js": "^3.17.2",
     "dashjs": "4.0.1",
     "dayjs": "^1.10.6",
