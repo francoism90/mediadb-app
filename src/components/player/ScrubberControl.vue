@@ -1,6 +1,6 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <tooltip-control v-if="tooltip" />
+    <tooltip-control v-show="tooltip" />
 
     <q-slider
       ref="slider"
@@ -57,8 +57,8 @@ export default defineComponent({
 
     const buffered = computed(() => Math.round(store.properties?.buffered || 0));
     const bufferedRemaining = computed(() => Math.round(100 - buffered.value));
-    const currentTime = computed(() => formatTime(store.properties.time || 0));
-    const duration = computed(() => formatTime(store.properties.duration || 0));
+    const currentTime = computed(() => formatTime(store.properties?.time || 0));
+    const duration = computed(() => formatTime(store.properties?.duration || 0));
 
     const bufferStyle = computed(() => ({
       '--buffer': `${buffered.value}%`,

@@ -28,4 +28,10 @@ export const dashjs = {
     'textTrackAdded',
     'trackChangeRendered',
   ],
+
+  textListeners: [
+    'allTextTracksAdded',
+    'playbackMetaDataLoaded',
+    'trackChangeRendered',
+  ],
 };

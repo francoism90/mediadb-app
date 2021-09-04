@@ -1,8 +1,6 @@
 <template>
   <div class="absolute-center player-playback">
     <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
-      {{ store.properties?.textTracks }}
-
       <template v-if="store.isWaiting">
         <q-spinner-dots
           color="white"
@@ -50,18 +48,18 @@ export default defineComponent({
     const { store } = useDash();
 
     const icon = computed(() => (
-      store.properties.paused
+      store.properties?.paused
         ? 'play_arrow'
         : 'pause'
     ));
 
     const decreaseTime = (): void => {
-      const time = store.properties.time || 0;
+      const time = store.properties?.time || 0;
       store.requestTime = time - 10;
     };
 
     const increaseTime = (): void => {
-      const time = store.properties.time || 0;
+      const time = store.properties?.time || 0;
       store.requestTime = time + 10;
     };
 

@@ -1,14 +1,15 @@
 <template>
   <div
-    v-if="percent >= 0 && percent <= 100"
     class="player-tooltip desktop-only"
     :style="{ marginLeft: `${margin}px` }"
   >
-    <canvas
-      ref="container"
-      width="160"
-      height="90"
+    <q-img
+      :src="thumbnail"
       class="player-tooltip-thumbnail"
+      height="90"
+      no-spinner
+      no-transition
+      width="160"
     />
 
     <div class="text-white text-center q-py-xs">
@@ -21,6 +22,7 @@
 import { clamp, debounce, find, inRange } from 'lodash';
 import useDash from 'src/composables/useDash';
 import useFilters from 'src/composables/useFilters';
+import { getBlob } from 'src/services/api';
 import {
   computed, defineComponent, ref, watch,
 } from 'vue';
@@ -32,38 +34,38 @@ export default defineComponent({
     const { formatTime } = useFilters();
     const { store } = useDash();
 
-    const container = ref<HTMLCanvasElement | null>();
+    const thumbnail = ref<string>();
 
-    const position = computed(() => store.tooltip?.clientX - store.tooltip.sliderOffset?.left);
-    const margin = computed(() => clamp(position.value - 80, 0, store.tooltip?.sliderWidth - 160));
-    const percent = computed(() => (position.value / store.tooltip?.sliderWidth) * 100 || 0);
-    const time = computed(() => store.properties?.duration * (percent.value / 100) || 0);
-    const timestamp = computed(() => formatTime(time.value));
+    const offset = computed(() => store.tooltip.sliderOffset?.left || 0);
+    const width = computed(() => store.tooltip?.sliderWidth || 0);
+    const position = computed(() => store.tooltip?.clientX - offset.value || 0);
+    const margin = computed(() => clamp(position.value - 80, 0, width.value - 160));
+    const percent = computed(() => clamp((position.value / width.value) * 100, 0, 100));
+    const time = computed(() => (store.properties?.duration || 0) * (percent.value / 100));
+    const timestamp = computed(() => formatTime(time.value || 0));
 
-    const render = (): void => {
-      const sprite = find(store.properties.textTracks, { label: 'sprite' });
+    const render = async (): Promise<void> => {
       const cue = find(
-        sprite?.cues,
+        store.sprite?.cues,
         (o: VTTCue) => inRange(time.value, o.startTime, o.endTime),
       ) as VTTCue;
 
-      const ctx = container.value?.getContext('2d');
-      const img = new Image(160, 90);
+      const response = await getBlob(cue?.text || '');
+      const reader = new window.FileReader();
 
-      img.crossOrigin = 'anonymous';
-      img.src = cue?.text || '';
-      img.onload = () => {
-        ctx?.drawImage(img, 0, 0);
+      reader.readAsDataURL(response);
+      reader.onload = () => {
+        thumbnail.value = reader.result?.toString() || '';
       };
     };
 
     watch(percent, debounce(render, 50));
 
     return {
-      container,
+      store,
       margin,
       percent,
-      store,
+      thumbnail,
       time,
       timestamp,
     };

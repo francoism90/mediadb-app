@@ -1,4 +1,5 @@
-import { MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { Event as MediaPlayerEvent, MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { findIndex } from 'lodash';
 import { VideoModel } from 'src/interfaces/video';
 import { getToken } from 'src/services/auth';
 import { dashjs } from 'src/services/player';
@@ -12,8 +13,18 @@ export default function useDash() {
   const container = ref<HTMLDivElement>();
   const video = ref<HTMLMediaElement>();
 
-  const listener = (): void => {
-    console.log('tracks', video.value?.textTracks);
+  const activateTracks = (): void => {
+    const spriteIndex = findIndex(video.value?.textTracks, { label: 'sprite' });
+
+    if (typeof spriteIndex === 'number' && video.value) {
+      video.value.textTracks[spriteIndex].mode = 'showing';
+    }
+  };
+
+  const listener = (event: MediaPlayerEvent): void => {
+    if (dashjs.textListeners.includes(event.type)) {
+      activateTracks();
+    }
 
     store.$patch({
       properties: {
@@ -73,7 +84,7 @@ export default function useDash() {
     }), true);
 
     player.value?.initialize(video.value, manifestUri, false);
-    // player.value?.enableForcedTextStreaming(true);
+    player.value?.enableForcedTextStreaming(true);
 
     addListeners();
   };

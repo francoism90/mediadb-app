@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { find, merge } from 'lodash';
 import { defineStore } from 'pinia';
 import { PlayerProperties, PlayerState, PlayerTooltip } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
@@ -14,8 +14,16 @@ export const useStore = defineStore('player', {
   }),
 
   getters: {
+    isReady(): boolean {
+      return typeof this.model.id === 'string';
+    },
+
     isWaiting(): boolean {
-      return !this.properties.ready || this.properties.seeking;
+      return this.properties?.ready || this.properties?.seeking;
+    },
+
+    sprite(): TextTrack | undefined {
+      return find(this.properties?.textTracks, { label: 'sprite' }) as TextTrack;
     },
   },
 

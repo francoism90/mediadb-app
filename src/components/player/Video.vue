@@ -13,9 +13,16 @@
       :height="store.media?.height || 360"
       :width="store.media?.width || 720"
       :poster="store.media?.poster_url"
-    />
+    >
+      <track
+        kind="metadata"
+        :src="model?.sprite_url"
+        srclang="en"
+        label="sprite"
+      >
+    </video>
 
-    <video-controls />
+    <video-controls v-if="store.isReady" />
   </div>
 </template>
 
