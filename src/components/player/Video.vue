@@ -1,6 +1,5 @@
 <template>
   <div
-    :key="model.id"
     ref="container"
     class="player-container relative-position row no-wrap justify-center items-center"
   >
@@ -13,7 +12,7 @@
       crossorigin="anonymous"
     />
 
-    <video-controls v-if="store.isReady" />
+    <video-controls />
   </div>
 </template>
 
@@ -57,9 +56,9 @@ export default defineComponent({
     };
 
     watch(() => props.model, () => load(props.model), { deep: true });
-    watch(() => store.requestFullscreen, toggleFullscreen);
-    watch(() => store.requestPause, togglePlayback);
-    watch(() => store.requestTime, (value: number) => player.value?.seek(value));
+    watch(() => store.fullscreen, toggleFullscreen);
+    watch(() => store.pause, togglePlayback);
+    watch(() => store.time, (value: number) => player.value?.seek(value));
 
     onMounted(() => load(props.model));
     onBeforeUnmount(() => destroy);

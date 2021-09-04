@@ -6,11 +6,12 @@ import { VideoModel } from 'src/interfaces/video';
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
     model: <VideoModel>{},
-    requestFullscreen: false,
-    requestPause: false,
-    requestTime: 0,
     properties: <PlayerProperties>{},
     tooltip: <PlayerTooltip>{},
+    controls: false,
+    fullscreen: false,
+    pause: false,
+    time: 0,
   }),
 
   getters: {

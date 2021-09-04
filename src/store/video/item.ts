@@ -21,6 +21,10 @@ export const useStore = defineStore({
 
   actions: {
     populate(payload: VideoResponse): void {
+      if (typeof this.data === 'object' && this.data.id !== payload.data.id) {
+        this.$reset();
+      }
+
       this.$patch(payload);
       this.update(payload.data);
     },

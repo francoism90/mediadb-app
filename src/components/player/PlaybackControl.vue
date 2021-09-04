@@ -55,16 +55,16 @@ export default defineComponent({
 
     const decreaseTime = (): void => {
       const time = store.properties?.time || 0;
-      store.requestTime = time - 10;
+      store.time = time - 10;
     };
 
     const increaseTime = (): void => {
       const time = store.properties?.time || 0;
-      store.requestTime = time + 10;
+      store.time = time + 10;
     };
 
     const togglePlayback = (): void => {
-      store.requestPause = !store.requestPause;
+      store.pause = !store.pause;
     };
 
     return {

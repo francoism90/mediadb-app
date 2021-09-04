@@ -4,8 +4,7 @@
 
     <q-slider
       ref="slider"
-      :disable="store.properties?.readyState === 0"
-      :model-value="store.properties?.currentTime || 0"
+      :model-value="store.properties?.time || 0"
       :min="0.0"
       :max="store.properties?.duration || 0"
       :step="0"
@@ -66,7 +65,7 @@ export default defineComponent({
     }));
 
     const setCurrentTime = (payload: number): void => {
-      store.requestTime = payload;
+      store.time = payload;
     };
 
     const onMouseHover = (event: MouseEvent): void => {

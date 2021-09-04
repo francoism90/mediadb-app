@@ -1,5 +1,7 @@
 <template>
   <div
+    v-if="store.isReady"
+    :key="store.model.id"
     class="player-controls-container absolute-full"
     @mouseenter="activate"
     @mousemove="activate"
@@ -12,7 +14,7 @@
       leave-active-class="animated fadeOut"
     >
       <div
-        v-show="controls"
+        v-show="store.controls"
         class="player-controls absolute-full"
       >
         <playback-control />
@@ -27,6 +29,7 @@
 import PlaybackControl from 'src/components/player/PlaybackControl.vue';
 import ScrubberControl from 'src/components/player/ScrubberControl.vue';
 import SettingsControl from 'src/components/player/SettingsControl.vue';
+import useDash from 'src/composables/useDash';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -39,23 +42,24 @@ export default defineComponent({
   },
 
   setup() {
-    const controls = ref<boolean>(false);
-    const timer = ref<number | undefined>(0);
+    const { store } = useDash();
+
+    const timer = ref<number>(0);
 
     const deactivate = (): void => {
       clearTimeout(timer.value);
-      timer.value = window.setTimeout(() => { controls.value = false; }, 2000);
+      timer.value = window.setTimeout(() => { store.controls = false; }, 2000);
     };
 
     const activate = (): void => {
-      controls.value = true;
+      store.controls = true;
       deactivate();
     };
 
     return {
       activate,
       deactivate,
-      controls,
+      store,
     };
   },
 });

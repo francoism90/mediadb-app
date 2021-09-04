@@ -24,9 +24,10 @@ export interface PlayerTooltip {
 
 export interface PlayerState {
   model: VideoModel,
-  requestFullscreen: boolean,
-  requestPause: boolean,
-  requestTime: number,
+  controls: boolean,
+  fullscreen: boolean,
+  pause: boolean,
+  time: number,
   properties: PlayerProperties,
   tooltip: PlayerTooltip,
 }

@@ -102,6 +102,7 @@ export default function useDash() {
 
     player.value = MediaPlayer().create();
 
+    // Add Authorization header
     player.value?.extend('RequestModifier', () => ({
       modifyRequestHeader(xhr: XMLHttpRequest) {
         xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -109,7 +110,7 @@ export default function useDash() {
       },
     }), true);
 
-    player.value?.initialize(video.value, manifestUri, false);
+    player.value?.initialize(video.value, manifestUri, true);
     player.value?.enableForcedTextStreaming(true);
 
     player.value?.on('playbackMetaDataLoaded', () => {
@@ -121,7 +122,7 @@ export default function useDash() {
 
   const load = (model: VideoModel): void => {
     detach();
-    setTimeout(() => attach(model), 500);
+    attach(model);
   };
 
   const destroy = (): void => {
