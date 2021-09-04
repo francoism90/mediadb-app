@@ -83,7 +83,7 @@ export default function useDash() {
       },
     }), true);
 
-    player.value?.initialize(video.value, manifestUri, false);
+    player.value?.initialize(video.value, manifestUri, true);
     player.value?.enableForcedTextStreaming(true);
 
     addListeners();

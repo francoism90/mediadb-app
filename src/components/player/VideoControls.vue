@@ -40,11 +40,11 @@ export default defineComponent({
 
   setup() {
     const controls = ref<boolean>(false);
-    // const timer = ref<number | undefined>(0);
+    const timer = ref<number | undefined>(0);
 
     const deactivate = (): void => {
-      // clearTimeout(timer.value);
-      // timer.value = window.setTimeout(() => { controls.value = false; }, 2000);
+      clearTimeout(timer.value);
+      timer.value = window.setTimeout(() => { controls.value = false; }, 2000);
     };
 
     const activate = (): void => {
