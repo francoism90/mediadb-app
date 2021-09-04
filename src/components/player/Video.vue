@@ -1,5 +1,6 @@
 <template>
   <div
+    :key="model.id"
     ref="container"
     class="player-container relative-position row no-wrap justify-center items-center"
   >
@@ -10,17 +11,7 @@
       preload="metadata"
       class="col"
       crossorigin="anonymous"
-      :height="store.media?.height || 360"
-      :width="store.media?.width || 720"
-      :poster="store.media?.poster_url"
-    >
-      <track
-        kind="metadata"
-        :src="model?.sprite_url"
-        srclang="en"
-        label="sprite"
-      >
-    </video>
+    />
 
     <video-controls v-if="store.isReady" />
   </div>

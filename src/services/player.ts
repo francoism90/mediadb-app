@@ -1,13 +1,11 @@
 export const dashjs = {
   listeners: [
-    'allTextTracksAdded',
     'bufferLevelUpdated',
     'bufferLoaded',
     'bufferStalled',
     'bufferStateChanged',
     'canPlay',
     'canPlayThrough',
-    'manifestLoaded',
     'playbackEnded',
     'playbackError',
     'playbackLoadedData',
@@ -25,13 +23,9 @@ export const dashjs = {
     'playbackStarted',
     'playbackTimeUpdated',
     'playbackWaiting',
+    'qualityChangeRendered',
+    'qualityChangeRequested',
     'textTrackAdded',
-    'trackChangeRendered',
-  ],
-
-  textListeners: [
-    'allTextTracksAdded',
-    'playbackMetaDataLoaded',
     'trackChangeRendered',
   ],
 };

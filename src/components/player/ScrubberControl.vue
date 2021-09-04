@@ -1,6 +1,6 @@
 <template>
   <div class="player-scrubber absolute-bottom">
-    <tooltip-control v-show="tooltip" />
+    <tooltip-control v-if="tooltip" />
 
     <q-slider
       ref="slider"
@@ -92,6 +92,5 @@ export default defineComponent({
       tooltip,
     };
   },
-
 });
 </script>

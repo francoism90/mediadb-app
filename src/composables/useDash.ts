@@ -1,4 +1,4 @@
-import { Event as MediaPlayerEvent, MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
 import { VideoModel } from 'src/interfaces/video';
 import { getToken } from 'src/services/auth';
@@ -11,9 +11,26 @@ export default function useDash() {
 
   const player = ref<MediaPlayerClass>();
   const container = ref<HTMLDivElement>();
-  const video = ref<HTMLMediaElement>();
+  const video = ref<HTMLVideoElement>();
 
-  const activateTracks = (): void => {
+  const setElements = (): void => {
+    // Metadata
+    video.value?.setAttribute('height', store.model.clip?.height?.toString() || '360');
+    video.value?.setAttribute('width', store.model.clip?.width?.toString() || '720');
+    video.value?.setAttribute('poster', store.model.poster_url || '');
+
+    // Tracks
+    const track = document.createElement('track');
+    track.id = 'sprite';
+    track.kind = 'metadata';
+    track.label = 'sprite';
+    track.srclang = 'en';
+    track.src = store.model?.sprite_url || '';
+
+    video.value?.appendChild(track);
+  };
+
+  const setTracks = (): void => {
     const spriteIndex = findIndex(video.value?.textTracks, { label: 'sprite' });
 
     if (typeof spriteIndex === 'number' && video.value) {
@@ -21,9 +38,9 @@ export default function useDash() {
     }
   };
 
-  const listener = (event: MediaPlayerEvent): void => {
-    if (dashjs.textListeners.includes(event.type)) {
-      activateTracks();
+  const listener = (): void => {
+    if (!store.isReady || typeof player.value === 'undefined' || typeof video.value === 'undefined') {
+      return;
     }
 
     store.$patch({
@@ -59,17 +76,26 @@ export default function useDash() {
   const detach = (): void => {
     removeListeners();
 
+    // Reset player
+    player.value?.pause();
     player.value?.reset();
-    player.value?.destroy();
+
+    // Reset elements
+    const sprite = document.getElementById('sprite');
+
+    if (sprite) {
+      video.value?.removeChild(sprite);
+    }
 
     // @doc https://stackoverflow.com/a/28060352
-    video.value?.pause();
     video.value?.removeAttribute('src');
     video.value?.load();
+
+    store.$reset();
   };
 
   const attach = (model: VideoModel): void => {
-    store.model = model;
+    store.$patch({ model });
 
     const manifestUri = store.model?.vod_url || store.model?.live_url || '';
     const token = getToken() || '';
@@ -83,17 +109,19 @@ export default function useDash() {
       },
     }), true);
 
-    player.value?.initialize(video.value, manifestUri, true);
+    player.value?.initialize(video.value, manifestUri, false);
     player.value?.enableForcedTextStreaming(true);
 
-    addListeners();
+    player.value?.on('playbackMetaDataLoaded', () => {
+      setElements();
+      setTracks();
+      addListeners();
+    });
   };
 
   const load = (model: VideoModel): void => {
-    store.$reset();
-
     detach();
-    attach(model);
+    setTimeout(() => attach(model), 500);
   };
 
   const destroy = (): void => {
