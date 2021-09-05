@@ -55,7 +55,7 @@ export default defineComponent({
       return player.value?.pause();
     };
 
-    watch(() => props.model, () => load(props.model), { deep: true });
+    watch(() => props.model.id, () => load(props.model), { deep: true });
     watch(() => store.fullscreen, toggleFullscreen);
     watch(() => store.pause, togglePlayback);
     watch(() => store.time, (value: number) => player.value?.seek(value));
