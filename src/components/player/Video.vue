@@ -61,7 +61,7 @@ export default defineComponent({
     watch(() => store.time, (value: number) => player.value?.seek(value));
 
     onMounted(() => load(props.model));
-    onBeforeUnmount(() => destroy);
+    onBeforeUnmount(() => destroy());
 
     return {
       container,
