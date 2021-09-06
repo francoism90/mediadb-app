@@ -1,11 +1,11 @@
 <template>
-  <q-btn
-    dense
-    flat
-    round
-    class="cursor-pointer"
-    icon="account_circle"
+  <q-icon
+    right
+    color="grey-5"
+    class="header-more cursor-pointer"
+    name="expand_more"
     aria-label="Account"
+    size="28px"
   >
     <q-menu
       anchor="top left"
@@ -18,44 +18,54 @@
     >
       <q-list
         bordered
-        dense
         padding
-        style="width: 200px; max-width: 100vw;"
+        separator
+        style="width: 300px; max-width: 100vw;"
       >
         <q-item>
           <q-item-section side>
             <q-icon
               name="account_circle"
+              size="lg"
             />
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>
+            <q-item-label class="text-weight-bold ellipsis-2-lines">
               {{ store.user?.name }}
             </q-item-label>
           </q-item-section>
         </q-item>
 
-        <q-separator spaced />
+        <q-item clickable>
+          <q-item-section side>
+            <q-icon name="o_manage_accounts" />
+          </q-item-section>
 
-        <q-item
-          v-close-popup
-          clickable
-          :to="{ name: 'settings' }"
-        >
-          <q-item-section>Settings</q-item-section>
+          <q-item-section>
+            <q-item-label>
+              Manage Account
+            </q-item-label>
+          </q-item-section>
         </q-item>
 
         <q-item
-          v-close-popup
           clickable
           :to="{ name: 'logout' }"
         >
-          <q-item-section>Log Out</q-item-section>
+          <q-item-section side>
+            <q-icon name="o_logout" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>
+              Sign Out
+            </q-item-label>
+          </q-item-section>
         </q-item>
       </q-list>
     </q-menu>
-  </q-btn>
+  </q-icon>
 </template>
 
 <script lang="ts">

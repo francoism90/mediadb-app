@@ -1,6 +1,6 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-dark q-py-md">
+    <q-toolbar class="bg-dark q-py-lg">
       <q-select
         v-model.lazy="store.query.sort"
         :options="sorters"
@@ -18,6 +18,22 @@
           <span class="mobile-hide text-caption">Sort by</span>
         </template>
       </q-select>
+
+      <q-space />
+
+      <q-btn
+        icon="filter_list"
+        color="grey-5"
+        outline
+        label="Filters"
+        @click="showFilters"
+      >
+        <q-badge
+          v-if="filters.length > 0"
+          :label="filters.length"
+          floating
+        />
+      </q-btn>
     </q-toolbar>
 
     <q-pull-to-refresh @refresh="onRefresh">
@@ -50,7 +66,8 @@
 
 <script lang="ts">
 import { filter } from 'lodash';
-import { useMeta } from 'quasar';
+import { useMeta, useQuasar } from 'quasar';
+import Filters from 'src/components/tags/Filters.vue';
 import Item from 'src/components/tags/Item.vue';
 import useTags from 'src/composables/useTags';
 import { authenticate } from 'src/services/auth';
@@ -78,6 +95,7 @@ export default defineComponent({
   },
 
   setup() {
+    const $q = useQuasar();
     const { store, fetch } = useTags();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -96,6 +114,18 @@ export default defineComponent({
       done();
     };
 
+    const showFilters = (): void => {
+      $q.dialog({
+        component: Filters,
+        componentProps: {
+          maximized: true,
+          position: 'right',
+          transitionShow: 'slide-left',
+          transitionHide: 'slide-right',
+        },
+      });
+    };
+
     const filters = computed(() => filter(store.query.filter));
     const sort = computed(() => store.query.sort);
 
@@ -106,6 +136,8 @@ export default defineComponent({
     return {
       onLoad,
       onRefresh,
+      showFilters,
+      filters,
       store,
       sorters,
     };

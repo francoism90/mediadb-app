@@ -1,31 +1,3 @@
-.video-filter-container {
-  background: $grey-12;
-  border-left: $layout-border;
-  font-size: 0.85rem;
-  width: 300px;
-  max-width: 100vw;
-}
-
-.video-filter-list {
-  width: 100%;
-  max-width: 300px;
-}
-
-.video-filter-search {
-  height: 58px;
-  padding: 0 $space-base;
-  margin-bottom: $space-base;
-  display: flex;
-  align-items: center;
-  border-bottom: $layout-border;
-}
-
-.video-filter-header {
-  border-bottom: $layout-border;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
 .video-item {
   height: 400px;
   min-height: 400px;

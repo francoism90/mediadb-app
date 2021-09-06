@@ -1,5 +1,8 @@
 <template>
-  <div class="video-details q-py-md">
+  <div
+    :key="store.data?.id"
+    class="video-details q-py-md"
+  >
     <h1 class="text-h3 text-white ellipsis-2-lines">
       {{ title }}
     </h1>

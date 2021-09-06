@@ -8,40 +8,38 @@
       class="header row no-wrap items-center content-center bg-dark"
       height-hint="58"
     >
-      <q-toolbar>
-        <q-icon
-          name="o_menu"
-          class="cursor-pointer q-mr-md"
-          size="24px"
-          aria-label="Account"
-          @click="toggleDrawer"
-        />
+      <q-toolbar class="header-container container fluid">
+        <router-link
+          to="/"
+          class="text-body2 text-weight-bold text-grey-4"
+        >
+          MediaDB
+        </router-link>
 
-        <q-toolbar-title>
-          <router-link
-            to="/"
-            class="text-body2 text-weight-medium"
-          >
-            MediaDB
-          </router-link>
-        </q-toolbar-title>
-      </q-toolbar>
+        <q-space />
 
-      <q-toolbar class="col-auto q-gutter-sm">
+        <q-tabs
+          v-model="tab"
+          indicator-color="primary"
+          content-class="header-tabs text-grey-5"
+          left-icon="chevron_left"
+          right-icon="chevron_right"
+          inline-label
+          stretch
+        >
+          <q-route-tab
+            v-for="(tab, index) in tabs"
+            :key="index"
+            :to="tab.route"
+            :icon="tab.icon"
+            :label="tab.label"
+            exact
+          />
+        </q-tabs>
+
         <account />
       </q-toolbar>
     </q-header>
-
-    <q-drawer
-      v-model="drawer"
-      behavior="mobile"
-      class="drawer"
-      bordered
-      overlay
-      :width="300"
-    >
-      <drawer />
-    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -51,32 +49,36 @@
 
 <script lang="ts">
 import Account from 'src/components/ui/Account.vue';
-import Drawer from 'src/components/ui/Drawer.vue';
 import useSession from 'src/composables/useSession';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
+
+const tabs = [
+  {
+    icon: 'o_ondemand_video',
+    label: 'Ondemand',
+    route: { name: 'home' },
+  },
+  {
+    icon: 'o_tag',
+    label: 'Tags',
+    route: { name: 'tags' },
+  },
+];
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
     Account,
-    Drawer,
   },
 
   setup() {
-    const drawer = ref(false);
-
     const { store } = useSession();
     const layoutKey = computed(() => store.user?.id || +new Date());
 
-    const toggleDrawer = (): void => {
-      drawer.value = !drawer.value;
-    };
-
     return {
       layoutKey,
-      toggleDrawer,
-      drawer,
+      tabs,
     };
   },
 });

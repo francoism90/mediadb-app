@@ -22,7 +22,7 @@
             dense
             hide-bottom-space
             input-class="text-caption"
-            placeholder="Search videos.."
+            placeholder="Search tags.."
             type="text"
           >
             <template #prepend>
@@ -61,56 +61,6 @@
         <q-item-label
           header
           class="filter-header"
-        >
-          Filter By Tag
-        </q-item-label>
-
-        <q-item>
-          <q-item-label class="full-width">
-            <q-select
-              v-model="store.query.filter.tags"
-              :options="tagStore.data"
-              class="q-my-sm"
-              counter
-              dense
-              display-value="name"
-              dropdown-icon="expand_more"
-              emit-value
-              filled
-              map-options
-              max-values="5"
-              multiple
-              option-label="name"
-              option-value="name"
-              popup-content-class="bg-grey-10"
-              square
-              use-chips
-              use-input
-              @filter="onTagsFilter"
-            >
-              <template #option="scope">
-                <q-item v-bind="scope.itemProps">
-                  <q-item-section>
-                    <q-item-label>
-                      {{ scope.opt.name }}
-                    </q-item-label>
-
-                    <q-item-label
-                      caption
-                      class="text-capitalize"
-                    >
-                      {{ scope.opt.type }}
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
-          </q-item-label>
-        </q-item>
-
-        <q-item-label
-          header
-          class="filter-header"
         />
 
         <q-item>
@@ -133,14 +83,14 @@
 
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import useTagInput from 'src/composables/useTagInput';
-import useVideos from 'src/composables/useVideos';
+import useTags from 'src/composables/useTags';
 
 const lists = [
   { label: 'Recommended', value: null },
-  { label: 'Bookmarks', value: 'favorites' },
-  { label: 'Watchlist', value: 'following' },
-  { label: 'History', value: 'viewed' },
+  { label: 'Actors', value: 'actor' },
+  { label: 'Genres', value: 'genre' },
+  { label: 'Languages', value: 'language' },
+  { label: 'Studios', value: 'studio' },
 ];
 
 export default {
@@ -150,19 +100,7 @@ export default {
 
   setup() {
     const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
-    const { store } = useVideos();
-    const { fetch: fetchTags, store: tagStore } = useTagInput();
-
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    const onTagsFilter = async (val: string, update: Function): Promise<void> => {
-      tagStore.reset({
-        filter: { id: null, query: val },
-        sort: val.length < 1 ? 'random' : 'relevance',
-      });
-
-      await fetchTags();
-      await update();
-    };
+    const { store } = useTags();
 
     const resetFilters = (): void => {
       store.$reset();
@@ -171,11 +109,9 @@ export default {
 
     return {
       onDialogHide,
-      onTagsFilter,
       resetFilters,
       dialogRef,
       store,
-      tagStore,
       lists,
     };
   },

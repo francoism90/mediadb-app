@@ -1,5 +1,19 @@
 .header {
   height: 58px;
-  padding-left: $space-base;
-  padding-right: $space-base;
+}
+
+.header-container {
+  height: 58px;
+}
+
+.header-tabs {
+  @media (max-width: $breakpoint-xs-max) {
+    .q-tab__label {
+      display: none;
+    }
+  }
+}
+
+.header-more {
+  line-height: 58px;
 }

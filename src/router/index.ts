@@ -1,5 +1,4 @@
 import { route } from 'quasar/wrappers';
-import { StoreState } from 'src/interfaces/store';
 import routes from 'src/router/routes';
 import {
   createMemoryHistory,
@@ -29,6 +28,7 @@ export const router = createRouter({
 
     return { left: 0, top: 0 };
   },
+
   routes,
 
   // Leave this as is and make changes in quasar.conf.js instead!
@@ -39,4 +39,4 @@ export const router = createRouter({
   ),
 });
 
-export default route<StoreState>((/* { store, ssrContext } */) => router);
+export default route((/* { store, ssrContext } */) => router);

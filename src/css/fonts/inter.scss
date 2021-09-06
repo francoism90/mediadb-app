@@ -1,12 +1,12 @@
-$inter-filename: 'Inter';
-$inter-font-name: 'Inter';
+$inter-filename: "Inter";
+$inter-font-name: "Inter";
 $inter-font-version: 3.19;
-$inter-font-path: './fonts/inter-webfont' !default;
+$inter-font-path: "./fonts/inter-webfont" !default;
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-Thin.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-Thin.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 100;
   font-display: swap;
@@ -14,9 +14,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-ThinItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-ThinItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 100;
   font-display: swap;
@@ -24,9 +24,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-ExtraLight.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-ExtraLight.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 200;
   font-display: swap;
@@ -34,9 +34,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-ExtraLightItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-ExtraLightItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 200;
   font-display: swap;
@@ -44,9 +44,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-Light.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-Light.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 300;
   font-display: swap;
@@ -54,9 +54,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-LightItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-LightItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 300;
   font-display: swap;
@@ -64,9 +64,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-Regular.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-Regular.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -74,9 +74,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-Italic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-Italic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 400;
   font-display: swap;
@@ -84,9 +84,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-Medium.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-Medium.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
@@ -94,9 +94,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-MediumItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-MediumItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 500;
   font-display: swap;
@@ -104,9 +104,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-SemiBold.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-SemiBold.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 600;
   font-display: swap;
@@ -114,9 +114,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-SemiBoldItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-SemiBoldItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 600;
   font-display: swap;
@@ -124,9 +124,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-Bold.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-Bold.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -134,9 +134,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-BoldItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-BoldItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 700;
   font-display: swap;
@@ -144,9 +144,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-ExtraBold.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-ExtraBold.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 800;
   font-display: swap;
@@ -154,9 +154,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-ExtraBoldItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-ExtraBoldItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 800;
   font-display: swap;
@@ -164,9 +164,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-Black.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-Black.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 900;
   font-display: swap;
@@ -174,9 +174,9 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-BlackItalic.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-BlackItalic.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 900;
   font-display: swap;
@@ -184,31 +184,31 @@ $inter-font-path: './fonts/inter-webfont' !default;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name} var';
-  src: url('#{$inter-font-path}/#{$inter-filename}-roman.var.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name} var";
+  src: url("#{$inter-font-path}/#{$inter-filename}-roman.var.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  font-named-instance: 'Regular';
+  font-named-instance: "Regular";
   text-rendering: optimizeLegibility;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name}';
-  src: url('#{$inter-font-path}/#{$inter-filename}-italic.var.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name}";
+  src: url("#{$inter-font-path}/#{$inter-filename}-italic.var.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: italic;
   font-weight: 100 900;
   font-display: swap;
-  font-named-instance: 'Italic';
+  font-named-instance: "Italic";
   text-rendering: optimizeLegibility;
 }
 
 @font-face {
-  font-family: '#{$inter-font-name} var';
-  src: url('#{$inter-font-path}/#{$inter-filename}.var.woff2?v=#{$inter-font-version}')
-    format('woff2');
+  font-family: "#{$inter-font-name} var";
+  src: url("#{$inter-font-path}/#{$inter-filename}.var.woff2?v=#{$inter-font-version}")
+    format("woff2");
   font-style: oblique 0deg 10deg;
   font-weight: 100 900;
   font-display: swap;

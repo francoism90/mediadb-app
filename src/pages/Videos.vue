@@ -1,6 +1,6 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-dark q-py-md">
+    <q-toolbar class="bg-dark q-py-lg">
       <q-select
         v-model.lazy="store.query.sort"
         :options="sorters"
@@ -101,18 +101,6 @@ export default defineComponent({
     const $q = useQuasar();
     const { store, fetch } = useVideos();
 
-    const showFilters = (): void => {
-      $q.dialog({
-        component: Filters,
-        componentProps: {
-          position: 'right',
-          maximized: true,
-          transitionShow: 'slide-left',
-          transitionHide: 'slide-right',
-        },
-      });
-    };
-
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
@@ -127,6 +115,18 @@ export default defineComponent({
     const onRefresh = (done: Function): void => {
       store.reset();
       done();
+    };
+
+    const showFilters = (): void => {
+      $q.dialog({
+        component: Filters,
+        componentProps: {
+          maximized: true,
+          position: 'right',
+          transitionShow: 'slide-left',
+          transitionHide: 'slide-right',
+        },
+      });
     };
 
     const filters = computed(() => filter(store.query.filter));
