@@ -12,6 +12,7 @@
         dense
         hide-bottom-space
         map-options
+        options-dense
         popup-content-class="menu bordered"
         popup-content-style="width: 200px; max-width: 100vw;"
       >

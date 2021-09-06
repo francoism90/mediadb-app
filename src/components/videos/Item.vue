@@ -63,6 +63,7 @@
             >
               <q-list
                 bordered
+                dense
                 separator
                 style="width: 250px; max-width: 100vw;"
               >
