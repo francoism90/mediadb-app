@@ -63,18 +63,21 @@
             >
               <q-list
                 bordered
-                dense
-                padding
-                style="width: 200px; max-width: 100vw;"
+                separator
+                style="width: 250px; max-width: 100vw;"
               >
                 <q-item
                   v-close-popup
                   clickable
                   @click="follow"
                 >
+                  <q-item-section side>
+                    <q-icon name="o_watch_later" />
+                  </q-item-section>
+
                   <q-item-section>
                     <q-item-label>
-                      Save to Watch later
+                      Save to Watch Later
                     </q-item-label>
                   </q-item-section>
                 </q-item>
@@ -84,6 +87,10 @@
                   clickable
                   @click="favorite"
                 >
+                  <q-item-section side>
+                    <q-icon name="o_bookmark" />
+                  </q-item-section>
+
                   <q-item-section>
                     <q-item-label>
                       Save to Favorites

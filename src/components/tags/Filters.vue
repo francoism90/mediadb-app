@@ -86,7 +86,7 @@ import { useDialogPluginComponent } from 'quasar';
 import useTags from 'src/composables/useTags';
 
 const lists = [
-  { label: 'Recommended', value: null },
+  { label: 'Show All', value: null },
   { label: 'Actors', value: 'actor' },
   { label: 'Genres', value: 'genre' },
   { label: 'Languages', value: 'language' },

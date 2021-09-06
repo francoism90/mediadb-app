@@ -4,18 +4,19 @@
       <q-select
         v-model.lazy="store.query.sort"
         :options="sorters"
-        borderless
-        class="q-px-none text-caption"
-        dense
+        behavior="menu"
+        class="text-body2 text-weight-medium q-px-none"
         dropdown-icon="expand_more"
+        borderless
         emit-value
+        dense
         hide-bottom-space
         map-options
-        options-dense
-        popup-content-class="bg-grey-10"
+        popup-content-class="menu bordered"
+        popup-content-style="width: 200px; max-width: 100vw;"
       >
         <template #prepend>
-          <span class="mobile-hide text-caption">Sort by</span>
+          <span class="text-body2 mobile-hide">Sort by</span>
         </template>
       </q-select>
 
@@ -39,6 +40,7 @@
     <q-pull-to-refresh @refresh="onRefresh">
       <q-infinite-scroll
         :key="store.id"
+        :debounce="300"
         @load="onLoad"
       >
         <div class="row wrap justify-start items-start content-start q-col-gutter-sm">

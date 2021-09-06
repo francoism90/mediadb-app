@@ -69,7 +69,7 @@
           <q-item-label class="full-width">
             <q-select
               v-model="store.query.filter.tags"
-              :options="tagStore.data"
+              :options="tags.data"
               class="q-my-sm"
               counter
               dense
@@ -137,7 +137,7 @@ import useTagInput from 'src/composables/useTagInput';
 import useVideos from 'src/composables/useVideos';
 
 const lists = [
-  { label: 'Recommended', value: null },
+  { label: 'All Content', value: null },
   { label: 'Bookmarks', value: 'favorites' },
   { label: 'Watchlist', value: 'following' },
   { label: 'History', value: 'viewed' },
@@ -151,11 +151,11 @@ export default {
   setup() {
     const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
     const { store } = useVideos();
-    const { fetch: fetchTags, store: tagStore } = useTagInput();
+    const { fetch: fetchTags, store: tags } = useTagInput();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function): Promise<void> => {
-      tagStore.reset({
+      tags.reset({
         filter: { id: null, query: val },
         sort: val.length < 1 ? 'random' : 'relevance',
       });
@@ -175,7 +175,7 @@ export default {
       resetFilters,
       dialogRef,
       store,
-      tagStore,
+      tags,
       lists,
     };
   },

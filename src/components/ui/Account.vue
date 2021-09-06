@@ -8,8 +8,8 @@
     size="28px"
   >
     <q-menu
-      anchor="top left"
       class="menu"
+      anchor="top left"
       self="top left"
       square
       transition-hide="none"
