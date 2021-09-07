@@ -64,7 +64,6 @@
               <q-list
                 bordered
                 dense
-                style="width: 250px; max-width: 100vw;"
               >
                 <q-item
                   v-for="(action, index) in actions"

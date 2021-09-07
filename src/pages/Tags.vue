@@ -14,10 +14,9 @@
         map-options
         options-dense
         popup-content-class="menu bordered"
-        popup-content-style="width: 200px; max-width: 100vw;"
       >
         <template #prepend>
-          <span class="mobile-hide text-caption">Sort by</span>
+          <span class="text-body2 mobile-hide">Sort by</span>
         </template>
       </q-select>
 

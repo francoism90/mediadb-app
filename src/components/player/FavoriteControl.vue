@@ -4,6 +4,7 @@
     color="white"
     class="cursor-pointer"
     size="24px"
+    right
     @click="onClick"
   />
 </template>

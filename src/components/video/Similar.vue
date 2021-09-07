@@ -25,9 +25,9 @@
 
         <template #loading>
           <div class="row no-wrap justify-center q-my-md">
-            <q-spinner-orbit
+            <q-spinner-oval
               color="primary"
-              size="3em"
+              size="2em"
             />
           </div>
         </template>

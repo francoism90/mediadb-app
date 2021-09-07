@@ -4,6 +4,7 @@
     color="white"
     class="cursor-pointer"
     size="24px"
+    right
   >
     <q-menu
       anchor="top right"
@@ -11,13 +12,11 @@
       self="top right"
       square
       transition-duration="0"
+      style="width: 160px; max-width: 100vw;"
     >
       <q-list
         bordered
         dense
-        padding
-        style="width: 200px; max-width: 100vw;"
-        tabindex="0"
       >
         <q-item
           v-close-popup

@@ -18,9 +18,9 @@
     >
       <q-list
         bordered
-        padding
+        dense
         separator
-        style="width: 300px; max-width: 100vw;"
+        style="width: 250px; max-width: 100vw;"
       >
         <q-item>
           <q-item-section side>
@@ -31,7 +31,7 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label class="text-weight-bold ellipsis-2-lines">
+            <q-item-label class="text-weight-bold ellipsis">
               {{ store.user?.name }}
             </q-item-label>
           </q-item-section>

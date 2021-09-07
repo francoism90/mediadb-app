@@ -5,7 +5,7 @@
         v-model.lazy="store.query.sort"
         :options="sorters"
         behavior="menu"
-        class="text-body2 text-weight-medium q-px-none"
+        class="q-px-none text-caption"
         dropdown-icon="expand_more"
         borderless
         emit-value
@@ -14,7 +14,6 @@
         map-options
         options-dense
         popup-content-class="menu bordered"
-        popup-content-style="width: 200px; max-width: 100vw;"
       >
         <template #prepend>
           <span class="text-body2 mobile-hide">Sort by</span>

@@ -1,11 +1,9 @@
 <template>
   <div class="player-settings absolute-top-right">
-    <div class="q-col-gutter-md">
-      <favorite-control />
-      <follow-control />
-      <caption-control />
-      <model-control />
-    </div>
+    <favorite-control />
+    <follow-control />
+    <caption-control />
+    <model-control />
   </div>
 </template>
 
