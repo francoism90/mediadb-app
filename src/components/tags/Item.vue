@@ -12,12 +12,12 @@
         text-color="white"
         size="48px"
       >
-        {{ tag.name.substring(0, 2) }}
+        {{ tag.name.charAt(0) }}
       </q-avatar>
     </q-item-section>
 
     <q-item-section>
-      <q-item-label class="ellipsis">
+      <q-item-label class="text-weight-bold ellipsis">
         {{ tag.name }}
       </q-item-label>
 

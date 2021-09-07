@@ -36,7 +36,7 @@
     <q-card-section class="q-pa-none">
       <div class="row q-pa-sm">
         <div class="col">
-          <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
+          <div class="q-pb-xs text-weight-bold ellipsis-2-lines">
             {{ name }}
           </div>
 
