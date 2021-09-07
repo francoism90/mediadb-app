@@ -34,8 +34,8 @@
     </router-link>
 
     <q-card-section class="q-pa-none">
-      <div class="row">
-        <div class="col q-pa-sm">
+      <div class="row q-pa-sm">
+        <div class="col">
           <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
             {{ name }}
           </div>
@@ -47,12 +47,12 @@
         </div>
 
         <div class="col-auto">
-          <q-btn
-            class="q-my-sm q-mx-xs"
-            icon="more_vert"
-            padding="xs"
-            size="14px"
-            fab
+          <q-icon
+            aria-label="More actions"
+            class="cursor-pointer text-grey-5"
+            name="more_vert"
+            size="24px"
+            right
           >
             <q-menu
               anchor="top right"
@@ -73,10 +73,6 @@
                   clickable
                   @click="this[action.callback]()"
                 >
-                  <q-item-section side>
-                    <q-icon :name="action.icon" />
-                  </q-item-section>
-
                   <q-item-section>
                     <q-item-label>
                       {{ action.label }}
@@ -85,7 +81,7 @@
                 </q-item>
               </q-list>
             </q-menu>
-          </q-btn>
+          </q-icon>
         </div>
       </div>
     </q-card-section>
@@ -103,12 +99,10 @@ import { computed, defineComponent, PropType } from 'vue';
 
 const actions = [
   {
-    icon: 'o_watch_later',
     label: 'Save to Watch Later',
     callback: 'follow',
   },
   {
-    icon: 'o_bookmark',
     label: 'Save to Favorites',
     callback: 'favorite',
   },

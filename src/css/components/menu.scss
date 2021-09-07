@@ -6,4 +6,9 @@
     border: $layout-border;
     border-radius: 0;
   }
+
+  .q-list--dense > .q-item,
+  .q-item--dense {
+    padding: 10px 12px;
+  }
 }
