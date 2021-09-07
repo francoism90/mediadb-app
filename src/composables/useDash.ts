@@ -13,7 +13,7 @@ export default function useDash() {
   const container = ref<HTMLDivElement>();
   const video = ref<HTMLVideoElement>();
 
-  const setElements = (): void => {
+  const setAttributes = (): void => {
     // Metadata
     video.value?.setAttribute('height', store.model.clip?.height?.toString() || '360');
     video.value?.setAttribute('width', store.model.clip?.width?.toString() || '720');
@@ -61,7 +61,7 @@ export default function useDash() {
     });
   };
 
-  const addListeners = (): void => {
+  const setListeners = (): void => {
     dashjs.listeners.forEach((event) => {
       player.value?.on(event, listener);
     });
@@ -80,12 +80,10 @@ export default function useDash() {
     player.value?.pause();
     player.value?.reset();
 
-    // Reset elements
-    const sprite = document.getElementById('sprite');
-
-    if (sprite) {
-      video.value?.removeChild(sprite);
-    }
+    // Reset video
+    video.value?.childNodes?.forEach((child) => {
+      video.value?.removeChild(child);
+    });
 
     // @doc https://stackoverflow.com/a/28060352
     video.value?.removeAttribute('src');
@@ -114,9 +112,9 @@ export default function useDash() {
     player.value?.enableForcedTextStreaming(true);
 
     player.value?.on('playbackMetaDataLoaded', () => {
-      setElements();
+      setAttributes();
       setTracks();
-      addListeners();
+      setListeners();
     });
   };
 

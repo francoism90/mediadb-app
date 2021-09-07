@@ -19,7 +19,6 @@
         <q-space />
 
         <q-tabs
-          v-model="tab"
           indicator-color="primary"
           content-class="header-tabs text-grey-5"
           left-icon="chevron_left"

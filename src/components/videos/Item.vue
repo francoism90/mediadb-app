@@ -41,7 +41,7 @@
           </div>
 
           <chips
-            v-if="video.tags.length"
+            v-if="video.tags?.length"
             :tags="video.tags"
           />
         </div>
@@ -64,37 +64,22 @@
               <q-list
                 bordered
                 dense
-                separator
                 style="width: 250px; max-width: 100vw;"
               >
                 <q-item
+                  v-for="(action, index) in actions"
+                  :key="index"
                   v-close-popup
                   clickable
-                  @click="follow"
+                  @click="this[action.callback]()"
                 >
                   <q-item-section side>
-                    <q-icon name="o_watch_later" />
+                    <q-icon :name="action.icon" />
                   </q-item-section>
 
                   <q-item-section>
                     <q-item-label>
-                      Save to Watch Later
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-
-                <q-item
-                  v-close-popup
-                  clickable
-                  @click="favorite"
-                >
-                  <q-item-section side>
-                    <q-icon name="o_bookmark" />
-                  </q-item-section>
-
-                  <q-item-section>
-                    <q-item-label>
-                      Save to Favorites
+                      {{ action.label }}
                     </q-item-label>
                   </q-item-section>
                 </q-item>
@@ -115,6 +100,19 @@ import useFilters from 'src/composables/useFilters';
 import useVideo from 'src/composables/useVideo';
 import { VideoModel } from 'src/interfaces/video';
 import { computed, defineComponent, PropType } from 'vue';
+
+const actions = [
+  {
+    icon: 'o_watch_later',
+    label: 'Save to Watch Later',
+    callback: 'follow',
+  },
+  {
+    icon: 'o_bookmark',
+    label: 'Save to Favorites',
+    callback: 'favorite',
+  },
+];
 
 export default defineComponent({
   name: 'VideosItem',
@@ -166,6 +164,7 @@ export default defineComponent({
     return {
       favorite,
       follow,
+      actions,
       duration,
       name,
       store,
