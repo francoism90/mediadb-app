@@ -43,7 +43,6 @@ export default defineComponent({
 
   setup() {
     const { store } = useDash();
-
     const timer = ref<number>(0);
 
     const deactivate = (): void => {

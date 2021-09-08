@@ -8,7 +8,7 @@
       :min="0.0"
       :max="store.properties?.duration || 0"
       :step="0"
-      :style="bufferStyle"
+      :style="{ '--buffer': `${buffered}%` }"
       color="primary"
       @mousemove="onMouseHover"
       @mouseleave="tooltip = false"
@@ -55,14 +55,8 @@ export default defineComponent({
     const tooltip = ref<boolean>();
 
     const buffered = computed(() => Math.round(store.properties?.buffered || 0));
-    const bufferedRemaining = computed(() => Math.round(100 - buffered.value));
     const currentTime = computed(() => formatTime(store.properties?.time || 0));
     const duration = computed(() => formatTime(store.properties?.duration || 0));
-
-    const bufferStyle = computed(() => ({
-      '--buffer': `${buffered.value}%`,
-      '--remaining': `${bufferedRemaining.value}%`,
-    }));
 
     const setCurrentTime = (payload: number): void => {
       store.time = payload;
@@ -81,9 +75,9 @@ export default defineComponent({
     };
 
     return {
-      setCurrentTime,
       onMouseHover,
-      bufferStyle,
+      setCurrentTime,
+      buffered,
       currentTime,
       duration,
       slider,
