@@ -21,7 +21,7 @@ export function initialize(): Echo {
       // eslint-disable-next-line @typescript-eslint/ban-types
       authorize: async (socketId: string, callback: Function) => {
         try {
-          const response = await api.post('/broadcasting/auth', {
+          const response = await api.post('broadcasting/auth', {
             socket_id: socketId,
             channel_name: channel.name as string,
           });

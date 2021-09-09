@@ -7,7 +7,7 @@ import { UserResponse } from 'src/interfaces/user';
 export async function auth(params: AuthUser): Promise<AuthResponse> {
   const apiToken = params.token || '';
 
-  const response = await api.get<UserResponse, AxiosResponse<AuthResponse>>('auth/user', {
+  const response = await api.get<UserResponse, AxiosResponse<AuthResponse>>('user', {
     headers: {
       Authorization: `Bearer ${apiToken}`,
     },
@@ -17,13 +17,13 @@ export async function auth(params: AuthUser): Promise<AuthResponse> {
 }
 
 export async function login(params: LoginUser): Promise<AuthResponse> {
-  const response = await api.post<AuthResponse, AxiosResponse<AuthResponse>>('auth/login', params);
+  const response = await api.post<AuthResponse, AxiosResponse<AuthResponse>>('login', params);
 
   return response.data;
 }
 
 export async function logout(params: AuthUser): Promise<AuthResponse> {
-  const response = await api.post<AuthResponse, AxiosResponse<AuthResponse>>('auth/logout', params);
+  const response = await api.post<AuthResponse, AxiosResponse<AuthResponse>>('logout', params);
 
   return response.data;
 }

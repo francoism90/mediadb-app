@@ -152,7 +152,7 @@ export default defineComponent({
       props.video.name,
     ]));
 
-    const duration = computed(() => formatTime(props.video.clip?.duration || 0));
+    const duration = computed(() => formatTime(props.video.clip?.metadata?.duration || 0));
 
     return {
       favorite,

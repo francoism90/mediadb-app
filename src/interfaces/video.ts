@@ -1,7 +1,5 @@
 import { MediaModel } from 'src/interfaces/media';
-import {
-  Model, RepositoryLinks, RepositoryMeta, RepositoryQuery,
-} from 'src/interfaces/repository';
+import { Model, RepositoryLinks, RepositoryMeta, RepositoryQuery } from 'src/interfaces/repository';
 import { TagModel } from 'src/interfaces/tag';
 
 export type VideosMeta = RepositoryMeta

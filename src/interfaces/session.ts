@@ -7,10 +7,6 @@ export interface SessionState {
   user: UserModel,
 }
 
-export interface CsrfCookie {
-  message: string | null,
-}
-
 export interface AuthUser {
   redirectUri?: string | null,
   token?: string | null,
@@ -19,8 +15,8 @@ export interface AuthUser {
 export interface LoginUser {
   email: string,
   password: string,
+  remember: boolean,
   'device_name': string,
-  'remember_me': boolean,
 }
 
 export interface AuthResponse {

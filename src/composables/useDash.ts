@@ -15,8 +15,8 @@ export default function useDash() {
 
   const setAttributes = (): void => {
     // Metadata
-    video.value?.setAttribute('height', store.model.clip?.height?.toString() || '360');
-    video.value?.setAttribute('width', store.model.clip?.width?.toString() || '720');
+    video.value?.setAttribute('height', store.model.clip?.metadata?.height?.toString() || '360');
+    video.value?.setAttribute('width', store.model.clip?.metadata?.width?.toString() || '720');
     video.value?.setAttribute('poster', store.model.poster_url || '');
 
     // Tracks
@@ -77,8 +77,8 @@ export default function useDash() {
     removeListeners();
 
     // Reset player
-    player.value?.pause();
     player.value?.reset();
+    player.value?.destroy();
 
     // Reset video
     video.value?.childNodes?.forEach((child) => {

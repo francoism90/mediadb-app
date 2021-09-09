@@ -126,7 +126,7 @@ export default defineComponent({
       store.data.name,
     ]));
 
-    const duration = computed(() => formatTime(store.data.clip?.duration || 0));
+    const duration = computed(() => formatTime(store.data.clip?.metadata?.duration || 0));
     const created = computed(() => formatDate(store.data.created_at || Date.now()));
     const released = computed(() => formatDate(store.data.release_date || Date.now()));
 
