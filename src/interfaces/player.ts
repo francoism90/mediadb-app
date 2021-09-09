@@ -22,6 +22,11 @@ export interface PlayerTooltip {
   sliderWidth: number,
 }
 
+export interface PlayerThumbnail {
+  type: string,
+  url: string,
+}
+
 export interface PlayerState {
   model: VideoModel,
   controls: boolean,
