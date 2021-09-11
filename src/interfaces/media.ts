@@ -8,7 +8,9 @@ export interface MediaMetadata {
 
 export interface MediaModel extends Model {
   'mime_type': string,
-  metadata: MediaMetadata,
+  type: string,
+  metadata?: MediaMetadata,
+  size?: number,
 }
 
 export interface MediaResponse {

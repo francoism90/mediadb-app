@@ -15,10 +15,10 @@ export interface VideoModel extends Model {
   clip?: MediaModel,
   model?: Model,
   overview?: string,
-  status: string,
+  status?: string,
   tags?: TagModel[],
-  type: string,
-  views: number,
+  type?: string,
+  views?: number,
 }
 
 export interface VideoResponse {
