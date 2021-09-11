@@ -95,7 +95,7 @@ export default function useDash() {
   const attach = (model: VideoModel): void => {
     store.$patch({ model });
 
-    const manifestUri = store.model?.vod_url || store.model?.live_url || '';
+    const manifestUri = store.model?.dash_url || '';
     const token = getToken() || '';
 
     player.value = MediaPlayer().create();

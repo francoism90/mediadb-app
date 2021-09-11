@@ -9,10 +9,9 @@ export interface VideoModel extends Model {
   'episode_number': string,
   'release_date': string,
   'season_number': string,
-  'live_url'?: string
+  'dash_url'?: string
   'poster_url'?: string
   'sprite_url'?: string
-  'vod_url'?: string
   clip?: MediaModel,
   model?: Model,
   overview?: string,
