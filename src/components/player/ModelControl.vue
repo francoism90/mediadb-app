@@ -1,41 +1,57 @@
 <template>
-  <q-icon
-    name="more_vert"
-    color="white"
-    class="cursor-pointer"
-    size="24px"
-    right
+  <q-list
+    bordered
+    dense
+    separator
+    style="width: 250px; max-width: 100vw;"
   >
-    <q-menu
-      anchor="top right"
-      class="menu"
-      self="top right"
-      square
-      transition-duration="0"
-      style="width: 160px; max-width: 100vw;"
+    <q-item
+      v-close-popup
+      clickable
+      @click="edit"
     >
-      <q-list
-        bordered
-        dense
-      >
-        <q-item
-          v-close-popup
-          clickable
-          @click="edit"
-        >
-          <q-item-section>Edit Model</q-item-section>
-        </q-item>
+      <q-item-section side>
+        <q-icon name="o_movie" />
+      </q-item-section>
 
-        <q-item
-          v-close-popup
-          clickable
-          @click="capture"
-        >
-          <q-item-section>Set Thumbnail</q-item-section>
-        </q-item>
-      </q-list>
-    </q-menu>
-  </q-icon>
+      <q-item-section>
+        <q-item-label>
+          Edit Video
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+
+    <q-item
+      v-close-popup
+      clickable
+      @click="capture"
+    >
+      <q-item-section side>
+        <q-icon name="o_photo_camera" />
+      </q-item-section>
+
+      <q-item-section>
+        <q-item-label>
+          Set as Thumbnail
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+
+    <q-item
+      clickable
+      @click="$emit('setComponent', 'QualityControl')"
+    >
+      <q-item-section side>
+        <q-icon name="o_video_settings" />
+      </q-item-section>
+
+      <q-item-section>Quality</q-item-section>
+
+      <q-item-section side>
+        <q-icon name="keyboard_arrow_right" />
+      </q-item-section>
+    </q-item>
+  </q-list>
 </template>
 
 <script lang="ts">
@@ -47,6 +63,8 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ModelControl',
+
+  emits: ['setComponent'],
 
   setup() {
     const { store } = useDash();

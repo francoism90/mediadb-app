@@ -1,3 +1,4 @@
+import { MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
 import { VideoModel } from 'src/interfaces/video';
 
@@ -12,6 +13,8 @@ export interface PlayerProperties {
   quality: number,
   seeking: boolean,
   textTracks: TextTrackList,
+  videoTrack: MediaInfo | null,
+  videoTracks: MediaInfo[] | null,
   time: number,
   volume: number,
 }
