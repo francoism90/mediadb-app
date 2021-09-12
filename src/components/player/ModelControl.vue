@@ -58,6 +58,7 @@
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
 import useDash from 'src/composables/useDash';
+import { VideoModel } from 'src/interfaces/video';
 import { save } from 'src/repositories/video';
 import { defineComponent } from 'vue';
 
@@ -71,7 +72,9 @@ export default defineComponent({
     const $q = useQuasar();
 
     const capture = async (): Promise<void> => {
-      await save({
+      if (store.properties?.time < 1) return;
+
+      await save(<VideoModel>{
         ...store.model,
         ...{ capture_time: store.properties?.time || 0 },
       });
