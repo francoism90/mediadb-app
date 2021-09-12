@@ -23,13 +23,10 @@
       <div class="absolute-bottom-right q-mx-sm">
         <q-chip
           :clickable="false"
-          :icon="`${video.clip?.resolution?.icon}`"
-          class="transparent"
+          :label="duration"
+          class="text-caption transparent"
           dense
-          size="16px"
-        >
-          <span class="text-caption">{{ duration }}</span>
-        </q-chip>
+        />
       </div>
     </router-link>
 
@@ -88,6 +85,7 @@
 </template>
 
 <script lang="ts">
+import { head } from 'lodash';
 import { useQuasar } from 'quasar';
 import Chips from 'src/components/tags/Chips.vue';
 import useAcquaintances from 'src/composables/useAcquaintances';
@@ -152,7 +150,8 @@ export default defineComponent({
       props.video.name,
     ]));
 
-    const duration = computed(() => formatTime(props.video.clip?.metadata?.duration || 0));
+    const clip = computed(() => head(props.video.clips));
+    const duration = computed(() => formatTime(clip.value?.metadata?.duration || 0));
 
     return {
       favorite,

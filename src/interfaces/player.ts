@@ -16,6 +16,13 @@ export interface PlayerProperties {
   volume: number,
 }
 
+export interface PlayerResolution {
+  label: string,
+  icon: string,
+  width: number,
+  height: number,
+}
+
 export interface PlayerTooltip {
   clientX: number,
   sliderOffset: DomOffset,

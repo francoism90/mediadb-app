@@ -42,7 +42,7 @@
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
 import useDash from 'src/composables/useDash';
-import { save } from 'src/repositories/media';
+import { save } from 'src/repositories/video';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -53,13 +53,9 @@ export default defineComponent({
     const $q = useQuasar();
 
     const capture = async (): Promise<void> => {
-      if (!store.model?.clip) {
-        return;
-      }
-
       await save({
-        ...store.model.clip,
-        ...{ thumbnail: store.properties?.time || 0 },
+        ...store.model,
+        ...{ capture_time: store.properties?.time || 0 },
       });
 
       $q.notify({
