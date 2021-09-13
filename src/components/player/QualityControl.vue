@@ -4,11 +4,17 @@
     :key="index"
     bordered
     dense
+    separator
+    style="width: 230px; max-width: 100vw;"
   >
     <q-item
       v-close-popup
       clickable
     >
+      <q-item-section side>
+        <q-icon :name="item.icon" />
+      </q-item-section>
+
       <q-item-section>{{ item.label }}</q-item-section>
 
       <q-item-section side>
@@ -37,18 +43,9 @@ export default defineComponent({
       return formatResolution(bitrate?.height || 0, bitrate?.width || 0);
     }));
 
-    const bitrate = computed(() => store.properties.videoTrack?.bitrateList.find(Boolean));
-
-    const resolution = computed(() => formatResolution(
-      bitrate.value?.height || 0,
-      bitrate.value?.width || 0,
-    ));
-
     return {
       store,
-      bitrate,
       bitrates,
-      resolution,
     };
   },
 });

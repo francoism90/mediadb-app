@@ -3,7 +3,7 @@
     bordered
     dense
     separator
-    style="width: 250px; max-width: 100vw;"
+    style="width: 230px; max-width: 100vw;"
   >
     <q-item
       v-close-popup
@@ -48,7 +48,15 @@
       <q-item-section>Quality</q-item-section>
 
       <q-item-section side>
-        <q-icon name="keyboard_arrow_right" />
+        <div class="row items-center justify-end">
+          <span class="text-caption">{{ resolution?.label }}</span>
+
+          <q-icon
+            name="keyboard_arrow_right"
+            size="24px"
+            right
+          />
+        </div>
       </q-item-section>
     </q-item>
   </q-list>
@@ -58,9 +66,10 @@
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
 import useDash from 'src/composables/useDash';
+import useFilters from 'src/composables/useFilters';
 import { VideoModel } from 'src/interfaces/video';
 import { save } from 'src/repositories/video';
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ModelControl',
@@ -69,6 +78,7 @@ export default defineComponent({
 
   setup() {
     const { store } = useDash();
+    const { formatResolution } = useFilters();
     const $q = useQuasar();
 
     const capture = async (): Promise<void> => {
@@ -94,9 +104,17 @@ export default defineComponent({
       });
     };
 
+    const bitrate = computed(() => store.properties.videoTrack?.bitrateList.find(Boolean));
+
+    const resolution = computed(() => formatResolution(
+      bitrate.value?.height || 0,
+      bitrate.value?.width || 0,
+    ));
+
     return {
       capture,
       edit,
+      resolution,
     };
   },
 });

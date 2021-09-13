@@ -13,7 +13,7 @@
       self="top right"
       square
       transition-duration="0"
-      style="width: 250px; max-width: 100vw;"
+      style="width: 230px; max-width: 100vw;"
       @hide="setComponent('ModelControl')"
     >
       <component
