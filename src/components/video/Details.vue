@@ -4,7 +4,7 @@
     class="video-details q-py-md"
   >
     <h1 class="text-h3 text-white ellipsis-2-lines">
-      {{ title }}
+      {{ store.data?.name }}
     </h1>
 
     <div class="q-gutter-sm text-white">
@@ -83,11 +83,11 @@
         {{ duration }}
       </item>
 
-      <item v-if="store.data?.clip?.resolution">
+      <item v-if="resolution">
         <template #label>
           Resolution :
         </template>
-        {{ store.data.clip.resolution.label }}
+        {{ resolution?.label }}
       </item>
 
       <item v-if="store.data.created_at">
@@ -101,6 +101,7 @@
 </template>
 
 <script lang="ts">
+import { head } from 'lodash';
 import List from 'src/components/tags/List.vue';
 import Item from 'src/components/video/Item.vue';
 import useFilters from 'src/composables/useFilters';
@@ -117,18 +118,18 @@ export default defineComponent({
 
   setup() {
     const { store } = useVideo();
-    const { formatDate, formatTime, formatTitle } = useFilters();
+    const { formatDate, formatResolution, formatTime } = useFilters();
 
     const tagsByType = (type: string) => store.data.tags?.filter((tag) => tag.type === type);
 
-    const title = computed(() => formatTitle([
-      [store.data.season_number, store.data.episode_number].join(''),
-      store.data.name,
-    ]));
-
-    const duration = computed(() => formatTime(store.data.clip?.duration || 0));
+    const clip = computed(() => head(store.data.clips));
+    const duration = computed(() => formatTime(clip.value?.metadata?.duration || 0));
     const created = computed(() => formatDate(store.data.created_at || Date.now()));
     const released = computed(() => formatDate(store.data.release_date || Date.now()));
+    const resolution = computed(() => formatResolution(
+      clip.value?.metadata?.height || 0,
+      clip.value?.metadata?.width || 0,
+    ));
 
     const cast = computed(() => tagsByType('actor'));
     const languages = computed(() => tagsByType('language'));
@@ -137,12 +138,12 @@ export default defineComponent({
 
     return {
       store,
-      title,
       cast,
       languages,
       genres,
       studios,
       duration,
+      resolution,
       created,
       released,
     };

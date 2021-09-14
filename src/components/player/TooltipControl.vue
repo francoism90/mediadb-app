@@ -22,6 +22,7 @@
 import { clamp, debounce, find, inRange } from 'lodash';
 import useDash from 'src/composables/useDash';
 import useFilters from 'src/composables/useFilters';
+import { PlayerThumbnail } from 'src/interfaces/player';
 import { getBlob } from 'src/services/api';
 import {
   computed, defineComponent, ref, watch,
@@ -50,7 +51,11 @@ export default defineComponent({
         (o: VTTCue) => inRange(time.value, o.startTime, o.endTime),
       ) as VTTCue;
 
-      const response = await getBlob(cue?.text || '');
+      if (!cue) return;
+
+      const text = JSON.parse(cue?.text) as PlayerThumbnail;
+
+      const response = await getBlob(text.url || '');
       const reader = new window.FileReader();
 
       reader.readAsDataURL(response);

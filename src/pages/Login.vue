@@ -69,14 +69,14 @@ export default defineComponent({
     const $q = useQuasar();
 
     const { router } = useRouter();
-    const { store, useCsrfCookie } = useSession();
+    const { store } = useSession();
 
     const formRef = ref<HTMLFormElement | null>(null);
     const form = reactive<LoginUser>({
       email: '',
       password: '',
       device_name: $q.platform.userAgent || '',
-      remember_me: true,
+      remember: true,
     });
 
     const {
@@ -87,7 +87,6 @@ export default defineComponent({
       resetResponse();
 
       try {
-        await useCsrfCookie();
         await signIn(form);
 
         await router.replace(store.redirectUri || '/');

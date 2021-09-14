@@ -1,27 +1,25 @@
 import { MediaModel } from 'src/interfaces/media';
-import {
-  Model, RepositoryLinks, RepositoryMeta, RepositoryQuery,
-} from 'src/interfaces/repository';
+import { Model, RepositoryLinks, RepositoryMeta, RepositoryQuery } from 'src/interfaces/repository';
 import { TagModel } from 'src/interfaces/tag';
 
 export type VideosMeta = RepositoryMeta
 export type VideosLinks = RepositoryLinks
 
 export interface VideoModel extends Model {
+  'capture_time': number,
   'episode_number': string,
   'release_date': string,
   'season_number': string,
-  'live_url'?: string
+  'dash_url'?: string
   'poster_url'?: string
   'sprite_url'?: string
-  'vod_url'?: string
-  clip?: MediaModel,
+  clips?: MediaModel[],
   model?: Model,
   overview?: string,
-  status: string,
+  status?: string,
   tags?: TagModel[],
-  type: string,
-  views: number,
+  type?: string,
+  views?: number,
 }
 
 export interface VideoResponse {

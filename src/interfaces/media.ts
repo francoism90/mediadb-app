@@ -1,21 +1,16 @@
 import { Model } from 'src/interfaces/repository';
 
-export interface MediaResolution {
-  icon: string,
-  label: string,
-  width: string,
+export interface MediaMetadata {
+  duration?: number | null
+  height?: number | null
+  width?: number | null
 }
 
 export interface MediaModel extends Model {
   'mime_type': string,
-  kind: string,
-  bitrate?: number | null,
-  duration?: number | null,
-  height?: number | null,
-  locale?: string | null,
-  resolution?: MediaResolution,
-  size?: number | null,
-  width?: number | null,
+  type: string,
+  metadata?: MediaMetadata,
+  size?: number,
 }
 
 export interface MediaResponse {

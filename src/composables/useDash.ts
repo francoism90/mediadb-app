@@ -15,8 +15,8 @@ export default function useDash() {
 
   const setAttributes = (): void => {
     // Metadata
-    video.value?.setAttribute('height', store.model.clip?.height?.toString() || '360');
-    video.value?.setAttribute('width', store.model.clip?.width?.toString() || '720');
+    // video.value?.setAttribute('height', store.model.clip?.metadata?.height?.toString() || '360');
+    // video.value?.setAttribute('width', store.model.clip?.metadata?.width?.toString() || '720');
     video.value?.setAttribute('poster', store.model.poster_url || '');
 
     // Tracks
@@ -52,9 +52,10 @@ export default function useDash() {
         muted: player.value?.isMuted(),
         paused: player.value?.isPaused(),
         playbackRate: player.value?.getPlaybackRate(),
-        quality: player.value?.getQualityFor('video'),
         seeking: player.value?.isSeeking(),
         textTracks: video.value?.textTracks,
+        videoTrack: player.value?.getCurrentTrackFor('video'),
+        videoTracks: player.value?.getTracksFor('video'),
         time: player.value?.time(),
         volume: player.value?.getVolume(),
       },
@@ -77,8 +78,8 @@ export default function useDash() {
     removeListeners();
 
     // Reset player
-    player.value?.pause();
     player.value?.reset();
+    player.value?.destroy();
 
     // Reset video
     video.value?.childNodes?.forEach((child) => {
@@ -95,7 +96,7 @@ export default function useDash() {
   const attach = (model: VideoModel): void => {
     store.$patch({ model });
 
-    const manifestUri = store.model?.vod_url || store.model?.live_url || '';
+    const manifestUri = store.model?.dash_url || '';
     const token = getToken() || '';
 
     player.value = MediaPlayer().create();
@@ -108,7 +109,7 @@ export default function useDash() {
       },
     }), true);
 
-    player.value?.initialize(video.value, manifestUri, true);
+    player.value?.initialize(video.value, manifestUri, false);
     player.value?.enableForcedTextStreaming(true);
 
     player.value?.on('playbackMetaDataLoaded', () => {

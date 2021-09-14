@@ -6,7 +6,7 @@ export const useStore = defineStore('videos', {
   state: () => (<VideosState>{
     id: Date.now(),
     query: <VideosQuery>{
-      append: ['clip', 'favorite', 'following', 'poster_url'],
+      append: ['clips', 'favorite', 'following', 'poster_url'],
       sort: 'relevance',
       filter: {
         type: null,
