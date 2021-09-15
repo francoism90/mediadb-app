@@ -37,7 +37,7 @@ export default function useDash() {
   };
 
   const listener = (): void => {
-    if (!store.isReady || typeof player.value === 'undefined' || typeof video.value === 'undefined') {
+    if (!store.isReady || !player.value || !video.value) {
       return;
     }
 
@@ -107,7 +107,7 @@ export default function useDash() {
       },
     }), true);
 
-    player.value?.initialize(video.value, manifestUri, false);
+    player.value?.initialize(video.value, manifestUri, true);
     player.value?.enableForcedTextStreaming(true);
 
     player.value?.on('playbackMetaDataLoaded', () => {
