@@ -15,9 +15,7 @@ export default function useDash() {
 
   const setAttributes = (): void => {
     // Metadata
-    // video.value?.setAttribute('height', store.model.clip?.metadata?.height?.toString() || '360');
-    // video.value?.setAttribute('width', store.model.clip?.metadata?.width?.toString() || '720');
-    video.value?.setAttribute('poster', store.model.poster_url || '');
+    video.value?.setAttribute('poster', store.model?.poster_url || '');
 
     // Tracks
     const track = document.createElement('track');
