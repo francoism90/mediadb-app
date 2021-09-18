@@ -1,13 +1,10 @@
 .tag-item {
-  height: 48px;
-  min-height: 48px;
-  min-width: 200px;
-}
+  height: 300px;
+  min-height: 300px;
+  max-height: 300px;
+  min-width: 180px;
 
-.tag-item-placeholder {
-  height: 48px;
-}
-
-.tag-item-description {
-  line-height: 48px;
+  .poster {
+    height: 200px;
+  }
 }

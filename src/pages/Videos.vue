@@ -42,7 +42,7 @@
         :key="store.id"
         @load="onLoad"
       >
-        <div class="row wrap justify-start items-start content-start q-col-gutter-md">
+        <div class="row justify-start items-start content-start q-col-gutter-md">
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"

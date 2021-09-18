@@ -1,43 +1,52 @@
 <template>
-  <q-item
-    v-ripple
-    clickable
-    class="no-padding tag-item"
-    @click="onClick"
+  <q-card
+    class="tag-item"
+    draggable="false"
+    flat
+    square
+    @click="query"
   >
-    <q-item-section side>
-      <q-avatar
-        square
-        color="grey-8"
-        text-color="white"
-        size="48px"
-      >
-        {{ tag.name.charAt(0) }}
-      </q-avatar>
-    </q-item-section>
+    <q-card-section class="poster q-pa-none">
+      <q-icon
+        :name="icon?.name || 'o_tag'"
+        class="poster-image cursor-pointer"
+        color="grey-5"
+        size="32px"
+      />
+    </q-card-section>
 
-    <q-item-section>
-      <q-item-label class="text-weight-bold ellipsis">
+    <q-card-section class="q-px-none">
+      <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
         {{ tag.name }}
-      </q-item-label>
+      </div>
 
-      <q-item-label
-        caption
-        class="tag-item-description"
-      >
-        <span class="text-capitalize">{{ tag.type || '' }}</span>
-        <span class="q-px-sm">•</span>
-        <span>{{ tag.items || 0 }} items</span>
-      </q-item-label>
-    </q-item-section>
-  </q-item>
+      <div class="text-grey-5 text-weight-medium ellipsis">
+        {{ tag.items }} items
+      </div>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script lang="ts">
 import useRouter from 'src/composables/useRouter';
 import useVideos from 'src/composables/useVideos';
 import { TagModel } from 'src/interfaces/tag';
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
+
+const icons = [
+  {
+    type: 'actor',
+    name: 'o_person',
+  },
+  {
+    type: 'language',
+    name: 'o_language',
+  },
+  {
+    type: 'studio',
+    name: 'o_theaters',
+  },
+];
 
 export default defineComponent({
   name: 'TagsItem',
@@ -53,7 +62,7 @@ export default defineComponent({
     const { store } = useVideos();
     const { router } = useRouter();
 
-    const onClick = async () => {
+    const query = async () => {
       store.reset({
         filter: { tags: [props.tag.name] },
       });
@@ -61,8 +70,11 @@ export default defineComponent({
       await router.push({ name: 'home' });
     };
 
+    const icon = computed(() => icons.find((e) => e.type === props.tag.type));
+
     return {
-      onClick,
+      query,
+      icon,
     };
   },
 });
