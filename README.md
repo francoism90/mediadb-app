@@ -4,19 +4,16 @@
 
 Note: MediaDB is still under development. It is recommended to create a fork and sync it with the `main` branch.
 
-## Installation
+## Documentation
 
-Notes:
-
-- Requires a running [MediaDB API](https://github.com/francoism90/mediadb) instance.
-- See the [api docs](https://github.com/francoism90/mediadb/blob/master/doc/nginx/) for nginx configuration examples.
-
-### Configuration
+<https://francoism90.github.io/mediadb-docs/>
 
 Please consult the following links to learn more about Quasar:
 
 - <https://quasar.dev>
 - <https://quasar.dev/quasar-cli/installation>
+
+### Configuration
 
 ```bash
 cd /var/www/html/app
@@ -55,4 +52,4 @@ quasar dev --mode capacitor --target android --ide
 quasar build --mode capacitor --target android --ide
 ```
 
-Update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` so it reflects your own configured domains.
+Update `src-capacitor/android/app/src/main/res/xml/network_security_config.xml` and `src-capacitor/capacitor.config.json` with your own configured domains.
