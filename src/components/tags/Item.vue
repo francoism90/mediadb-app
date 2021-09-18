@@ -1,36 +1,23 @@
 <template>
-  <q-item
-    v-ripple
-    clickable
-    class="no-padding tag-item"
+  <q-card
+    :class="[tag.type ? tag.type : '', 'tag-section cursor-pointer q-py-sm q-px-md']"
+    draggable="false"
+    flat
+    square
     @click="onClick"
   >
-    <q-item-section side>
-      <q-avatar
-        square
-        color="grey-8"
-        text-color="white"
-        size="48px"
-      >
-        {{ tag.name.charAt(0) }}
-      </q-avatar>
-    </q-item-section>
-
-    <q-item-section>
-      <q-item-label class="text-weight-bold ellipsis">
+    <q-card-section horizontal>
+      <div class="text-weight-medium ellipsis">
         {{ tag.name }}
-      </q-item-label>
+      </div>
+    </q-card-section>
 
-      <q-item-label
-        caption
-        class="tag-item-description"
-      >
-        <span class="text-capitalize">{{ tag.type || '' }}</span>
-        <span class="q-px-sm">•</span>
-        <span>{{ tag.items || 0 }} items</span>
-      </q-item-label>
-    </q-item-section>
-  </q-item>
+    <q-card-section horizontal>
+      <div class="text-caption text-grey-5 ellipsis">
+        {{ tag.items || 0 }} items
+      </div>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script lang="ts">

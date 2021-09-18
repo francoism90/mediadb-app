@@ -8,11 +8,6 @@
 .video-item-poster {
   display: block;
   height: 220px;
-  position: relative;
-
-  :hover {
-    border-color: $primary;
-  }
 }
 
 .video-item-image {
@@ -20,6 +15,10 @@
   border: $layout-border;
   border-color: rgba(189, 189, 189, 0.2);
   transition: border-color 0.3s;
+
+  &:hover {
+    border-color: $primary;
+  }
 }
 
 .video-details-label {

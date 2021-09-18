@@ -3,6 +3,7 @@
     class="transparent video-item"
     draggable="false"
     flat
+    square
   >
     <router-link
       :to="{ name: 'video', params: { id: video.id, slug: video.slug }}"
@@ -16,6 +17,7 @@
         height="100%"
         width="100%"
         no-spinner
+        no-transition
       />
     </router-link>
 

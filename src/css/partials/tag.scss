@@ -1,13 +1,28 @@
 .tag-item {
-  height: 48px;
-  min-height: 48px;
+  height: 58px;
+  min-height: 58px;
   min-width: 200px;
+
+  & .actor {
+    border-color: $red;
+  }
+
+  & .language {
+    border-color: $purple;
+  }
+
+  & .studio {
+    border-color: $blue;
+  }
 }
 
-.tag-item-placeholder {
-  height: 48px;
-}
+.tag-section {
+  background-color: $grey-10;
+  border-left: 3px solid $grey;
+  transition: 0.3s;
+  position: relative;
 
-.tag-item-description {
-  line-height: 48px;
+  &:hover {
+    background: $grey-12;
+  }
 }
