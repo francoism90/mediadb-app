@@ -16,7 +16,6 @@
         height="100%"
         width="100%"
         no-spinner
-        no-transition
       />
     </router-link>
 
