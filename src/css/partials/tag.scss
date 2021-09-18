@@ -1,28 +1,10 @@
 .tag-item {
-  height: 58px;
-  min-height: 58px;
-  min-width: 200px;
+  height: 260px;
+  min-height: 260px;
+  max-height: 260px;
+  min-width: 180px;
 
-  & .actor {
-    border-color: $red;
-  }
-
-  & .language {
-    border-color: $purple;
-  }
-
-  & .studio {
-    border-color: $blue;
-  }
-}
-
-.tag-section {
-  background-color: $grey-10;
-  border-left: 3px solid $grey;
-  transition: 0.3s;
-  position: relative;
-
-  &:hover {
-    background: $grey-12;
+  .poster {
+    height: 160px;
   }
 }

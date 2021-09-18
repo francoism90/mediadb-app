@@ -2,23 +2,7 @@
   height: 400px;
   min-height: 400px;
   max-height: 400px;
-  min-width: 200px;
-}
-
-.video-item-poster {
-  display: block;
-  height: 220px;
-}
-
-.video-item-image {
-  background-color: $grey-10;
-  border: $layout-border;
-  border-color: rgba(189, 189, 189, 0.2);
-  transition: border-color 0.3s;
-
-  &:hover {
-    border-color: $primary;
-  }
+  min-width: 180px;
 }
 
 .video-details-label {

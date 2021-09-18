@@ -46,7 +46,7 @@
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 tag-item"
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 tag-item"
           >
             <item :tag="item" />
           </q-intersection>
