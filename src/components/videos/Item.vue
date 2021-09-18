@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="transparent video-item"
+    class="video-item"
     draggable="false"
     flat
     square

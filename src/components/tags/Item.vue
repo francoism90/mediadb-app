@@ -1,16 +1,17 @@
 <template>
   <q-card
-    class="transparent tag-item"
+    class="tag-item"
     draggable="false"
     flat
     square
+    @click="query"
   >
     <q-card-section class="poster q-pa-none">
       <q-icon
         :name="icon?.name || 'o_tag'"
-        class="poster-image"
+        class="poster-image cursor-pointer"
         color="grey-5"
-        size="36px"
+        size="32px"
       />
     </q-card-section>
 
@@ -61,7 +62,7 @@ export default defineComponent({
     const { store } = useVideos();
     const { router } = useRouter();
 
-    const onClick = async () => {
+    const query = async () => {
       store.reset({
         filter: { tags: [props.tag.name] },
       });
@@ -72,7 +73,7 @@ export default defineComponent({
     const icon = computed(() => icons.find((e) => e.type === props.tag.type));
 
     return {
-      onClick,
+      query,
       icon,
     };
   },
