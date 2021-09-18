@@ -40,7 +40,6 @@
     <q-pull-to-refresh @refresh="onRefresh">
       <q-infinite-scroll
         :key="store.id"
-        :debounce="300"
         @load="onLoad"
       >
         <div class="row wrap justify-start items-start content-start q-col-gutter-lg">
