@@ -3,38 +3,32 @@
     class="transparent video-item"
     draggable="false"
     flat
-    square
   >
     <router-link
       :to="{ name: 'video', params: { id: video.id, slug: video.slug }}"
-      class="video-item-placeholder"
+      class="video-item-poster"
     >
       <q-img
         :alt="video.name"
         :src="video.poster_url"
         loading="lazy"
-        placeholder-src="~assets/placeholder/16x16.webp"
-        class="video-item-thumbnail"
-        img-class="video-item-thumbnail"
+        class="video-item-image"
+        height="100%"
+        width="100%"
         no-spinner
         no-transition
       />
-
-      <div class="absolute-bottom-right q-mx-sm">
-        <q-chip
-          :clickable="false"
-          :label="duration"
-          class="text-caption transparent"
-          dense
-        />
-      </div>
     </router-link>
 
     <q-card-section class="q-pa-none">
-      <div class="row q-pa-sm">
+      <div class="row q-py-md">
         <div class="col">
-          <div class="q-pb-xs text-weight-bold ellipsis-2-lines">
+          <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
             {{ name }}
+          </div>
+
+          <div class="q-pb-xs text-grey-5 text-weight-medium ellipsis-2-lines">
+            {{ duration }}
           </div>
 
           <chips

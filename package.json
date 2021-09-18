@@ -10,9 +10,9 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@capacitor/core": "^3.2.2",
+    "@capacitor/core": "^3.2.3",
     "@capacitor/status-bar": "^1.0.3",
-    "@quasar/extras": "^1.10.12",
+    "@quasar/extras": "^1.11.0",
     "@types/qs": "^6.9.7",
     "axios": "^0.21.4",
     "core-js": "^3.17.3",
@@ -23,22 +23,22 @@
     "pinia": "^2.0.0-rc.9",
     "pusher-js": "^7.0.3",
     "qs": "^6.10.1",
-    "quasar": "^2.0.4",
+    "quasar": "^2.1.0",
     "vue-i18n": "^9.1.7"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.15.4",
+    "@babel/eslint-parser": "^7.15.7",
     "@quasar/app": "^3.1.0",
-    "@types/lodash": "^4.14.172",
-    "@types/node": "^16.9.1",
-    "@typescript-eslint/eslint-plugin": "^4.31.0",
-    "@typescript-eslint/parser": "^4.31.0",
+    "@types/lodash": "^4.14.173",
+    "@types/node": "^16.9.2",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
     "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-vue": "^7.17.0",
+    "eslint-plugin-vue": "^7.18.0",
     "workbox-webpack-plugin": "^6.3.0"
   },
   "browserslist": [

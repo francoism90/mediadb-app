@@ -5,36 +5,20 @@
   min-width: 200px;
 }
 
-.video-item-placeholder {
+.video-item-poster {
   display: block;
   height: 220px;
   position: relative;
 
-  :first-child {
-    z-index: 30;
+  :hover {
+    border-color: $primary;
   }
 }
 
-.video-item-thumbnail {
-  height: 220px;
-  max-height: 220px;
-
-  ::after {
-    content: "";
-    display: block;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 10;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 30%,
-      transparent 65%,
-      rgba(0, 0, 0, 0.35) 83.5%,
-      $dark
-    );
-  }
+.video-item-image {
+  background-color: $grey-10;
+  border: $layout-border;
+  transition: border-color 0.3s;
 }
 
 .video-details-label {
