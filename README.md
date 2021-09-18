@@ -4,7 +4,9 @@
 
 Note: MediaDB is still under development. It is recommended to create a fork and sync it with the `main` branch.
 
-## Documentation
+## Installation
+
+Follow the main documentation:
 
 <https://francoism90.github.io/mediadb-docs/>
 
@@ -13,7 +15,7 @@ Please consult the following links to learn more about Quasar:
 - <https://quasar.dev>
 - <https://quasar.dev/quasar-cli/installation>
 
-### Configuration
+## Usage
 
 ```bash
 cd /var/www/html/app
