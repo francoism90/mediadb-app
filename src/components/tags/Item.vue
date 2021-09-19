@@ -4,9 +4,11 @@
     draggable="false"
     flat
     square
-    @click="query"
   >
-    <q-card-section class="poster q-pa-none">
+    <q-card-section
+      class="poster q-pa-none"
+      @click="query"
+    >
       <q-icon
         :name="icon?.name || 'o_tag'"
         class="poster-image cursor-pointer"
