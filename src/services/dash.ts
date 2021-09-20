@@ -111,7 +111,7 @@ export const initialize = (view: HTMLElement | undefined, source?: string): Medi
     },
   }), true);
 
-  player.initialize(view, source, false);
+  player.initialize(view, source, true);
   player.enableForcedTextStreaming(true);
 
   return player;
