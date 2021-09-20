@@ -17,35 +17,3 @@ export function getResolution(height: number, width: number): PlayerResolution |
 
   return heightMatch || widthMatch;
 }
-
-export const dashjs = {
-  listeners: [
-    'bufferLevelUpdated',
-    'bufferLoaded',
-    'bufferStalled',
-    'bufferStateChanged',
-    'canPlay',
-    'canPlayThrough',
-    'playbackEnded',
-    'playbackError',
-    'playbackLoadedData',
-    'playbackMetaDataLoaded',
-    'playbackNotAllowed',
-    'playbackPaused',
-    'playbackPlaying',
-    'playbackProgress',
-    'playbackRateChanged',
-    'playbackSeekAsked',
-    'playbackSeeked',
-    'playbackSeeking',
-    'PlaybackSeekingEvent',
-    'playbackStalled',
-    'playbackStarted',
-    'playbackTimeUpdated',
-    'playbackWaiting',
-    'qualityChangeRendered',
-    'qualityChangeRequested',
-    'textTrackAdded',
-    'trackChangeRendered',
-  ],
-};

@@ -1,8 +1,8 @@
 import { merge } from 'lodash';
 import { defineStore } from 'pinia';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces/video';
+import { useStore as usePlayerStore } from 'src/store/player';
 import { useStore as useVideosStore } from 'src/store/video/items';
-import { useStore as usePlayerStore } from 'src/store/video/player';
 import { useStore as useSimilarStore } from 'src/store/video/similar';
 
 export const useStore = defineStore({

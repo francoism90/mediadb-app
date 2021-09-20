@@ -40,7 +40,7 @@ import VideoSimilar from 'src/components/video/Similar.vue';
 import useVideo from 'src/composables/useVideo';
 import { authenticate } from 'src/services/auth';
 import {
-  defineComponent, onBeforeUnmount, PropType, watch,
+  defineComponent, nextTick, onBeforeUnmount, PropType, watch,
 } from 'vue';
 
 export default defineComponent({
@@ -77,6 +77,7 @@ export default defineComponent({
 
     watch(props, async (value, oldValue): Promise<void> => {
       await initialize(props.id);
+      await nextTick();
 
       // WebSockets
       unsubscribe(oldValue?.id || '');

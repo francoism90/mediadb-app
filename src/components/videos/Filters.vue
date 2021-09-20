@@ -18,7 +18,7 @@
             borderless
             color="grey-10"
             clearable
-            debounce="500"
+            debounce="600"
             dense
             hide-bottom-space
             input-class="text-caption"
@@ -68,7 +68,7 @@
         <q-item>
           <q-item-label class="full-width">
             <q-select
-              v-model="store.query.filter.tags"
+              v-model.lazy="store.query.filter.tags"
               :options="tags.data"
               class="q-my-sm"
               counter
