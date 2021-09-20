@@ -7,7 +7,6 @@
       ref="video"
       autoPictureInPicture
       playsinline
-      preload="metadata"
       class="col"
       crossorigin="anonymous"
     />
@@ -41,7 +40,7 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { load, destroy, container, video, player, store } = useDash();
+    const { load, unload, container, video, player, store } = useDash();
 
     const toggleFullscreen = async (): Promise<void> => {
       await $q.fullscreen.toggle(<Element>container.value);
@@ -55,13 +54,13 @@ export default defineComponent({
       return player.value?.pause();
     };
 
-    watch(() => props.model.id, () => load(props.model), { deep: true });
+    watch(() => props.model.id, () => load(props.model));
     watch(() => store.fullscreen, toggleFullscreen);
     watch(() => store.pause, togglePlayback);
     watch(() => store.time, (value: number) => player.value?.seek(value));
 
     onMounted(() => load(props.model));
-    onBeforeUnmount(() => destroy());
+    onBeforeUnmount(() => unload());
 
     return {
       container,
