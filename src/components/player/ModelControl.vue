@@ -63,7 +63,7 @@
     </q-item>
 
     <q-item
-      :disable="!store.properties?.textTracks.length"
+      :disable="!store.properties?.textTracks?.length"
       clickable
       @click="$emit('setComponent', 'CaptionControl')"
     >
