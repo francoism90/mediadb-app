@@ -1,13 +1,13 @@
 <template>
   <q-list
-    v-for="(item, index) in bitrates"
-    :key="index"
     bordered
     dense
     separator
-    style="width: 230px; max-width: 100vw;"
+    style="width: 250px; max-width: 100vw;"
   >
     <q-item
+      v-for="(item, index) in bitrates"
+      :key="index"
       v-close-popup
       clickable
     >

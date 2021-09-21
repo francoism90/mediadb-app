@@ -32,6 +32,7 @@ module.exports = configure((ctx) => ({
   boot: [
     'pinia',
     'i18n',
+    'intl',
     'axios',
     'echo',
   ],

@@ -24,7 +24,7 @@ export default defineComponent({
 
     const icon = computed(() => (store.data.following === true ? 'watch_later' : 'o_watch_later'));
 
-    const onClick = async () => {
+    const onClick = async (): Promise<void> => {
       const response = await toggleFollow(store.data);
       store.update(<VideoModel>response.data);
     };

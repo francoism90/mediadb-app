@@ -1,21 +1,50 @@
 <template>
-  <q-icon
-    name="closed_caption_off"
-    color="white"
-    class="cursor-pointer"
-    size="24px"
-    right
-  />
+  <q-list
+    bordered
+    dense
+    separator
+    style="width: 250px; max-width: 100vw;"
+  >
+    <q-item
+      v-for="(item, index) in store.properties?.textTracks"
+      :key="index"
+      v-close-popup
+      clickable
+    >
+      <q-item-section>
+        {{ language(item.lang || 'en') }}
+      </q-item-section>
+
+      <q-item-section side>
+        <q-icon
+          v-if="item.index === store.properties?.textTrack?.index"
+          name="o_check"
+        />
+      </q-item-section>
+    </q-item>
+  </q-list>
 </template>
 
 <script lang="ts">
+import useDash from 'src/composables/useDash';
+import useIntl from 'src/composables/useIntl';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'CaptionControl',
 
+  emits: ['setComponent'],
+
   setup() {
-    //
+    const { intl } = useIntl();
+    const { store } = useDash();
+
+    const language = (value: string): string | undefined => intl?.formatDisplayName(value, { type: 'language' });
+
+    return {
+      language,
+      store,
+    };
   },
 });
 </script>

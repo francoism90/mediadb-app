@@ -24,7 +24,7 @@ export default defineComponent({
 
     const icon = computed(() => (store.data.favorite === true ? 'favorite' : 'favorite_border'));
 
-    const onClick = async () => {
+    const onClick = async (): Promise<void> => {
       const response = await toggleFavorite(store.data);
       store.update(<VideoModel>response.data);
     };

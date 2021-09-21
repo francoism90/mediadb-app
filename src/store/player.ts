@@ -24,7 +24,7 @@ export const useStore = defineStore('player', {
     },
 
     sprite(): TextTrack | undefined {
-      return find(this.properties?.textTracks, { label: 'sprite' }) as TextTrack;
+      return find(this.properties?.tracks, { label: 'sprite' }) as TextTrack;
     },
   },
 

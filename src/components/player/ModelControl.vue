@@ -3,7 +3,7 @@
     bordered
     dense
     separator
-    style="width: 230px; max-width: 100vw;"
+    style="width: 250px; max-width: 100vw;"
   >
     <q-item
       v-close-popup
@@ -23,6 +23,7 @@
 
     <q-item
       v-close-popup
+      :disable="store.properties?.time < 1"
       clickable
       @click="capture"
     >
@@ -38,6 +39,7 @@
     </q-item>
 
     <q-item
+      :disable="!store.properties?.ready"
       clickable
       @click="$emit('setComponent', 'QualityControl')"
     >
@@ -50,6 +52,30 @@
       <q-item-section side>
         <div class="row items-center justify-end">
           <span class="text-caption">{{ resolution?.label }}</span>
+
+          <q-icon
+            name="keyboard_arrow_right"
+            size="24px"
+            right
+          />
+        </div>
+      </q-item-section>
+    </q-item>
+
+    <q-item
+      :disable="!store.properties?.textTracks.length"
+      clickable
+      @click="$emit('setComponent', 'CaptionControl')"
+    >
+      <q-item-section side>
+        <q-icon name="o_closed_caption" />
+      </q-item-section>
+
+      <q-item-section>Captions</q-item-section>
+
+      <q-item-section side>
+        <div class="row items-center justify-end">
+          <span class="text-caption" />
 
           <q-icon
             name="keyboard_arrow_right"
@@ -82,8 +108,6 @@ export default defineComponent({
     const $q = useQuasar();
 
     const capture = async (): Promise<void> => {
-      if (store.properties?.time < 1) return;
-
       await save(<VideoModel>{
         ...store.model,
         ...{ capture_time: store.properties?.time || 0 },
@@ -115,6 +139,7 @@ export default defineComponent({
       capture,
       edit,
       resolution,
+      store,
     };
   },
 });
