@@ -1,4 +1,3 @@
-import { find } from 'lodash';
 import { PlayerResolution } from 'src/interfaces/player';
 
 export const resolutions: PlayerResolution[] = [
@@ -12,8 +11,8 @@ export const resolutions: PlayerResolution[] = [
 ];
 
 export function getResolution(height: number, width: number): PlayerResolution | undefined {
-  const heightMatch = find(resolutions, (o) => height >= o.height);
-  const widthMatch = find(resolutions, (o) => width >= o.width);
+  const heightMatch = resolutions.find((e) => height >= e.height);
+  const widthMatch = resolutions.find((e) => width >= e.width);
 
   return heightMatch || widthMatch;
 }
