@@ -23,7 +23,7 @@
 
     <q-item
       v-close-popup
-      :disable="store.properties?.time < 1"
+      :disable="!store.properties?.ready || store.properties?.time < 1"
       clickable
       @click="capture"
     >
