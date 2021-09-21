@@ -20,7 +20,7 @@ export const useStore = defineStore('player', {
     },
 
     isWaiting(): boolean {
-      return !this.properties.ready || this.properties?.seeking;
+      return !this.properties?.ready || this.properties?.seeking;
     },
 
     sprite(): TextTrack | undefined {
@@ -30,13 +30,13 @@ export const useStore = defineStore('player', {
 
   actions: {
     delete(payload: VideoModel): void {
-      if (this.model.id === payload.id) {
+      if (this.model?.id === payload.id) {
         this.$reset();
       }
     },
 
     update(payload: VideoModel): void {
-      if (this.model.id === payload.id) {
+      if (this.model?.id === payload.id) {
         this.model = merge(this.model, payload);
       }
     },
