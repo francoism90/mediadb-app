@@ -1,9 +1,10 @@
 {
-	"appId": "org.capacitor.quasar.app",
+	"appId": "org.capacitor.mediadb.app",
 	"appName": "MediaDB",
 	"bundledWebRuntime": false,
 	"npmClient": "npm",
 	"webDir": "www",
+	"backgroundColor": "#0a0a0a",
 	"server": {
 		"androidScheme": "https",
 		"allowNavigation": [
@@ -13,7 +14,7 @@
 		]
 	},
 	"android": {
-		"allowMixedContent": true,
-		"webContentsDebuggingEnabled": true
+		"_allowMixedContent": true,
+		"_webContentsDebuggingEnabled": true
 	}
 }
