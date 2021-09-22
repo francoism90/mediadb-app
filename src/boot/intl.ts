@@ -6,3 +6,5 @@ export default boot(({ app }) => {
 
   app.config.globalProperties.$intl = intl;
 });
+
+export { intl };

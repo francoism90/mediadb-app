@@ -10,3 +10,5 @@ export default boot(({ app }) => {
   app.config.globalProperties.$pusher = Pusher;
   app.config.globalProperties.$echo = echo;
 });
+
+export { echo };

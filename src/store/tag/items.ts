@@ -43,6 +43,12 @@ export const useStore = defineStore('tags', {
       this.id = Date.now();
     },
 
+    populate(payload: TagsResponse): void {
+      this.data = this.data.concat(payload.data);
+      this.meta = payload.meta;
+      this.links = payload.links;
+    },
+
     filter(payload: TagsQuery): void {
       this.query.filter = merge(this.query.filter, payload);
     },
@@ -50,11 +56,9 @@ export const useStore = defineStore('tags', {
     sort(payload: string | string[] | null): void {
       this.query.sort = payload;
     },
+  },
 
-    populate(payload: TagsResponse): void {
-      this.data = this.data.concat(payload.data);
-      this.meta = payload.meta;
-      this.links = payload.links;
-    },
+  debounce: {
+    reset: 100,
   },
 });

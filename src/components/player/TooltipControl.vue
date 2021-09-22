@@ -7,9 +7,9 @@
       :src="thumbnail"
       class="player-tooltip-thumbnail"
       height="90"
+      width="160"
       no-spinner
       no-transition
-      width="160"
     />
 
     <div class="text-white text-center q-py-xs">

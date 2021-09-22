@@ -42,18 +42,18 @@ export const useStore = defineStore('videos', {
       this.id = Date.now();
     },
 
+    populate(payload: VideosResponse): void {
+      this.data = this.data.concat(payload.data);
+      this.meta = payload.meta;
+      this.links = payload.links;
+    },
+
     filter(payload: VideosFilters): void {
       this.query.filter = merge(this.query.filter, payload);
     },
 
     sort(payload: string | string[] | null): void {
       this.query.sort = payload;
-    },
-
-    populate(payload: VideosResponse): void {
-      this.data = this.data.concat(payload.data);
-      this.meta = payload.meta;
-      this.links = payload.links;
     },
 
     delete(payload: VideoModel): void {
@@ -75,5 +75,12 @@ export const useStore = defineStore('videos', {
         this.replace(merge(model, payload));
       }
     },
+  },
+
+  debounce: {
+    reset: 100,
+    delete: 50,
+    replace: 50,
+    update: 50,
   },
 });

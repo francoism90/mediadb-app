@@ -29,6 +29,10 @@ export const useStore = defineStore('player', {
   },
 
   actions: {
+    sync(payload: PlayerProperties): void {
+      this.$patch({ properties: payload });
+    },
+
     delete(payload: VideoModel): void {
       if (this.model?.id === payload.id) {
         this.$reset();
@@ -40,5 +44,11 @@ export const useStore = defineStore('player', {
         this.model = merge(this.model, payload);
       }
     },
+  },
+
+  debounce: {
+    sync: 50,
+    delete: 50,
+    update: 50,
   },
 });

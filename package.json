@@ -12,6 +12,7 @@
   "dependencies": {
     "@capacitor/core": "^3.2.3",
     "@capacitor/status-bar": "^1.0.3",
+    "@pinia/plugin-debounce": "^0.0.2",
     "@quasar/extras": "^1.11.0",
     "@types/qs": "^6.9.7",
     "axios": "^0.21.4",
@@ -31,7 +32,7 @@
     "@babel/eslint-parser": "^7.15.7",
     "@quasar/app": "^3.1.0",
     "@types/lodash": "^4.14.173",
-    "@types/node": "^16.9.4",
+    "@types/node": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "dotenv": "^10.0.0",

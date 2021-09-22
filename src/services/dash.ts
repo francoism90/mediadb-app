@@ -1,5 +1,6 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
+import { PlayerProperties } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import { getToken } from 'src/services/auth';
 import { useStore } from 'src/store/player';
@@ -41,24 +42,22 @@ export const populate = (player: MediaPlayerClass | undefined): void => {
     return;
   }
 
-  store.$patch({
-    properties: {
-      ready: player?.isReady(),
-      autoplay: player?.getAutoPlay(),
-      buffered: player?.getBufferLength('video'),
-      duration: player?.duration(),
-      muted: player?.isMuted(),
-      paused: player?.isPaused(),
-      playbackRate: player?.getPlaybackRate(),
-      seeking: player?.isSeeking(),
-      tracks: player?.getVideoElement()?.textTracks,
-      textTrack: player?.getCurrentTrackFor('text'),
-      videoTrack: player?.getCurrentTrackFor('video'),
-      textTracks: player?.getTracksFor('text'),
-      videoTracks: player?.getTracksFor('video'),
-      time: player?.time(),
-      volume: player?.getVolume(),
-    },
+  store.sync(<PlayerProperties>{
+    ready: player?.isReady(),
+    autoplay: player?.getAutoPlay(),
+    buffered: player?.getBufferLength('video'),
+    duration: player?.duration(),
+    muted: player?.isMuted(),
+    paused: player?.isPaused(),
+    playbackRate: player?.getPlaybackRate(),
+    seeking: player?.isSeeking(),
+    tracks: player?.getVideoElement()?.textTracks,
+    textTrack: player?.getCurrentTrackFor('text'),
+    videoTrack: player?.getCurrentTrackFor('video'),
+    textTracks: player?.getTracksFor('text'),
+    videoTracks: player?.getTracksFor('video'),
+    time: player?.time(),
+    volume: player?.getVolume(),
   });
 };
 

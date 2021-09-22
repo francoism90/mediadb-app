@@ -57,4 +57,10 @@ export const useStore = defineStore({
       videos.update(payload);
     },
   },
+
+  debounce: {
+    populate: 50,
+    delete: 50,
+    update: 50,
+  },
 });
