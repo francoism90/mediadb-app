@@ -59,7 +59,6 @@ export const useStore = defineStore({
   },
 
   debounce: {
-    populate: 50,
     delete: 50,
     update: 50,
   },

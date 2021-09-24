@@ -1,7 +1,6 @@
 <template>
   <div
     v-if="store.isReady"
-    :key="store.model?.id"
     class="player-controls-container absolute-full"
     @mouseenter="activate"
     @mousemove="activate"
@@ -15,6 +14,7 @@
     >
       <div
         v-show="store.controls"
+        :key="store.model?.id"
         class="player-controls absolute-full"
       >
         <playback-control />

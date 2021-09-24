@@ -1,6 +1,6 @@
 import { find, findIndex, merge, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import { VideoModel, VideosFilters, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
+import { VideoModel, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
 
 export const useStore = defineStore('video-similar', {
   state: () => (<VideosState>{
@@ -22,6 +22,10 @@ export const useStore = defineStore('video-similar', {
   }),
 
   getters: {
+    isReady(): boolean {
+      return typeof this.query.filter?.similar === 'string';
+    },
+
     isQueryable(): boolean {
       return !this.links.first && !this.links.next;
     },
@@ -44,14 +48,6 @@ export const useStore = defineStore('video-similar', {
       this.data = this.data.concat(payload.data);
       this.meta = payload.meta;
       this.links = payload.links;
-    },
-
-    filter(payload: VideosFilters): void {
-      this.query.filter = merge(this.query.filter, payload);
-    },
-
-    sort(payload: string | string[] | null): void {
-      this.query.sort = payload;
     },
 
     delete(payload: VideoModel): void {

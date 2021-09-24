@@ -17,7 +17,7 @@
     "@types/qs": "^6.9.7",
     "axios": "^0.21.4",
     "core-js": "^3.18.0",
-    "dashjs": "4.0.1",
+    "dashjs": "4.1.0",
     "dayjs": "^1.10.7",
     "laravel-echo": "^1.11.2",
     "lodash": "^4.17.21",
