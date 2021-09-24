@@ -13,7 +13,7 @@
     "@capacitor/core": "^3.2.3",
     "@capacitor/status-bar": "^1.0.3",
     "@pinia/plugin-debounce": "^0.0.2",
-    "@quasar/extras": "^1.11.0",
+    "@quasar/extras": "^1.11.1",
     "@types/qs": "^6.9.7",
     "axios": "^0.21.4",
     "core-js": "^3.18.0",
