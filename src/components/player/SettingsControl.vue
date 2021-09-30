@@ -1,5 +1,5 @@
 <template>
-  <div class="player-settings absolute-top-right">
+  <div class="player-control player-settings absolute-top-right">
     <favorite-control />
     <follow-control />
     <action-control />

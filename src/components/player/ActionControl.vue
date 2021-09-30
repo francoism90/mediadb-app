@@ -2,7 +2,7 @@
   <q-icon
     right
     color="white"
-    class="header-actions cursor-pointer"
+    class="cursor-pointer"
     name="more_vert"
     aria-label="More Actions"
     size="24px"

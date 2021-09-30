@@ -6,7 +6,7 @@ export const useStore = defineStore('video-similar', {
   state: () => (<VideosState>{
     id: Date.now(),
     query: <VideosQuery>{
-      append: ['clips', 'poster_url'],
+      append: ['poster_url'],
       sort: 'relevance',
       filter: {
         similar: null,

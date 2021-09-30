@@ -3,7 +3,7 @@
     bordered
     dense
     separator
-    style="width: 250px; max-width: 100vw;"
+    class="player-menu"
   >
     <q-item
       v-for="(item, index) in bitrates"

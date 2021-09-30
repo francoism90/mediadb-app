@@ -13,10 +13,10 @@ export interface AuthUser {
 }
 
 export interface LoginUser {
+  'device_name': string,
   email: string,
   password: string,
   remember: boolean,
-  'device_name': string,
 }
 
 export interface AuthResponse {

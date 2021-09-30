@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="store.isReady"
-    class="player-controls-container absolute-full"
+    class="absolute-full"
     @mouseenter="activate"
-    @mousemove="activate"
+    @mouseover="activate"
     @mouseleave="deactivate"
     @touchstart="activate"
   >

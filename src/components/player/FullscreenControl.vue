@@ -2,7 +2,7 @@
   <q-icon
     :name="icon"
     color="white"
-    class="cursor-pointer"
+    class="player-control cursor-pointer"
     size="24px"
     right
     @click="toggleFullscreen"

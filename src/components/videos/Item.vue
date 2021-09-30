@@ -80,7 +80,6 @@
 </template>
 
 <script lang="ts">
-import { head } from 'lodash';
 import { useQuasar } from 'quasar';
 import Chips from 'src/components/tags/Chips.vue';
 import useAcquaintances from 'src/composables/useAcquaintances';
@@ -145,8 +144,7 @@ export default defineComponent({
       props.video.name,
     ]));
 
-    const clip = computed(() => head(props.video.clips));
-    const duration = computed(() => formatTime(clip.value?.metadata?.duration || 0));
+    const duration = computed(() => formatTime(props.video.duration || 0));
 
     return {
       favorite,

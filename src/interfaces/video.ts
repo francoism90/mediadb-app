@@ -7,15 +7,17 @@ export type VideosLinks = RepositoryLinks
 
 export interface VideoModel extends Model {
   'capture_time': number,
+  'dash_url'?: string
   'episode_number': string,
+  'poster_url'?: string
   'release_date': string,
   'season_number': string,
-  'dash_url'?: string
-  'poster_url'?: string
   'sprite_url'?: string
   clips?: MediaModel[],
+  duration: number,
   model?: Model,
   overview?: string,
+  resolution: string,
   status?: string,
   tags?: TagModel[],
   type?: string,
