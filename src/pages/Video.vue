@@ -76,12 +76,12 @@ export default defineComponent({
     const { initialize, subscribe, unsubscribe, errors, store } = useVideo();
 
     watch(props, async (value, oldValue): Promise<void> => {
-      await initialize(props.id);
+      await initialize(value.id);
       await nextTick();
 
-      // WebSockets
+      // Init WebSockets
       unsubscribe(oldValue?.id || '');
-      subscribe(props?.id || '');
+      subscribe(value?.id || '');
     }, { immediate: true });
 
     onBeforeUnmount(() => unsubscribe(props.id));

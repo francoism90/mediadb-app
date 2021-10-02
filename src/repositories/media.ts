@@ -3,7 +3,7 @@ import { api } from 'boot/axios';
 import { MediaModel, MediaResponse } from 'src/interfaces/media';
 
 export async function save(params: MediaModel): Promise<MediaResponse> {
-  const response = await api.patch<MediaResponse, AxiosResponse<MediaResponse>>(
+  const response = await api.patch<MediaModel, AxiosResponse<MediaResponse>>(
     `media/${params.id}`, params,
   );
 

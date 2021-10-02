@@ -3,7 +3,7 @@ import { findIndex } from 'lodash';
 import { PlayerProperties } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import { getToken } from 'src/services/auth';
-import { useStore } from 'src/store/player';
+import { useStore } from 'src/store/video/player';
 
 export const store = useStore();
 
@@ -53,8 +53,8 @@ export const populate = (player: MediaPlayerClass | undefined): void => {
     seeking: player?.isSeeking(),
     tracks: player?.getVideoElement()?.textTracks,
     textTrack: player?.getCurrentTrackFor('text'),
-    videoTrack: player?.getCurrentTrackFor('video'),
     textTracks: player?.getTracksFor('text'),
+    videoTrack: player?.getCurrentTrackFor('video'),
     videoTracks: player?.getTracksFor('video'),
     time: player?.time(),
     volume: player?.getVolume(),
@@ -119,6 +119,9 @@ export const initialize = (view: HTMLElement | undefined, source?: string): Medi
 };
 
 export const destroy = (player: MediaPlayerClass | undefined): void => {
+  // Reset store
+  store.$reset();
+
   // Stop playback
   player?.pause();
 
@@ -137,6 +140,4 @@ export const destroy = (player: MediaPlayerClass | undefined): void => {
   // Reset player
   player?.reset();
   player?.destroy();
-
-  store.$reset();
 };

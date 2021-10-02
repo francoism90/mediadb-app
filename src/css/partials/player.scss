@@ -3,14 +3,13 @@
 
   video {
     z-index: 10;
-    object-fit: contain;
+    object-fit: scale-down;
     min-height: 640px;
     max-height: 720px;
     max-width: $breakpoint-md;
     pointer-events: none;
 
     @media (max-width: $breakpoint-sm-max) {
-      object-fit: fill;
       min-height: 240px;
       max-height: 480px;
     }

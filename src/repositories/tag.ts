@@ -2,8 +2,8 @@ import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
 import { TagResponse, TagsQuery, TagsResponse } from 'src/interfaces/tag';
 
-export async function find(id: string | number): Promise<TagResponse> {
-  const response = await api.get<TagResponse, AxiosResponse<TagResponse>>(
+export async function find(id: string): Promise<TagResponse> {
+  const response = await api.get<string, AxiosResponse<TagResponse>>(
     `tags/${id}`,
   );
 
@@ -11,7 +11,7 @@ export async function find(id: string | number): Promise<TagResponse> {
 }
 
 export async function all(params: TagsQuery): Promise<TagsResponse> {
-  const response = await api.get<TagsResponse, AxiosResponse<TagsResponse>>(
+  const response = await api.get<TagsQuery, AxiosResponse<TagsResponse>>(
     'tags', { params },
   );
 

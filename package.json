@@ -15,7 +15,7 @@
     "@pinia/plugin-debounce": "^0.0.2",
     "@quasar/extras": "^1.11.1",
     "@types/qs": "^6.9.7",
-    "axios": "^0.21.4",
+    "axios": "^0.22.0",
     "core-js": "^3.18.1",
     "dashjs": "4.1.0",
     "dayjs": "^1.10.7",
