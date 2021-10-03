@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="video.isReady"
-    :key="video.data?.id"
-    class="video-similar q-py-md"
-  >
+  <div class="video-similar q-py-md">
     <h1 class="text-h3 text-white ellipsis">
       More Like This
     </h1>
@@ -40,7 +36,7 @@
 import Item from 'src/components/videos/Item.vue';
 import useSimilar from 'src/composables/useSimilar';
 import useVideo from 'src/composables/useVideo';
-import { defineComponent, watch } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoSimilar',
@@ -68,10 +64,6 @@ export default defineComponent({
       similar.reset();
       done();
     };
-
-    watch(video, () => similar.reset({ filter: { similar: video.data?.id } }), {
-      deep: true, immediate: true,
-    });
 
     return {
       onLoad,

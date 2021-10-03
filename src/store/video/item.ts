@@ -21,9 +21,19 @@ export const useStore = defineStore({
 
   actions: {
     populate(payload: VideoResponse): void {
-      if (typeof this.data === 'object' && this.data.id !== payload.data.id) {
+      const player = usePlayerStore();
+      const similar = useSimilarStore();
+
+      if (typeof this.data.id === 'string' && this.data.id !== payload.data.id) {
         this.$reset();
+
+        // Reset stores
+        player.$reset();
+        similar.$reset();
       }
+
+      // Populate stores
+      similar.reset({ filter: { similar: payload.data?.id } });
 
       this.$patch(payload);
       this.update(payload.data);

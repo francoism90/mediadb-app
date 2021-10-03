@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="store.isReady"
-    :key="store.data?.id"
-    class="video-details q-py-md"
-  >
+  <div class="video-details q-py-md">
     <h1 class="text-h3 text-white ellipsis-2-lines">
       {{ store.data?.name }}
     </h1>
