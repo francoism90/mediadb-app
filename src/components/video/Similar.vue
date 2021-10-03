@@ -1,6 +1,7 @@
 <template>
   <div
-    v-if="similar.isReady"
+    v-if="video.isReady"
+    :key="video.data?.id"
     class="video-similar q-py-md"
   >
     <h1 class="text-h3 text-white ellipsis">

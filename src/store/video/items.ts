@@ -78,7 +78,6 @@ export const useStore = defineStore('videos', {
   },
 
   debounce: {
-    reset: 100,
     delete: 50,
     replace: 50,
     update: 50,

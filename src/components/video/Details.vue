@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="store.isReady"
     :key="store.data?.id"
     class="video-details q-py-md"
   >
