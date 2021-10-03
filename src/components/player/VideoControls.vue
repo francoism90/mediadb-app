@@ -14,7 +14,6 @@
     >
       <div
         v-show="store.controls"
-        :key="store.model?.id"
         class="player-controls absolute-full"
       >
         <playback-control />
@@ -46,11 +45,11 @@ export default defineComponent({
     const timer = ref<number>(0);
 
     const deactivate = (): void => {
-      clearTimeout(timer.value);
-      timer.value = window.setTimeout(() => { store.controls = false; }, 2000);
+      timer.value = window.setTimeout(() => { store.controls = false; }, 2500);
     };
 
     const activate = (): void => {
+      clearTimeout(timer.value);
       store.controls = true;
       deactivate();
     };

@@ -1,9 +1,10 @@
-import { UserModel } from 'src/interfaces/user';
+import { UserModel, UserPreferences } from 'src/interfaces/user';
 
 export interface SessionState {
   redirectUri: string | null,
   timestamp: number | null,
   token: string | null,
+  preferences: UserPreferences,
   user: UserModel,
 }
 
