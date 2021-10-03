@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page :key="id">
     <template v-if="errors && errors.message">
       <q-banner class="container q-py-lg">
         <template #avatar>
@@ -39,9 +39,7 @@ import VideoDetails from 'src/components/video/Details.vue';
 import VideoSimilar from 'src/components/video/Similar.vue';
 import useVideo from 'src/composables/useVideo';
 import { authenticate } from 'src/services/auth';
-import {
-  defineComponent, nextTick, onBeforeUnmount, PropType, watch,
-} from 'vue';
+import { defineComponent, onBeforeUnmount, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'Video',
@@ -76,12 +74,11 @@ export default defineComponent({
     const { initialize, subscribe, unsubscribe, errors, store } = useVideo();
 
     watch(props, async (value, oldValue): Promise<void> => {
-      await initialize(props.id);
-      await nextTick();
+      await initialize(value.id);
 
-      // WebSockets
+      // Init WebSockets
       unsubscribe(oldValue?.id || '');
-      subscribe(props?.id || '');
+      subscribe(value?.id || '');
     }, { immediate: true });
 
     onBeforeUnmount(() => unsubscribe(props.id));

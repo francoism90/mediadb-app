@@ -57,8 +57,4 @@ export const useStore = defineStore('tags', {
       this.query.sort = payload;
     },
   },
-
-  debounce: {
-    reset: 100,
-  },
 });

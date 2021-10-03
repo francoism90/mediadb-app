@@ -3,7 +3,7 @@ import { findIndex } from 'lodash';
 import { PlayerProperties } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import { getToken } from 'src/services/auth';
-import { useStore } from 'src/store/player';
+import { useStore } from 'src/store/video/player';
 
 export const store = useStore();
 
@@ -53,8 +53,8 @@ export const populate = (player: MediaPlayerClass | undefined): void => {
     seeking: player?.isSeeking(),
     tracks: player?.getVideoElement()?.textTracks,
     textTrack: player?.getCurrentTrackFor('text'),
-    videoTrack: player?.getCurrentTrackFor('video'),
     textTracks: player?.getTracksFor('text'),
+    videoTrack: player?.getCurrentTrackFor('video'),
     videoTracks: player?.getTracksFor('video'),
     time: player?.time(),
     volume: player?.getVolume(),
@@ -112,13 +112,39 @@ export const initialize = (view: HTMLElement | undefined, source?: string): Medi
     },
   }), true);
 
-  player.initialize(view, source, true);
-  player.enableForcedTextStreaming(true);
+  player.initialize();
+
+  player.updateSettings({
+    streaming: {
+      buffer: {
+        bufferTimeAtTopQuality: 10,
+        bufferTimeAtTopQualityLongForm: 30,
+        bufferToKeep: 10,
+        enableSeekDecorrelationFix: true,
+        flushBufferAtTrackSwitch: true,
+        stableBufferTime: 5,
+        stallThreshold: 0.5,
+      },
+      gaps: {
+        smallGapLimit: 2.0,
+        threshold: 0.5,
+      },
+    },
+  });
+
+  if (typeof view !== 'undefined' && typeof source === 'string') {
+    player.setAutoPlay(true);
+    player.attachView(view);
+    player.attachSource(source);
+  }
 
   return player;
 };
 
 export const destroy = (player: MediaPlayerClass | undefined): void => {
+  // Reset store
+  store.$reset();
+
   // Stop playback
   player?.pause();
 
@@ -137,6 +163,4 @@ export const destroy = (player: MediaPlayerClass | undefined): void => {
   // Reset player
   player?.reset();
   player?.destroy();
-
-  store.$reset();
 };

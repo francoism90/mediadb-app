@@ -10,9 +10,9 @@ export const resolutions: PlayerResolution[] = [
   { label: '240p', icon: 'sd', width: 426, height: 240 },
 ];
 
-export function getResolution(height: number, width: number): PlayerResolution | undefined {
+export const getResolution = (height: number, width: number): PlayerResolution | undefined => {
   const heightMatch = resolutions.find((e) => height >= e.height);
   const widthMatch = resolutions.find((e) => width >= e.width);
 
   return heightMatch || widthMatch;
-}
+};

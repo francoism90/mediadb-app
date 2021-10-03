@@ -3,12 +3,10 @@ import { debounce } from 'lodash';
 import { createPinia } from 'pinia';
 import { boot } from 'quasar/wrappers';
 
-const pinia = createPinia();
-
-pinia.use(PiniaDebounce(debounce));
+export const pinia = createPinia();
 
 export default boot(({ app }) => {
+  pinia.use(PiniaDebounce(debounce));
+
   app.use(pinia);
 });
-
-export { pinia };

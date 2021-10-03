@@ -1,19 +1,16 @@
 <template>
-  <div
-    :key="store.data?.id"
-    class="video-details q-py-md"
-  >
+  <div class="video-details q-py-md">
     <h1 class="text-h3 text-white ellipsis-2-lines">
       {{ store.data?.name }}
     </h1>
 
     <div class="q-gutter-sm text-white">
       <q-chip
-        color="transparent"
-        icon="visibility"
         :clickable="false"
         :ripple="false"
+        color="transparent"
         dense
+        icon="visibility"
       >
         <span class="q-ml-xs text-body1">{{ store.data?.views || 0 }} views</span>
       </q-chip>
@@ -27,6 +24,13 @@
       dense
       class="q-py-md video-details-list"
     >
+      <item v-if="duration">
+        <template #label>
+          Run Time :
+        </template>
+        {{ duration }}
+      </item>
+
       <item v-if="store.data?.season_number">
         <template #label>
           Season :
@@ -76,21 +80,14 @@
         <list :tags="studios" />
       </item>
 
-      <item v-if="duration">
-        <template #label>
-          Run Time :
-        </template>
-        {{ duration }}
-      </item>
-
-      <item v-if="resolution">
+      <item v-if="store.data?.resolution">
         <template #label>
           Resolution :
         </template>
-        {{ resolution?.label }}
+        {{ store.data.resolution }}
       </item>
 
-      <item v-if="store.data.created_at">
+      <item v-if="store.data?.created_at">
         <template #label>
           Upload Date :
         </template>
@@ -101,7 +98,6 @@
 </template>
 
 <script lang="ts">
-import { head } from 'lodash';
 import List from 'src/components/tags/List.vue';
 import Item from 'src/components/video/Item.vue';
 import useFilters from 'src/composables/useFilters';
@@ -118,18 +114,13 @@ export default defineComponent({
 
   setup() {
     const { store } = useVideo();
-    const { formatDate, formatResolution, formatTime } = useFilters();
+    const { formatDate, formatTime } = useFilters();
 
     const tagsByType = (type: string) => store.data.tags?.filter((tag) => tag.type === type);
 
-    const clip = computed(() => head(store.data.clips));
-    const duration = computed(() => formatTime(clip.value?.metadata?.duration || 0));
+    const duration = computed(() => formatTime(store.data.duration || 0));
     const created = computed(() => formatDate(store.data.created_at || Date.now()));
     const released = computed(() => formatDate(store.data.release_date || Date.now()));
-    const resolution = computed(() => formatResolution(
-      clip.value?.metadata?.height || 0,
-      clip.value?.metadata?.width || 0,
-    ));
 
     const cast = computed(() => tagsByType('actor'));
     const languages = computed(() => tagsByType('language'));
@@ -143,7 +134,6 @@ export default defineComponent({
       genres,
       studios,
       duration,
-      resolution,
       created,
       released,
     };

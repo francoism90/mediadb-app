@@ -1,5 +1,10 @@
 import { Model } from 'src/interfaces/repository';
 
+export interface UserPreferences {
+  autoplay: boolean,
+  muteVideos: boolean,
+}
+
 export interface UserSettings {
   [key: string]: string | number | null
 }

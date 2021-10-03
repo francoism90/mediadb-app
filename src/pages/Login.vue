@@ -105,11 +105,11 @@ export default defineComponent({
     useMeta(() => ({ title: 'Log In' }));
 
     return {
+      onSubmit,
       getError,
       hasError,
       formRef,
       form,
-      onSubmit,
     };
   },
 });

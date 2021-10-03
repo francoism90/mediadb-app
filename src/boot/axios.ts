@@ -1,8 +1,9 @@
 import axios, { AxiosError } from 'axios';
+import { set } from 'lodash';
 import { stringify } from 'qs';
 import { boot } from 'quasar/wrappers';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: process.env.API_URL,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
@@ -16,10 +17,9 @@ const api = axios.create({
   },
 });
 
-export function setAuthHeader(token: string) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  api.defaults.headers.common.Authorization = `Bearer ${token}`;
-}
+export const setAuthHeader = (token: string) => set(
+  api.defaults, 'headers.common.Authorization', `Bearer ${token}`,
+);
 
 export default boot(({ app, urlPath }) => {
   api.interceptors.response.use((response) => response, (error: AxiosError) => {
@@ -34,5 +34,3 @@ export default boot(({ app, urlPath }) => {
   app.config.globalProperties.$axios = axios;
   app.config.globalProperties.$api = api;
 });
-
-export { api, axios };
