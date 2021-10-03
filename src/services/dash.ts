@@ -123,11 +123,6 @@ export const initialize = (view: HTMLElement | undefined, source?: string): Medi
         enableSeekDecorrelationFix: true,
         flushBufferAtTrackSwitch: true,
         stableBufferTime: 5,
-        stallThreshold: 0.5,
-      },
-      gaps: {
-        smallGapLimit: 2.0,
-        threshold: 0.5,
       },
     },
   });
