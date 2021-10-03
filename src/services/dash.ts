@@ -112,8 +112,31 @@ export const initialize = (view: HTMLElement | undefined, source?: string): Medi
     },
   }), true);
 
-  player.initialize(view, source, true);
-  player.enableForcedTextStreaming(true);
+  player.initialize();
+
+  player.updateSettings({
+    streaming: {
+      buffer: {
+        bufferTimeAtTopQuality: 10,
+        bufferTimeAtTopQualityLongForm: 30,
+        bufferToKeep: 10,
+        enableSeekDecorrelationFix: true,
+        flushBufferAtTrackSwitch: true,
+        stableBufferTime: 5,
+        stallThreshold: 0.5,
+      },
+      gaps: {
+        smallGapLimit: 2.0,
+        threshold: 0.5,
+      },
+    },
+  });
+
+  if (typeof view !== 'undefined' && typeof source === 'string') {
+    player.setAutoPlay(true);
+    player.attachView(view);
+    player.attachSource(source);
+  }
 
   return player;
 };

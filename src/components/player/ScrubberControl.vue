@@ -59,7 +59,7 @@ export default defineComponent({
     const duration = computed(() => formatTime(store.properties?.duration || 0));
 
     const setCurrentTime = (payload: number): void => {
-      store.time = payload;
+      store.time = +payload.toFixed(2);
     };
 
     const onMouseHover = (event: MouseEvent): void => {
