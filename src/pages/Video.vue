@@ -39,7 +39,7 @@ import VideoDetails from 'src/components/video/Details.vue';
 import VideoSimilar from 'src/components/video/Similar.vue';
 import useVideo from 'src/composables/useVideo';
 import { authenticate } from 'src/services/auth';
-import { defineComponent, onBeforeUnmount, PropType, watch } from 'vue';
+import { defineComponent, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'Video',
@@ -81,7 +81,6 @@ export default defineComponent({
       subscribe(value?.id || '');
     }, { immediate: true });
 
-    onBeforeUnmount(() => unsubscribe(props.id));
     useMeta(() => ({ title: store.data?.name || '' }));
 
     return {
