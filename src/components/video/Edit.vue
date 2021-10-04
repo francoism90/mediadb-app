@@ -163,9 +163,11 @@ export default defineComponent({
 
   setup(props) {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
+
     const {
       getError, hasError, resetResponse, setResponse,
     } = useFormValidation();
+
     const { fetch: fetchTags, store: tagStore } = useTagInput();
 
     const deleteDialog = ref<boolean>(false);

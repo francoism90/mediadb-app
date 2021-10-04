@@ -1,6 +1,5 @@
 import { MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
-import { VideoModel } from 'src/interfaces/video';
 
 export interface PlayerProperties {
   ready: boolean,
@@ -40,11 +39,10 @@ export interface PlayerThumbnail {
 }
 
 export interface PlayerState {
-  model: VideoModel,
+  properties: PlayerProperties,
+  tooltip: PlayerTooltip,
   controls: boolean,
   fullscreen: boolean,
   pause: boolean,
   time: number,
-  properties: PlayerProperties,
-  tooltip: PlayerTooltip,
 }

@@ -47,7 +47,7 @@ export default defineComponent({
 
     const render = async (): Promise<void> => {
       const cue = find(
-        store.sprite?.cues,
+        store.spriteTrack?.cues,
         (o: VTTCue) => inRange(time.value, o.startTime, o.endTime),
       ) as VTTCue;
 

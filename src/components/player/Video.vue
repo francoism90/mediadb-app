@@ -19,7 +19,6 @@
 import { useQuasar } from 'quasar';
 import VideoControls from 'src/components/player/VideoControls.vue';
 import useDash from 'src/composables/useDash';
-import { VideoModel } from 'src/interfaces/video';
 import {
   defineComponent, onBeforeUnmount, onMounted, PropType, watch,
 } from 'vue';
@@ -32,8 +31,8 @@ export default defineComponent({
   },
 
   props: {
-    model: {
-      type: Object as PropType<VideoModel>,
+    source: {
+      type: String as PropType<string>,
       required: true,
     },
   },
@@ -48,18 +47,18 @@ export default defineComponent({
 
     const togglePlayback = (): void => {
       if (player.value?.isPaused()) {
-        return player.value.play();
+        return player.value?.play();
       }
 
       return player.value?.pause();
     };
 
-    watch(() => props.model, () => load(props.model));
+    watch(() => props.source, () => load(props.source));
     watch(() => store.fullscreen, toggleFullscreen);
     watch(() => store.pause, togglePlayback);
     watch(() => store.time, (value: number) => player.value?.seek(value));
 
-    onMounted(() => load(props.model));
+    onMounted(() => load(props.source));
     onBeforeUnmount(() => unload());
 
     return {

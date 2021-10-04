@@ -23,7 +23,7 @@
 
     <q-item
       v-close-popup
-      :disable="!store.properties?.ready || store.properties?.time < 1"
+      :disable="!dash.properties?.ready || dash.properties?.time < 1"
       clickable
       @click="capture"
     >
@@ -39,7 +39,7 @@
     </q-item>
 
     <q-item
-      :disable="!store.properties?.ready"
+      :disable="!dash.properties?.ready"
       clickable
       @click="$emit('setComponent', 'QualityControl')"
     >
@@ -63,7 +63,7 @@
     </q-item>
 
     <q-item
-      :disable="!store.properties?.textTracks?.length"
+      :disable="!dash.properties?.textTracks?.length"
       clickable
       @click="$emit('setComponent', 'CaptionControl')"
     >
@@ -93,6 +93,7 @@ import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
 import useDash from 'src/composables/useDash';
 import useFilters from 'src/composables/useFilters';
+import useVideo from 'src/composables/useVideo';
 import { VideoModel } from 'src/interfaces/video';
 import { save } from 'src/repositories/video';
 import { computed, defineComponent } from 'vue';
@@ -103,14 +104,15 @@ export default defineComponent({
   emits: ['setComponent'],
 
   setup() {
-    const { store } = useDash();
+    const { store: dash } = useDash();
+    const { store: video } = useVideo();
     const { formatResolution } = useFilters();
     const $q = useQuasar();
 
     const capture = async (): Promise<void> => {
       await save(<VideoModel>{
-        ...store.model,
-        ...{ capture_time: store.properties?.time || '0' },
+        ...video.data,
+        ...{ capture_time: dash.properties?.time || 0 },
       });
 
       $q.notify({
@@ -123,12 +125,12 @@ export default defineComponent({
       $q.dialog({
         component: VideoEdit,
         componentProps: {
-          video: store.model,
+          video: video.data,
         },
       });
     };
 
-    const bitrate = computed(() => store.properties.videoTrack?.bitrateList.find(Boolean));
+    const bitrate = computed(() => dash.properties.videoTrack?.bitrateList.find(Boolean));
 
     const resolution = computed(() => formatResolution(
       bitrate.value?.height || 0,
@@ -138,8 +140,9 @@ export default defineComponent({
     return {
       capture,
       edit,
+      dash,
       resolution,
-      store,
+      video,
     };
   },
 });

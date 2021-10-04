@@ -1,5 +1,6 @@
-import { find, findIndex, merge, remove } from 'lodash';
+import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
+import { mergeDeep } from 'src/helpers/utils';
 import { VideoModel, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
 
 export const useStore = defineStore('video-similar', {
@@ -37,7 +38,7 @@ export const useStore = defineStore('video-similar', {
 
   actions: {
     reset(payload?: VideosQuery): void {
-      this.query = merge(this.query, payload || {});
+      this.query = mergeWith(this.query, payload || {}, mergeDeep);
       this.data = <VideoModel[]>[];
       this.meta = <VideosMeta>{};
       this.links = <VideosLinks>{};
@@ -54,26 +55,20 @@ export const useStore = defineStore('video-similar', {
       remove(this.data, { id: payload.id });
     },
 
-    replace(payload: VideoModel): void {
+    update(payload: VideoModel): void {
       const index = findIndex(this.data, { id: payload.id });
 
       if (index >= 0) {
-        this.data.splice(index, 1, payload);
-      }
-    },
+        const model = find(this.data, { id: payload.id });
+        const object = mergeWith(model, payload, mergeDeep);
 
-    update(payload: VideoModel): void {
-      const model = find(this.data, { id: payload.id });
-
-      if (model) {
-        this.replace(merge(model, payload));
+        this.data.splice(index, 1, object);
       }
     },
   },
 
   debounce: {
     delete: 50,
-    replace: 50,
     update: 50,
   },
 });

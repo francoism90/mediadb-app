@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="store.isReady"
     class="absolute-full"
     @mouseenter="activate"
     @mouseover="activate"

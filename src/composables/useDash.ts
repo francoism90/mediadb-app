@@ -1,6 +1,5 @@
 import { MediaPlayerClass } from 'dashjs';
 import { useQuasar } from 'quasar';
-import { VideoModel } from 'src/interfaces/video';
 import { destroy, initialize, store, sync } from 'src/services/dash';
 import { nextTick, ref, watch } from 'vue';
 
@@ -15,17 +14,17 @@ export default function useDash() {
     destroy(player.value);
   };
 
-  const load = async (model: VideoModel): Promise<void> => {
+  const load = async (source: string): Promise<void> => {
     unload();
 
     // Wait for reset
     await nextTick();
 
     // Initialize player
-    player.value = initialize(video.value, model.dash_url);
+    player.value = initialize(video.value, source);
 
-    // Sync events & fill store
-    sync(player.value, model);
+    // Sync events
+    sync(player.value);
   };
 
   watch(() => $q.fullscreen.isActive, (): void => player.value?.updatePortalSize());
