@@ -39,7 +39,6 @@ export default function useVideo() {
   };
 
   const updated = (payload: VideoModel): void => {
-    console.log(payload);
     store.update(payload);
     similar.update(payload);
     videos.update(payload);
