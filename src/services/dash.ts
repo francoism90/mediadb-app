@@ -2,7 +2,7 @@ import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
 import { PlayerProperties, PlayerSource } from 'src/interfaces/player';
 import { getToken } from 'src/services/auth';
-import { useStore } from 'src/store/video/player';
+import { useStore } from 'src/store/player';
 
 export const store = useStore();
 
