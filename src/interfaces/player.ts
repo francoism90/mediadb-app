@@ -27,6 +27,12 @@ export interface PlayerResolution {
   height: number,
 }
 
+export interface PlayerSource {
+  id?: string,
+  name?: string,
+  url: string | undefined,
+}
+
 export interface PlayerTooltip {
   clientX: number,
   sliderOffset: DomOffset,
@@ -40,6 +46,7 @@ export interface PlayerThumbnail {
 
 export interface PlayerState {
   properties: PlayerProperties,
+  source: PlayerSource,
   tooltip: PlayerTooltip,
   controls: boolean,
   fullscreen: boolean,

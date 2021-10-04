@@ -1,5 +1,6 @@
 import { MediaPlayerClass } from 'dashjs';
 import { useQuasar } from 'quasar';
+import { PlayerSource } from 'src/interfaces/player';
 import { destroy, initialize, store, sync } from 'src/services/dash';
 import { nextTick, ref, watch } from 'vue';
 
@@ -14,14 +15,14 @@ export default function useDash() {
     destroy(player.value);
   };
 
-  const load = async (source: string): Promise<void> => {
+  const load = async (source: PlayerSource, view: HTMLElement | undefined): Promise<void> => {
     unload();
 
     // Wait for reset
     await nextTick();
 
     // Initialize player
-    player.value = initialize(video.value, source);
+    player.value = initialize(source, view);
 
     // Sync events
     sync(player.value);

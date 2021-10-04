@@ -1,6 +1,6 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
-import { PlayerProperties } from 'src/interfaces/player';
+import { PlayerProperties, PlayerSource } from 'src/interfaces/player';
 import { getToken } from 'src/services/auth';
 import { useStore } from 'src/store/video/player';
 
@@ -92,9 +92,15 @@ export const stopListeners = (player: MediaPlayerClass | undefined): void => {
   });
 };
 
-export const initialize = (view: HTMLElement | undefined, source?: string): MediaPlayerClass => {
+export const initialize = (
+  source: PlayerSource,
+  view: HTMLElement | undefined,
+): MediaPlayerClass => {
   const player = MediaPlayer().create();
   const token = getToken() || '';
+
+  // Populate source
+  store.$patch({ source });
 
   // Add Authorization header
   player.extend('RequestModifier', () => ({
@@ -119,9 +125,9 @@ export const initialize = (view: HTMLElement | undefined, source?: string): Medi
     },
   });
 
-  if (typeof view !== 'undefined' && typeof source === 'string') {
+  if (typeof source.url === 'string' && typeof view !== 'undefined') {
     player.attachView(view);
-    player.attachSource(source);
+    player.attachSource(source.url);
     player.setAutoPlay(true);
   }
 

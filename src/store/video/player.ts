@@ -1,11 +1,13 @@
 import { find } from 'lodash';
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerState, PlayerTooltip } from 'src/interfaces/player';
+import { PlayerProperties, PlayerSource, PlayerState, PlayerTooltip } from 'src/interfaces/player';
+import { VideoModel } from 'src/interfaces/video';
 import { useStore as useVideoStore } from 'src/store/video/item';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
     properties: <PlayerProperties>{},
+    source: <PlayerSource>{},
     tooltip: <PlayerTooltip>{},
     controls: false,
     fullscreen: false,
@@ -23,9 +25,17 @@ export const useStore = defineStore('player', {
     },
 
     spriteUrl(): string {
+      return this.video?.sprite_url || '';
+    },
+
+    video(): VideoModel | undefined {
       const video = useVideoStore();
 
-      return video.data?.sprite_url || '';
+      if (typeof this.source.id === 'string' && this.source.id === video.data?.id) {
+        return video.data;
+      }
+
+      return undefined;
     },
   },
 
