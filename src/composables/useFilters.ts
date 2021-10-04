@@ -7,18 +7,14 @@ export default function useFilters() {
   dayjs.extend(duration);
   dayjs.extend(utc);
 
-  const formatTime = (value: number) => dayjs(new Date(value * 1000))
+  const formatTime = (value?: number) => dayjs((value || 0) * 1000)
     .utc()
     .format('HH:mm:ss')
     .replace(/^0(?:0:0?)?/, '');
 
-  const formatDate = (value: string | number | Date) => dayjs(value)
-    .format('D MMMM YYYY');
-
+  const formatDate = (value?: string | number | Date) => dayjs(value || Date.now()).format('D MMMM YYYY');
   const formatResolution = (height: number, width: number) => getResolution(height, width);
-
-  const formatTitle = (value: string[]) => value.filter((n) => n)
-    .join(' - ');
+  const formatTitle = (value: string[]) => value.filter((n) => n).join(' - ');
 
   return {
     formatDate,

@@ -1,6 +1,6 @@
 <template>
   <q-layout
-    :key="layoutKey"
+    :key="sessionKey"
     view="hHh lpR fFf"
   >
     <q-header
@@ -49,7 +49,7 @@
 <script lang="ts">
 import Account from 'src/components/ui/Account.vue';
 import useSession from 'src/composables/useSession';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue';
 
 const tabs = [
   {
@@ -72,11 +72,14 @@ export default defineComponent({
   },
 
   setup() {
-    const { store } = useSession();
-    const layoutKey = computed(() => store.user?.id || +new Date());
+    const { subscribe, unsubscribe, store } = useSession();
+    const sessionKey = computed(() => store.token || +new Date());
+
+    onMounted(() => subscribe());
+    onBeforeUnmount(() => unsubscribe());
 
     return {
-      layoutKey,
+      sessionKey,
       tabs,
     };
   },

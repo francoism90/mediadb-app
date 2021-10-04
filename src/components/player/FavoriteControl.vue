@@ -12,7 +12,6 @@
 <script lang="ts">
 import useAcquaintances from 'src/composables/useAcquaintances';
 import useVideo from 'src/composables/useVideo';
-import { VideoModel } from 'src/interfaces/video';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -24,10 +23,7 @@ export default defineComponent({
 
     const icon = computed(() => (store.data.favorite === true ? 'favorite' : 'favorite_border'));
 
-    const onClick = async (): Promise<void> => {
-      const response = await toggleFavorite(store.data);
-      store.update(<VideoModel>response.data);
-    };
+    const onClick = async (): Promise<void> => toggleFavorite(store.data);
 
     return {
       onClick,

@@ -110,7 +110,7 @@ export default defineComponent({
     const capture = async (): Promise<void> => {
       await save(<VideoModel>{
         ...store.model,
-        ...{ capture_time: store.properties?.time || 0 },
+        ...{ capture_time: store.properties?.time || '0' },
       });
 
       $q.notify({

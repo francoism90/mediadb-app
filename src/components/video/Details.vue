@@ -118,9 +118,9 @@ export default defineComponent({
 
     const tagsByType = (type: string) => store.data.tags?.filter((tag) => tag.type === type);
 
-    const duration = computed(() => formatTime(store.data.duration || 0));
-    const created = computed(() => formatDate(store.data.created_at || Date.now()));
-    const released = computed(() => formatDate(store.data.release_date || Date.now()));
+    const duration = computed(() => formatTime(store.data?.duration));
+    const created = computed(() => formatDate(store.data?.created_at));
+    const released = computed(() => formatDate(store.data?.release_date));
 
     const cast = computed(() => tagsByType('actor'));
     const languages = computed(() => tagsByType('language'));

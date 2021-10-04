@@ -1,9 +1,6 @@
 import { merge } from 'lodash';
 import { defineStore } from 'pinia';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces/video';
-import { useStore as useVideosStore } from 'src/store/video/items';
-import { useStore as usePlayerStore } from 'src/store/video/player';
-import { useStore as useSimilarStore } from 'src/store/video/similar';
 
 export const useStore = defineStore({
   id: 'video',
@@ -21,50 +18,24 @@ export const useStore = defineStore({
 
   actions: {
     populate(payload: VideoResponse): void {
-      const player = usePlayerStore();
-      const similar = useSimilarStore();
-
       if (typeof this.data.id === 'string' && this.data.id !== payload.data.id) {
         this.$reset();
-
-        // Reset stores
-        player.$reset();
-        similar.$reset();
       }
-
-      // Populate stores
-      similar.reset({ filter: { similar: payload.data?.id } });
 
       this.$patch(payload);
       this.update(payload.data);
     },
 
     delete(payload: VideoModel): void {
-      const player = usePlayerStore();
-      const similar = useSimilarStore();
-      const videos = useVideosStore();
-
       if (this.data.id === payload.id) {
         this.$reset();
       }
-
-      player.delete(payload);
-      similar.delete(payload);
-      videos.delete(payload);
     },
 
     update(payload: VideoModel): void {
-      const player = usePlayerStore();
-      const similar = useSimilarStore();
-      const videos = useVideosStore();
-
       if (this.data.id === payload.id) {
         this.data = merge(this.data, payload);
       }
-
-      player.update(payload);
-      similar.update(payload);
-      videos.update(payload);
     },
   },
 

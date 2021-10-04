@@ -55,8 +55,8 @@ export default defineComponent({
     const tooltip = ref<boolean>();
 
     const buffered = computed(() => Math.round(store.properties?.buffered || 0));
-    const currentTime = computed(() => formatTime(store.properties?.time || 0));
-    const duration = computed(() => formatTime(store.properties?.duration || 0));
+    const currentTime = computed(() => formatTime(store.properties?.time));
+    const duration = computed(() => formatTime(store.properties?.duration));
 
     const setCurrentTime = (payload: number): void => {
       store.time = +payload.toFixed(2);

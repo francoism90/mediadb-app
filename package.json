@@ -25,7 +25,7 @@
     "pusher-js": "^7.0.3",
     "qs": "^6.10.1",
     "quasar": "^2.1.0",
-    "vue-i18n": "^9.1.7",
+    "vue-i18n": "^9.1.8",
     "vue-intl": "^6.0.12"
   },
   "devDependencies": {

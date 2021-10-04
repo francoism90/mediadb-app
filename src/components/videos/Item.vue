@@ -120,8 +120,7 @@ export default defineComponent({
     const { toggleFavorite, toggleFollow } = useAcquaintances();
 
     const favorite = async () => {
-      const response = await toggleFavorite(props.video, true);
-      store.update(<VideoModel>response.data);
+      await toggleFavorite(props.video, true);
 
       $q.notify({
         message: 'Added to bookmarks',
@@ -130,8 +129,7 @@ export default defineComponent({
     };
 
     const follow = async () => {
-      const response = await toggleFollow(props.video, true);
-      store.update(<VideoModel>response.data);
+      await toggleFollow(props.video, true);
 
       $q.notify({
         message: 'Added to watchlist',
