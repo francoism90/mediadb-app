@@ -38,7 +38,7 @@ export const useStore = defineStore('video-similar', {
 
   actions: {
     reset(payload?: VideosQuery): void {
-      this.query = { ...this.query, ...payload };
+      this.query = mergeWith(this.query, payload || {}, mergeDeep);
       this.data = <VideoModel[]>[];
       this.meta = <VideosMeta>{};
       this.links = <VideosLinks>{};

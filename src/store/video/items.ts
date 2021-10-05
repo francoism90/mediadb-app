@@ -36,7 +36,7 @@ export const useStore = defineStore('videos', {
 
   actions: {
     reset(payload?: VideosQuery): void {
-      this.query = { ...this.query, ...payload };
+      this.query = mergeWith(this.query, payload || {}, mergeDeep);
       this.data = <VideoModel[]>[];
       this.meta = <VideosMeta>{};
       this.links = <VideosLinks>{};
@@ -50,7 +50,7 @@ export const useStore = defineStore('videos', {
     },
 
     filter(payload: VideosFilters): void {
-      this.query.filter = { ...this.query.filter, ...payload };
+      this.query.filter = mergeWith(this.query.filter, payload, mergeDeep);
     },
 
     sort(payload: string | string[] | null): void {

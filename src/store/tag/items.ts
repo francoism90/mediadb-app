@@ -1,8 +1,7 @@
-import { merge } from 'lodash';
+import { mergeWith } from 'lodash';
 import { defineStore } from 'pinia';
-import {
-  TagModel, TagsLinks, TagsMeta, TagsQuery, TagsResponse, TagsState,
-} from 'src/interfaces/tag';
+import { TagModel, TagsLinks, TagsMeta, TagsQuery, TagsResponse, TagsState } from 'src/interfaces/tag';
+import { mergeDeep } from 'src/utils/helpers';
 
 export const useStore = defineStore('tags', {
   state: () => (<TagsState>{
@@ -36,7 +35,7 @@ export const useStore = defineStore('tags', {
 
   actions: {
     reset(payload?: TagsQuery): void {
-      this.query = merge(this.query, payload || {});
+      this.query = mergeWith(this.query, payload || {}, mergeDeep);
       this.data = <TagModel[]>[];
       this.meta = <TagsMeta>{};
       this.links = <TagsLinks>{};
@@ -50,7 +49,7 @@ export const useStore = defineStore('tags', {
     },
 
     filter(payload: TagsQuery): void {
-      this.query.filter = merge(this.query.filter, payload);
+      this.query.filter = mergeWith(this.query.filter, payload, mergeDeep);
     },
 
     sort(payload: string | string[] | null): void {
