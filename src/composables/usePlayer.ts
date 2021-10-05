@@ -1,7 +1,7 @@
 import { MediaPlayerClass } from 'dashjs';
 import { useQuasar } from 'quasar';
 import { PlayerSource } from 'src/interfaces/player';
-import { destroy, initialize, store } from 'src/services/player';
+import { destroy, initialize, store, update } from 'src/services/player';
 import { nextTick, ref, watch } from 'vue';
 
 export default function usePlayer() {
@@ -26,8 +26,8 @@ export default function usePlayer() {
     // sync(player.value);
   };
 
-  watch(() => $q.fullscreen.isActive, (): void => player.value?.updatePortalSize());
-  watch(() => $q.screen.name, (): void => player.value?.updatePortalSize());
+  watch(() => $q.fullscreen.isActive, (): void => update(player.value));
+  watch(() => $q.screen.name, (): void => update(player.value));
 
   return {
     load,

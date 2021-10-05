@@ -11,8 +11,6 @@ export const initialize = (
 ): DashPlayer | undefined => {
   store.$patch({ source });
 
-  console.log(source);
-
   if (store.module === 'dashjs') {
     return createDashPlayer(source.url || '', view);
   }
@@ -31,6 +29,12 @@ export const destroy = (player: DashPlayer | undefined): void => {
 export const sync = (player: DashPlayer | undefined): void => {
   if (store.module === 'dashjs') {
     SyncDashEvents(player);
+  }
+};
+
+export const update = (player: DashPlayer | undefined): void => {
+  if (store.module === 'dashjs') {
+    player?.updatePortalSize();
   }
 };
 
