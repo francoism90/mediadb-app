@@ -73,7 +73,7 @@ import useSession from 'src/composables/useSession';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'AppAccount',
+  name: 'Account',
 
   setup() {
     const { store } = useSession();

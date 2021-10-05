@@ -16,7 +16,7 @@ export default defineComponent({
       await signOut({ token: getToken() });
     }
 
-    redirect({ path: '/' });
+    redirect({ path: '/login' });
   },
 });
 </script>

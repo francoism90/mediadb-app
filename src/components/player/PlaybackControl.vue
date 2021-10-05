@@ -38,14 +38,14 @@
 </template>
 
 <script lang="ts">
-import useDash from 'src/composables/useDash';
+import usePlayer from 'src/composables/usePlayer';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'PlaybackControl',
 
   setup() {
-    const { store } = useDash();
+    const { store } = usePlayer();
 
     const icon = computed(() => (
       store.properties?.paused

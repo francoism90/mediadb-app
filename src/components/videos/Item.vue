@@ -82,20 +82,20 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import Chips from 'src/components/tags/Chips.vue';
-import useAcquaintances from 'src/composables/useAcquaintances';
-import useFilters from 'src/composables/useFilters';
 import useVideo from 'src/composables/useVideo';
 import { VideoModel } from 'src/interfaces/video';
+import { favorite, follow } from 'src/repositories/user';
+import { timeFormat, titleFormat } from 'src/utils/format';
 import { computed, defineComponent, PropType } from 'vue';
 
 const actions = [
   {
     label: 'Save to Watch Later',
-    callback: 'follow',
+    callback: 'followModel',
   },
   {
     label: 'Save to Favorites',
-    callback: 'favorite',
+    callback: 'favoriteModel',
   },
 ];
 
@@ -115,13 +115,10 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { formatTime, formatTitle } = useFilters();
     const { store } = useVideo();
-    const { toggleFavorite, toggleFollow } = useAcquaintances();
 
-    const favorite = async () => {
-      const response = await toggleFavorite(props.video, true);
-      store.update(<VideoModel>response.data);
+    const favoriteModel = async () => {
+      await favorite(props.video, true);
 
       $q.notify({
         message: 'Added to bookmarks',
@@ -129,9 +126,8 @@ export default defineComponent({
       });
     };
 
-    const follow = async () => {
-      const response = await toggleFollow(props.video, true);
-      store.update(<VideoModel>response.data);
+    const followModel = async () => {
+      await follow(props.video, true);
 
       $q.notify({
         message: 'Added to watchlist',
@@ -139,16 +135,16 @@ export default defineComponent({
       });
     };
 
-    const name = computed(() => formatTitle([
+    const name = computed(() => titleFormat([
       [props.video.season_number, props.video.episode_number].join(''),
       props.video.name,
     ]));
 
-    const duration = computed(() => formatTime(props.video.duration || 0));
+    const duration = computed(() => timeFormat(props.video.duration));
 
     return {
-      favorite,
-      follow,
+      favoriteModel,
+      followModel,
       actions,
       duration,
       name,

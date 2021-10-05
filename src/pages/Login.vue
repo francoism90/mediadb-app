@@ -54,9 +54,9 @@
 <script lang="ts">
 import { AxiosError } from 'axios';
 import { useMeta, useQuasar } from 'quasar';
-import useFormValidation from 'src/composables/useFormValidation';
 import useRouter from 'src/composables/useRouter';
 import useSession from 'src/composables/useSession';
+import useValidation from 'src/composables/useValidation';
 import { ValidationResponse } from 'src/interfaces/form';
 import { LoginUser } from 'src/interfaces/session';
 import { signIn } from 'src/services/auth';
@@ -81,7 +81,7 @@ export default defineComponent({
 
     const {
       getError, hasError, resetResponse, setResponse,
-    } = useFormValidation();
+    } = useValidation();
 
     const onSubmit = async (): Promise<void> => {
       resetResponse();

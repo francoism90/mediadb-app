@@ -1,11 +1,8 @@
-import { MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { Bitrate, MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
 import { PlayerProperties } from 'src/interfaces/player';
-import { VideoModel } from 'src/interfaces/video';
 import { getToken } from 'src/services/auth';
-import { useStore } from 'src/store/video/player';
-
-export const store = useStore();
+import { store } from 'src/services/player';
 
 export const events = [
   'bufferLevelUpdated',
@@ -37,12 +34,8 @@ export const events = [
   'trackChangeRendered',
 ];
 
-export const populate = (player: MediaPlayerClass | undefined): void => {
-  if (!store.isReady) {
-    return;
-  }
-
-  store.sync(<PlayerProperties>{
+export const populate = (player: MediaPlayerClass | undefined): void => store.sync(
+  <PlayerProperties>{
     ready: player?.isReady(),
     autoplay: player?.getAutoPlay(),
     buffered: player?.getBufferLength('video'),
@@ -58,17 +51,16 @@ export const populate = (player: MediaPlayerClass | undefined): void => {
     videoTracks: player?.getTracksFor('video'),
     time: player?.time(),
     volume: player?.getVolume(),
-  });
-};
+  },
+);
 
-export const setAttributes = (player: MediaPlayerClass | undefined): void => {
-  // Sprite track
+export const setSpriteTrack = (player: MediaPlayerClass | undefined): void => {
   const track = document.createElement('track');
   track.id = 'sprite';
   track.kind = 'metadata';
   track.label = 'sprite';
   track.srclang = 'en';
-  track.src = store.model?.sprite_url || '';
+  track.src = store.spriteUrl;
 
   player?.getVideoElement()?.appendChild(track);
 };
@@ -76,20 +68,21 @@ export const setAttributes = (player: MediaPlayerClass | undefined): void => {
 export const setTracks = (player: MediaPlayerClass | undefined): void => {
   const spriteIndex = findIndex(player?.getVideoElement()?.textTracks, { label: 'sprite' });
 
-  if (player?.getVideoElement() && typeof spriteIndex === 'number') {
+  if (player?.getVideoElement() && spriteIndex >= 0) {
     player.getVideoElement().textTracks[spriteIndex].mode = 'showing';
   }
 };
 
-export const sync = (player: MediaPlayerClass | undefined, model: VideoModel): void => {
-  store.$patch({ model });
+export const videoTrackBitrate = (): Bitrate | undefined => store
+  .properties?.videoTrack?.bitrateList?.find(Boolean);
 
+export const sync = (player: MediaPlayerClass | undefined): void => {
   events.forEach((event) => {
     player?.on(event, () => populate(player));
   });
 
   player?.on('playbackMetaDataLoaded', () => {
-    setAttributes(player);
+    setSpriteTrack(player);
     setTracks(player);
   });
 };
@@ -100,7 +93,7 @@ export const stopListeners = (player: MediaPlayerClass | undefined): void => {
   });
 };
 
-export const initialize = (view: HTMLElement | undefined, source?: string): MediaPlayerClass => {
+export const create = (source: string, view: HTMLElement | undefined): MediaPlayerClass => {
   const player = MediaPlayer().create();
   const token = getToken() || '';
 
@@ -127,19 +120,16 @@ export const initialize = (view: HTMLElement | undefined, source?: string): Medi
     },
   });
 
-  if (typeof view !== 'undefined' && typeof source === 'string') {
-    player.setAutoPlay(true);
+  if (typeof source === 'string' && typeof view !== 'undefined') {
     player.attachView(view);
     player.attachSource(source);
+    player.setAutoPlay(true);
   }
 
   return player;
 };
 
 export const destroy = (player: MediaPlayerClass | undefined): void => {
-  // Reset store
-  store.$reset();
-
   // Stop playback
   player?.pause();
 

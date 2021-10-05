@@ -19,11 +19,12 @@
 </template>
 
 <script lang="ts">
-import { clamp, debounce, find, inRange } from 'lodash';
-import useDash from 'src/composables/useDash';
-import useFilters from 'src/composables/useFilters';
+import { clamp, debounce } from 'lodash';
+import usePlayer from 'src/composables/usePlayer';
 import { PlayerThumbnail } from 'src/interfaces/player';
 import { getBlob } from 'src/services/api';
+import { getSpriteCue } from 'src/services/player';
+import { timeFormat } from 'src/utils/format';
 import {
   computed, defineComponent, ref, watch,
 } from 'vue';
@@ -32,8 +33,7 @@ export default defineComponent({
   name: 'TooltipControl',
 
   setup() {
-    const { formatTime } = useFilters();
-    const { store } = useDash();
+    const { store } = usePlayer();
 
     const thumbnail = ref<string>();
 
@@ -43,14 +43,10 @@ export default defineComponent({
     const margin = computed(() => clamp(position.value - 80, 0, width.value - 160));
     const percent = computed(() => clamp((position.value / width.value) * 100, 0, 100));
     const time = computed(() => (store.properties?.duration || 0) * (percent.value / 100));
-    const timestamp = computed(() => formatTime(time.value || 0));
+    const timestamp = computed(() => timeFormat(time.value || 0));
 
     const render = async (): Promise<void> => {
-      const cue = find(
-        store.sprite?.cues,
-        (o: VTTCue) => inRange(time.value, o.startTime, o.endTime),
-      ) as VTTCue;
-
+      const cue = getSpriteCue(time.value) as VTTCue;
       if (!cue) return;
 
       const text = JSON.parse(cue?.text) as PlayerThumbnail;

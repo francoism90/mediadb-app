@@ -11,18 +11,16 @@
       crossorigin="anonymous"
     />
 
-    <video-controls />
+    <video-controls v-if="store.isReady" />
   </div>
 </template>
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import VideoControls from 'src/components/player/VideoControls.vue';
-import useDash from 'src/composables/useDash';
-import { VideoModel } from 'src/interfaces/video';
-import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, watch,
-} from 'vue';
+import usePlayer from 'src/composables/usePlayer';
+import { PlayerSource } from 'src/interfaces/player';
+import { defineComponent, onBeforeUnmount, onMounted, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -32,15 +30,15 @@ export default defineComponent({
   },
 
   props: {
-    model: {
-      type: Object as PropType<VideoModel>,
+    source: {
+      type: Object as PropType<PlayerSource>,
       required: true,
     },
   },
 
   setup(props) {
     const $q = useQuasar();
-    const { load, unload, container, video, player, store } = useDash();
+    const { load, unload, container, video, player, store } = usePlayer();
 
     const toggleFullscreen = async (): Promise<void> => {
       await $q.fullscreen.toggle(<Element>container.value);
@@ -48,18 +46,18 @@ export default defineComponent({
 
     const togglePlayback = (): void => {
       if (player.value?.isPaused()) {
-        return player.value.play();
+        return player.value?.play();
       }
 
       return player.value?.pause();
     };
 
-    watch(() => props.model, () => load(props.model));
+    watch(() => props.source, () => load(props.source, video.value), { deep: true });
     watch(() => store.fullscreen, toggleFullscreen);
     watch(() => store.pause, togglePlayback);
     watch(() => store.time, (value: number) => player.value?.seek(value));
 
-    onMounted(() => load(props.model));
+    onMounted(() => load(props.source, video.value));
     onBeforeUnmount(() => unload());
 
     return {

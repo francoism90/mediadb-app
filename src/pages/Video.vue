@@ -16,7 +16,7 @@
     </template>
 
     <template v-if="store.isReady">
-      <video-player :model="store.data" />
+      <video-player :source="source" />
 
       <div class="container">
         <video-details />
@@ -38,8 +38,9 @@ import VideoPlayer from 'src/components/player/Video.vue';
 import VideoDetails from 'src/components/video/Details.vue';
 import VideoSimilar from 'src/components/video/Similar.vue';
 import useVideo from 'src/composables/useVideo';
+import { PlayerSource } from 'src/interfaces/player';
 import { authenticate } from 'src/services/auth';
-import { defineComponent, PropType, watch } from 'vue';
+import { computed, defineComponent, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'Video',
@@ -73,6 +74,11 @@ export default defineComponent({
   setup(props) {
     const { initialize, subscribe, unsubscribe, errors, store } = useVideo();
 
+    const source = computed(() => <PlayerSource>{
+      id: store.data?.id,
+      url: store.data?.dash_url,
+    });
+
     watch(props, async (value, oldValue): Promise<void> => {
       await initialize(value.id);
 
@@ -85,6 +91,7 @@ export default defineComponent({
 
     return {
       errors,
+      source,
       store,
     };
   },

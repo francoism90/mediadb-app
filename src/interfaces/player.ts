@@ -1,6 +1,5 @@
 import { MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
-import { VideoModel } from 'src/interfaces/video';
 
 export interface PlayerProperties {
   ready: boolean,
@@ -28,6 +27,12 @@ export interface PlayerResolution {
   height: number,
 }
 
+export interface PlayerSource {
+  id?: string,
+  name?: string,
+  url: string | undefined,
+}
+
 export interface PlayerTooltip {
   clientX: number,
   sliderOffset: DomOffset,
@@ -40,11 +45,12 @@ export interface PlayerThumbnail {
 }
 
 export interface PlayerState {
-  model: VideoModel,
+  module: string,
+  properties: PlayerProperties,
+  source: PlayerSource,
+  tooltip: PlayerTooltip,
   controls: boolean,
   fullscreen: boolean,
   pause: boolean,
   time: number,
-  properties: PlayerProperties,
-  tooltip: PlayerTooltip,
 }

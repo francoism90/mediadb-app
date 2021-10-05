@@ -26,8 +26,8 @@
 </template>
 
 <script lang="ts">
-import useDash from 'src/composables/useDash';
 import useIntl from 'src/composables/useIntl';
+import usePlayer from 'src/composables/usePlayer';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -37,7 +37,7 @@ export default defineComponent({
 
   setup() {
     const { intl } = useIntl();
-    const { store } = useDash();
+    const { store } = usePlayer();
 
     const language = (value: string): string | undefined => intl?.formatDisplayName(value, { type: 'language' });
 

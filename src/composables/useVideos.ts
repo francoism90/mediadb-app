@@ -29,7 +29,7 @@ export default function useVideos() {
   };
 
   return {
-    store,
     fetch,
+    store,
   };
 }

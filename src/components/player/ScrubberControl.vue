@@ -35,8 +35,8 @@
 import { dom, QSlider } from 'quasar';
 import FullscreenControl from 'src/components/player/FullscreenControl.vue';
 import TooltipControl from 'src/components/player/TooltipControl.vue';
-import useDash from 'src/composables/useDash';
-import useFilters from 'src/composables/useFilters';
+import usePlayer from 'src/composables/usePlayer';
+import { timeFormat } from 'src/utils/format';
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -48,15 +48,14 @@ export default defineComponent({
   },
 
   setup() {
-    const { formatTime } = useFilters();
-    const { store } = useDash();
+    const { store } = usePlayer();
 
     const slider = ref<QSlider>();
     const tooltip = ref<boolean>();
 
     const buffered = computed(() => Math.round(store.properties?.buffered || 0));
-    const currentTime = computed(() => formatTime(store.properties?.time || 0));
-    const duration = computed(() => formatTime(store.properties?.duration || 0));
+    const currentTime = computed(() => timeFormat(store.properties?.time));
+    const duration = computed(() => timeFormat(store.properties?.duration));
 
     const setCurrentTime = (payload: number): void => {
       store.time = +payload.toFixed(2);

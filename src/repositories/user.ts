@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
-import { Model, ModelResponse } from 'src/interfaces/repository';
+import { Model } from 'src/interfaces/repository';
 import { AuthResponse, AuthUser, LoginUser } from 'src/interfaces/session';
 
 export const auth = async (params: AuthUser): Promise<AuthResponse> => {
@@ -27,8 +27,8 @@ export const logout = async (params: AuthUser): Promise<AuthResponse> => {
   return response.data;
 };
 
-export const favorite = async (params: Model, force?: boolean): Promise<ModelResponse> => {
-  const response = await api.post<Model, AxiosResponse<ModelResponse>>(
+export const favorite = async (params: Model, force?: boolean): Promise<Model> => {
+  const response = await api.post<Model, AxiosResponse<Model>>(
     `user/favorite/${params.id}`, <Model>{
       favorite: force,
     },
@@ -37,8 +37,8 @@ export const favorite = async (params: Model, force?: boolean): Promise<ModelRes
   return response.data;
 };
 
-export const follow = async (params: Model, force?: boolean): Promise<ModelResponse> => {
-  const response = await api.post<Model, AxiosResponse<ModelResponse>>(
+export const follow = async (params: Model, force?: boolean): Promise<Model> => {
+  const response = await api.post<Model, AxiosResponse<Model>>(
     `user/follow/${params.id}`, <Model>{
       following: force,
     },

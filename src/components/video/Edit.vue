@@ -138,8 +138,8 @@
 <script lang="ts">
 import { AxiosError } from 'axios';
 import { useDialogPluginComponent } from 'quasar';
-import useFormValidation from 'src/composables/useFormValidation';
 import useTagInput from 'src/composables/useTagInput';
+import useValidation from 'src/composables/useValidation';
 import { ValidationResponse } from 'src/interfaces/form';
 import { VideoModel } from 'src/interfaces/video';
 import { remove, save } from 'src/repositories/video';
@@ -163,9 +163,11 @@ export default defineComponent({
 
   setup(props) {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
+
     const {
       getError, hasError, resetResponse, setResponse,
-    } = useFormValidation();
+    } = useValidation();
+
     const { fetch: fetchTags, store: tagStore } = useTagInput();
 
     const deleteDialog = ref<boolean>(false);

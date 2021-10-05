@@ -19,29 +19,11 @@ export default defineComponent({
     const $q = useQuasar();
     const meta = useMeta(metaData);
 
-    const {
-      hideStatusBar,
-      showStatusBar,
-      hideNavigationBar,
-      showNavigationBar,
-      screenOrientationLandscape,
-      screenOrientationUnlock,
-    } = useDevice();
+    const { isUsable, onEnterFullScreen, onLeaveFullScreen } = useDevice();
 
     watch(() => $q.fullscreen.isActive, async (value): Promise<void> => {
-      if (!$q.platform.is.capacitor && !$q.platform.is.cordova) {
-        return;
-      }
-
-      if (value === true) {
-        await hideStatusBar();
-        await hideNavigationBar();
-        await screenOrientationLandscape();
-      } else {
-        await showStatusBar();
-        await showNavigationBar();
-        screenOrientationUnlock();
-      }
+      if (isUsable() && value === true) await onEnterFullScreen();
+      if (isUsable() && value === false) await onLeaveFullScreen();
     });
 
     return {
