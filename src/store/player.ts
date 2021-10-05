@@ -17,6 +17,10 @@ export const useStore = defineStore('player', {
   }),
 
   getters: {
+    isReady(): boolean {
+      return typeof this.source.url === 'string';
+    },
+
     isWaiting(): boolean {
       return !this.properties?.ready || this.properties?.seeking;
     },

@@ -11,7 +11,7 @@
       crossorigin="anonymous"
     />
 
-    <video-controls />
+    <video-controls v-if="store.isReady" />
   </div>
 </template>
 
