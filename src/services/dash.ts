@@ -107,19 +107,6 @@ export const create = (source: string, view: HTMLElement | undefined): MediaPlay
 
   player.initialize();
 
-  player.updateSettings({
-    streaming: {
-      buffer: {
-        bufferTimeAtTopQuality: 10,
-        bufferTimeAtTopQualityLongForm: 30,
-        bufferToKeep: 10,
-        enableSeekDecorrelationFix: true,
-        flushBufferAtTrackSwitch: true,
-        stableBufferTime: 5,
-      },
-    },
-  });
-
   if (typeof source === 'string' && typeof view !== 'undefined') {
     player.attachView(view);
     player.attachSource(source);
