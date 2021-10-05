@@ -128,7 +128,7 @@ export default defineComponent({
       });
     };
 
-    const resolution = computed(() => videoResolution);
+    const resolution = computed(() => videoResolution());
 
     return {
       capture,

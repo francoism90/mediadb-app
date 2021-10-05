@@ -1,4 +1,4 @@
-import { Bitrate, MediaPlayerClass as DashPlayer } from 'dashjs';
+import { MediaPlayerClass as DashPlayer } from 'dashjs';
 import { PlayerResolution, PlayerSource } from 'src/interfaces/player';
 import { create as createDashPlayer, destroy as DestroyDashPlayer, sync as SyncDashEvents, videoTrackBitrate } from 'src/services/dash';
 import { useStore } from 'src/store/player';
@@ -55,7 +55,7 @@ export const getResolution = (height: number, width: number): PlayerResolution |
   return heightMatch || widthMatch;
 };
 
-export const videoResolution = (): Bitrate | undefined => {
+export const videoResolution = (): PlayerResolution | undefined => {
   if (store.module === 'dashjs') {
     const bitrate = videoTrackBitrate();
 
