@@ -47,13 +47,5 @@ export const useStore = defineStore('tags', {
       this.meta = payload.meta;
       this.links = payload.links;
     },
-
-    filter(payload: TagsQuery): void {
-      this.query.filter = mergeWith(this.query.filter, payload, mergeDeep);
-    },
-
-    sort(payload: string | string[] | null): void {
-      this.query.sort = payload;
-    },
   },
 });

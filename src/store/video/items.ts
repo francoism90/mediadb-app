@@ -1,6 +1,6 @@
 import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import { VideoModel, VideosFilters, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
+import { VideoModel, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
 import { mergeDeep } from 'src/utils/helpers';
 
 export const useStore = defineStore('videos', {
@@ -47,14 +47,6 @@ export const useStore = defineStore('videos', {
       this.data = this.data.concat(payload.data);
       this.meta = payload.meta;
       this.links = payload.links;
-    },
-
-    filter(payload: VideosFilters): void {
-      this.query.filter = mergeWith(this.query.filter, payload, mergeDeep);
-    },
-
-    sort(payload: string | string[] | null): void {
-      this.query.sort = payload;
     },
 
     delete(payload: VideoModel): void {

@@ -104,6 +104,8 @@ export default {
 
     const resetFilters = (): void => {
       store.$reset();
+
+      // Improves fade-out effect
       window.setTimeout(() => onDialogOK(), 300);
     };
 
