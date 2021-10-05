@@ -6,6 +6,7 @@ import { useStore as useVideoStore } from 'src/store/video/item';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
+    module: 'dashjs',
     properties: <PlayerProperties>{},
     source: <PlayerSource>{},
     tooltip: <PlayerTooltip>{},

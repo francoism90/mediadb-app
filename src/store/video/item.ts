@@ -1,7 +1,7 @@
 import { mergeWith } from 'lodash';
 import { defineStore } from 'pinia';
-import { mergeDeep } from 'src/helpers/utils';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces/video';
+import { mergeDeep } from 'src/utils/helpers';
 
 export const useStore = defineStore({
   id: 'video',

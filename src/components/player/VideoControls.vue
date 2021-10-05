@@ -27,7 +27,7 @@
 import PlaybackControl from 'src/components/player/PlaybackControl.vue';
 import ScrubberControl from 'src/components/player/ScrubberControl.vue';
 import SettingsControl from 'src/components/player/SettingsControl.vue';
-import useDash from 'src/composables/useDash';
+import usePlayer from 'src/composables/usePlayer';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -40,7 +40,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { store } = useDash();
+    const { store } = usePlayer();
     const timer = ref<number>(0);
 
     const deactivate = (): void => {

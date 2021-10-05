@@ -100,8 +100,8 @@
 <script lang="ts">
 import List from 'src/components/tags/List.vue';
 import Item from 'src/components/video/Item.vue';
-import useFilters from 'src/composables/useFilters';
 import useVideo from 'src/composables/useVideo';
+import { dateFormat, timeFormat } from 'src/utils/format';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -114,13 +114,12 @@ export default defineComponent({
 
   setup() {
     const { store } = useVideo();
-    const { formatDate, formatTime } = useFilters();
 
     const tagsByType = (type: string) => store.data.tags?.filter((tag) => tag.type === type);
 
-    const duration = computed(() => formatTime(store.data?.duration));
-    const created = computed(() => formatDate(store.data?.created_at));
-    const released = computed(() => formatDate(store.data?.release_date));
+    const duration = computed(() => timeFormat(store.data?.duration));
+    const created = computed(() => dateFormat(store.data?.created_at));
+    const released = computed(() => dateFormat(store.data?.release_date));
 
     const cast = computed(() => tagsByType('actor'));
     const languages = computed(() => tagsByType('language'));

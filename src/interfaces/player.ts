@@ -45,6 +45,7 @@ export interface PlayerThumbnail {
 }
 
 export interface PlayerState {
+  module: string,
   properties: PlayerProperties,
   source: PlayerSource,
   tooltip: PlayerTooltip,

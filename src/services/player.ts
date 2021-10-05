@@ -1,4 +1,38 @@
-import { PlayerResolution } from 'src/interfaces/player';
+import { Bitrate, MediaPlayerClass as DashPlayer } from 'dashjs';
+import { PlayerResolution, PlayerSource } from 'src/interfaces/player';
+import { create as createDashPlayer, destroy as DestroyDashPlayer, sync as SyncDashEvents, videoTrackBitrate } from 'src/services/dash';
+import { useStore } from 'src/store/player';
+
+export const store = useStore();
+
+export const initialize = (
+  source: PlayerSource,
+  view: HTMLElement | undefined,
+): DashPlayer | undefined => {
+  store.$patch({ source });
+
+  console.log(source);
+
+  if (store.module === 'dashjs') {
+    return createDashPlayer(source.url || '', view);
+  }
+
+  return undefined;
+};
+
+export const destroy = (player: DashPlayer | undefined): void => {
+  store.$reset();
+
+  if (store.module === 'dashjs') {
+    DestroyDashPlayer(player);
+  }
+};
+
+export const sync = (player: DashPlayer | undefined): void => {
+  if (store.module === 'dashjs') {
+    SyncDashEvents(player);
+  }
+};
 
 export const resolutions: PlayerResolution[] = [
   { label: '2160p', icon: '4K', width: 3840, height: 2160 },
@@ -15,4 +49,14 @@ export const getResolution = (height: number, width: number): PlayerResolution |
   const widthMatch = resolutions.find((e) => width >= e.width);
 
   return heightMatch || widthMatch;
+};
+
+export const videoResolution = (): Bitrate | undefined => {
+  if (store.module === 'dashjs') {
+    const bitrate = videoTrackBitrate();
+
+    return getResolution(bitrate?.height || 0, bitrate?.width || 0);
+  }
+
+  return undefined;
 };

@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import useDash from 'src/composables/useDash';
-import useFilters from 'src/composables/useFilters';
+import usePlayer from 'src/composables/usePlayer';
+import { getResolution } from 'src/services/player';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -35,12 +35,11 @@ export default defineComponent({
   emits: ['setComponent'],
 
   setup() {
-    const { store } = useDash();
-    const { formatResolution } = useFilters();
+    const { store } = usePlayer();
 
     const bitrates = computed(() => store.properties.videoTracks?.map((x) => {
       const bitrate = x.bitrateList.find(Boolean);
-      return formatResolution(bitrate?.height || 0, bitrate?.width || 0);
+      return getResolution(bitrate?.height || 0, bitrate?.width || 0);
     }));
 
     return {

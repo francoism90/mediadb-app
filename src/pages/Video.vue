@@ -18,7 +18,7 @@
     <template v-if="store.isReady">
       <video-player :source="source" />
 
-      <div class="container">
+      <!-- <div class="container">
         <video-details />
 
         <q-separator
@@ -27,7 +27,7 @@
         />
 
         <video-similar />
-      </div>
+      </div> -->
     </template>
   </q-page>
 </template>
@@ -35,8 +35,8 @@
 <script lang="ts">
 import { useMeta } from 'quasar';
 import VideoPlayer from 'src/components/player/Video.vue';
-import VideoDetails from 'src/components/video/Details.vue';
-import VideoSimilar from 'src/components/video/Similar.vue';
+// import VideoDetails from 'src/components/video/Details.vue';
+// import VideoSimilar from 'src/components/video/Similar.vue';
 import useVideo from 'src/composables/useVideo';
 import { PlayerSource } from 'src/interfaces/player';
 import { authenticate } from 'src/services/auth';
@@ -46,9 +46,9 @@ export default defineComponent({
   name: 'Video',
 
   components: {
-    VideoDetails,
+    // VideoDetails,
     VideoPlayer,
-    VideoSimilar,
+    // VideoSimilar,
   },
 
   props: {

@@ -1,10 +1,8 @@
-import { MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { Bitrate, MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
-import { PlayerProperties, PlayerSource } from 'src/interfaces/player';
+import { PlayerProperties } from 'src/interfaces/player';
 import { getToken } from 'src/services/auth';
-import { useStore } from 'src/store/player';
-
-export const store = useStore();
+import { store } from 'src/services/player';
 
 export const events = [
   'bufferLevelUpdated',
@@ -75,6 +73,9 @@ export const setTracks = (player: MediaPlayerClass | undefined): void => {
   }
 };
 
+export const videoTrackBitrate = (): Bitrate | undefined => store
+  .properties?.videoTrack?.bitrateList?.find(Boolean);
+
 export const sync = (player: MediaPlayerClass | undefined): void => {
   events.forEach((event) => {
     player?.on(event, () => populate(player));
@@ -92,15 +93,9 @@ export const stopListeners = (player: MediaPlayerClass | undefined): void => {
   });
 };
 
-export const initialize = (
-  source: PlayerSource,
-  view: HTMLElement | undefined,
-): MediaPlayerClass => {
+export const create = (source: string, view: HTMLElement | undefined): MediaPlayerClass => {
   const player = MediaPlayer().create();
   const token = getToken() || '';
-
-  // Populate source
-  store.$patch({ source });
 
   // Add Authorization header
   player.extend('RequestModifier', () => ({
@@ -125,9 +120,9 @@ export const initialize = (
     },
   });
 
-  if (typeof source.url === 'string' && typeof view !== 'undefined') {
+  if (typeof source === 'string' && typeof view !== 'undefined') {
     player.attachView(view);
-    player.attachSource(source.url);
+    player.attachSource(source);
     player.setAutoPlay(true);
   }
 
@@ -135,9 +130,6 @@ export const initialize = (
 };
 
 export const destroy = (player: MediaPlayerClass | undefined): void => {
-  // Reset store
-  store.$reset();
-
   // Stop playback
   player?.pause();
 

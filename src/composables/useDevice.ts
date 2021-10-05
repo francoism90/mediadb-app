@@ -14,10 +14,6 @@ export default function useDevice() {
     window.screen.orientation.unlock();
   };
 
-  // const setOverlaysWebView = async (): Promise<void> => {
-  //   await StatusBar.setOverlaysWebView({ overlay: true });
-  // };
-
   const hideStatusBar = async (): Promise<void> => {
     await StatusBar.hide();
   };

@@ -1,7 +1,7 @@
 import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import { mergeDeep } from 'src/helpers/utils';
 import { VideoModel, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
+import { mergeDeep } from 'src/utils/helpers';
 
 export const useStore = defineStore('video-similar', {
   state: () => (<VideosState>{

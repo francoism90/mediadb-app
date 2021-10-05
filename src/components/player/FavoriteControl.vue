@@ -10,20 +10,20 @@
 </template>
 
 <script lang="ts">
-import useAcquaintances from 'src/composables/useAcquaintances';
 import useVideo from 'src/composables/useVideo';
+import { Model } from 'src/interfaces/repository';
+import { favorite } from 'src/repositories/user';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'FavoriteControl',
 
   setup() {
-    const { toggleFavorite } = useAcquaintances();
     const { store } = useVideo();
 
     const icon = computed(() => (store.data.favorite === true ? 'favorite' : 'favorite_border'));
 
-    const onClick = async (): Promise<void> => toggleFavorite(store.data);
+    const onClick = async (): Promise<Model> => favorite(store.data);
 
     return {
       onClick,

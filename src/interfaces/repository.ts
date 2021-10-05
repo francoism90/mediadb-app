@@ -9,12 +9,6 @@ export interface Model {
   'updated_at': string,
 }
 
-export interface ModelResponse {
-  data: Model,
-  exception?: string | null
-  message?: string | null
-}
-
 export interface RepositoryMeta {
   'current_page': number,
   'last_page': number,

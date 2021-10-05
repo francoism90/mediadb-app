@@ -10,20 +10,20 @@
 </template>
 
 <script lang="ts">
-import useAcquaintances from 'src/composables/useAcquaintances';
 import useVideo from 'src/composables/useVideo';
+import { Model } from 'src/interfaces/repository';
+import { follow } from 'src/repositories/user';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'FollowControl',
 
   setup() {
-    const { toggleFollow } = useAcquaintances();
     const { store } = useVideo();
 
     const icon = computed(() => (store.data.following === true ? 'watch_later' : 'o_watch_later'));
 
-    const onClick = async (): Promise<void> => toggleFollow(store.data);
+    const onClick = async (): Promise<Model> => follow(store.data);
 
     return {
       onClick,

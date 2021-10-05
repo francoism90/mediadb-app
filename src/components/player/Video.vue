@@ -18,11 +18,9 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import VideoControls from 'src/components/player/VideoControls.vue';
-import useDash from 'src/composables/useDash';
+import usePlayer from 'src/composables/usePlayer';
 import { PlayerSource } from 'src/interfaces/player';
-import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, watch,
-} from 'vue';
+import { defineComponent, onBeforeUnmount, onMounted, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -40,7 +38,7 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { load, unload, container, video, player, store } = useDash();
+    const { load, unload, container, video, player, store } = usePlayer();
 
     const toggleFullscreen = async (): Promise<void> => {
       await $q.fullscreen.toggle(<Element>container.value);

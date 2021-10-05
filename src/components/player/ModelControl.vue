@@ -92,10 +92,10 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import VideoEdit from 'src/components/video/Edit.vue';
-import useDash from 'src/composables/useDash';
-import useFilters from 'src/composables/useFilters';
+import usePlayer from 'src/composables/usePlayer';
 import { VideoModel } from 'src/interfaces/video';
 import { save } from 'src/repositories/video';
+import { videoResolution } from 'src/services/player';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -104,8 +104,7 @@ export default defineComponent({
   emits: ['setComponent'],
 
   setup() {
-    const { store } = useDash();
-    const { formatResolution } = useFilters();
+    const { store } = usePlayer();
     const $q = useQuasar();
 
     const capture = async (): Promise<void> => {
@@ -129,12 +128,7 @@ export default defineComponent({
       });
     };
 
-    const bitrate = computed(() => store.properties.videoTrack?.bitrateList.find(Boolean));
-
-    const resolution = computed(() => formatResolution(
-      bitrate.value?.height || 0,
-      bitrate.value?.width || 0,
-    ));
+    const resolution = computed(() => videoResolution);
 
     return {
       capture,

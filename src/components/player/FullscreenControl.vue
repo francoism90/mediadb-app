@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import useDash from 'src/composables/useDash';
+import usePlayer from 'src/composables/usePlayer';
 import {
   computed, defineComponent, ref, watch,
 } from 'vue';
@@ -21,7 +21,7 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store } = useDash();
+    const { store } = usePlayer();
 
     const isFullscreen = ref<boolean>(false);
     const icon = computed(() => (isFullscreen.value ? 'fullscreen_exit' : 'fullscreen'));
