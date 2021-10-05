@@ -79,12 +79,12 @@ export default defineComponent({
       url: store.data?.dash_url,
     });
 
-    watch(props, async (value, oldValue): Promise<void> => {
-      await initialize(value.id);
+    watch(() => props.id, async (value, oldValue): Promise<void> => {
+      await initialize(value);
 
       // Init WebSockets
-      unsubscribe(oldValue?.id || '');
-      subscribe(value?.id || '');
+      unsubscribe(oldValue || '');
+      subscribe(value || '');
     }, { immediate: true });
 
     useMeta(() => ({ title: store.data?.name || '' }));
