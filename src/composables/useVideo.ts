@@ -17,11 +17,19 @@ export default function useVideo() {
   const errors = ref<ErrorResponse>();
 
   const initialize = async (id: string): Promise<void> => {
+    // Repopulate stores
+    if (store.data.id !== id) {
+      similar.reset({ filter: { similar: id } });
+    }
+
     try {
       const response = await find(id);
       store.populate(response);
     } catch (e: unknown) {
       const error = e as AxiosError<ErrorResponse>;
+
+      // Reset stores
+      similar.$reset();
 
       if (error.response) {
         errors.value = error.response.data;
