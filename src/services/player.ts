@@ -1,9 +1,20 @@
 import { MediaPlayerClass as DashPlayer } from 'dashjs';
+import { find, inRange } from 'lodash';
 import { PlayerResolution, PlayerSource } from 'src/interfaces/player';
 import { create as createDashPlayer, destroy as DestroyDashPlayer, sync as SyncDashEvents, videoTrackBitrate } from 'src/services/dash';
 import { useStore } from 'src/store/player';
 
 export const store = useStore();
+
+export const resolutions: PlayerResolution[] = [
+  { label: '2160p', icon: '4K', width: 3840, height: 2160 },
+  { label: '1440p', icon: '2k', width: 2560, height: 1440 },
+  { label: '1080p', icon: 'hd', width: 1920, height: 1080 },
+  { label: '720p', icon: 'hd', width: 1280, height: 720 },
+  { label: '480p', icon: 'sd', width: 854, height: 480 },
+  { label: '360p', icon: 'sd', width: 640, height: 360 },
+  { label: '240p', icon: 'sd', width: 426, height: 240 },
+];
 
 export const initialize = (
   source: PlayerSource,
@@ -38,15 +49,9 @@ export const update = (player: DashPlayer | undefined): void => {
   }
 };
 
-export const resolutions: PlayerResolution[] = [
-  { label: '2160p', icon: '4K', width: 3840, height: 2160 },
-  { label: '1440p', icon: '2k', width: 2560, height: 1440 },
-  { label: '1080p', icon: 'hd', width: 1920, height: 1080 },
-  { label: '720p', icon: 'hd', width: 1280, height: 720 },
-  { label: '480p', icon: 'sd', width: 854, height: 480 },
-  { label: '360p', icon: 'sd', width: 640, height: 360 },
-  { label: '240p', icon: 'sd', width: 426, height: 240 },
-];
+export const getSpriteCue = (time: number) => find(store.spriteTrack?.cues, (o: VTTCue) => inRange(
+  time, o.startTime, o.endTime,
+));
 
 export const getResolution = (height: number, width: number): PlayerResolution | undefined => {
   const heightMatch = resolutions.find((e) => height >= e.height);

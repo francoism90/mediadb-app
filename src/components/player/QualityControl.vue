@@ -6,7 +6,7 @@
     class="player-menu"
   >
     <q-item
-      v-for="(item, index) in bitrates"
+      v-for="(item, index) in resolutions"
       :key="index"
       v-close-popup
       clickable
@@ -37,14 +37,14 @@ export default defineComponent({
   setup() {
     const { store } = usePlayer();
 
-    const bitrates = computed(() => store.properties.videoTracks?.map((x) => {
+    const resolutions = computed(() => store.properties?.videoTracks?.map((x) => {
       const bitrate = x.bitrateList.find(Boolean);
       return getResolution(bitrate?.height || 0, bitrate?.width || 0);
     }));
 
     return {
+      resolutions,
       store,
-      bitrates,
     };
   },
 });

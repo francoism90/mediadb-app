@@ -19,10 +19,11 @@
 </template>
 
 <script lang="ts">
-import { clamp, debounce, find, inRange } from 'lodash';
+import { clamp, debounce } from 'lodash';
 import usePlayer from 'src/composables/usePlayer';
 import { PlayerThumbnail } from 'src/interfaces/player';
 import { getBlob } from 'src/services/api';
+import { getSpriteCue } from 'src/services/player';
 import { timeFormat } from 'src/utils/format';
 import {
   computed, defineComponent, ref, watch,
@@ -45,11 +46,7 @@ export default defineComponent({
     const timestamp = computed(() => timeFormat(time.value || 0));
 
     const render = async (): Promise<void> => {
-      const cue = find(
-        store.spriteTrack?.cues,
-        (o: VTTCue) => inRange(time.value, o.startTime, o.endTime),
-      ) as VTTCue;
-
+      const cue = getSpriteCue(time.value) as VTTCue;
       if (!cue) return;
 
       const text = JSON.parse(cue?.text) as PlayerThumbnail;
