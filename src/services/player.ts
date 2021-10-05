@@ -30,11 +30,11 @@ export const initialize = (
 };
 
 export const destroy = (player: DashPlayer | undefined): void => {
-  store.$reset();
-
   if (store.module === 'dashjs') {
     DestroyDashPlayer(player);
   }
+
+  store.$reset();
 };
 
 export const sync = (player: DashPlayer | undefined): void => {

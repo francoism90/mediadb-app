@@ -11,13 +11,7 @@ export default function usePlayer() {
   const container = ref<HTMLDivElement>();
   const video = ref<HTMLVideoElement>();
 
-  const unload = (): void => {
-    // Destroy player
-    destroy(player.value);
-
-    // Reset player store
-    store.$reset();
-  };
+  const unload = (): void => destroy(player.value);
 
   const load = async (source: PlayerSource, view: HTMLElement | undefined): Promise<void> => {
     unload();
