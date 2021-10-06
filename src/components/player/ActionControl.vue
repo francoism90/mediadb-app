@@ -25,18 +25,15 @@
 </template>
 
 <script lang="ts">
-import CaptionControl from 'src/components/player/CaptionControl.vue';
-import ModelControl from 'src/components/player/ModelControl.vue';
-import QualityControl from 'src/components/player/QualityControl.vue';
-import { defineComponent, ref } from 'vue';
+import { defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'ActionControl',
 
   components: {
-    CaptionControl,
-    ModelControl,
-    QualityControl,
+    CaptionControl: defineAsyncComponent(() => import('components/player/CaptionControl.vue')),
+    ModelControl: defineAsyncComponent(() => import('components/player/ModelControl.vue')),
+    QualityControl: defineAsyncComponent(() => import('components/player/QualityControl.vue')),
   },
 
   setup() {

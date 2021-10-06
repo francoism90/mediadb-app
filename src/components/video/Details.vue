@@ -98,18 +98,16 @@
 </template>
 
 <script lang="ts">
-import List from 'src/components/tags/List.vue';
-import Item from 'src/components/video/Item.vue';
 import useVideo from 'src/composables/useVideo';
 import { dateFormat, timeFormat } from 'src/utils/format';
-import { computed, defineComponent } from 'vue';
+import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    Item,
-    List,
+    Item: defineAsyncComponent(() => import('components/video/Item.vue')),
+    List: defineAsyncComponent(() => import('components/tags/List.vue')),
   },
 
   setup() {

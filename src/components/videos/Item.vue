@@ -81,12 +81,10 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import Chips from 'src/components/tags/Chips.vue';
-import useVideo from 'src/composables/useVideo';
 import { VideoModel } from 'src/interfaces/video';
 import { favorite, follow } from 'src/repositories/user';
 import { timeFormat, titleFormat } from 'src/utils/format';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
 const actions = [
   {
@@ -103,7 +101,7 @@ export default defineComponent({
   name: 'VideosItem',
 
   components: {
-    Chips,
+    Chips: defineAsyncComponent(() => import('components/tags/Chips.vue')),
   },
 
   props: {
@@ -115,7 +113,6 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { store } = useVideo();
 
     const favoriteModel = async () => {
       await favorite(props.video, true);
@@ -148,7 +145,6 @@ export default defineComponent({
       actions,
       duration,
       name,
-      store,
     };
   },
 });

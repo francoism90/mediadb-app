@@ -34,21 +34,18 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
-import VideoPlayer from 'src/components/player/Video.vue';
-import VideoDetails from 'src/components/video/Details.vue';
-import VideoSimilar from 'src/components/video/Similar.vue';
 import useVideo from 'src/composables/useVideo';
 import { PlayerSource } from 'src/interfaces/player';
 import { authenticate } from 'src/services/auth';
-import { computed, defineComponent, PropType, watch } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'Video',
 
   components: {
-    VideoDetails,
-    VideoPlayer,
-    VideoSimilar,
+    VideoPlayer: defineAsyncComponent(() => import('components/player/Video.vue')),
+    VideoDetails: defineAsyncComponent(() => import('components/video/Details.vue')),
+    VideoSimilar: defineAsyncComponent(() => import('components/video/Similar.vue')),
   },
 
   props: {

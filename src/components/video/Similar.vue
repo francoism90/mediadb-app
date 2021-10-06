@@ -33,16 +33,15 @@
 </template>
 
 <script lang="ts">
-import Item from 'src/components/videos/Item.vue';
 import useSimilar from 'src/composables/useSimilar';
 import useVideo from 'src/composables/useVideo';
-import { defineComponent } from 'vue';
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoSimilar',
 
   components: {
-    Item,
+    Item: defineAsyncComponent(() => import('components/videos/Item.vue')),
   },
 
   setup() {

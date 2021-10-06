@@ -68,11 +68,9 @@
 <script lang="ts">
 import { filter } from 'lodash';
 import { useMeta, useQuasar } from 'quasar';
-import Filters from 'src/components/videos/Filters.vue';
-import Item from 'src/components/videos/Item.vue';
 import useVideos from 'src/composables/useVideos';
 import { authenticate } from 'src/services/auth';
-import { computed, defineComponent, watch } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
 
 const sorters = [
   { label: 'Relevance', value: 'relevance' },
@@ -83,11 +81,13 @@ const sorters = [
   { label: 'Shortest', value: 'duration' },
 ];
 
+const filterComponent = defineAsyncComponent(() => import('components/videos/Filters.vue'));
+
 export default defineComponent({
   name: 'Videos',
 
   components: {
-    Item,
+    Item: defineAsyncComponent(() => import('components/videos/Item.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
@@ -120,7 +120,7 @@ export default defineComponent({
 
     const showFilters = (): void => {
       $q.dialog({
-        component: Filters,
+        component: filterComponent,
         componentProps: {
           maximized: true,
           position: 'right',

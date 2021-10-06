@@ -7,18 +7,15 @@
 </template>
 
 <script lang="ts">
-import ActionControl from 'src/components/player/ActionControl.vue';
-import FavoriteControl from 'src/components/player/FavoriteControl.vue';
-import FollowControl from 'src/components/player/FollowControl.vue';
-import { defineComponent } from 'vue';
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'SettingsControl',
 
   components: {
-    ActionControl,
-    FavoriteControl,
-    FollowControl,
+    ActionControl: defineAsyncComponent(() => import('components/player/ActionControl.vue')),
+    FavoriteControl: defineAsyncComponent(() => import('components/player/FavoriteControl.vue')),
+    FollowControl: defineAsyncComponent(() => import('components/player/FollowControl.vue')),
   },
 });
 </script>

@@ -33,18 +33,16 @@
 
 <script lang="ts">
 import { dom, QSlider } from 'quasar';
-import FullscreenControl from 'src/components/player/FullscreenControl.vue';
-import TooltipControl from 'src/components/player/TooltipControl.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { timeFormat } from 'src/utils/format';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'ScrubberControl',
 
   components: {
-    FullscreenControl,
-    TooltipControl,
+    FullscreenControl: defineAsyncComponent(() => import('components/player/FullscreenControl.vue')),
+    TooltipControl: defineAsyncComponent(() => import('components/player/TooltipControl.vue')),
   },
 
   setup() {

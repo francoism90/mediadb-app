@@ -24,19 +24,16 @@
 </template>
 
 <script lang="ts">
-import PlaybackControl from 'src/components/player/PlaybackControl.vue';
-import ScrubberControl from 'src/components/player/ScrubberControl.vue';
-import SettingsControl from 'src/components/player/SettingsControl.vue';
 import usePlayer from 'src/composables/usePlayer';
-import { defineComponent, ref } from 'vue';
+import { defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'VideoControls',
 
   components: {
-    PlaybackControl,
-    ScrubberControl,
-    SettingsControl,
+    PlaybackControl: defineAsyncComponent(() => import('components/player/PlaybackControl.vue')),
+    ScrubberControl: defineAsyncComponent(() => import('components/player/ScrubberControl.vue')),
+    SettingsControl: defineAsyncComponent(() => import('components/player/SettingsControl.vue')),
   },
 
   setup() {

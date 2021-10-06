@@ -47,9 +47,8 @@
 </template>
 
 <script lang="ts">
-import Account from 'src/components/ui/Account.vue';
 import useSession from 'src/composables/useSession';
-import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
 
 const tabs = [
   {
@@ -68,7 +67,7 @@ export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    Account,
+    Account: defineAsyncComponent(() => import('components/ui/Account.vue')),
   },
 
   setup() {

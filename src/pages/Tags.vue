@@ -68,11 +68,9 @@
 <script lang="ts">
 import { filter } from 'lodash';
 import { useMeta, useQuasar } from 'quasar';
-import Filters from 'src/components/tags/Filters.vue';
-import Item from 'src/components/tags/Item.vue';
 import useTags from 'src/composables/useTags';
 import { authenticate } from 'src/services/auth';
-import { computed, defineComponent, watch } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
 
 const sorters = [
   { label: 'Alphabetical', value: 'name' },
@@ -80,11 +78,13 @@ const sorters = [
   { label: 'Items', value: '-items' },
 ];
 
+const filterComponent = defineAsyncComponent(() => import('components/tags/Filters.vue'));
+
 export default defineComponent({
   name: 'Tags',
 
   components: {
-    Item,
+    Item: defineAsyncComponent(() => import('components/tags/Item.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
@@ -117,7 +117,7 @@ export default defineComponent({
 
     const showFilters = (): void => {
       $q.dialog({
-        component: Filters,
+        component: filterComponent,
         componentProps: {
           maximized: true,
           position: 'right',

@@ -17,16 +17,15 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import VideoControls from 'src/components/player/VideoControls.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { PlayerSource } from 'src/interfaces/player';
-import { defineComponent, onBeforeUnmount, onMounted, PropType, watch } from 'vue';
+import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
 
   components: {
-    VideoControls,
+    VideoControls: defineAsyncComponent(() => import('components/player/VideoControls.vue')),
   },
 
   props: {

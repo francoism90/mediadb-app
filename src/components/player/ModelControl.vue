@@ -91,12 +91,13 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import VideoEdit from 'src/components/video/Edit.vue';
 import usePlayer from 'src/composables/usePlayer';
 import { VideoModel } from 'src/interfaces/video';
 import { save } from 'src/repositories/video';
 import { videoResolution } from 'src/services/player';
-import { computed, defineComponent } from 'vue';
+import { computed, defineAsyncComponent, defineComponent } from 'vue';
+
+const editComponent = defineAsyncComponent(() => import('components/video/Edit.vue'));
 
 export default defineComponent({
   name: 'ModelControl',
@@ -121,7 +122,7 @@ export default defineComponent({
 
     const edit = (): void => {
       $q.dialog({
-        component: VideoEdit,
+        component: editComponent,
         componentProps: {
           video: store.video,
         },
