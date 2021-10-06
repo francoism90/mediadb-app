@@ -49,6 +49,7 @@ export interface PlayerState {
   properties: PlayerProperties,
   source: PlayerSource,
   tooltip: PlayerTooltip,
+  activity: boolean,
   controls: boolean,
   fullscreen: boolean,
   pause: boolean,

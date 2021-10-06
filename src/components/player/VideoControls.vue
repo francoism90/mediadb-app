@@ -2,7 +2,7 @@
   <div
     class="absolute-full"
     @mouseenter="activate"
-    @mouseover="activate"
+    @mousemove="activate"
     @mouseleave="deactivate"
     @touchstart="activate"
   >
@@ -12,7 +12,7 @@
       leave-active-class="animated fadeOut"
     >
       <div
-        v-show="store.controls"
+        v-show="visible"
         class="player-controls absolute-full"
       >
         <playback-control />
@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import usePlayer from 'src/composables/usePlayer';
-import { defineAsyncComponent, defineComponent, ref } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'VideoControls',
@@ -38,22 +38,35 @@ export default defineComponent({
 
   setup() {
     const { store } = usePlayer();
+
     const timer = ref<number>(0);
 
+    const reset = (): void => clearTimeout(timer.value);
+
     const deactivate = (): void => {
-      timer.value = window.setTimeout(() => { store.controls = false; }, 2500);
+      // Force controls to be shown
+      if (store.activity) return;
+
+      timer.value = window.setTimeout(() => {
+        store.hideControls();
+      }, 1000);
     };
 
     const activate = (): void => {
-      clearTimeout(timer.value);
-      store.controls = true;
+      // Reset timer
+      reset();
+
+      // Show controls and set timeout
+      store.showControls();
       deactivate();
     };
+
+    const visible = computed(() => store.activity || store.controls);
 
     return {
       activate,
       deactivate,
-      store,
+      visible,
     };
   },
 });

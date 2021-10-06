@@ -10,6 +10,7 @@ export const useStore = defineStore('player', {
     properties: <PlayerProperties>{},
     source: <PlayerSource>{},
     tooltip: <PlayerTooltip>{},
+    activity: false,
     controls: false,
     fullscreen: false,
     pause: false,
@@ -45,6 +46,18 @@ export const useStore = defineStore('player', {
   },
 
   actions: {
+    setActivity(payload: boolean): void {
+      this.$patch({ activity: payload });
+    },
+
+    showControls(): void {
+      this.$patch({ controls: true });
+    },
+
+    hideControls(): void {
+      this.$patch({ controls: false });
+    },
+
     sync(payload: PlayerProperties): void {
       this.$patch({ properties: payload });
     },

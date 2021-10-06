@@ -14,7 +14,8 @@
       square
       transition-duration="0"
       style="width: 250px; max-width: 100vw;"
-      @hide="setComponent('ModelControl')"
+      @show="onShow"
+      @hide="onHide"
     >
       <component
         :is="currentComponent"
@@ -25,6 +26,7 @@
 </template>
 
 <script lang="ts">
+import usePlayer from 'src/composables/usePlayer';
 import { defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -37,13 +39,26 @@ export default defineComponent({
   },
 
   setup() {
+    const { store } = usePlayer();
+
     const currentComponent = ref<string>('ModelControl');
 
     const setComponent = (value: string): void => {
       currentComponent.value = value;
     };
 
+    const onShow = (): void => {
+      store.setActivity(true);
+    };
+
+    const onHide = (): void => {
+      store.setActivity(false);
+      setComponent('ModelControl');
+    };
+
     return {
+      onShow,
+      onHide,
       setComponent,
       currentComponent,
     };
