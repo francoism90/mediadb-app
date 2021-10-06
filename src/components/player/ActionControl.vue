@@ -48,12 +48,12 @@ export default defineComponent({
     };
 
     const onShow = (): void => {
-      store.setActivity(true);
+      store.activity = true;
     };
 
     const onHide = (): void => {
-      store.setActivity(false);
       setComponent('ModelControl');
+      store.activity = false;
     };
 
     return {

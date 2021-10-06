@@ -41,23 +41,20 @@ export default defineComponent({
 
     const timer = ref<number>(0);
 
-    const reset = (): void => clearTimeout(timer.value);
-
     const deactivate = (): void => {
       // Force controls to be shown
       if (store.activity) return;
 
       timer.value = window.setTimeout(() => {
-        store.hideControls();
+        store.controls = false;
       }, 1000);
     };
 
     const activate = (): void => {
-      // Reset timer
-      reset();
+      clearTimeout(timer.value);
 
       // Show controls and set timeout
-      store.showControls();
+      store.controls = true;
       deactivate();
     };
 
