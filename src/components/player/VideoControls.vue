@@ -15,9 +15,8 @@
         v-show="visible"
         class="player-controls absolute-full"
       >
-        <playback-control />
-        <scrubber-control />
-        <settings-control />
+        <control-bar />
+        <model-bar />
       </div>
     </transition>
   </div>
@@ -31,9 +30,8 @@ export default defineComponent({
   name: 'VideoControls',
 
   components: {
-    PlaybackControl: defineAsyncComponent(() => import('components/player/PlaybackControl.vue')),
-    ScrubberControl: defineAsyncComponent(() => import('components/player/ScrubberControl.vue')),
-    SettingsControl: defineAsyncComponent(() => import('components/player/SettingsControl.vue')),
+    ControlBar: defineAsyncComponent(() => import('src/components/player/ControlBar.vue')),
+    ModelBar: defineAsyncComponent(() => import('components/player/ModelBar.vue')),
   },
 
   setup() {
@@ -47,7 +45,7 @@ export default defineComponent({
 
       timer.value = window.setTimeout(() => {
         store.controls = false;
-      }, 1000);
+      }, 2500);
     };
 
     const activate = (): void => {

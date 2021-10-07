@@ -1,39 +1,25 @@
 <template>
-  <div class="absolute-center player-control player-playback">
-    <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
-      <template v-if="store.isWaiting">
-        <q-spinner-dots
-          color="white"
-          size="64px"
-        />
-      </template>
+  <div class="q-gutter-x-sm">
+    <q-icon
+      :name="icon"
+      class="cursor-pointer"
+      size="24px"
+      @click="togglePlayback"
+    />
 
-      <template v-else>
-        <q-icon
-          name="replay_10"
-          class="cursor-pointer"
-          color="white"
-          size="36px"
-          @click="decreaseTime"
-        />
+    <q-icon
+      name="replay_10"
+      class="cursor-pointer"
+      size="24px"
+      @click="decreaseTime"
+    />
 
-        <q-icon
-          :name="icon"
-          class="cursor-pointer"
-          color="white"
-          size="72px"
-          @click="togglePlayback"
-        />
-
-        <q-icon
-          name="forward_10"
-          class="cursor-pointer"
-          color="white"
-          size="36px"
-          @click="increaseTime"
-        />
-      </template>
-    </div>
+    <q-icon
+      name="forward_10"
+      class="cursor-pointer"
+      size="24px"
+      @click="increaseTime"
+    />
   </div>
 </template>
 
@@ -47,32 +33,25 @@ export default defineComponent({
   setup() {
     const { store } = usePlayer();
 
-    const icon = computed(() => (
-      store.properties?.paused
-        ? 'play_arrow'
-        : 'pause'
-    ));
+    const togglePlayback = (): void => { store.pause = !store.pause; };
 
     const decreaseTime = (): void => {
       const time = store.properties?.time || 0;
       store.time = time - 10;
     };
-
     const increaseTime = (): void => {
       const time = store.properties?.time || 0;
       store.time = time + 10;
     };
 
-    const togglePlayback = (): void => {
-      store.pause = !store.pause;
-    };
+    const icon = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
 
     return {
+      togglePlayback,
       decreaseTime,
       increaseTime,
-      togglePlayback,
-      store,
       icon,
+      store,
     };
   },
 });

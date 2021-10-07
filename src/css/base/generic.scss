@@ -21,3 +21,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.no-transition {
+  --q-transition-duration: 0 !important;
+}

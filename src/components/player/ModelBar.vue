@@ -1,5 +1,5 @@
 <template>
-  <div class="player-control player-settings absolute-top-right">
+  <div class="player-model-bar absolute-top-right q-py-md q-px-lg">
     <favorite-control />
     <follow-control />
     <action-control />
@@ -10,7 +10,7 @@
 import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'SettingsControl',
+  name: 'ModelBar',
 
   components: {
     ActionControl: defineAsyncComponent(() => import('components/player/ActionControl.vue')),

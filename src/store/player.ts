@@ -1,6 +1,6 @@
 import { find } from 'lodash';
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerSource, PlayerState, PlayerTooltip } from 'src/interfaces/player';
+import { PlayerProperties, PlayerSource, PlayerState, PlayerThumbnail } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import { useStore as useVideoStore } from 'src/store/video/item';
 
@@ -9,7 +9,7 @@ export const useStore = defineStore('player', {
     module: 'dashjs',
     properties: <PlayerProperties>{},
     source: <PlayerSource>{},
-    tooltip: <PlayerTooltip>{},
+    thumbnail: <PlayerThumbnail>{},
     activity: false,
     controls: false,
     fullscreen: false,

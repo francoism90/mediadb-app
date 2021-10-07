@@ -33,25 +33,25 @@ export interface PlayerSource {
   url: string | undefined,
 }
 
-export interface PlayerTooltip {
-  clientX: number,
-  sliderOffset: DomOffset,
-  sliderWidth: number,
-}
-
 export interface PlayerThumbnail {
-  type: string,
-  url: string,
+  seekerPosition: number,
+  seekerOffset: DomOffset,
+  seekerWidth: number,
 }
 
 export interface PlayerState {
   module: string,
   properties: PlayerProperties,
   source: PlayerSource,
-  tooltip: PlayerTooltip,
+  thumbnail: PlayerThumbnail,
   activity: boolean,
   controls: boolean,
   fullscreen: boolean,
   pause: boolean,
   time: number,
+}
+
+export interface PlayerTrack {
+  type?: string,
+  url?: string,
 }
