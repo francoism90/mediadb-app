@@ -4,7 +4,7 @@ import { PlayerProperties } from 'src/interfaces/player';
 import { getToken } from 'src/services/auth';
 import { store } from 'src/services/player';
 
-export const events = [
+export const syncEvents = [
   'bufferLevelUpdated',
   'bufferLoaded',
   'bufferStalled',
@@ -34,8 +34,35 @@ export const events = [
   'trackChangeRendered',
 ];
 
-export const populate = (player: MediaPlayerClass | undefined): void => store.sync(
-  <PlayerProperties>{
+export const setSpriteTrack = (player: MediaPlayerClass): void => {
+  const track = document.createElement('track');
+  track.id = 'sprite';
+  track.kind = 'metadata';
+  track.label = 'sprite';
+  track.srclang = 'en';
+  track.src = store.spriteUrl;
+
+  player.getVideoElement()?.appendChild(track);
+};
+
+export const setTracks = (player: MediaPlayerClass): void => {
+  const spriteIndex = findIndex(player.getVideoElement()?.textTracks, { label: 'sprite' });
+
+  if (player.getVideoElement() && spriteIndex >= 0) {
+    player.getVideoElement().textTracks[spriteIndex].mode = 'showing';
+  }
+};
+
+export const videoTrackBitrate = (): Bitrate | undefined => store
+  .properties?.videoTrack?.bitrateList?.find(Boolean);
+
+export const eventListener = (player: MediaPlayerClass, event: string): void => {
+  if (event === 'playbackMetaDataLoaded') {
+    setSpriteTrack(player);
+    setTracks(player);
+  }
+
+  store.sync(<PlayerProperties>{
     ready: player?.isReady(),
     autoplay: player?.getAutoPlay(),
     buffered: player?.getBufferLength('video'),
@@ -51,49 +78,22 @@ export const populate = (player: MediaPlayerClass | undefined): void => store.sy
     videoTracks: player?.getTracksFor('video'),
     time: player?.time(),
     volume: player?.getVolume(),
-  },
-);
-
-export const setSpriteTrack = (player: MediaPlayerClass | undefined): void => {
-  const track = document.createElement('track');
-  track.id = 'sprite';
-  track.kind = 'metadata';
-  track.label = 'sprite';
-  track.srclang = 'en';
-  track.src = store.spriteUrl;
-
-  player?.getVideoElement()?.appendChild(track);
-};
-
-export const setTracks = (player: MediaPlayerClass | undefined): void => {
-  const spriteIndex = findIndex(player?.getVideoElement()?.textTracks, { label: 'sprite' });
-
-  if (player?.getVideoElement() && spriteIndex >= 0) {
-    player.getVideoElement().textTracks[spriteIndex].mode = 'showing';
-  }
-};
-
-export const videoTrackBitrate = (): Bitrate | undefined => store
-  .properties?.videoTrack?.bitrateList?.find(Boolean);
-
-export const sync = (player: MediaPlayerClass | undefined): void => {
-  events.forEach((event) => {
-    player?.on(event, () => populate(player));
   });
+};
 
-  player?.on('playbackMetaDataLoaded', () => {
-    setSpriteTrack(player);
-    setTracks(player);
+export const startListeners = (player: MediaPlayerClass): void => {
+  syncEvents.forEach((event) => {
+    player?.on(event, () => eventListener(player, event));
   });
 };
 
 export const stopListeners = (player: MediaPlayerClass | undefined): void => {
-  events.forEach((event) => {
-    player?.off(event, () => populate(player));
+  syncEvents.forEach((event) => {
+    player?.off(event, () => eventListener(player, event));
   });
 };
 
-export const create = (source: string, view: HTMLElement | undefined): MediaPlayerClass => {
+export const create = (view: HTMLElement): MediaPlayerClass => {
   const player = MediaPlayer().create();
   const token = getToken() || '';
 
@@ -105,13 +105,11 @@ export const create = (source: string, view: HTMLElement | undefined): MediaPlay
     },
   }), true);
 
-  player.initialize();
+  // Initialize player player
+  player.initialize(view, store.source?.url, true);
 
-  if (typeof source === 'string' && typeof view !== 'undefined') {
-    player.attachView(view);
-    player.attachSource(source);
-    player.setAutoPlay(true);
-  }
+  // Set listeners
+  startListeners(player);
 
   return player;
 };

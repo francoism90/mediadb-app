@@ -1,8 +1,9 @@
-import { find } from 'lodash';
+import { find, mergeWith } from 'lodash';
 import { defineStore } from 'pinia';
 import { PlayerProperties, PlayerSource, PlayerState, PlayerThumbnail } from 'src/interfaces/player';
 import { VideoModel } from 'src/interfaces/video';
 import { useStore as useVideoStore } from 'src/store/video/item';
+import { mergeDeep } from 'src/utils/helpers';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
@@ -47,7 +48,7 @@ export const useStore = defineStore('player', {
 
   actions: {
     sync(payload: PlayerProperties): void {
-      this.$patch({ properties: payload });
+      this.properties = mergeWith(this.properties, payload || {}, mergeDeep);
     },
   },
 

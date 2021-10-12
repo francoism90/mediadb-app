@@ -6,6 +6,7 @@
     name="more_vert"
     aria-label="More Actions"
     size="24px"
+    tabindex="0"
   >
     <q-menu
       anchor="top right"

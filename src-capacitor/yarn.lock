@@ -2,20 +2,20 @@
 # yarn lockfile v1
 
 
-"@capacitor/android@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.2.3.tgz#4b964a41b778c0aa046bab9dbb2b597ec1e442ba"
-  integrity sha512-sltt9/ENb8cgnz29MnQWDFg6mV+EdKK4LCvhjr4v6rDXsFI+tcMrJtLc2px3y7ewKW8lR+w4pRSQIlhpaTrHiA==
+"@capacitor/android@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.2.4.tgz#4d65f6db0fb10472d20367a310cfe39d60f1001b"
+  integrity sha512-eR4Lw8GCBJ7yGJ4k78a8tXhVU3iqfq8GMBM0KXYtOYe3SWRO+jOD/puFM9CPFD5uF9PtB+0iaqpLjn1YbvfFZw==
 
 "@capacitor/app@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-1.0.3.tgz#d9c7f774a1b3a93786c64477cb9adfb9d00a66bb"
   integrity sha512-kilAdWODV5p32wz0jVGdSoQTEx4Q0TM/xYj9w3iYYNI24v1WIRnEs04TaGTG8JFYIUksJaOqGC3PoZddfZ1POA==
 
-"@capacitor/cli@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.2.3.tgz#7f7592c6fe5f933fdb8a14a466fbfd3c61a45897"
-  integrity sha512-vEinN2Q4ZSosPIRnNdRSAOA+zIjBhVxZOg5n0OKY/QkqENTemIT7mhAfoOgTdSu1iwrqJGf+Tt34cOkCo0a+0A==
+"@capacitor/cli@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.2.4.tgz#8804abcff894c9b01e1c6cf075b9cda0d9decbcd"
+  integrity sha512-sT6eA2mtNNzl87LTyMvt9Rybx1F5w72i9poafcV4z5LJgFLZL8Pv6or1JnKp99Q1AoWvfLKjL++BQn/vr506uQ==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.1"
     "@ionic/utils-fs" "^3.1.5"
@@ -34,17 +34,17 @@
     tslib "^2.1.0"
     xml2js "^0.4.23"
 
-"@capacitor/core@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.2.3.tgz#84535e0adc6f0b99fcbfb2f67578b1b8e7f379c2"
-  integrity sha512-6oIi9EXgTRI8Xg3Gg8IWSQcddshb6lNtywkQA+QWoTL/6qV/l519tBcZHV9cu6BA7GT3qm2WcX9yQjwDq5iKpw==
+"@capacitor/core@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.2.4.tgz#8da5774f6237ccaa770b81caff3cffbecbf7e1e8"
+  integrity sha512-TAo9u2XPN8IH3xqTjOfsUT8PYIC2vwimKIJoff/knZs19WnGATklfcWnXpxUecfm2VFMCggd80FRPgjPOS75Ag==
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/splash-screen@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-1.1.2.tgz#7f94e8f0b7355b13bc75335efed789d9a5b4cd67"
-  integrity sha512-LWI40hYAdce/3Nniuerz+18y8jaLI+qJyPf8dzBmM1FYXeTXGq0uP+FG4S/MqeBFxm6fVANq2lIMSWwwKzWnSQ==
+"@capacitor/splash-screen@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-1.1.3.tgz#024bc91b2b521b9f1d5e86f16a114f294bf326fa"
+  integrity sha512-DJh1w9872UofZWAxPLgd5yWi09W0IoWPVBdVd8Ku1mrPfFvtcMeguZHGLEIo+A6DkdCTWzMrh26TLCIympws2g==
 
 "@capacitor/status-bar@^1.0.3":
   version "1.0.3"

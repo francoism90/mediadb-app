@@ -6,6 +6,7 @@ export interface PlayerProperties {
   autoplay: boolean,
   buffered: number,
   duration: number,
+  fullscreen: boolean,
   muted: boolean,
   paused: boolean,
   playbackRate: number,
@@ -41,8 +42,8 @@ export interface PlayerThumbnail {
 
 export interface PlayerState {
   module: string,
-  properties: PlayerProperties,
   source: PlayerSource,
+  properties: PlayerProperties,
   thumbnail: PlayerThumbnail,
   activity: boolean,
   controls: boolean,

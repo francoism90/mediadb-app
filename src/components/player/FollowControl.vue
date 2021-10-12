@@ -5,6 +5,7 @@
     class="cursor-pointer"
     size="24px"
     right
+    tabindex="0"
     @click="onClick"
   />
 </template>

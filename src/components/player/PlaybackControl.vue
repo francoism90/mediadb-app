@@ -1,25 +1,30 @@
 <template>
-  <div class="q-gutter-x-sm">
-    <q-icon
-      :name="icon"
-      class="cursor-pointer"
-      size="24px"
-      @click="togglePlayback"
-    />
+  <div class="player-navigation absolute-center">
+    <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
+      <q-icon
+        name="replay_10"
+        class="cursor-pointer"
+        size="36px"
+        tabindex="0"
+        @click="decreaseTime"
+      />
 
-    <q-icon
-      name="replay_10"
-      class="cursor-pointer"
-      size="24px"
-      @click="decreaseTime"
-    />
+      <q-icon
+        :name="icon"
+        class="cursor-pointer"
+        size="72px"
+        tabindex="0"
+        @click="togglePlayback"
+      />
 
-    <q-icon
-      name="forward_10"
-      class="cursor-pointer"
-      size="24px"
-      @click="increaseTime"
-    />
+      <q-icon
+        name="forward_10"
+        class="cursor-pointer"
+        size="36px"
+        tabindex="0"
+        @click="increaseTime"
+      />
+    </div>
   </div>
 </template>
 
@@ -39,6 +44,7 @@ export default defineComponent({
       const time = store.properties?.time || 0;
       store.time = time - 10;
     };
+
     const increaseTime = (): void => {
       const time = store.properties?.time || 0;
       store.time = time + 10;

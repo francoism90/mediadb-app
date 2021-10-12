@@ -1,12 +1,9 @@
 import { MediaPlayerClass } from 'dashjs';
-import { useQuasar } from 'quasar';
 import { PlayerSource } from 'src/interfaces/player';
-import { destroy, initialize, store, sync, update } from 'src/services/player';
-import { nextTick, ref, watch } from 'vue';
+import { destroy, initialize, store, update } from 'src/services/player';
+import { nextTick, ref } from 'vue';
 
 export default function usePlayer() {
-  const $q = useQuasar();
-
   const player = ref<MediaPlayerClass | undefined>();
   const container = ref<HTMLDivElement>();
   const video = ref<HTMLVideoElement>();
@@ -21,17 +18,12 @@ export default function usePlayer() {
 
     // Initialize player
     player.value = initialize(source, view);
-
-    // Sync events
-    sync(player.value);
   };
-
-  watch(() => $q.fullscreen.isActive, (): void => update(player.value));
-  watch(() => $q.screen.name, (): void => update(player.value));
 
   return {
     load,
     unload,
+    update,
     container,
     video,
     player,

@@ -63,7 +63,7 @@ import { signIn } from 'src/services/auth';
 import { defineComponent, reactive, ref } from 'vue';
 
 export default defineComponent({
-  name: 'LoginPage',
+  name: 'Login',
 
   setup() {
     const $q = useQuasar();

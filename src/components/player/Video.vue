@@ -18,7 +18,7 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import usePlayer from 'src/composables/usePlayer';
-import { PlayerSource } from 'src/interfaces/player';
+import { PlayerProperties, PlayerSource } from 'src/interfaces/player';
 import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, PropType, watch } from 'vue';
 
 export default defineComponent({
@@ -37,7 +37,7 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { load, unload, container, video, player, store } = usePlayer();
+    const { load, unload, update, container, video, player, store } = usePlayer();
 
     const toggleFullscreen = async (): Promise<void> => {
       await $q.fullscreen.toggle(<Element>container.value);
@@ -51,13 +51,21 @@ export default defineComponent({
       return player.value?.pause();
     };
 
-    watch(() => props.source, () => load(props.source, video.value), { deep: true });
-    watch(() => store.fullscreen, toggleFullscreen);
-    watch(() => store.pause, togglePlayback);
-    watch(() => store.time, (value: number) => player.value?.seek(value));
+    const onScreenChange = () => update(player.value, <PlayerProperties>{
+      fullscreen: $q.fullscreen.isActive,
+    });
 
     onMounted(() => load(props.source, video.value));
     onBeforeUnmount(() => unload());
+
+    watch(() => props.source, () => load(props.source, video.value), { deep: true });
+    watch(() => $q.fullscreen.isActive, (): void => onScreenChange());
+    watch(() => $q.screen.name, (): void => onScreenChange());
+
+    // Requests
+    watch(() => store.fullscreen, toggleFullscreen);
+    watch(() => store.pause, togglePlayback);
+    watch(() => store.time, (value: number) => player.value?.seek(value));
 
     return {
       container,

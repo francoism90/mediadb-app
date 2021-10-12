@@ -2,8 +2,8 @@
   <div
     class="absolute-full"
     @mouseenter="activate"
-    @mousemove="activate"
     @mouseleave="deactivate"
+    @mousemove="activate"
     @touchstart="activate"
   >
     <transition
@@ -17,6 +17,7 @@
       >
         <control-bar />
         <model-bar />
+        <playback-control />
       </div>
     </transition>
   </div>
@@ -32,11 +33,11 @@ export default defineComponent({
   components: {
     ControlBar: defineAsyncComponent(() => import('src/components/player/ControlBar.vue')),
     ModelBar: defineAsyncComponent(() => import('components/player/ModelBar.vue')),
+    PlaybackControl: defineAsyncComponent(() => import('components/player/PlaybackControl.vue')),
   },
 
   setup() {
     const { store } = usePlayer();
-
     const timer = ref<number>(0);
 
     const deactivate = (): void => {

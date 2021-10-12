@@ -1,7 +1,7 @@
 import { MediaPlayerClass as DashPlayer } from 'dashjs';
 import { find, inRange } from 'lodash';
-import { PlayerResolution, PlayerSource } from 'src/interfaces/player';
-import { create as createDashPlayer, destroy as DestroyDashPlayer, sync as SyncDashEvents, videoTrackBitrate } from 'src/services/dash';
+import { PlayerProperties, PlayerResolution, PlayerSource } from 'src/interfaces/player';
+import { create as createDashPlayer, destroy as DestroyDashPlayer, videoTrackBitrate } from 'src/services/dash';
 import { useStore } from 'src/store/player';
 
 export const store = useStore();
@@ -22,30 +22,23 @@ export const initialize = (
 ): DashPlayer | undefined => {
   store.$patch({ source });
 
-  if (store.module === 'dashjs') {
-    return createDashPlayer(source.url || '', view);
+  if (store.module === 'dashjs' && typeof view !== 'undefined') {
+    return createDashPlayer(view);
   }
 
   return undefined;
 };
 
 export const destroy = (player: DashPlayer | undefined): void => {
-  if (store.module === 'dashjs') {
-    DestroyDashPlayer(player);
-  }
-
+  if (store.module === 'dashjs') DestroyDashPlayer(player);
   store.$reset();
 };
 
-export const sync = (player: DashPlayer | undefined): void => {
-  if (store.module === 'dashjs') {
-    SyncDashEvents(player);
-  }
-};
+export const update = (player: DashPlayer | undefined, properties: PlayerProperties): void => {
+  if (typeof player !== 'undefined' && typeof properties.fullscreen !== 'undefined') {
+    store.sync(properties);
 
-export const update = (player: DashPlayer | undefined): void => {
-  if (store.module === 'dashjs') {
-    player?.updatePortalSize();
+    if (store.module === 'dashjs') player?.updatePortalSize();
   }
 };
 

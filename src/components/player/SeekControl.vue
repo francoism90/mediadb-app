@@ -8,6 +8,7 @@
     :step="0"
     :style="{ '--buffer': `${buffered}%` }"
     color="primary"
+    tabindex="0"
     @mousemove="onMouseHover"
     @mouseleave="onMouseLeave"
     @update:model-value="setCurrentTime"

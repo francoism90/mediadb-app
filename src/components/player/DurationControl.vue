@@ -1,7 +1,5 @@
 <template>
-  <div class="q-px-md text-caption">
-    {{ currentTime }} / {{ duration }}
-  </div>
+  <span class="text-caption">{{ currentTime }} / {{ duration }}</span>
 </template>
 
 <script lang="ts">
