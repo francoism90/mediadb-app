@@ -63,27 +63,27 @@ export const eventListener = (player: MediaPlayerClass, event: string): void => 
   }
 
   store.sync(<PlayerProperties>{
-    ready: player?.isReady(),
-    autoplay: player?.getAutoPlay(),
-    buffered: player?.getBufferLength('video'),
-    duration: player?.duration(),
-    muted: player?.isMuted(),
-    paused: player?.isPaused(),
-    playbackRate: player?.getPlaybackRate(),
-    seeking: player?.isSeeking(),
-    tracks: player?.getVideoElement()?.textTracks,
-    textTrack: player?.getCurrentTrackFor('text'),
-    textTracks: player?.getTracksFor('text'),
-    videoTrack: player?.getCurrentTrackFor('video'),
-    videoTracks: player?.getTracksFor('video'),
-    time: player?.time(),
-    volume: player?.getVolume(),
+    ready: player.isReady(),
+    autoplay: player.getAutoPlay(),
+    buffered: player.getBufferLength('video'),
+    duration: player.duration(),
+    muted: player.isMuted(),
+    paused: player.isPaused(),
+    playbackRate: player.getPlaybackRate(),
+    seeking: player.isSeeking(),
+    tracks: player.getVideoElement()?.textTracks,
+    textTrack: player.getCurrentTrackFor('text'),
+    textTracks: player.getTracksFor('text'),
+    videoTrack: player.getCurrentTrackFor('video'),
+    videoTracks: player.getTracksFor('video'),
+    time: player.time(),
+    volume: player.getVolume(),
   });
 };
 
 export const startListeners = (player: MediaPlayerClass): void => {
   syncEvents.forEach((event) => {
-    player?.on(event, () => eventListener(player, event));
+    player.on(event, () => eventListener(player, event));
   });
 };
 

@@ -37,7 +37,6 @@ export const destroy = (player: DashPlayer | undefined): void => {
 export const update = (player: DashPlayer | undefined, properties: PlayerProperties): void => {
   if (typeof player !== 'undefined' && typeof properties.fullscreen !== 'undefined') {
     store.sync(properties);
-
     if (store.module === 'dashjs') player?.updatePortalSize();
   }
 };
