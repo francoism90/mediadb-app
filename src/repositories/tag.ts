@@ -17,3 +17,9 @@ export const all = async (params: TagsQuery): Promise<TagsResponse> => {
 
   return response.data;
 };
+
+export const get = async (url: string): Promise<TagsResponse> => {
+  const response = await api.get<string, AxiosResponse<TagsResponse>>(url);
+
+  return response.data;
+};

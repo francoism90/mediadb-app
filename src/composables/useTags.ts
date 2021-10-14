@@ -1,5 +1,4 @@
-import { api } from 'src/boot/axios';
-import { all } from 'src/repositories/tag';
+import { all, get } from 'src/repositories/tag';
 import { useStore } from 'src/store/tag/items';
 
 export default function useTags() {
@@ -10,8 +9,8 @@ export default function useTags() {
       return;
     }
 
-    const response = await api.get(store.links.next);
-    store.populate(response.data);
+    const response = await get(store.links.next);
+    store.populate(response);
   };
 
   const fetchQuery = async (): Promise<void> => {

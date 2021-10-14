@@ -28,8 +28,8 @@ export default defineComponent({
     const seeker = ref<QSlider>();
 
     const buffered = computed(() => Math.round(store.properties?.buffered || 0));
-    const seekerWidth = computed(() => dom.width(seeker.value?.$el));
-    const seekerOffset = computed(() => dom.offset(seeker.value?.$el));
+    const seekerWidth = computed(() => dom.width(<Element>seeker.value?.$el));
+    const seekerOffset = computed(() => dom.offset(<Element>seeker.value?.$el));
 
     const setCurrentTime = (payload: number): void => store.$patch({
       time: +payload.toFixed(2),

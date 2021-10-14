@@ -1,5 +1,4 @@
-import { api } from 'src/boot/axios';
-import { all } from 'src/repositories/video';
+import { all, get } from 'src/repositories/video';
 import { useStore } from 'src/store/video/similar';
 
 export default function useSimilar() {
@@ -10,8 +9,8 @@ export default function useSimilar() {
       return;
     }
 
-    const response = await api.get(store.links.next);
-    store.populate(response.data);
+    const response = await get(store.links.next);
+    store.populate(response);
   };
 
   const fetchQuery = async (): Promise<void> => {
