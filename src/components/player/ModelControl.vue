@@ -108,6 +108,8 @@ export default defineComponent({
     const { store } = usePlayer();
     const $q = useQuasar();
 
+    const resolution = computed(() => videoResolution());
+
     const capture = async (): Promise<void> => {
       await save(<VideoModel>{
         ...store.video,
@@ -128,8 +130,6 @@ export default defineComponent({
         },
       });
     };
-
-    const resolution = computed(() => videoResolution());
 
     return {
       capture,

@@ -5,7 +5,7 @@ export default function useTagInput() {
   const store = useStore();
 
   const fetchNext = async (): Promise<void> => {
-    if (!store.isFetchable || !store.links.next) {
+    if (!store.isFetchable || !store.links?.next) {
       return;
     }
 
@@ -28,7 +28,7 @@ export default function useTagInput() {
   };
 
   return {
-    store,
     fetch,
+    store,
   };
 }

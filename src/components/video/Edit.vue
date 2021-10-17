@@ -137,15 +137,13 @@
 
 <script lang="ts">
 import { AxiosError } from 'axios';
-import { useDialogPluginComponent } from 'quasar';
+import { useDialogPluginComponent, useQuasar } from 'quasar';
 import useTagInput from 'src/composables/useTagInput';
 import useValidation from 'src/composables/useValidation';
 import { ValidationResponse } from 'src/interfaces/form';
 import { VideoModel } from 'src/interfaces/video';
 import { remove, save } from 'src/repositories/video';
-import {
-  defineComponent, PropType, reactive, ref,
-} from 'vue';
+import { defineComponent, PropType, reactive, ref } from 'vue';
 
 export default defineComponent({
   name: 'VideoEdit',
@@ -163,12 +161,9 @@ export default defineComponent({
 
   setup(props) {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
-
-    const {
-      getError, hasError, resetResponse, setResponse,
-    } = useValidation();
-
+    const { getError, hasError, resetResponse, setResponse } = useValidation();
     const { fetch: fetchTags, store: tagStore } = useTagInput();
+    const $q = useQuasar();
 
     const deleteDialog = ref<boolean>(false);
     const formRef = ref<HTMLFormElement | null>();
@@ -199,6 +194,11 @@ export default defineComponent({
 
       try {
         await save(form);
+
+        $q.notify({
+          type: 'positive',
+          message: 'The video has been updated.',
+        });
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 
@@ -216,6 +216,11 @@ export default defineComponent({
 
       try {
         await remove(form);
+
+        $q.notify({
+          type: 'info',
+          message: 'The video has been deleted.',
+        });
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 

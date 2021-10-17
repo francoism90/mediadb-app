@@ -5,7 +5,7 @@ export default function useSimilar() {
   const store = useStore();
 
   const fetchNext = async (): Promise<void> => {
-    if (!store.isFetchable || !store.links.next) {
+    if (!store.isFetchable || !store.links?.next) {
       return;
     }
 
