@@ -1,7 +1,5 @@
-import { mergeWith } from 'lodash';
 import { defineStore } from 'pinia';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces/video';
-import { mergeDeep } from 'src/utils/helpers';
 
 export const useStore = defineStore('video', {
   state: () => (<VideoState>{
@@ -32,7 +30,7 @@ export const useStore = defineStore('video', {
 
     update(payload: VideoModel): void {
       if (typeof this.data?.id === 'string' && this.data.id === payload.id) {
-        this.data = mergeWith(this.data, payload, mergeDeep);
+        this.$patch({ data: payload });
       }
     },
   },

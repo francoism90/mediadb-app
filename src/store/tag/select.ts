@@ -1,4 +1,3 @@
-import { merge } from 'lodash';
 import { defineStore } from 'pinia';
 import { TagModel, TagsLinks, TagsMeta, TagsQuery, TagsResponse, TagsState } from 'src/interfaces/tag';
 
@@ -35,7 +34,10 @@ export const useStore = defineStore('tag-select', {
 
   actions: {
     reset(payload?: TagsQuery): void {
-      this.query = merge(this.query, payload || {});
+      // Merge query
+      this.$patch({ query: payload || {} });
+
+      // Reset results
       this.data = <TagModel[]>[];
       this.meta = <TagsMeta>{};
       this.links = <TagsLinks>{};
