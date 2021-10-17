@@ -197,7 +197,7 @@ export default defineComponent({
 
         $q.notify({
           type: 'positive',
-          message: 'The video has been updated.',
+          message: 'The video has been updated',
         });
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
@@ -219,7 +219,7 @@ export default defineComponent({
 
         $q.notify({
           type: 'info',
-          message: 'The video has been deleted.',
+          message: 'The video has been deleted',
         });
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;

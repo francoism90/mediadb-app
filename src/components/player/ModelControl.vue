@@ -118,7 +118,7 @@ export default defineComponent({
 
       $q.notify({
         type: 'positive',
-        message: 'The thumbnail will be updated!',
+        message: 'The thumbnail will be updated',
       });
     };
 

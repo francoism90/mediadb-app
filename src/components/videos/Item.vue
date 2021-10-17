@@ -114,6 +114,13 @@ export default defineComponent({
   setup(props) {
     const $q = useQuasar();
 
+    const name = computed(() => titleFormat([
+      [props.video.season_number, props.video.episode_number].join(''),
+      props.video.name,
+    ]));
+
+    const duration = computed(() => timeFormat(props.video.duration));
+
     const favoriteModel = async () => {
       await favorite(props.video, true);
 
@@ -131,13 +138,6 @@ export default defineComponent({
         icon: 'watch_later',
       });
     };
-
-    const name = computed(() => titleFormat([
-      [props.video.season_number, props.video.episode_number].join(''),
-      props.video.name,
-    ]));
-
-    const duration = computed(() => timeFormat(props.video.duration));
 
     return {
       favoriteModel,
