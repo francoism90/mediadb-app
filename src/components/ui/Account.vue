@@ -2,7 +2,7 @@
   <q-icon
     right
     color="grey-5"
-    class="header-actions cursor-pointer"
+    class="cursor-pointer"
     name="expand_more"
     aria-label="Account"
     size="28px"
