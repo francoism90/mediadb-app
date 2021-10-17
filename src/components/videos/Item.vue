@@ -12,9 +12,9 @@
       <q-img
         :alt="video.name"
         :src="video.poster_url"
+        :draggable="false"
         loading="lazy"
         class="poster-image"
-        draggable="false"
         fit="fill"
         no-spinner
         no-transition

@@ -2,9 +2,9 @@
   <q-img
     v-if="store.thumbnail?.seekerPosition"
     :src="thumbnail"
+    :draggable="false"
     :style="{ marginLeft: `${margin}px` }"
     class="player-thumbnail desktop-only q-my-md rounded-borders no-transition"
-    draggable="false"
     fit="fill"
     no-spinner
     no-transition
