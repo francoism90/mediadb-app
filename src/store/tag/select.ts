@@ -1,8 +1,6 @@
 import { merge } from 'lodash';
 import { defineStore } from 'pinia';
-import {
-  TagModel, TagsLinks, TagsMeta, TagsQuery, TagsResponse, TagsState,
-} from 'src/interfaces/tag';
+import { TagModel, TagsLinks, TagsMeta, TagsQuery, TagsResponse, TagsState } from 'src/interfaces/tag';
 
 export const useStore = defineStore('tag-select', {
   state: () => (<TagsState>{
@@ -27,11 +25,11 @@ export const useStore = defineStore('tag-select', {
 
   getters: {
     isQueryable(): boolean {
-      return !this.links.first && !this.links.next;
+      return !this.links?.first && !this.links?.next;
     },
 
     isFetchable(): boolean {
-      return typeof this.links.next === 'string';
+      return typeof this.links?.next === 'string';
     },
   },
 
@@ -48,14 +46,6 @@ export const useStore = defineStore('tag-select', {
       this.data = this.data.concat(payload.data);
       this.meta = payload.meta;
       this.links = payload.links;
-    },
-
-    filter(payload: TagsQuery): void {
-      this.query.filter = merge(this.query.filter, payload);
-    },
-
-    sort(payload: string | string[] | null): void {
-      this.query.sort = payload;
     },
   },
 });

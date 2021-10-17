@@ -13,7 +13,7 @@ export const useStore = defineStore('session', {
 
   getters: {
     isAuthenticated(): boolean {
-      return this.token !== null && typeof this.user.id === 'string';
+      return typeof this.token === 'string' && typeof this.user?.id === 'string';
     },
   },
 

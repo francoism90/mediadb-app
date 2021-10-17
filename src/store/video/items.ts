@@ -26,11 +26,11 @@ export const useStore = defineStore('videos', {
 
   getters: {
     isQueryable(): boolean {
-      return !this.links.first && !this.links.next;
+      return !this.links?.first && !this.links?.next;
     },
 
     isFetchable(): boolean {
-      return typeof this.links.next === 'string';
+      return typeof this.links?.next === 'string';
     },
   },
 

@@ -4,6 +4,8 @@
     :src="thumbnail"
     :style="{ marginLeft: `${margin}px` }"
     class="player-thumbnail desktop-only q-my-md rounded-borders no-transition"
+    draggable="false"
+    fit="fill"
     no-spinner
     no-transition
   >
@@ -27,7 +29,6 @@ export default defineComponent({
 
   setup() {
     const { store } = usePlayer();
-
     const thumbnail = ref<string>();
 
     const width = computed(() => store.thumbnail?.seekerWidth || 0);

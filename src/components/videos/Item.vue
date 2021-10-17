@@ -14,8 +14,8 @@
         :src="video.poster_url"
         loading="lazy"
         class="poster-image"
-        height="100%"
-        width="100%"
+        draggable="false"
+        fit="fill"
         no-spinner
         no-transition
       />

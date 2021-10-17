@@ -3,9 +3,7 @@ import { defineStore } from 'pinia';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces/video';
 import { mergeDeep } from 'src/utils/helpers';
 
-export const useStore = defineStore({
-  id: 'video',
-
+export const useStore = defineStore('video', {
   state: () => (<VideoState>{
     data: <VideoModel>{},
     meta: null,
@@ -13,28 +11,27 @@ export const useStore = defineStore({
 
   getters: {
     isReady(): boolean {
-      return typeof this.data.id === 'string';
+      return typeof this.data?.id === 'string';
     },
   },
 
   actions: {
     populate(payload: VideoResponse): void {
-      if (typeof this.data.id === 'string' && this.data.id !== payload.data.id) {
+      if (typeof this.data?.id === 'string' && this.data.id !== payload.data.id) {
         this.$reset();
       }
 
       this.$patch(payload);
-      this.update(payload.data);
     },
 
     delete(payload: VideoModel): void {
-      if (this.data.id === payload.id) {
+      if (typeof this.data?.id === 'string' && this.data.id === payload.id) {
         this.$reset();
       }
     },
 
     update(payload: VideoModel): void {
-      if (this.data.id === payload.id) {
+      if (typeof this.data?.id === 'string' && this.data.id === payload.id) {
         this.data = mergeWith(this.data, payload, mergeDeep);
       }
     },

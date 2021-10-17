@@ -20,7 +20,7 @@ export const useStore = defineStore('player', {
 
   getters: {
     isReady(): boolean {
-      return typeof this.source.url === 'string';
+      return typeof this.source?.url === 'string';
     },
 
     isWaiting(): boolean {
@@ -38,7 +38,7 @@ export const useStore = defineStore('player', {
     video(): VideoModel | undefined {
       const video = useVideoStore();
 
-      if (typeof this.source.id === 'string' && this.source.id === video.data?.id) {
+      if (typeof this.source?.id === 'string' && this.source.id === video.data?.id) {
         return video.data;
       }
 

@@ -28,11 +28,11 @@ export const useStore = defineStore('video-similar', {
     },
 
     isQueryable(): boolean {
-      return !this.links.first && !this.links.next;
+      return !this.links?.first && !this.links?.next;
     },
 
     isFetchable(): boolean {
-      return typeof this.links.next === 'string';
+      return typeof this.links?.next === 'string';
     },
   },
 
