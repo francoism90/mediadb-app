@@ -14,7 +14,7 @@ export const useStore = defineStore('video-similar', {
       },
       page: {
         number: 1,
-        size: 12,
+        size: 24,
       },
     },
     data: <VideoModel[]>[],

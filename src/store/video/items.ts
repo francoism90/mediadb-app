@@ -16,7 +16,7 @@ export const useStore = defineStore('videos', {
       },
       page: {
         number: 1,
-        size: 12,
+        size: 24,
       },
     },
     data: <VideoModel[]>[],
