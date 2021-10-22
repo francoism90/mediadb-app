@@ -24,15 +24,15 @@
     "pinia": "^2.0.0-rc.14",
     "pusher-js": "^7.0.3",
     "qs": "^6.10.1",
-    "quasar": "^2.1.7",
+    "quasar": "^2.1.9",
     "vue-i18n": "^9.1.9",
     "vue-intl": "^6.0.13"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.8",
     "@quasar/app": "^3.1.5",
-    "@types/lodash": "^4.14.175",
-    "@types/node": "^16.11.1",
+    "@types/lodash": "^4.14.176",
+    "@types/node": "^16.11.3",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "dotenv": "^10.0.0",
@@ -40,7 +40,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-vue": "^7.19.1",
+    "eslint-plugin-vue": "^7.20.0",
     "workbox-webpack-plugin": "^6.3.0"
   },
   "browserslist": [
