@@ -3,74 +3,55 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('layouts/Main.vue'),
+    component: () => import('components/App/Layout/BaseLayout.vue'),
     children: [
       {
         path: '',
         name: 'home',
-        component: () => import('pages/Videos.vue'),
+        component: () => import('components/App/Views/Videos/VideoOverview.vue'),
       },
-    ],
-  },
-  {
-    path: '/video',
-    component: () => import('layouts/Main.vue'),
-    children: [
       {
-        path: ':id/:slug?',
+        path: 'video/:id/:slug?',
         name: 'video',
-        component: () => import('pages/Video.vue'),
-        props: true,
+        component: () => import('components/App/Views/Video/VideoItem.vue'),
       },
-    ],
-  },
-  {
-    path: '/tags',
-    component: () => import('layouts/Main.vue'),
-    children: [
       {
-        path: '',
+        path: 'tags',
         name: 'tags',
-        component: () => import('pages/Tags.vue'),
+        component: () => import('components/App/Views/Tags/TagOverview.vue'),
       },
-    ],
-  },
-  {
-    path: '/settings',
-    component: () => import('layouts/Main.vue'),
-    children: [
       {
-        path: '',
-        name: 'settings',
-        component: () => import('pages/Settings.vue'),
+        path: 'settings',
+        name: 'tags',
+        component: () => import('components/App/Views/UserSettings/SettingsForm.vue'),
       },
     ],
   },
   {
     path: '/login',
-    component: () => import('layouts/Auth.vue'),
+    component: () => import('components/Auth/Layout/BaseLayout.vue'),
     children: [
       {
         path: '',
         name: 'login',
-        component: () => import('pages/Login.vue'),
+        component: () => import('components/Auth/UserLogout/LoginForm.vue'),
       },
     ],
   },
   {
     path: '/logout',
-    component: () => import('layouts/Auth.vue'),
+    component: () => import('components/Auth/Layout/BaseLayout.vue'),
     children: [
       {
         path: '',
         name: 'logout',
-        component: () => import('pages/Logout.vue'),
+        component: () => import('components/Auth/UserLogout/LogoutForm.vue'),
       },
     ],
   },
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue'),
+    component: () => import('components/GeneralViews/NotFound.vue'),
   },
 ];
 

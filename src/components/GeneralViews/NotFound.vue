@@ -30,7 +30,7 @@ import { useMeta } from 'quasar';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Error404',
+  name: 'NotFound',
 
   setup() {
     useMeta(() => ({ title: '404 - Not Found' }));

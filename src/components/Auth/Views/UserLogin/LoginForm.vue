@@ -50,13 +50,13 @@
 
 <script lang="ts">
 import { AxiosError } from 'axios';
+import { LoginForm, signIn } from 'components/Auth/Views/UserLogin';
+import { resetErrors, setErrors, ValidationResponse } from 'components/UIComponents/Forms';
 import { useMeta, useQuasar } from 'quasar';
-import { LoginForm, signIn } from 'src/components/Auth/Views/UserLogin';
-import { resetErrors, setErrors, ValidationResponse } from 'src/components/UIComponents/Forms';
 import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
-  name: 'UserLogin',
+  name: 'LoginForm',
 
   setup() {
     const $q = useQuasar();

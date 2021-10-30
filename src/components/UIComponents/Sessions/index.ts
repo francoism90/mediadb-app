@@ -20,24 +20,27 @@ export const getToken = (): string | null => LocalStorage.getItem('token');
 
 export const setToken = (payload: string): void => LocalStorage.set('token', payload);
 
-export const authenticate = async (payload: AuthRequest): Promise<void> => {
-  const sessionToken = payload.token || getToken() || '';
-  const redirectUri = payload.redirectUri || store.redirectUri;
+export const authenticate = async (payload?: AuthRequest): Promise<void> => {
+  const requestToken = payload?.token || getToken() || '';
 
-  // Reset session store
-  store.$reset();
+  // Reset on token change
+  if (store.token !== requestToken) {
+    store.$reset();
+  }
 
   const response = await api.get<AuthRequest, AxiosResponse<AuthResponse>>('auth', {
     headers: {
-      Authorization: `Bearer ${sessionToken}`,
+      Authorization: `Bearer ${requestToken}`,
     },
   });
 
   // Update Axios auth header
-  setAuthHeader(sessionToken);
+  setAuthHeader(response.data.token);
 
-  // Set session store
-  store.redirectUri = redirectUri;
-  store.token = response.data.token;
-  store.user = response.data.user;
+  // Update session store
+  store.$patch({
+    redirectUri: payload?.redirectUri || store.redirectUri,
+    token: response.data.token,
+    user: response.data.user,
+  });
 };
