@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { signOut } from 'components/Auth/Views/UserLogout';
+import { signOut } from 'components/auth/logout';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

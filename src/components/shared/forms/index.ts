@@ -1,5 +1,5 @@
 import { get, has } from 'lodash';
-import { FieldError, ValidationResponse } from 'src/interfaces/api';
+import { FieldError, ValidationResponse } from 'src/interfaces';
 import { reactive, toRefs } from 'vue';
 
 export const state = reactive(<ValidationResponse>{});

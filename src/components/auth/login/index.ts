@@ -3,8 +3,7 @@ import { resetErrors, setErrors } from 'components/shared/forms';
 import { authenticate, store } from 'components/shared/sessions';
 import { Platform } from 'quasar';
 import { api } from 'src/boot/axios';
-import { ValidationResponse } from 'src/interfaces/api';
-import { LoginForm, LoginResponse } from 'src/interfaces/session';
+import { LoginForm, LoginResponse, ValidationResponse } from 'src/interfaces';
 import { router } from 'src/router';
 import { reactive } from 'vue';
 
