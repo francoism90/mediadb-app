@@ -1,12 +1,5 @@
-import { UserModel } from 'components/UIComponents/Users';
 import { defineStore } from 'pinia';
-
-export interface SessionState {
-  redirectUri: string,
-  timestamp: number,
-  token: string,
-  user: UserModel | undefined,
-}
+import { SessionState } from 'src/interfaces/session';
 
 export const useStore = defineStore('session', {
   state: () => (<SessionState>{
