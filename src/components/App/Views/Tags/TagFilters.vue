@@ -94,6 +94,8 @@ const lists = [
 ];
 
 export default {
+  name: 'FilterDialog',
+
   emits: [
     ...useDialogPluginComponent.emits,
   ],

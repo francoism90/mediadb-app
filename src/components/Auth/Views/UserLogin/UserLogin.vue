@@ -5,10 +5,7 @@
       style="width: 400px; max-width: 100vw;"
       square
     >
-      <q-form
-        ref="formRef"
-        @submit="onSubmit"
-      >
+      <q-form @submit="onSubmit">
         <q-card-section class="row no-wrap justify-between items-center content-center">
           <div class="col text-h6 ellipsis">
             Sign In to MediaDB
@@ -54,47 +51,33 @@
 <script lang="ts">
 import { AxiosError } from 'axios';
 import { useMeta, useQuasar } from 'quasar';
-import useRouter from 'src/composables/useRouter';
-import useSession from 'src/composables/useSession';
-import useValidation from 'src/composables/useValidation';
-import { ValidationResponse } from 'src/interfaces/form';
-import { LoginUser } from 'src/interfaces/session';
-import { signIn } from 'src/services/auth';
-import { defineComponent, reactive, ref } from 'vue';
+import { LoginForm, signIn } from 'src/components/Auth/Views/UserLogin';
+import { resetErrors, setErrors, ValidationResponse } from 'src/components/UIComponents/Forms';
+import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
-  name: 'Login',
+  name: 'UserLogin',
 
   setup() {
     const $q = useQuasar();
 
-    const { router } = useRouter();
-    const { store } = useSession();
-
-    const formRef = ref<HTMLFormElement | null>(null);
-    const form = reactive<LoginUser>({
+    const form = reactive<LoginForm>({
       email: '',
       password: '',
-      device_name: $q.platform.userAgent || '',
+      device_name: $q.platform?.userAgent || '',
       remember: true,
     });
 
-    const {
-      getError, hasError, resetResponse, setResponse,
-    } = useValidation();
-
     const onSubmit = async (): Promise<void> => {
-      resetResponse();
+      resetErrors();
 
       try {
         await signIn(form);
-
-        await router.replace(store.redirectUri || '/');
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 
         if (error.response) {
-          setResponse(error.response.data);
+          setErrors(error.response.data);
           return;
         }
 
@@ -106,9 +89,6 @@ export default defineComponent({
 
     return {
       onSubmit,
-      getError,
-      hasError,
-      formRef,
       form,
     };
   },

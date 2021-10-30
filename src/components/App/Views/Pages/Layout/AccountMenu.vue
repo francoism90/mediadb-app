@@ -69,11 +69,11 @@
 </template>
 
 <script lang="ts">
-import useSession from 'src/composables/useSession';
+import useSession from 'src/App/composables/useSession';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Account',
+  name: 'AccountMenu',
 
   setup() {
     const { store } = useSession();

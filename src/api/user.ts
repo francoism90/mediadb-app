@@ -1,13 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
-import { Model } from 'src/interfaces/repository';
-import { AuthResponse, AuthUser, LoginUser } from 'src/interfaces/session';
-
-export const login = async (params: LoginUser): Promise<AuthResponse> => {
-  const response = await api.post<LoginUser, AxiosResponse<AuthResponse>>('login', params);
-
-  return response.data;
-};
+import { Model } from 'src/components/App/interfaces/repository';
+import { AuthResponse, AuthUser, LoginUser } from 'src/components/App/interfaces/session';
 
 export const logout = async (params: AuthUser): Promise<AuthResponse> => {
   const response = await api.post<AuthUser, AxiosResponse<AuthResponse>>('logout', params);
