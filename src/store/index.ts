@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
 import { UserModel } from 'components/UIComponents/Users';
+import { defineStore } from 'pinia';
 
 export interface SessionState {
   redirectUri: string,
@@ -23,6 +23,6 @@ export const useStore = defineStore('session', {
   },
 
   actions: {
-    // TODO: Add store actions
+    //
   },
 });

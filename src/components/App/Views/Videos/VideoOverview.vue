@@ -27,7 +27,7 @@
         color="grey-5"
         outline
         label="Filters"
-        @click="showFilters"
+        @click="toggleFilters"
       >
         <q-badge
           v-if="filters.length > 0"
@@ -66,31 +66,31 @@
 </template>
 
 <script lang="ts">
+import { fetch, sorters, store } from 'components/App/Views/Videos';
+import { authenticated } from 'components/UIComponents/Sessions';
 import { filter } from 'lodash';
 import { useMeta, useQuasar } from 'quasar';
-import useVideos from 'src/composables/useVideos';
 import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
 
 const filterComponent = defineAsyncComponent(() => import('components/videos/Filters.vue'));
 
 export default defineComponent({
-  name: 'Videos',
+  name: 'VideoOverview',
 
   components: {
     Item: defineAsyncComponent(() => import('components/videos/Item.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await authenticate({ redirectUri: urlPath });
+    const authenticate = await authenticated({ redirectUri: urlPath });
 
-    if (!authenticated) {
+    if (!authenticate) {
       redirect({ path: '/login' });
     }
   },
 
   setup() {
     const $q = useQuasar();
-    const { store, fetch } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -108,7 +108,7 @@ export default defineComponent({
       done();
     };
 
-    const showFilters = (): void => {
+    const toggleFilters = (): void => {
       $q.dialog({
         component: filterComponent,
         componentProps: {
@@ -121,20 +121,20 @@ export default defineComponent({
     };
 
     const filters = computed(() => filter(store.query.filter));
-    const sort = computed(() => store.query.sort);
+    const sorter = computed(() => store.query.sort);
 
     useMeta(() => ({ title: 'Videos' }));
 
     watch(filters, () => store.reset(), { deep: true });
-    watch(sort, () => store.reset(), { deep: true });
+    watch(sorter, () => store.reset(), { deep: true });
 
     return {
       onLoad,
       onRefresh,
-      showFilters,
+      toggleFilters,
       filters,
-      store,
       sorters,
+      store,
     };
   },
 });

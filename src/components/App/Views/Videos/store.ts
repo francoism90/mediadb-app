@@ -2,7 +2,7 @@ import { VideoModel } from 'components/App/Views/Video';
 import { QueryResponse } from 'components/App/Views/Videos';
 import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import { PaginateLinks, PaginateMeta, PaginateQuery } from 'src/components/UIComponents/Paginations';
+import { PaginateLinks, PaginateMeta, PaginateQuery } from 'components/UIComponents/Paginations';
 import { mergeDeep } from 'src/utils/helpers';
 
 export interface StoreState {
@@ -46,7 +46,7 @@ export const useStore = defineStore('videos', {
 
   actions: {
     reset(payload?: PaginateQuery): void {
-      // Merge query
+      // Merge query (if given)
       this.$patch({ query: payload || {} });
 
       // Reset results
