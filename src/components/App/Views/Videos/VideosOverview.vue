@@ -69,17 +69,7 @@
 import { filter } from 'lodash';
 import { useMeta, useQuasar } from 'quasar';
 import useVideos from 'src/composables/useVideos';
-import { authenticate } from 'src/services/auth';
 import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
-
-const sorters = [
-  { label: 'Relevance', value: 'relevance' },
-  { label: 'Trending', value: 'trending' },
-  { label: 'Most Recent', value: '-created_at' },
-  { label: 'Most Views', value: '-views' },
-  { label: 'Longest', value: '-duration' },
-  { label: 'Shortest', value: 'duration' },
-];
 
 const filterComponent = defineAsyncComponent(() => import('components/videos/Filters.vue'));
 

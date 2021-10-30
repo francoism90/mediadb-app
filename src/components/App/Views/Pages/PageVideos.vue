@@ -81,7 +81,7 @@ const sorters = [
   { label: 'Shortest', value: 'duration' },
 ];
 
-const FilterDialog = defineAsyncComponent(() => import('src/components/App/videos/FilterDialog.vue'));
+const FilterDialog = defineAsyncComponent(() => import('components/App/videos/FilterDialog.vue'));
 
 export default defineComponent({
   name: 'Videos',

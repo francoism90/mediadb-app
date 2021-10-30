@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { UserModel } from 'src/components/UIComponents/Users';
+import { UserModel } from 'components/UIComponents/Users';
 
 export interface SessionState {
   redirectUri: string,

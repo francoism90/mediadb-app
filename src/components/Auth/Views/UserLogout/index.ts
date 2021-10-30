@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
+import { getToken, store } from 'components/UIComponents/Sessions';
 import { api } from 'src/boot/axios';
-import { getToken, store } from 'src/components/UIComponents/Sessions';
 
 export interface LogoutForm {
   token: string,

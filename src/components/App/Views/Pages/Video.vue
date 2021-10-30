@@ -43,7 +43,7 @@ export default defineComponent({
   name: 'Video',
 
   components: {
-    VideoPlayer: defineAsyncComponent(() => import('src/components/player/DashProvider.vue')),
+    VideoPlayer: defineAsyncComponent(() => import('components/player/DashProvider.vue')),
     VideoDetails: defineAsyncComponent(() => import('components/video/Details.vue')),
     VideoSimilar: defineAsyncComponent(() => import('components/video/Similar.vue')),
   },

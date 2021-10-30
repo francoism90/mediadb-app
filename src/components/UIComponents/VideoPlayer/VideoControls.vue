@@ -31,7 +31,7 @@ export default defineComponent({
   name: 'VideoControls',
 
   components: {
-    ControlBar: defineAsyncComponent(() => import('src/components/player/ControlBar.vue')),
+    ControlBar: defineAsyncComponent(() => import('components/player/ControlBar.vue')),
     ModelBar: defineAsyncComponent(() => import('components/player/ModelBar.vue')),
     PlaybackControl: defineAsyncComponent(() => import('components/player/PlaybackControl.vue')),
   },

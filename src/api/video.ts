@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
-import { VideoModel, VideoResponse, VideosQuery, VideosResponse } from 'src/components/App/interfaces/video';
+import { VideoModel, VideoResponse, VideosQuery, VideosResponse } from 'components/App/interfaces/video';
 
 export const find = async (id: string): Promise<VideoResponse> => {
   const response = await api.get<string, AxiosResponse<VideoResponse>>(

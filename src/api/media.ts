@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
-import { MediaModel, MediaResponse } from 'src/components/App/interfaces/media';
+import { MediaModel, MediaResponse } from 'components/App/interfaces/media';
 
 export const save = async (params: MediaModel): Promise<MediaResponse> => {
   const response = await api.patch<MediaModel, AxiosResponse<MediaResponse>>(

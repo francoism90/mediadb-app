@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
+import { authenticate, AuthRequest, store } from 'components/UIComponents/Sessions';
+import { UserModel } from 'components/UIComponents/Users';
 import { api } from 'src/boot/axios';
-import { authenticate, AuthRequest, store } from 'src/components/UIComponents/Sessions';
-import { UserModel } from 'src/components/UIComponents/Users';
 import { router } from 'src/router';
 
 export interface LoginForm {

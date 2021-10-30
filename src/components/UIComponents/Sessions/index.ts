@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { LocalStorage } from 'quasar';
 import { api, setAuthHeader } from 'src/boot/axios';
-import { UserModel } from 'src/components/UIComponents/Users';
-import { useStore } from 'src/store/session';
+import { UserModel } from 'components/UIComponents/Users';
+import { useStore } from 'src/store';
 
 export interface AuthRequest {
   redirectUri?: string,

@@ -78,7 +78,7 @@ const sorters = [
   { label: 'Items', value: '-items' },
 ];
 
-const FilterDialog = defineAsyncComponent(() => import('src/components/tags/FilterDialog.vue'));
+const FilterDialog = defineAsyncComponent(() => import('components/tags/FilterDialog.vue'));
 
 export default defineComponent({
   name: 'Tags',

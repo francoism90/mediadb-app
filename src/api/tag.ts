@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
-import { TagResponse, TagsQuery, TagsResponse } from 'src/components/App/interfaces/tag';
+import { TagResponse, TagsQuery, TagsResponse } from 'components/App/interfaces/tag';
 
 export const find = async (id: string): Promise<TagResponse> => {
   const response = await api.get<string, AxiosResponse<TagResponse>>(
