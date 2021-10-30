@@ -22,11 +22,11 @@ export const useStore = defineStore('videos', {
     query: <PaginateQuery>{
       append: ['poster_url'],
       sort: 'relevance',
-      // filter: {
-      //   type: null,
-      //   tags: null,
-      //   query: null,
-      // },
+      filter: {
+        type: null,
+        tags: null,
+        query: null,
+      },
       page: {
         number: 1,
         size: 24,

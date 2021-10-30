@@ -29,7 +29,7 @@ export interface PaginateFilter {
 export interface PaginateQuery {
   include?: PaginateOption,
   fields?: PaginateOption,
-  filter?: PaginateFilter[],
+  filter?: PaginateFilter,
   append?: PaginateOption,
   sort?: PaginateOption,
   page?: {
