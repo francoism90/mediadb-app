@@ -109,7 +109,7 @@ export default defineComponent({
   name: 'VideoSection',
 
   components: {
-    SectionItem: defineAsyncComponent(() => import('components/video/VideoSectionItem.vue')),
+    SectionItem: defineAsyncComponent(() => import('components/videos/VideoSectionItem.vue')),
     TagList: defineAsyncComponent(() => import('components/tags/TagList.vue')),
   },
 

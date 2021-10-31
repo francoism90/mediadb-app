@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { LocalStorage } from 'quasar';
 import { api, setAuthHeader } from 'src/boot/axios';
 import { AuthRequest, AuthResponse, LoginRequest } from 'src/interfaces';
-import { useStore } from 'src/store';
+import { useStore } from 'src/store/session';
 
 export const store = useStore();
 

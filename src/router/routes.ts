@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'tags',
         name: 'tags',
-        component: () => import('src/pages/TagsOverview.vue'),
+        component: () => import('src/pages/TagOverview.vue'),
       },
       {
         path: '',
@@ -35,7 +35,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'login',
-        component: () => import('src/pages/LoginPage.vue'),
+        component: () => import('src/pages/UserLogin.vue'),
       },
     ],
   },

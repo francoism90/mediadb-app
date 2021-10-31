@@ -13,9 +13,9 @@ export default defineComponent({
   name: 'ModelBar',
 
   components: {
-    ActionControl: defineAsyncComponent(() => import('components/player/ActionControl.vue')),
-    FavoriteControl: defineAsyncComponent(() => import('components/player/FavoriteControl.vue')),
-    FollowControl: defineAsyncComponent(() => import('components/player/FollowControl.vue')),
+    ActionControl: defineAsyncComponent(() => import('components/player/controls/ActionControl.vue')),
+    FavoriteControl: defineAsyncComponent(() => import('components/player/controls/FavoriteControl.vue')),
+    FollowControl: defineAsyncComponent(() => import('components/player/controls/FollowControl.vue')),
   },
 });
 </script>

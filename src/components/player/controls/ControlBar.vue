@@ -19,7 +19,7 @@ export default defineComponent({
   name: 'ControlBar',
 
   components: {
-    DurationControl: defineAsyncComponent(() => import('components/player/controls/controls/DurationControl.vue')),
+    DurationControl: defineAsyncComponent(() => import('components/player/controls/DurationControl.vue')),
     FullscreenControl: defineAsyncComponent(() => import('components/player/controls/FullscreenControl.vue')),
     LoadingControl: defineAsyncComponent(() => import('components/player/controls/LoadingControl.vue')),
     SeekControl: defineAsyncComponent(() => import('components/player/controls/SeekControl.vue')),

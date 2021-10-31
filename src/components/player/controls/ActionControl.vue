@@ -34,9 +34,9 @@ export default defineComponent({
   name: 'ActionControl',
 
   components: {
-    CaptionControl: defineAsyncComponent(() => import('components/player/CaptionControl.vue')),
-    ModelControl: defineAsyncComponent(() => import('components/player/ModelControl.vue')),
-    QualityControl: defineAsyncComponent(() => import('components/player/QualityControl.vue')),
+    CaptionControl: defineAsyncComponent(() => import('components/player/controls/CaptionControl.vue')),
+    ModelControl: defineAsyncComponent(() => import('components/player/controls/ModelControl.vue')),
+    QualityControl: defineAsyncComponent(() => import('components/player/controls/QualityControl.vue')),
   },
 
   setup() {

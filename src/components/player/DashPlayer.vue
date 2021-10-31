@@ -25,7 +25,7 @@ export default defineComponent({
   name: 'DashPlayer',
 
   components: {
-    VideoControls: defineAsyncComponent(() => import('components/player/VideoControls.vue')),
+    VideoControls: defineAsyncComponent(() => import('components/player/controls/VideoControls.vue')),
   },
 
   setup() {
