@@ -26,8 +26,8 @@
 </template>
 
 <script lang="ts">
-import useIntl from 'src/composables/useIntl';
-import usePlayer from 'src/composables/usePlayer';
+import { useIntl } from 'src/composables/useIntl';
+import { usePlayer } from 'src/composables/usePlayer';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

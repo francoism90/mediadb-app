@@ -6,14 +6,13 @@
     size="24px"
     right
     tabindex="0"
-    @click="onClick"
+    @click="following"
   />
 </template>
 
 <script lang="ts">
-import useVideo from 'src/composables/useVideo';
-import { Model } from 'src/interfaces/repository';
-import { follow } from 'src/repositories/user';
+import { useAcquaintances } from 'src/composables/useAcquaintances';
+import { useVideo } from 'src/composables/useVideo';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -21,15 +20,15 @@ export default defineComponent({
 
   setup() {
     const { store } = useVideo();
+    const { following } = useAcquaintances();
 
     const icon = computed(() => (store.data.following === true ? 'watch_later' : 'o_watch_later'));
 
-    const onClick = async (): Promise<Model> => follow(store.data);
+    const onClick = async () => following(store.data);
 
     return {
-      onClick,
-      store,
       icon,
+      onClick,
     };
   },
 });

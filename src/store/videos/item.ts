@@ -11,11 +11,19 @@ export const useStore = defineStore('video', {
     isReady(): boolean {
       return typeof this.data?.id === 'string';
     },
+
+    id(): string | undefined {
+      return this.data?.id;
+    },
+
+    name(): string | undefined {
+      return this.data?.name;
+    },
   },
 
   actions: {
     populate(payload: ModelResponse): void {
-      if (typeof this.data?.id === 'string' && this.data.id !== payload.data.id) {
+      if (this.id !== payload.data.id) {
         this.$reset();
       }
 
@@ -23,13 +31,13 @@ export const useStore = defineStore('video', {
     },
 
     delete(payload: VideoModel): void {
-      if (typeof this.data?.id === 'string' && this.data.id === payload.id) {
+      if (this.id === payload.id) {
         this.$reset();
       }
     },
 
     update(payload: VideoModel): void {
-      if (typeof this.data?.id === 'string' && this.data.id === payload.id) {
+      if (this.id === payload.id) {
         this.$patch({ data: payload });
       }
     },

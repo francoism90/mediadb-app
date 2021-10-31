@@ -1,9 +1,10 @@
 import { MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
 
+export type PlayerTextTrack = MediaInfo | TextTrack | undefined
+
 export interface PlayerProperties {
   ready: boolean,
-  controls: boolean,
   autoplay: boolean,
   buffered: number,
   duration: number,
@@ -14,10 +15,10 @@ export interface PlayerProperties {
   quality: number,
   seeking: boolean,
   tracks: TextTrackList,
-  textTrack: MediaInfo | null,
-  textTracks: MediaInfo[] | null,
-  videoTrack: MediaInfo | null,
-  videoTracks: MediaInfo[] | null,
+  textTrack: PlayerTextTrack,
+  textTracks: PlayerTextTrack[],
+  videoTrack: PlayerTextTrack,
+  videoTracks: PlayerTextTrack[],
   time: number,
   volume: number,
 }
@@ -49,7 +50,6 @@ export interface PlayerTrack {
 }
 
 export interface PlayerRequest {
-  activity?: boolean,
   pause?: boolean,
   seek?: number,
   fullscreen?: boolean,
@@ -59,7 +59,9 @@ export interface PlayerRequest {
 }
 
 export interface PlayerState {
+  activity: boolean,
+  controls: boolean,
   properties: PlayerProperties,
-  requests: PlayerRequest[],
+  request: PlayerRequest,
   thumbnail: PlayerThumbnail,
 }

@@ -7,7 +7,7 @@
   >
     <q-item
       v-close-popup
-      :disable="!store.video"
+      :disable="!videoStore.id"
       clickable
       @click="edit"
     >
@@ -24,7 +24,7 @@
 
     <q-item
       v-close-popup
-      :disable="!store.properties?.ready || store.properties?.time < 1"
+      :disable="store.isWaiting"
       clickable
       @click="capture"
     >
@@ -40,7 +40,7 @@
     </q-item>
 
     <q-item
-      :disable="!store.properties?.ready"
+      :disable="!store.isReady"
       clickable
       @click="$emit('setComponent', 'QualityControl')"
     >
@@ -52,7 +52,7 @@
 
       <q-item-section side>
         <div class="row items-center justify-end">
-          <span class="text-caption">{{ resolution?.label }}</span>
+          <span class="text-caption">resolution?.label</span>
 
           <q-icon
             name="keyboard_arrow_right"
@@ -64,7 +64,7 @@
     </q-item>
 
     <q-item
-      :disable="!store.properties?.textTracks?.length"
+      :disable="!store.textTracks?.length"
       clickable
       @click="$emit('setComponent', 'CaptionControl')"
     >
@@ -76,7 +76,7 @@
 
       <q-item-section side>
         <div class="row items-center justify-end">
-          <span class="text-caption" />
+          <span class="text-caption">English</span>
 
           <q-icon
             name="keyboard_arrow_right"
@@ -91,11 +91,9 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import usePlayer from 'src/composables/usePlayer';
-import { VideoModel } from 'src/interfaces/video';
-import { save } from 'src/repositories/video';
-import { videoResolution } from 'src/services/player';
-import { computed, defineAsyncComponent, defineComponent } from 'vue';
+import { usePlayer } from 'src/composables/usePlayer';
+import { useVideo } from 'src/composables/useVideo';
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 const editComponent = defineAsyncComponent(() => import('src/components/videos/VideoEditor.vue'));
 
@@ -105,28 +103,15 @@ export default defineComponent({
   emits: ['setComponent'],
 
   setup() {
-    const { store } = usePlayer();
+    const { store, capture } = usePlayer();
+    const { store: videoStore } = useVideo();
     const $q = useQuasar();
-
-    const resolution = computed(() => videoResolution());
-
-    const capture = async (): Promise<void> => {
-      await save(<VideoModel>{
-        ...store.video,
-        ...{ capture_time: store.properties?.time || 0 },
-      });
-
-      $q.notify({
-        type: 'positive',
-        message: 'The thumbnail will be updated',
-      });
-    };
 
     const edit = (): void => {
       $q.dialog({
         component: editComponent,
         componentProps: {
-          video: store.video,
+          id: videoStore.id,
         },
       });
     };
@@ -134,8 +119,8 @@ export default defineComponent({
     return {
       capture,
       edit,
-      resolution,
       store,
+      videoStore,
     };
   },
 });

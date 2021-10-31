@@ -6,12 +6,12 @@
     size="24px"
     right
     tabindex="0"
-    @click="toggleFullscreen"
+    @click="onClick"
   />
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer';
+import { usePlayer } from 'src/composables/usePlayer';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -22,14 +22,11 @@ export default defineComponent({
 
     const icon = computed(() => (store.properties?.fullscreen ? 'fullscreen_exit' : 'fullscreen'));
 
-    const toggleFullscreen = (): void => {
-      store.fullscreen = !store.fullscreen;
-    };
+    const onClick = () => store.dispatch({ fullscreen: true });
 
     return {
-      store,
       icon,
-      toggleFullscreen,
+      onClick,
     };
   },
 });

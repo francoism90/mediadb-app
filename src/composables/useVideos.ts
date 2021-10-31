@@ -1,6 +1,6 @@
 import { filter } from 'lodash';
 import { all, get } from 'src/services/api';
-import { useStore } from 'src/store/video/items';
+import { useStore } from 'src/store/videos/items';
 import { computed } from 'vue';
 
 export const useVideos = () => {

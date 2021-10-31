@@ -1,13 +1,13 @@
 <template>
   <q-spinner
-    v-if="store.isWaiting"
+    v-if="loading"
     size="24px"
   />
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer';
-import { defineComponent } from 'vue';
+import { usePlayer } from 'src/composables/usePlayer';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'LoadingControl',
@@ -15,8 +15,10 @@ export default defineComponent({
   setup() {
     const { store } = usePlayer();
 
+    const loading = computed(() => store.isWaiting);
+
     return {
-      store,
+      loading,
     };
   },
 });

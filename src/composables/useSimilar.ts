@@ -1,6 +1,6 @@
 import { filter } from 'lodash';
 import { all, get } from 'src/services/api';
-import { useStore } from 'src/store/video/similar';
+import { useStore } from 'src/store/videos/similar';
 import { computed } from 'vue';
 
 export const useSimilar = () => {

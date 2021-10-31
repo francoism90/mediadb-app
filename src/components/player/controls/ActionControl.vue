@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer';
+import { usePlayer } from 'src/composables/usePlayer';
 import { defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({

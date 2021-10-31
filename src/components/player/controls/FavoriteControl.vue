@@ -11,9 +11,8 @@
 </template>
 
 <script lang="ts">
-import useVideo from 'src/composables/useVideo';
-import { Model } from 'src/interfaces/repository';
-import { favorite } from 'src/repositories/user';
+import { useAcquaintances } from 'src/composables/useAcquaintances';
+import { useVideo } from 'src/composables/useVideo';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -21,15 +20,15 @@ export default defineComponent({
 
   setup() {
     const { store } = useVideo();
+    const { favorited } = useAcquaintances();
 
     const icon = computed(() => (store.data.favorite === true ? 'favorite' : 'favorite_border'));
 
-    const onClick = async (): Promise<Model> => favorite(store.data);
+    const onClick = async () => favorited(store.data);
 
     return {
-      onClick,
-      store,
       icon,
+      onClick,
     };
   },
 });
