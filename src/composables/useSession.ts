@@ -19,10 +19,12 @@ export const useSession = () => {
   const signOut = async (data: AuthRequest) => destroy(data, true);
   const isValid = async (data?: AuthRequest) => check(data);
 
-  const unsubscribe = () => echo?.leave(`user.${store.user?.id}`);
-  const subscribe = () => echo?.private(`user.${store.user?.id}`)
-    ?.listen('.model.deleted', deleted)
-    ?.listen('.model.updated', updated);
+  const unsubscribe = () => { echo?.leave(`user.${store.user?.id}`); };
+  const subscribe = () => {
+    echo?.private(`user.${store.user?.id}`)
+      ?.listen('.model.deleted', deleted)
+      ?.listen('.model.updated', updated);
+  };
 
   return {
     signIn,

@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('src/pages/TagOverview.vue'),
       },
       {
-        path: '',
+        path: 'settings',
         name: 'settings',
         component: () => import('src/pages/UserSettings.vue'),
       },
