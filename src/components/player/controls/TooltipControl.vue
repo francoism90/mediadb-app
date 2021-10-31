@@ -1,6 +1,6 @@
 <template>
   <q-img
-    v-if="store.thumbnail?.seekerPosition"
+    v-if="store.tooltip?.position > 0"
     :src="thumbnail"
     :draggable="false"
     :style="{ marginLeft: `${margin}px` }"
@@ -17,23 +17,21 @@
 
 <script lang="ts">
 import { clamp, debounce } from 'lodash';
-import usePlayer from 'src/composables/usePlayer';
-import { PlayerTrack } from 'src/interfaces/player';
-import { getBlob } from 'src/services/api';
-import { getSpriteCue } from 'src/services/player';
-import { timeFormat } from 'src/utils/format';
+import { usePlayer } from 'src/composables/usePlayer';
+import { timeFormat } from 'src/helpers';
 import { computed, defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
-  name: 'ThumbnailControl',
+  name: 'TooltipControl',
 
   setup() {
-    const { store } = usePlayer();
+    const { getThumbnail, store } = usePlayer();
+
     const thumbnail = ref<string>();
 
-    const width = computed(() => store.thumbnail?.seekerWidth || 0);
-    const offset = computed(() => store.thumbnail?.seekerOffset?.left || 0);
-    const position = computed(() => store.thumbnail?.seekerPosition - offset.value);
+    const width = computed(() => store.tooltip?.width || 0);
+    const offset = computed(() => store.tooltip?.offset?.left || 0);
+    const position = computed(() => store.tooltip?.position - offset.value);
 
     const margin = computed(() => clamp(position.value - 120, 0, width.value - 240));
     const percent = computed(() => clamp((position.value / width.value) * 100, 0, 100));
@@ -41,15 +39,12 @@ export default defineComponent({
     const timestamp = computed(() => timeFormat(time.value || 0));
 
     const render = async (): Promise<void> => {
-      const cue = getSpriteCue(time.value) as VTTCue;
-      if (!cue) return;
+      const response = await getThumbnail(time.value);
 
-      const text = JSON.parse(cue?.text) as PlayerTrack;
-
-      const response = await getBlob(text.url || '');
       const reader = new window.FileReader();
 
       reader.readAsDataURL(response);
+
       reader.onload = () => {
         thumbnail.value = reader.result?.toString() || '';
       };
@@ -58,11 +53,10 @@ export default defineComponent({
     watch(percent, debounce(render, 25));
 
     return {
+      store,
       margin,
       percent,
-      store,
       thumbnail,
-      time,
       timestamp,
     };
   },

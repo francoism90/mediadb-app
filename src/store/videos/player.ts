@@ -1,6 +1,6 @@
 import { find } from 'lodash';
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerRequest, PlayerState, PlayerTextTrack, PlayerThumbnail } from 'src/interfaces';
+import { PlayerProperties, PlayerRequest, PlayerState, PlayerTextTrack, PlayerTooltip } from 'src/interfaces';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
@@ -8,7 +8,7 @@ export const useStore = defineStore('player', {
     controls: false,
     request: <PlayerRequest>{},
     properties: <PlayerProperties>{},
-    thumbnail: <PlayerThumbnail>{},
+    tooltip: <PlayerTooltip>{},
   }),
 
   getters: {
@@ -34,17 +34,21 @@ export const useStore = defineStore('player', {
   },
 
   actions: {
+    sync(properties: PlayerProperties): void {
+      this.$patch({ properties });
+    },
+
     dispatch(request: PlayerRequest): void {
       this.request = request;
     },
 
-    sync(properties: PlayerProperties): void {
-      this.$patch({ properties });
+    tooltip(tooltip: PlayerTooltip): void {
+      this.$patch({ tooltip });
     },
   },
 
   debounce: {
-    dispatch: 50,
     sync: 50,
+    dispatch: 50,
   },
 });

@@ -15,7 +15,7 @@ export const useVideos = () => {
     { label: 'Shortest', value: 'duration' },
   ];
 
-  const fetchNext = async (): Promise<void> => {
+  const fetchNext = async () => {
     if (!store.isFetchable) {
       return;
     }
@@ -25,7 +25,7 @@ export const useVideos = () => {
     store.populate(response);
   };
 
-  const fetchQuery = async (): Promise<void> => {
+  const fetchQuery = async () => {
     if (!store.isQueryable) {
       return;
     }
@@ -35,7 +35,7 @@ export const useVideos = () => {
     store.populate(response);
   };
 
-  const fetch = async (): Promise<void> => {
+  const fetch = async () => {
     await fetchNext();
     await fetchQuery();
   };

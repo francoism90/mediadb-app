@@ -9,9 +9,10 @@ const video = ref<HTMLVideoElement>();
 
 export const useDash = () => {
   const $q = useQuasar();
-  const reset = (): void => destroy(state.player);
 
-  const initialize = async (source: string, token: string): Promise<void> => {
+  const reset = () => destroy(state.player);
+
+  const initialize = async (source: string, token: string) => {
     reset();
 
     // Wait for reset
@@ -21,7 +22,7 @@ export const useDash = () => {
     state.player = create(source, token, video.value);
   };
 
-  const update = async (request: PlayerRequest): Promise<void> => {
+  const update = async (request: PlayerRequest) => {
     // Screen
     if (request.fullscreen) await $q.fullscreen.toggle(container.value);
     if (request.fullscreen || request.resolution) state.player?.updatePortalSize();

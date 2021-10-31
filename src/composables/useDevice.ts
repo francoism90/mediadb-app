@@ -2,39 +2,24 @@ import { StatusBar } from '@capacitor/status-bar';
 import { Platform } from 'quasar';
 
 export const useDevice = () => {
-  const isUsable = (): boolean => Platform.is.capacitor === true;
+  const isUsable = () => Platform.is.capacitor === true;
 
-  const screenOrientationLandscape = async (): Promise<void> => {
-    await window.screen.orientation.lock('landscape');
-  };
+  const screenOrientationLandscape = async () => window.screen.orientation.lock('landscape');
+  const screenOrientationUnlock = () => window.screen.orientation.unlock();
 
-  const screenOrientationUnlock = (): void => {
-    window.screen.orientation.unlock();
-  };
+  const hideStatusBar = async () => StatusBar.hide();
+  const showStatusBar = async () => StatusBar.show();
 
-  const hideStatusBar = async (): Promise<void> => {
-    await StatusBar.hide();
-  };
+  const hideNavigationBar = async () => window.NavigationBar.hide();
+  const showNavigationBar = async () => window.NavigationBar.show();
 
-  const showStatusBar = async (): Promise<void> => {
-    await StatusBar.show();
-  };
-
-  const hideNavigationBar = async (): Promise<void> => {
-    await window.NavigationBar.hide();
-  };
-
-  const showNavigationBar = async (): Promise<void> => {
-    await window.NavigationBar.show();
-  };
-
-  const onEnterFullScreen = async (): Promise<void> => {
+  const onEnterFullScreen = async () => {
     await hideStatusBar();
     await hideNavigationBar();
     await screenOrientationLandscape();
   };
 
-  const onLeaveFullScreen = async (): Promise<void> => {
+  const onLeaveFullScreen = async () => {
     await showStatusBar();
     await showNavigationBar();
     screenOrientationUnlock();

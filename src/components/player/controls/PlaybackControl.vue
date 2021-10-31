@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer';
+import { usePlayer } from 'src/composables/usePlayer';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -38,19 +38,19 @@ export default defineComponent({
   setup() {
     const { store } = usePlayer();
 
-    const togglePlayback = (): void => { store.pause = !store.pause; };
+    const icon = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
+
+    const togglePlayback = () => store.dispatch({ pause: !store.properties.paused });
 
     const decreaseTime = (): void => {
-      const time = store.properties?.time || 0;
-      store.time = time - 10;
+      const time = (store.properties?.time || 0) - 10;
+      store.dispatch({ seek: +time.toFixed(2) });
     };
 
     const increaseTime = (): void => {
-      const time = store.properties?.time || 0;
-      store.time = time + 10;
+      const time = (store.properties?.time || 0) + 10;
+      store.dispatch({ seek: +time.toFixed(2) });
     };
-
-    const icon = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
 
     return {
       togglePlayback,

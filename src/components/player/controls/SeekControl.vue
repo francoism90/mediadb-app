@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { dom, QSlider } from 'quasar';
-import usePlayer from 'src/composables/usePlayer';
+import { usePlayer } from 'src/composables/usePlayer';
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -31,19 +31,21 @@ export default defineComponent({
     const seekerWidth = computed(() => dom.width(<Element>seeker.value?.$el));
     const seekerOffset = computed(() => dom.offset(<Element>seeker.value?.$el));
 
-    const setCurrentTime = (payload: number): void => store.$patch({
-      time: +payload.toFixed(2),
+    const setCurrentTime = (payload: number) => store.dispatch({
+      seek: +payload.toFixed(2),
     });
 
-    const onMouseHover = (event: MouseEvent): void => store.$patch({
-      thumbnail: {
-        seekerPosition: event.clientX,
-        seekerOffset: seekerOffset.value,
-        seekerWidth: seekerWidth.value,
-      },
+    const onMouseHover = (event: MouseEvent) => store.tooltip({
+      position: event.clientX,
+      offset: seekerOffset.value,
+      width: seekerWidth.value,
     });
 
-    const onMouseLeave = (): void => store.$patch({ thumbnail: undefined });
+    const onMouseLeave = () => store.tooltip({
+      position: 0,
+      offset: seekerOffset.value,
+      width: seekerWidth.value,
+    });
 
     return {
       onMouseHover,

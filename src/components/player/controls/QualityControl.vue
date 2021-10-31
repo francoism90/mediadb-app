@@ -5,7 +5,7 @@
     separator
     class="player-menu"
   >
-    <q-item
+    <!-- <q-item
       v-for="(item, index) in resolutions"
       :key="index"
       v-close-popup
@@ -20,14 +20,13 @@
       <q-item-section side>
         <q-icon name="o_check" />
       </q-item-section>
-    </q-item>
+    </q-item> -->
   </q-list>
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer';
-import { getResolution } from 'src/services/player';
-import { computed, defineComponent } from 'vue';
+import { usePlayer } from 'src/composables/usePlayer';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'QualityControl',
@@ -37,13 +36,7 @@ export default defineComponent({
   setup() {
     const { store } = usePlayer();
 
-    const resolutions = computed(() => store.properties?.videoTracks?.map((x) => {
-      const bitrate = x.bitrateList.find(Boolean);
-      return getResolution(bitrate?.height || 0, bitrate?.width || 0);
-    }));
-
     return {
-      resolutions,
       store,
     };
   },

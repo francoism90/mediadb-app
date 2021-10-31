@@ -11,7 +11,7 @@ const state = reactive({
 });
 
 export const useTagInput = () => {
-  const fetch = async (params: RepositoryQuery): Promise<void> => {
+  const fetch = async (params: RepositoryQuery) => {
     const response = await all('tags', params);
 
     Object.assign(state.collection, { ...state.collection, ...response.data });

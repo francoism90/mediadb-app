@@ -36,9 +36,9 @@ export default defineComponent({
     onMounted(() => initialize(source.value, token.value));
     onBeforeUnmount(() => reset());
 
-    watch(() => $q.fullscreen.isActive, (): Promise<void> => update({ resolution: true }));
-    watch(() => $q.screen.name, (): Promise<void> => update({ resolution: true }));
-    watch(() => store.requests, (): Promise<void> => update(store.request));
+    watch(() => $q.fullscreen.isActive, () => update({ resolution: true }));
+    watch(() => $q.screen.name, () => update({ resolution: true }));
+    watch(() => store.request, (value) => update(value));
 
     return {
       container,

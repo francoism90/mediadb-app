@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import usePlayer from 'src/composables/usePlayer';
+import { usePlayer } from 'src/composables/usePlayer';
 import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -40,8 +40,9 @@ export default defineComponent({
     const { store } = usePlayer();
     const timer = ref<number>(0);
 
+    const visible = computed(() => store.activity || store.controls);
+
     const deactivate = (): void => {
-      // Force controls to be shown
       if (store.activity) return;
 
       timer.value = window.setTimeout(() => {
@@ -52,17 +53,14 @@ export default defineComponent({
     const activate = (): void => {
       clearTimeout(timer.value);
 
-      // Show controls and set timeout
       store.controls = true;
       deactivate();
     };
 
-    const visible = computed(() => store.activity || store.controls);
-
     return {
+      visible,
       activate,
       deactivate,
-      visible,
     };
   },
 });

@@ -36,10 +36,10 @@ export interface PlayerSource {
   url: string | undefined,
 }
 
-export interface PlayerThumbnail {
-  seekerPosition: number,
-  seekerOffset: DomOffset,
-  seekerWidth: number,
+export interface PlayerTooltip {
+  position: number,
+  offset: DomOffset,
+  width: number,
 }
 
 export interface PlayerTrack {
@@ -63,5 +63,5 @@ export interface PlayerState {
   controls: boolean,
   properties: PlayerProperties,
   request: PlayerRequest,
-  thumbnail: PlayerThumbnail,
+  tooltip: PlayerTooltip,
 }

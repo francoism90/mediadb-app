@@ -107,20 +107,18 @@ export default defineComponent({
     const { store: videoStore } = useVideo();
     const $q = useQuasar();
 
-    const edit = (): void => {
-      $q.dialog({
-        component: editComponent,
-        componentProps: {
-          id: videoStore.id,
-        },
-      });
-    };
+    const edit = () => $q.dialog({
+      component: editComponent,
+      componentProps: {
+        id: videoStore.id,
+      },
+    });
 
     return {
-      capture,
-      edit,
       store,
       videoStore,
+      capture,
+      edit,
     };
   },
 });

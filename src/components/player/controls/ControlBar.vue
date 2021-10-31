@@ -1,6 +1,6 @@
 <template>
   <div class="absolute-bottom q-py-md q-px-lg">
-    <thumbnail-control />
+    <tooltip-control />
     <seek-control />
 
     <q-toolbar class="player-navigation">
@@ -19,11 +19,11 @@ export default defineComponent({
   name: 'ControlBar',
 
   components: {
-    DurationControl: defineAsyncComponent(() => import('components/player/DurationControl.vue')),
-    FullscreenControl: defineAsyncComponent(() => import('components/player/FullscreenControl.vue')),
-    LoadingControl: defineAsyncComponent(() => import('components/player/LoadingControl.vue')),
-    SeekControl: defineAsyncComponent(() => import('components/player/SeekControl.vue')),
-    ThumbnailControl: defineAsyncComponent(() => import('components/player/ThumbnailControl.vue')),
+    DurationControl: defineAsyncComponent(() => import('components/player/controls/controls/DurationControl.vue')),
+    FullscreenControl: defineAsyncComponent(() => import('components/player/controls/FullscreenControl.vue')),
+    LoadingControl: defineAsyncComponent(() => import('components/player/controls/LoadingControl.vue')),
+    SeekControl: defineAsyncComponent(() => import('components/player/controls/SeekControl.vue')),
+    TooltipControl: defineAsyncComponent(() => import('components/player/controls/TooltipControl.vue')),
   },
 });
 </script>
