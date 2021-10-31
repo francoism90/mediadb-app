@@ -55,11 +55,13 @@ export interface RepositoryQuery {
   }
 }
 
-export interface FieldError {
-  [index: number]: string | number,
+export type FieldError = string
+
+export interface ValidationErrors {
+  [index: number | string]: FieldError[],
 }
 
 export interface ValidationResponse {
-  errors: FieldError[] | undefined,
+  errors: ValidationErrors,
   message: string,
 }

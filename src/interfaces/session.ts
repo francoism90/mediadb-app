@@ -20,6 +20,7 @@ export interface LoginRequest {
 }
 
 export interface AuthResponse {
+  redirectUri: string,
   token: string,
   user: UserModel,
 }

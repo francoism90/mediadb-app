@@ -17,7 +17,7 @@
         <q-card-section class="q-px-xl q-gutter-sm">
           <q-input
             v-model.trim="state.email"
-            :error-message="getError('email')[0]"
+            :error-message="getError('email')?.find(Boolean)"
             :error="hasError('email')"
             autofocus
             label="Your email"
@@ -26,7 +26,7 @@
 
           <q-input
             v-model.trim="state.password"
-            :error-message="getError('password')[0]"
+            :error-message="getError('password')?.find(Boolean)"
             :error="hasError('password')"
             label="Your password"
             type="password"
@@ -102,10 +102,10 @@ export default defineComponent({
     useMeta(() => ({ title: 'Log In' }));
 
     return {
+      state,
       onSubmit,
       getError,
       hasError,
-      state,
     };
   },
 });

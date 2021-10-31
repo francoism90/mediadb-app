@@ -8,63 +8,67 @@ export const store = useStore();
 
 export const getToken = (): string | null => LocalStorage.getItem('token');
 
-export const setToken = (payload: string): void => LocalStorage.set('token', payload);
+export const setToken = (payload: string) => {
+  // Set token in local storage
+  LocalStorage.set('token', payload);
 
-export const initialize = async (payload?: AuthRequest): Promise<void> => {
-  const requestToken = payload?.token || getToken() || '';
+  // Set axios header
+  setAuthHeader(payload);
+};
+
+export const initialize = async (payload?: AuthRequest) => {
+  const requestToken = payload?.token || getToken();
   const requestUri = payload?.redirectUri;
 
   // Reset on token change
-  if (store.token !== requestToken) {
+  if (!requestToken || store.token !== requestToken) {
     store.$reset();
   }
 
   // Fetch requested user
-  const response = await api.get<AuthRequest, AxiosResponse<AuthResponse>>('auth', {
+  const response = await api.get<AuthRequest, AxiosResponse<AuthResponse>>('user', {
     headers: {
-      Authorization: `Bearer ${requestToken}`,
+      Authorization: `Bearer ${requestToken || ''}`,
     },
   });
 
-  // Update auth header
-  setAuthHeader(response.data.token);
+  // Update token
+  setToken(response.data.token);
 
   // Update session store
-  store.$patch({
+  store.initialize({
     redirectUri: requestUri || store.redirectUri,
     token: response.data.token,
     user: response.data.user,
   });
 };
 
-export const check = async (payload?: AuthRequest): Promise<boolean> => {
+export const check = async (payload?: AuthRequest) => {
   try {
     await initialize(payload);
-
-    return true;
   } catch {
     //
   }
 
-  return false;
+  return store.isAuthenticated;
 };
 
-export const authenticate = async (params: LoginRequest, replace?: boolean): Promise<AuthResponse> => {
+export const authenticate = async (params: LoginRequest, replace?: boolean) => {
   const response = await api.post<LoginRequest, AxiosResponse<AuthResponse>>('login', params);
 
   if (replace) {
     await initialize(<AuthRequest>{ token: response.data?.token || '' });
   }
-
-  return response.data;
 };
 
-export const destroy = async (params: AuthRequest, reset?: boolean): Promise<AuthResponse> => {
+export const destroy = async (params: AuthRequest, reset?: boolean) => {
+  try {
+    await api.post<AuthRequest, AxiosResponse<AuthResponse>>('logout', params);
+  } catch {
+    //
+  }
+
   if (reset) {
     setToken('');
   }
-
-  const response = await api.post<AuthRequest, AxiosResponse<AuthResponse>>('logout', params);
-
-  return response.data;
 };

@@ -6,11 +6,10 @@ export const useValidation = () => {
   const state = reactive(<ValidationResponse>{});
 
   const resetResponse = () => Object.assign(state, <ValidationResponse>{});
-
   const setResponse = (response: ValidationResponse) => Object.assign(state, response);
 
   const hasError = (field: string) => has(state.errors, field);
-  const getError = (field: string) => get(state.errors, field, undefined) as FieldError;
+  const getError = (field: string) => get(state.errors, field, undefined) as FieldError[];
 
   const message = computed(() => state.message || '');
 
@@ -19,7 +18,7 @@ export const useValidation = () => {
     message,
     resetResponse,
     setResponse,
-    getError,
     hasError,
+    getError,
   };
 };
