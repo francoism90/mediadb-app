@@ -97,7 +97,7 @@ import { save } from 'src/repositories/video';
 import { videoResolution } from 'src/services/player';
 import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
-const editComponent = defineAsyncComponent(() => import('components/video/Edit.vue'));
+const editComponent = defineAsyncComponent(() => import('src/components/videos/VideoEditor.vue'));
 
 export default defineComponent({
   name: 'ModelControl',

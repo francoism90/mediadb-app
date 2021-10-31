@@ -3,6 +3,7 @@ import { DomOffset } from 'quasar';
 
 export interface PlayerProperties {
   ready: boolean,
+  controls: boolean,
   autoplay: boolean,
   buffered: number,
   duration: number,
@@ -40,19 +41,25 @@ export interface PlayerThumbnail {
   seekerWidth: number,
 }
 
-export interface PlayerState {
-  module: string,
-  source: PlayerSource,
-  properties: PlayerProperties,
-  thumbnail: PlayerThumbnail,
-  activity: boolean,
-  controls: boolean,
-  fullscreen: boolean,
-  pause: boolean,
-  time: number,
-}
-
 export interface PlayerTrack {
+  id?: string,
+  name?: string,
   type?: string,
   url?: string,
+}
+
+export interface PlayerRequest {
+  activity?: boolean,
+  pause?: boolean,
+  seek?: number,
+  fullscreen?: boolean,
+  resolution?: boolean,
+  showTrack?: PlayerTrack,
+  hideTrack?: PlayerTrack,
+}
+
+export interface PlayerState {
+  properties: PlayerProperties,
+  requests: PlayerRequest[],
+  thumbnail: PlayerThumbnail,
 }

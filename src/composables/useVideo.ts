@@ -1,55 +1,37 @@
 import { AxiosError } from 'axios';
-import useEcho from 'src/composables/useEcho';
-import useSimilar from 'src/composables/useSimilar';
-import useVideos from 'src/composables/useVideos';
-import { ErrorResponse } from 'src/interfaces/api';
-import { VideoModel } from 'src/interfaces/video';
-import { find } from 'src/repositories/video';
+import { useSession } from 'src/composables/useSession';
+import { useStores } from 'src/composables/useStores';
+import { useValidation } from 'src/composables/useValidation';
+import { ValidationResponse } from 'src/interfaces';
+import { find } from 'src/services/api';
 import { useStore } from 'src/store/video/item';
-import { ref } from 'vue';
+import { computed } from 'vue';
 
-export default function useVideo() {
-  const { echo } = useEcho();
-  const { store: similar } = useSimilar();
-  const { store: videos } = useVideos();
+export const useVideo = () => {
   const store = useStore();
+  const { echo } = useSession();
+  const { resetResponse, setResponse, getMessage } = useValidation();
+  const { deleted, updated } = useStores();
 
-  const errors = ref<ErrorResponse>();
+  const message = computed(() => getMessage());
 
   const initialize = async (id: string): Promise<void> => {
-    // Repopulate stores
-    if (store.data.id !== id) {
-      similar.reset({ filter: { similar: id } });
-    }
+    resetResponse();
 
     try {
-      const response = await find(id);
+      const response = await find(`videos/${id}`);
+
       store.populate(response);
     } catch (e: unknown) {
-      const error = e as AxiosError<ErrorResponse>;
-
-      // Reset stores
-      similar.$reset();
+      const error = e as AxiosError<ValidationResponse, unknown>;
 
       if (error.response) {
-        errors.value = error.response.data;
+        setResponse(error.response.data);
         return;
       }
 
       throw error;
     }
-  };
-
-  const deleted = (payload: VideoModel): void => {
-    store.delete(payload);
-    similar.delete(payload);
-    videos.delete(payload);
-  };
-
-  const updated = (payload: VideoModel): void => {
-    store.update(payload);
-    similar.update(payload);
-    videos.update(payload);
   };
 
   const subscribe = (id: string): void => {
@@ -61,12 +43,10 @@ export default function useVideo() {
   const unsubscribe = (id: string): void => echo?.leave(`video.${id}`);
 
   return {
+    store,
+    message,
     initialize,
-    deleted,
-    updated,
     subscribe,
     unsubscribe,
-    store,
-    errors,
   };
-}
+};

@@ -12,5 +12,3 @@ export const timeFormat = (value?: number) => dayjs((value || 0) * 1000)
 
 export const dateFormat = (value?: string | number | Date) => dayjs(value || Date.now())
   .format('D MMMM YYYY');
-
-export const titleFormat = (value: string[]) => value.filter((n) => n).join(' - ');

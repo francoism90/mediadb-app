@@ -80,6 +80,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    'max-len': 'off',
     'max-classes-per-file': 'off',
     'no-console': 'off',
     'no-nested-ternary': 'off',

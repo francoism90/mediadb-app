@@ -1,32 +1,19 @@
-import { MediaPlayerClass } from 'dashjs';
-import { PlayerSource } from 'src/interfaces/player';
-import { destroy, initialize, store, update } from 'src/services/player';
-import { nextTick, ref } from 'vue';
+import { useSession } from 'src/composables/useSession';
+import { useVideo } from 'src/composables/useVideo';
+import { useStore } from 'src/store/video/player';
+import { computed } from 'vue';
 
-export default function usePlayer() {
-  const player = ref<MediaPlayerClass | undefined>();
-  const container = ref<HTMLDivElement>();
-  const video = ref<HTMLVideoElement>();
+export const usePlayer = () => {
+  const store = useStore();
+  const { store: sessionStore } = useSession();
+  const { store: videoStore } = useVideo();
 
-  const unload = (): void => destroy(player.value);
-
-  const load = async (source: PlayerSource, view: HTMLElement | undefined): Promise<void> => {
-    unload();
-
-    // Wait for reset
-    await nextTick();
-
-    // Initialize player
-    player.value = initialize(source, view);
-  };
+  const source = computed(() => videoStore.data?.dash_url || '');
+  const token = computed(() => sessionStore.token || '');
 
   return {
-    load,
-    unload,
-    update,
-    container,
-    video,
-    player,
     store,
+    source,
+    token,
   };
-}
+};

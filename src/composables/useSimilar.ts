@@ -1,15 +1,27 @@
-import { all, get } from 'src/repositories/video';
+import { filter } from 'lodash';
+import { all, get } from 'src/services/api';
 import { useStore } from 'src/store/video/similar';
+import { computed } from 'vue';
 
-export default function useSimilar() {
+export const useSimilar = () => {
   const store = useStore();
 
+  const sorters = [
+    { label: 'Relevance', value: 'relevance' },
+    { label: 'Trending', value: 'trending' },
+    { label: 'Most Recent', value: '-created_at' },
+    { label: 'Most Views', value: '-views' },
+    { label: 'Longest', value: '-duration' },
+    { label: 'Shortest', value: 'duration' },
+  ];
+
   const fetchNext = async (): Promise<void> => {
-    if (!store.isFetchable || !store.links?.next) {
+    if (!store.isFetchable) {
       return;
     }
 
-    const response = await get(store.links.next);
+    const response = await get(store.links?.next || 'videos');
+
     store.populate(response);
   };
 
@@ -18,7 +30,8 @@ export default function useSimilar() {
       return;
     }
 
-    const response = await all(store.query);
+    const response = await all('videos', store.query);
+
     store.populate(response);
   };
 
@@ -27,8 +40,14 @@ export default function useSimilar() {
     await fetchQuery();
   };
 
+  const filters = computed(() => filter(store.query.filter));
+  const sorter = computed(() => store.query.sort);
+
   return {
-    store,
     fetch,
+    filters,
+    sorter,
+    sorters,
+    store,
   };
-}
+};

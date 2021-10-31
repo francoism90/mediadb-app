@@ -1,14 +1,14 @@
-import { Model } from 'src/interfaces/repository';
+import { Model } from 'src/interfaces';
 
 export interface MediaProperties {
-  'codec_name'?: string | null,
-  'display_aspect_ratio'?: string | null,
-  'probe_score'?: number | null,
-  'start_time'?: string | null,
-  bitrate?: number | null,
-  duration?: number | null,
-  height?: number | null,
-  width?: number | null,
+  'codec_name'?: string,
+  'display_aspect_ratio'?: string,
+  'probe_score'?: number,
+  'start_time'?: string,
+  bitrate?: number,
+  duration?: number,
+  height?: number,
+  width?: number,
 }
 
 export interface MediaModel extends Model {
@@ -16,9 +16,4 @@ export interface MediaModel extends Model {
   properties?: MediaProperties,
   size?: number,
   type: string,
-}
-
-export interface MediaResponse {
-  data: MediaModel,
-  meta: null,
 }

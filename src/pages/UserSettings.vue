@@ -6,17 +6,17 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
-import { authenticate } from 'src/services/auth';
+import { check } from 'src/services/auth';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Settings',
+  name: 'UserSettings',
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await authenticate({ redirectUri: urlPath });
+    const authenticated = await check({ redirectUri: urlPath });
 
     if (!authenticated) {
-      redirect({ path: '/login' });
+      redirect({ name: 'login' });
     }
   },
 

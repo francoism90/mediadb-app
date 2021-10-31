@@ -98,10 +98,10 @@ const actions = [
 ];
 
 export default defineComponent({
-  name: 'VideosItem',
+  name: 'VideoCard',
 
   components: {
-    Chips: defineAsyncComponent(() => import('components/tags/Chips.vue')),
+    Chips: defineAsyncComponent(() => import('src/components/tags/TagChips.vue')),
   },
 
   props: {

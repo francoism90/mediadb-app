@@ -27,7 +27,7 @@
         color="grey-5"
         outline
         label="Filters"
-        @click="showFilters"
+        @click="toggleFilters"
       >
         <q-badge
           v-if="filters.length > 0"
@@ -66,41 +66,31 @@
 </template>
 
 <script lang="ts">
-import { filter } from 'lodash';
 import { useMeta, useQuasar } from 'quasar';
-import useVideos from 'src/composables/useVideos';
-import { authenticate } from 'src/services/auth';
-import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
+import { useVideos } from 'src/composables/useVideos';
+import { check } from 'src/services/auth';
+import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
-const sorters = [
-  { label: 'Relevance', value: 'relevance' },
-  { label: 'Trending', value: 'trending' },
-  { label: 'Most Recent', value: '-created_at' },
-  { label: 'Most Views', value: '-views' },
-  { label: 'Longest', value: '-duration' },
-  { label: 'Shortest', value: 'duration' },
-];
-
-const filterComponent = defineAsyncComponent(() => import('components/videos/Filters.vue'));
+const filterComponent = defineAsyncComponent(() => import('src/components/videos/VideoFilters.vue'));
 
 export default defineComponent({
-  name: 'Videos',
+  name: 'VideoOverview',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/videos/Item.vue')),
+    Item: defineAsyncComponent(() => import('src/components/videos/VideoCard.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await authenticate({ redirectUri: urlPath });
+    const authenticated = await check({ redirectUri: urlPath });
 
     if (!authenticated) {
-      redirect({ path: '/login' });
+      redirect({ name: 'login' });
     }
   },
 
   setup() {
     const $q = useQuasar();
-    const { store, fetch } = useVideos();
+    const { fetch, store, filters, sorter, sorters } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -118,7 +108,7 @@ export default defineComponent({
       done();
     };
 
-    const showFilters = (): void => {
+    const toggleFilters = (): void => {
       $q.dialog({
         component: filterComponent,
         componentProps: {
@@ -130,18 +120,15 @@ export default defineComponent({
       });
     };
 
-    const filters = computed(() => filter(store.query.filter));
-    const sort = computed(() => store.query.sort);
-
     useMeta(() => ({ title: 'Videos' }));
 
     watch(filters, () => store.reset(), { deep: true });
-    watch(sort, () => store.reset(), { deep: true });
+    watch(sorter, () => store.reset(), { deep: true });
 
     return {
       onLoad,
       onRefresh,
-      showFilters,
+      toggleFilters,
       filters,
       store,
       sorters,

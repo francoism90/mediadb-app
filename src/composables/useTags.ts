@@ -1,15 +1,27 @@
-import { all, get } from 'src/repositories/tag';
+import { filter } from 'lodash';
+import { all, get } from 'src/services/api';
 import { useStore } from 'src/store/tag/items';
+import { computed } from 'vue';
 
-export default function useTags() {
+export const useTags = () => {
   const store = useStore();
 
+  const sorters = [
+    { label: 'Relevance', value: 'relevance' },
+    { label: 'Trending', value: 'trending' },
+    { label: 'Most Recent', value: '-created_at' },
+    { label: 'Most Views', value: '-views' },
+    { label: 'Longest', value: '-duration' },
+    { label: 'Shortest', value: 'duration' },
+  ];
+
   const fetchNext = async (): Promise<void> => {
-    if (!store.isFetchable || !store.links?.next) {
+    if (!store.isFetchable) {
       return;
     }
 
-    const response = await get(store.links.next);
+    const response = await get(store.links?.next || 'tags');
+
     store.populate(response);
   };
 
@@ -18,7 +30,8 @@ export default function useTags() {
       return;
     }
 
-    const response = await all(store.query);
+    const response = await all('tags', store.query);
+
     store.populate(response);
   };
 
@@ -27,8 +40,14 @@ export default function useTags() {
     await fetchQuery();
   };
 
+  const filters = computed(() => filter(store.query.filter));
+  const sorter = computed(() => store.query.sort);
+
   return {
     fetch,
+    filters,
+    sorter,
+    sorters,
     store,
   };
-}
+};

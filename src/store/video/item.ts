@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { VideoModel, VideoResponse, VideoState } from 'src/interfaces/video';
+import { ModelResponse, VideoModel, VideoState } from 'src/interfaces';
 
 export const useStore = defineStore('video', {
   state: () => (<VideoState>{
@@ -14,7 +14,7 @@ export const useStore = defineStore('video', {
   },
 
   actions: {
-    populate(payload: VideoResponse): void {
+    populate(payload: ModelResponse): void {
       if (typeof this.data?.id === 'string' && this.data.id !== payload.data.id) {
         this.$reset();
       }

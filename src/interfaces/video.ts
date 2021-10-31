@@ -1,9 +1,4 @@
-import { MediaModel } from 'src/interfaces/media';
-import { Model, RepositoryLinks, RepositoryMeta, RepositoryQuery } from 'src/interfaces/repository';
-import { TagModel } from 'src/interfaces/tag';
-
-export type VideosMeta = RepositoryMeta
-export type VideosLinks = RepositoryLinks
+import { MediaModel, Model, ModelResponse, RepositoryQuery, RepositoryResponse, TagModel } from 'src/interfaces';
 
 export interface VideoModel extends Model {
   'capture_time': number,
@@ -24,37 +19,11 @@ export interface VideoModel extends Model {
   views?: number,
 }
 
-export interface VideoResponse {
-  data: VideoModel,
-  meta: null,
-}
-
-export interface VideosFilters {
-  query?: string | null,
-  similar?: string | string[] | null,
-  tags?: string[] | null,
-  type?: string | null,
-}
-
-export interface VideosQuery extends RepositoryQuery {
-  filter?: VideosFilters,
-}
-
-export interface VideoState {
-  data: VideoModel,
-  meta: null,
-}
-
-export interface VideosState {
+export interface VideosState extends RepositoryResponse {
   id: string | number | null,
-  query: VideosQuery,
-  data: VideoModel[],
-  meta: VideosMeta,
-  links: VideosLinks,
+  query: RepositoryQuery,
 }
 
-export interface VideosResponse {
-  data: VideoModel[],
-  meta: VideosMeta,
-  links: VideosLinks
+export interface VideoState extends ModelResponse {
+  data: VideoModel,
 }

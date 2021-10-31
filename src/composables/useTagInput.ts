@@ -1,34 +1,25 @@
-import { all, get } from 'src/repositories/tag';
-import { useStore } from 'src/store/tag/select';
+import { RepositoryQuery, TagModel } from 'src/interfaces';
+import { all } from 'src/services/api';
+import { reactive, toRefs } from 'vue';
 
-export default function useTagInput() {
-  const store = useStore();
+type tags = TagModel[] | undefined
 
-  const fetchNext = async (): Promise<void> => {
-    if (!store.isFetchable || !store.links?.next) {
-      return;
-    }
+const state = reactive({
+  collection: <tags>[],
+  filtered: <tags>[],
+  selected: <tags>[],
+});
 
-    const response = await get(store.links.next);
-    store.populate(response);
-  };
+export const useTagInput = () => {
+  const fetch = async (params: RepositoryQuery): Promise<void> => {
+    const response = await all('tags', params);
 
-  const fetchQuery = async (): Promise<void> => {
-    if (!store.isQueryable) {
-      return;
-    }
-
-    const response = await all(store.query);
-    store.populate(response);
-  };
-
-  const fetch = async (): Promise<void> => {
-    await fetchNext();
-    await fetchQuery();
+    Object.assign(state.collection, { ...state.collection, ...response.data });
+    Object.assign(state.filtered, response.data);
   };
 
   return {
+    state: toRefs(state),
     fetch,
-    store,
   };
-}
+};

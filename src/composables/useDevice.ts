@@ -1,10 +1,8 @@
 import { StatusBar } from '@capacitor/status-bar';
-import { useQuasar } from 'quasar';
+import { Platform } from 'quasar';
 
-export default function useDevice() {
-  const $q = useQuasar();
-
-  const isUsable = (): boolean => $q.platform.is.capacitor === true;
+export const useDevice = () => {
+  const isUsable = (): boolean => Platform.is.capacitor === true;
 
   const screenOrientationLandscape = async (): Promise<void> => {
     await window.screen.orientation.lock('landscape');
@@ -47,4 +45,4 @@ export default function useDevice() {
     onEnterFullScreen,
     onLeaveFullScreen,
   };
-}
+};

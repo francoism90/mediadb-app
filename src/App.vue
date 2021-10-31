@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { useMeta, useQuasar } from 'quasar';
-import useDevice from 'src/composables/useDevice';
+import { useDevice } from 'src/composables/useDevice';
 import { defineComponent, watch } from 'vue';
 
 const metaData = {

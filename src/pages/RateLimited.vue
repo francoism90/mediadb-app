@@ -9,7 +9,7 @@
         class="text-h2"
         style="opacity: 0.4;"
       >
-        Oops. Nothing here...
+        Oops. Try again later...
       </div>
 
       <q-btn
@@ -30,10 +30,10 @@ import { useMeta } from 'quasar';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Error404',
+  name: 'RateLimited',
 
   setup() {
-    useMeta(() => ({ title: '404 - Not Found' }));
+    useMeta(() => ({ title: '421 - Rate Limit' }));
   },
 });
 </script>

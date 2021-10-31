@@ -27,7 +27,7 @@
         color="grey-5"
         outline
         label="Filters"
-        @click="showFilters"
+        @click="toggleFilters"
       >
         <q-badge
           v-if="filters.length > 0"
@@ -68,8 +68,8 @@
 <script lang="ts">
 import { filter } from 'lodash';
 import { useMeta, useQuasar } from 'quasar';
-import useTags from 'src/composables/useTags';
-import { authenticate } from 'src/services/auth';
+import { useTags } from 'src/composables/useTags';
+import { check } from 'src/services/auth';
 import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
 
 const sorters = [
@@ -78,20 +78,20 @@ const sorters = [
   { label: 'Items', value: '-items' },
 ];
 
-const filterComponent = defineAsyncComponent(() => import('components/tags/Filters.vue'));
+const filterComponent = defineAsyncComponent(() => import('src/components/tags/TagFilters.vue'));
 
 export default defineComponent({
-  name: 'Tags',
+  name: 'TagOverview',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/tags/Item.vue')),
+    Item: defineAsyncComponent(() => import('src/components/tags/TagCard.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await authenticate({ redirectUri: urlPath });
+    const authenticated = await check({ redirectUri: urlPath });
 
     if (!authenticated) {
-      redirect({ path: '/login' });
+      redirect({ name: 'login' });
     }
   },
 
@@ -115,7 +115,7 @@ export default defineComponent({
       done();
     };
 
-    const showFilters = (): void => {
+    const toggleFilters = (): void => {
       $q.dialog({
         component: filterComponent,
         componentProps: {
@@ -138,7 +138,7 @@ export default defineComponent({
     return {
       onLoad,
       onRefresh,
-      showFilters,
+      toggleFilters,
       filters,
       store,
       sorters,

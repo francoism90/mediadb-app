@@ -5,10 +5,7 @@
       style="width: 400px; max-width: 100vw;"
       square
     >
-      <q-form
-        ref="formRef"
-        @submit="onSubmit"
-      >
+      <q-form @submit="onSubmit">
         <q-card-section class="row no-wrap justify-between items-center content-center">
           <div class="col text-h6 ellipsis">
             Sign In to MediaDB
@@ -19,7 +16,7 @@
 
         <q-card-section class="q-px-xl q-gutter-sm">
           <q-input
-            v-model.trim="form.email"
+            v-model.trim="state.email"
             :error-message="getError('email')[0]"
             :error="hasError('email')"
             autofocus
@@ -28,7 +25,7 @@
           />
 
           <q-input
-            v-model.trim="form.password"
+            v-model.trim="state.password"
             :error-message="getError('password')[0]"
             :error="hasError('password')"
             label="Your password"
@@ -53,43 +50,43 @@
 
 <script lang="ts">
 import { AxiosError } from 'axios';
-import { useMeta, useQuasar } from 'quasar';
-import useRouter from 'src/composables/useRouter';
-import useSession from 'src/composables/useSession';
-import useValidation from 'src/composables/useValidation';
-import { ValidationResponse } from 'src/interfaces/form';
-import { LoginUser } from 'src/interfaces/session';
-import { signIn } from 'src/services/auth';
-import { defineComponent, reactive, ref } from 'vue';
+import { Platform, useMeta } from 'quasar';
+import { useSession } from 'src/composables/useSession';
+import { useValidation } from 'src/composables/useValidation';
+import { LoginRequest, ValidationResponse } from 'src/interfaces';
+import { router } from 'src/router';
+import { check } from 'src/services/auth';
+import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
-  name: 'Login',
+  name: 'UserLogin',
+
+  async preFetch({ redirect }) {
+    const authenticated = await check();
+
+    if (authenticated) {
+      redirect({ name: 'home' });
+    }
+  },
 
   setup() {
-    const $q = useQuasar();
+    const { signIn, store } = useSession();
+    const { getError, hasError, resetResponse, setResponse } = useValidation();
 
-    const { router } = useRouter();
-    const { store } = useSession();
-
-    const formRef = ref<HTMLFormElement | null>(null);
-    const form = reactive<LoginUser>({
+    const state = reactive<LoginRequest>({
       email: '',
       password: '',
-      device_name: $q.platform.userAgent || '',
+      device_name: Platform.userAgent || '',
       remember: true,
     });
-
-    const {
-      getError, hasError, resetResponse, setResponse,
-    } = useValidation();
 
     const onSubmit = async (): Promise<void> => {
       resetResponse();
 
       try {
-        await signIn(form);
+        await signIn(state);
 
-        await router.replace(store.redirectUri || '/');
+        await router.replace(store.redirectUri);
       } catch (e: unknown) {
         const error = e as AxiosError<ValidationResponse>;
 
@@ -108,8 +105,7 @@ export default defineComponent({
       onSubmit,
       getError,
       hasError,
-      formRef,
-      form,
+      state,
     };
   },
 });

@@ -1,12 +1,15 @@
 import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import { VideoModel, VideosLinks, VideosMeta, VideosQuery, VideosResponse, VideosState } from 'src/interfaces/video';
-import { mergeDeep } from 'src/utils/helpers';
+import { mergeDeep } from 'src/helpers';
+import { RepositoryLinks, RepositoryMeta, RepositoryQuery, RepositoryResponse, VideoModel, VideosState } from 'src/interfaces';
 
-export const useStore = defineStore('video-similar', {
+export const useStore = defineStore('videos', {
   state: () => (<VideosState>{
     id: Date.now(),
-    query: <VideosQuery>{
+    data: <VideoModel[]>[],
+    meta: <RepositoryMeta>{},
+    links: <RepositoryLinks>{},
+    query: <RepositoryQuery>{
       append: ['poster_url'],
       sort: 'relevance',
       filter: {
@@ -17,16 +20,9 @@ export const useStore = defineStore('video-similar', {
         size: 24,
       },
     },
-    data: <VideoModel[]>[],
-    meta: <VideosMeta>{},
-    links: <VideosLinks>{},
   }),
 
   getters: {
-    isReady(): boolean {
-      return typeof this.query.filter?.similar === 'string';
-    },
-
     isQueryable(): boolean {
       return !this.links?.first && !this.links?.next;
     },
@@ -37,18 +33,18 @@ export const useStore = defineStore('video-similar', {
   },
 
   actions: {
-    reset(payload?: VideosQuery): void {
+    reset(payload?: RepositoryQuery): void {
       // Merge query
       this.$patch({ query: payload || {} });
 
       // Reset results
       this.data = <VideoModel[]>[];
-      this.meta = <VideosMeta>{};
-      this.links = <VideosLinks>{};
+      this.meta = <RepositoryMeta>{};
+      this.links = <RepositoryLinks>{};
       this.id = Date.now();
     },
 
-    populate(payload: VideosResponse): void {
+    populate(payload: RepositoryResponse): void {
       this.data = this.data.concat(payload.data);
       this.meta = payload.meta;
       this.links = payload.links;
