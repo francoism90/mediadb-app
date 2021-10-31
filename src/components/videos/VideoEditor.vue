@@ -36,10 +36,7 @@
         </q-card>
       </q-dialog>
 
-      <q-form
-        ref="formRef"
-        @submit="onSubmit"
-      >
+      <q-form @submit="onSubmit">
         <q-card-section>
           <div class="text-h4 ellipsis">
             Edit Video
@@ -50,7 +47,7 @@
 
         <q-card-section class="q-gutter-sm">
           <q-input
-            v-model.trim="form.name"
+            v-model.trim="state.name"
             :error-message="getError('name')[0]"
             :error="hasError('name')"
             :maxlength="255"
@@ -61,7 +58,7 @@
           />
 
           <q-select
-            v-model="form.tags"
+            v-model="state.tags"
             :options="tagStore.data"
             :error-message="getError('tags')[0]"
             :error="hasError('tags')"
@@ -97,7 +94,7 @@
           </q-select>
 
           <q-input
-            v-model.trim="form.episode_number"
+            v-model.trim="state.episode_number"
             :error-message="getError('episode_number')[0]"
             :error="hasError('episode_number')"
             :maxlength="255"
@@ -107,7 +104,7 @@
           />
 
           <q-input
-            v-model.trim="form.season_number"
+            v-model.trim="state.season_number"
             :error-message="getError('season_number')[0]"
             :error="hasError('season_number')"
             :maxlength="255"
@@ -137,20 +134,18 @@
 
 <script lang="ts">
 import { AxiosError } from 'axios';
-import { useDialogPluginComponent, useQuasar } from 'quasar';
-import useTagInput from 'src/composables/useTagInput';
-import useValidation from 'src/composables/useValidation';
-import { ValidationResponse } from 'src/interfaces/form';
-import { VideoModel } from 'src/interfaces/video';
-import { remove, save } from 'src/repositories/video';
-import { defineComponent, PropType, reactive, ref } from 'vue';
+import { useDialogPluginComponent } from 'quasar';
+import { useValidation } from 'src/composables/useValidation';
+import { useVideo } from 'src/composables/useVideo';
+import { ValidationResponse, VideoModel } from 'src/interfaces';
+import { defineComponent, reactive, ref, toRefs, watch } from 'vue';
 
 export default defineComponent({
-  name: 'VideoEdit',
+  name: 'VideoEditor',
 
   props: {
-    video: {
-      type: Object as PropType<VideoModel>,
+    id: {
+      type: String,
       required: true,
     },
   },
@@ -161,46 +156,21 @@ export default defineComponent({
 
   setup(props) {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
+    const { fetch } = useVideo();
     const { getError, hasError, resetResponse, setResponse } = useValidation();
-    const { fetch: fetchTags, store: tagStore } = useTagInput();
-    const $q = useQuasar();
 
+    const state = reactive(<VideoModel>{});
     const deleteDialog = ref<boolean>(false);
-    const formRef = ref<HTMLFormElement | null>();
 
-    const form = reactive(<VideoModel>{
-      id: props.video.id,
-      name: props.video.name,
-      season_number: props.video.season_number,
-      episode_number: props.video.episode_number,
-      overview: props.video.overview,
-      tags: props.video.tags,
-    });
-
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    const filterTags = async (val: string, update: Function): Promise<void> => {
-      tagStore.reset({
-        filter: { query: val },
-        page: { number: 1, size: 5 },
-        sort: val.length < 1 ? 'items' : 'relevance',
-      });
-
-      await fetchTags();
-      await update();
-    };
-
-    const onSubmit = async (): Promise<void> => {
+    const initialize = async (id: string) => {
       resetResponse();
 
       try {
-        await save(form);
+        const response = await fetch(`videos/${id}`);
 
-        $q.notify({
-          type: 'positive',
-          message: 'The video has been updated',
-        });
+        Object.assign(state, response.data);
       } catch (e: unknown) {
-        const error = e as AxiosError<ValidationResponse>;
+        const error = e as AxiosError<ValidationResponse, unknown>;
 
         if (error.response) {
           setResponse(error.response.data);
@@ -211,41 +181,16 @@ export default defineComponent({
       }
     };
 
-    const onDelete = async (): Promise<void> => {
-      resetResponse();
-
-      try {
-        await remove(form);
-
-        $q.notify({
-          type: 'info',
-          message: 'The video has been deleted',
-        });
-      } catch (e: unknown) {
-        const error = e as AxiosError<ValidationResponse>;
-
-        if (error.response) {
-          setResponse(error.response.data);
-          return;
-        }
-
-        throw error;
-      }
-    };
+    watch(() => props.id, async (value) => initialize(value), { immediate: true });
 
     return {
-      filterTags,
-      getError,
-      hasError,
-      onDelete,
-      onSubmit,
-      onDialogHide,
-      onDialogCancel,
+      state: toRefs(state),
       deleteDialog,
       dialogRef,
-      formRef,
-      form,
-      tagStore,
+      getError,
+      hasError,
+      onDialogHide,
+      onDialogCancel,
     };
   },
 });

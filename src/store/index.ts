@@ -13,6 +13,14 @@ export const useStore = defineStore('session', {
     isAuthenticated(): boolean {
       return typeof this.token === 'string' && typeof this.user?.id === 'string';
     },
+
+    id(): string {
+      return this.user?.id || '';
+    },
+
+    name(): string {
+      return this.user?.name || '';
+    },
   },
 
   actions: {

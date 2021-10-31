@@ -133,8 +133,8 @@
 
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import useTagInput from 'src/composables/useTagInput';
-import useVideos from 'src/composables/useVideos';
+// import { useTagInput } from 'src/composables/useTagInput';
+import { useVideos } from 'src/composables/useVideos';
 
 const lists = [
   { label: 'All Content', value: null },
@@ -144,6 +144,8 @@ const lists = [
 ];
 
 export default {
+  name: 'VideoFilters',
+
   emits: [
     ...useDialogPluginComponent.emits,
   ],
@@ -151,16 +153,16 @@ export default {
   setup() {
     const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
     const { store } = useVideos();
-    const { fetch: fetchTags, store: tags } = useTagInput();
+    // const { fetch: fetchTags } = useTagInput();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function): Promise<void> => {
-      tags.reset({
-        filter: { id: null, query: val },
-        sort: val.length < 1 ? 'random' : 'relevance',
-      });
+      // tags.reset({
+      //   filter: { id: null, query: val },
+      //   sort: val.length < 1 ? 'random' : 'relevance',
+      // });
 
-      await fetchTags();
+      // await fetchTags();
       await update();
     };
 
@@ -175,7 +177,6 @@ export default {
       resetFilters,
       dialogRef,
       store,
-      tags,
       lists,
     };
   },

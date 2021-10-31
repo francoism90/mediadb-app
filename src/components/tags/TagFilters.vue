@@ -83,7 +83,7 @@
 
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import useTags from 'src/composables/useTags';
+import { useTags } from 'src/composables/useTags';
 
 const lists = [
   { label: 'Show All', value: null },
@@ -94,6 +94,8 @@ const lists = [
 ];
 
 export default {
+  name: 'TagFilters',
+
   emits: [
     ...useDialogPluginComponent.emits,
   ],
@@ -105,16 +107,15 @@ export default {
     const resetFilters = (): void => {
       store.$reset();
 
-      // Improves fade-out effect
       window.setTimeout(() => onDialogOK(), 300);
     };
 
     return {
-      onDialogHide,
-      resetFilters,
       dialogRef,
       store,
       lists,
+      onDialogHide,
+      resetFilters,
     };
   },
 };

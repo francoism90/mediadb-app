@@ -7,7 +7,7 @@
   >
     <q-card-section
       class="poster q-pa-none"
-      @click="query"
+      @click="onClick"
     >
       <q-icon
         :name="icon?.name || 'o_tag'"
@@ -30,28 +30,19 @@
 </template>
 
 <script lang="ts">
-import useRouter from 'src/composables/useRouter';
-import useVideos from 'src/composables/useVideos';
+import { useVideos } from 'src/composables/useVideos';
 import { TagModel } from 'src/interfaces/tag';
+import { router } from 'src/router';
 import { computed, defineComponent, PropType } from 'vue';
 
 const icons = [
-  {
-    type: 'actor',
-    name: 'o_person',
-  },
-  {
-    type: 'language',
-    name: 'o_language',
-  },
-  {
-    type: 'studio',
-    name: 'o_theaters',
-  },
+  { type: 'actor', name: 'o_person' },
+  { type: 'language', name: 'o_language' },
+  { type: 'studio', name: 'o_theaters' },
 ];
 
 export default defineComponent({
-  name: 'TagsItem',
+  name: 'TagCard',
 
   props: {
     tag: {
@@ -62,9 +53,10 @@ export default defineComponent({
 
   setup(props) {
     const { store } = useVideos();
-    const { router } = useRouter();
 
-    const query = async () => {
+    const icon = computed(() => icons.find((e) => e.type === props.tag.type));
+
+    const onClick = async () => {
       store.reset({
         filter: { tags: [props.tag.name] },
       });
@@ -72,11 +64,9 @@ export default defineComponent({
       await router.push({ name: 'home' });
     };
 
-    const icon = computed(() => icons.find((e) => e.type === props.tag.type));
-
     return {
-      query,
       icon,
+      onClick,
     };
   },
 });

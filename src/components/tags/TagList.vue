@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import useRouter from 'src/composables/useRouter';
-import useVideos from 'src/composables/useVideos';
+import { useVideos } from 'src/composables/useVideos';
 import { TagModel } from 'src/interfaces/tag';
+import { router } from 'src/router';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -30,7 +30,6 @@ export default defineComponent({
 
   setup() {
     const { store } = useVideos();
-    const { router } = useRouter();
 
     const onClick = async (tag: TagModel) => {
       store.reset({

@@ -33,8 +33,8 @@
 </template>
 
 <script lang="ts">
-import useSimilar from 'src/composables/useSimilar';
-import useVideo from 'src/composables/useVideo';
+import { useSimilar } from 'src/composables/useSimilar';
+import { useVideo } from 'src/composables/useVideo';
 import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -65,10 +65,10 @@ export default defineComponent({
     };
 
     return {
-      onLoad,
-      onRefresh,
       similar,
       video,
+      onLoad,
+      onRefresh,
     };
   },
 });

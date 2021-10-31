@@ -32,7 +32,7 @@
             {{ duration }}
           </div>
 
-          <chips
+          <tag-chips
             v-if="video.tags?.length"
             :tags="video.tags"
           />
@@ -81,9 +81,9 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
+import { useAcquaintances } from 'src/composables/useAcquaintances';
+import { timeFormat, titleFormat } from 'src/helpers';
 import { VideoModel } from 'src/interfaces/video';
-import { favorite, follow } from 'src/repositories/user';
-import { timeFormat, titleFormat } from 'src/utils/format';
 import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
 const actions = [
@@ -101,7 +101,7 @@ export default defineComponent({
   name: 'VideoCard',
 
   components: {
-    Chips: defineAsyncComponent(() => import('src/components/tags/TagChips.vue')),
+    TagChips: defineAsyncComponent(() => import('src/components/tags/TagChips.vue')),
   },
 
   props: {
@@ -113,6 +113,7 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
+    const { favorited, following } = useAcquaintances();
 
     const name = computed(() => titleFormat([
       [props.video.season_number, props.video.episode_number].join(''),
@@ -122,29 +123,23 @@ export default defineComponent({
     const duration = computed(() => timeFormat(props.video.duration));
 
     const favoriteModel = async () => {
-      await favorite(props.video, true);
+      await favorited(props.video, true);
 
-      $q.notify({
-        message: 'Added to bookmarks',
-        icon: 'favorite',
-      });
+      $q.notify({ message: 'Added to bookmarks', icon: 'favorite' });
     };
 
     const followModel = async () => {
-      await follow(props.video, true);
+      await following(props.video, true);
 
-      $q.notify({
-        message: 'Added to watchlist',
-        icon: 'watch_later',
-      });
+      $q.notify({ message: 'Added to watchlist', icon: 'watch_later' });
     };
 
     return {
-      favoriteModel,
-      followModel,
       actions,
       duration,
       name,
+      favoriteModel,
+      followModel,
     };
   },
 });

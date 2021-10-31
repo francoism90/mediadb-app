@@ -32,7 +32,7 @@
 
           <q-item-section>
             <q-item-label class="text-weight-bold ellipsis">
-              {{ store.user?.name }}
+              {{ store.name }}
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -69,11 +69,11 @@
 </template>
 
 <script lang="ts">
-import useSession from 'src/composables/useSession';
+import { useSession } from 'src/composables/useSession';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Account',
+  name: 'AccountWidget',
 
   setup() {
     const { store } = useSession();

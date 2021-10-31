@@ -74,7 +74,7 @@ export default defineComponent({
   setup(props) {
     const { initialize, subscribe, unsubscribe, message, store } = useVideo();
 
-    watch(() => props.id, async (value, oldValue): Promise<void> => {
+    watch(() => props.id, async (value, oldValue) => {
       await initialize(value);
 
       // Init WebSockets

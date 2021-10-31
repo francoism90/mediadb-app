@@ -31,6 +31,7 @@ export const useVideo = () => {
     }
   };
 
+  const fetch = async (id: string) => find(`videos/${id}`);
   const destroy = async (id: string) => remove(`videos/${id}`);
   const update = async (id: string, payload: VideoModel) => save(`videos/${id}`, payload);
 
@@ -43,6 +44,7 @@ export const useVideo = () => {
     store,
     message,
     initialize,
+    fetch,
     destroy,
     update,
     subscribe,

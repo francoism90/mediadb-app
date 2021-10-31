@@ -1,5 +1,8 @@
 <template>
-  <div class="video-details q-py-md">
+  <div
+    v-if="store.id"
+    class="video-details q-py-md"
+  >
     <h1 class="text-h3 text-white ellipsis-2-lines">
       {{ store.data?.name }}
     </h1>
@@ -24,96 +27,96 @@
       dense
       class="q-py-md video-details-list"
     >
-      <item v-if="duration">
+      <section-item v-if="duration">
         <template #label>
           Run Time :
         </template>
         {{ duration }}
-      </item>
+      </section-item>
 
-      <item v-if="store.data?.season_number">
+      <section-item v-if="store.data?.season_number">
         <template #label>
           Season :
         </template>
         {{ store.data.season_number }}
-      </item>
+      </section-item>
 
-      <item v-if="store.data?.episode_number">
+      <section-item v-if="store.data?.episode_number">
         <template #label>
           Episode :
         </template>
         {{ store.data.episode_number }}
-      </item>
+      </section-item>
 
-      <item v-if="store.data?.released_at">
+      <section-item v-if="store.data?.released_at">
         <template #label>
           Released Date :
         </template>
         {{ released }}
-      </item>
+      </section-item>
 
-      <item v-if="languages.length">
+      <section-item v-if="languages.length">
         <template #label>
           Languages :
         </template>
-        <list :tags="languages" />
-      </item>
+        <tag-list :tags="languages" />
+      </section-item>
 
-      <item v-if="cast.length">
+      <section-item v-if="cast.length">
         <template #label>
           Cast :
         </template>
-        <list :tags="cast" />
-      </item>
+        <tag-list :tags="cast" />
+      </section-item>
 
-      <item v-if="genres.length">
+      <section-item v-if="genres.length">
         <template #label>
           Genres :
         </template>
-        <list :tags="genres" />
-      </item>
+        <tag-list :tags="genres" />
+      </section-item>
 
-      <item v-if="studios.length">
+      <section-item v-if="studios.length">
         <template #label>
           Studios :
         </template>
-        <list :tags="studios" />
-      </item>
+        <tag-list :tags="studios" />
+      </section-item>
 
-      <item v-if="store.data?.resolution">
+      <section-item v-if="store.data?.resolution">
         <template #label>
           Resolution :
         </template>
         {{ store.data.resolution }}
-      </item>
+      </section-item>
 
-      <item v-if="store.data?.created_at">
+      <section-item v-if="store.data?.created_at">
         <template #label>
           Upload Date :
         </template>
         {{ created }}
-      </item>
+      </section-item>
     </q-list>
   </div>
 </template>
 
 <script lang="ts">
-import useVideo from 'src/composables/useVideo';
-import { dateFormat, timeFormat } from 'src/utils/format';
+import { useVideo } from 'src/composables/useVideo';
+import { dateFormat, timeFormat } from 'src/helpers';
 import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'VideoDetails',
+  name: 'VideoSection',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/video/Item.vue')),
-    List: defineAsyncComponent(() => import('components/tags/List.vue')),
+    SectionItem: defineAsyncComponent(() => import('components/video/VideoSectionItem.vue')),
+    TagList: defineAsyncComponent(() => import('components/tags/TagList.vue')),
   },
 
   setup() {
     const { store } = useVideo();
 
-    const tagsByType = (type: string) => store.data.tags?.filter((tag) => tag.type === type);
+    const tagsByType = (type: string) => store.data?.tags?.filter((tag) => tag.type === type);
 
     const duration = computed(() => timeFormat(store.data?.duration));
     const created = computed(() => dateFormat(store.data?.created_at));

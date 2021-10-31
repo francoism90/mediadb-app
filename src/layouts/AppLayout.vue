@@ -36,7 +36,7 @@
           />
         </q-tabs>
 
-        <account />
+        <account-widget />
       </q-toolbar>
     </q-header>
 
@@ -67,7 +67,7 @@ export default defineComponent({
   name: 'AppLayout',
 
   components: {
-    Account: defineAsyncComponent(() => import('components/ui/Account.vue')),
+    AccountWidget: defineAsyncComponent(() => import('src/components/ui/AccountWidget.vue')),
   },
 
   setup() {
