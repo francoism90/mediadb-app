@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { useSession } from 'src/composables/useSession';
-import { computed, defineAsyncComponent, defineComponent } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
 
 const tabs = [
   {
@@ -71,11 +71,11 @@ export default defineComponent({
   },
 
   setup() {
-    const { store } = useSession();
+    const { store, subscribe, unsubscribe } = useSession();
     const sessionKey = computed(() => store.token || +new Date());
 
-    // onMounted(() => subscribe());
-    // onBeforeUnmount(() => unsubscribe());
+    onMounted(() => subscribe());
+    onBeforeUnmount(() => unsubscribe());
 
     return {
       sessionKey,
