@@ -8,39 +8,34 @@ export const store = useStore();
 
 export const getToken = (): string | null => LocalStorage.getItem('token');
 
-export const setToken = (payload: string) => {
-  // Set token in local storage
-  LocalStorage.set('token', payload);
-
-  // Set axios header
-  setAuthHeader(payload);
-};
+export const setToken = (payload: string) => LocalStorage.set('token', payload);
 
 export const initialize = async (payload?: AuthRequest) => {
   const requestToken = payload?.token || getToken();
   const requestUri = payload?.redirectUri;
 
-  // Reset on token change
+  // Reset store on token change
   if (!requestToken || store.token !== requestToken) {
     store.$reset();
   }
 
-  // Fetch requested user
+  // Fetch requested user using token
   const response = await api.get<AuthRequest, AxiosResponse<AuthResponse>>('user', {
     headers: {
       Authorization: `Bearer ${requestToken || ''}`,
     },
   });
 
-  // Update token
-  setToken(response.data.token);
+  const redirectUri = requestUri || store.redirectUri;
+  const token = response.data?.token || '';
+  const user = response.data?.user || undefined;
+
+  // Set Bearer
+  setAuthHeader(token);
+  setToken(token);
 
   // Update session store
-  store.initialize({
-    redirectUri: requestUri || store.redirectUri,
-    token: response.data.token,
-    user: response.data.user,
-  });
+  store.initialize({ redirectUri, token, user });
 };
 
 export const check = async (payload?: AuthRequest) => {
@@ -69,6 +64,11 @@ export const destroy = async (params: AuthRequest, reset?: boolean) => {
   }
 
   if (reset) {
+    // Set Bearer
+    setAuthHeader('');
     setToken('');
+
+    // Restore session store
+    store.$reset();
   }
 };
