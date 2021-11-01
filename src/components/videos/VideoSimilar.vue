@@ -35,7 +35,7 @@
 <script lang="ts">
 import { useSimilar } from 'src/composables/useSimilar';
 import { useVideo } from 'src/composables/useVideo';
-import { defineAsyncComponent, defineComponent } from 'vue';
+import { defineAsyncComponent, defineComponent, onBeforeMount, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoSimilar',
@@ -45,7 +45,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { store: similar, fetch } = useSimilar();
+    const { store: similar, fetch, initialize } = useSimilar();
     const { store: video } = useVideo();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -63,6 +63,10 @@ export default defineComponent({
       similar.reset();
       done();
     };
+
+    onBeforeMount(() => initialize(video.id || ''));
+
+    watch(() => video.id, () => initialize(video.id || ''));
 
     return {
       similar,

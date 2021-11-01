@@ -15,6 +15,8 @@ export const useSimilar = () => {
     { label: 'Shortest', value: 'duration' },
   ];
 
+  const initialize = (id: string) => store.reset({ filter: { similar: id } });
+
   const fetchNext = async () => {
     if (!store.isFetchable) {
       return;
@@ -48,6 +50,7 @@ export const useSimilar = () => {
     sorter,
     sorters,
     store,
+    initialize,
     fetch,
   };
 };
