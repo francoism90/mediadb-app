@@ -22,7 +22,7 @@ export const getSpriteCue = (time: number) => find(
 export const getThumbnailTrack = (time: number) => {
   const cue = getSpriteCue(time) as VTTCue;
 
-  return JSON.parse(cue?.text || '') as PlayerTrack;
+  return JSON.parse(cue?.text || '{}') as PlayerTrack;
 };
 
 export const getThumbnail = async (time: number) => {

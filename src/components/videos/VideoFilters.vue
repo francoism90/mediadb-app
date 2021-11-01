@@ -156,7 +156,7 @@ export default {
     const { state: tags, fetch: fetchTags } = useTagInput();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onTagsFilter = async (val: string, update: Function): Promise<void> => {
+    const onTagsFilter = async (val: string, update: Function) => {
       await fetchTags({
         page: { number: 1, size: 5 },
         filter: { id: null, query: val },
@@ -166,7 +166,7 @@ export default {
       await update();
     };
 
-    const resetFilters = (): void => {
+    const resetFilters = () => {
       store.$reset();
       window.setTimeout(() => onDialogOK(), 300);
     };

@@ -39,7 +39,7 @@ export default defineComponent({
     const { intl } = useIntl();
     const { store } = usePlayer();
 
-    const language = (value: string): string | undefined => intl?.formatDisplayName(value, { type: 'language' });
+    const language = (value: string) => intl?.formatDisplayName(value, { type: 'language' });
 
     return {
       language,

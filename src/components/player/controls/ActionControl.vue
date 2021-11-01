@@ -44,15 +44,15 @@ export default defineComponent({
 
     const currentComponent = ref<string>('ModelControl');
 
-    const setComponent = (value: string): void => {
+    const setComponent = (value: string) => {
       currentComponent.value = value;
     };
 
-    const onShow = (): void => {
+    const onShow = () => {
       store.activity = true;
     };
 
-    const onHide = (): void => {
+    const onHide = () => {
       setComponent('ModelControl');
       store.activity = false;
     };

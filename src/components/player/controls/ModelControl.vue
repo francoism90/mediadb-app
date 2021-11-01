@@ -104,10 +104,12 @@ export default defineComponent({
   emits: ['setComponent'],
 
   setup() {
-    const { resolution } = useDash();
+    const { resolution, state } = useDash();
     const { store, capture } = usePlayer();
     const { store: videoStore } = useVideo();
     const $q = useQuasar();
+
+    console.log(state.player);
 
     const edit = () => $q.dialog({
       component: editComponent,

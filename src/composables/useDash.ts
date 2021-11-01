@@ -1,7 +1,7 @@
 import { useQuasar } from 'quasar';
 import { DashProperties, PlayerRequest } from 'src/interfaces';
 import { create, destroy, getVideoResolution } from 'src/services/dash';
-import { computed, nextTick, reactive, ref } from 'vue';
+import { computed, nextTick, reactive, readonly, ref } from 'vue';
 
 export const useDash = () => {
   const $q = useQuasar();
@@ -38,7 +38,7 @@ export const useDash = () => {
   };
 
   return {
-    state,
+    state: readonly(state),
     container,
     video,
     resolution,

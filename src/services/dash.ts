@@ -56,6 +56,7 @@ export const getVideoBitrate = (player: MediaPlayerClass | undefined) => player?
 
 export const getVideoResolution = (player: MediaPlayerClass | undefined) => {
   const bitrate = getVideoBitrate(player);
+  console.log(player);
 
   return getResolution(bitrate?.height || 0, bitrate?.width || 0);
 };

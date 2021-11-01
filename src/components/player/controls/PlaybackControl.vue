@@ -42,12 +42,12 @@ export default defineComponent({
 
     const togglePlayback = () => store.dispatch({ pause: +new Date() });
 
-    const decreaseTime = (): void => {
+    const decreaseTime = () => {
       const time = (store.properties?.time || 0) - 10;
       store.dispatch({ seek: +time.toFixed(2) });
     };
 
-    const increaseTime = (): void => {
+    const increaseTime = () => {
       const time = (store.properties?.time || 0) + 10;
       store.dispatch({ seek: +time.toFixed(2) });
     };
