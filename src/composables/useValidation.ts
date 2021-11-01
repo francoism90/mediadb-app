@@ -1,6 +1,6 @@
 import { get, has } from 'lodash';
 import { FieldError, ValidationResponse } from 'src/interfaces';
-import { computed, reactive, toRefs } from 'vue';
+import { computed, reactive } from 'vue';
 
 export const useValidation = () => {
   const state = reactive(<ValidationResponse>{});
@@ -14,7 +14,7 @@ export const useValidation = () => {
   const message = computed(() => state.message || '');
 
   return {
-    state: toRefs(state),
+    state,
     message,
     resetResponse,
     setResponse,

@@ -1,25 +1,18 @@
 import { RepositoryQuery, TagModel } from 'src/interfaces';
 import { all } from 'src/services/api';
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 
-type tags = TagModel[] | undefined
-
-const state = reactive({
-  collection: <tags>[],
-  filtered: <tags>[],
-  selected: <tags>[],
-});
+const state = reactive<TagModel[]>([]);
 
 export const useTagInput = () => {
   const fetch = async (params: RepositoryQuery) => {
     const response = await all('tags', params);
 
-    Object.assign(state.collection, { ...state.collection, ...response.data });
-    Object.assign(state.filtered, response.data);
+    state.push(...<TagModel[]>response.data);
   };
 
   return {
-    state: toRefs(state),
+    state,
     fetch,
   };
 };

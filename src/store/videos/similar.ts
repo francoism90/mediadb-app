@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { mergeDeep } from 'src/helpers';
 import { RepositoryLinks, RepositoryMeta, RepositoryQuery, RepositoryResponse, VideoModel, VideosState } from 'src/interfaces';
 
-export const useStore = defineStore('videos', {
+export const useStore = defineStore('similar', {
   state: () => (<VideosState>{
     id: Date.now(),
     data: <VideoModel[]>[],

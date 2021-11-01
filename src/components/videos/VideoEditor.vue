@@ -138,7 +138,7 @@ import { useDialogPluginComponent } from 'quasar';
 import { useValidation } from 'src/composables/useValidation';
 import { useVideo } from 'src/composables/useVideo';
 import { ValidationResponse, VideoModel } from 'src/interfaces';
-import { defineComponent, reactive, ref, toRefs, watch } from 'vue';
+import { defineComponent, reactive, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoEditor',
@@ -184,7 +184,7 @@ export default defineComponent({
     watch(() => props.id, async (value) => initialize(value), { immediate: true });
 
     return {
-      state: toRefs(state),
+      state,
       deleteDialog,
       dialogRef,
       getError,

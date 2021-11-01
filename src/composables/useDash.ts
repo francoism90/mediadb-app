@@ -1,7 +1,7 @@
 import { useQuasar } from 'quasar';
 import { DashProperties, PlayerRequest } from 'src/interfaces';
 import { create, destroy } from 'src/services/dash';
-import { nextTick, reactive, ref, toRefs } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
 
 const state = reactive(<DashProperties>{});
 const container = ref<HTMLDivElement>();
@@ -36,7 +36,7 @@ export const useDash = () => {
   };
 
   return {
-    state: toRefs(state),
+    state,
     container,
     video,
     initialize,

@@ -69,7 +69,7 @@
           <q-item-label class="full-width">
             <q-select
               v-model.lazy="store.query.filter.tags"
-              :options="tags.data"
+              :options="tags"
               class="q-my-sm"
               counter
               dense
@@ -133,7 +133,7 @@
 
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-// import { useTagInput } from 'src/composables/useTagInput';
+import { useTagInput } from 'src/composables/useTagInput';
 import { useVideos } from 'src/composables/useVideos';
 
 const lists = [
@@ -153,16 +153,16 @@ export default {
   setup() {
     const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
     const { store } = useVideos();
-    // const { fetch: fetchTags } = useTagInput();
+    const { state: tags, fetch: fetchTags } = useTagInput();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function): Promise<void> => {
-      // tags.reset({
-      //   filter: { id: null, query: val },
-      //   sort: val.length < 1 ? 'random' : 'relevance',
-      // });
+      await fetchTags({
+        page: { number: 1, size: 5 },
+        filter: { id: null, query: val },
+        sort: val.length < 1 ? 'random' : 'relevance',
+      });
 
-      // await fetchTags();
       await update();
     };
 
@@ -178,6 +178,7 @@ export default {
       dialogRef,
       store,
       lists,
+      tags,
     };
   },
 };
