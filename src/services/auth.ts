@@ -52,7 +52,9 @@ export const authenticate = async (params: LoginRequest, replace?: boolean) => {
   const response = await api.post<LoginRequest, AxiosResponse<AuthResponse>>('login', params);
 
   if (replace) {
-    await initialize(<AuthRequest>{ token: response.data?.token || '' });
+    const token = response.data?.token || '';
+
+    await initialize({ token });
   }
 };
 
