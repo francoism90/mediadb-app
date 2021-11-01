@@ -41,10 +41,6 @@ export const useStore = defineStore('player', {
     dispatch(request: PlayerRequest): void {
       this.request = request;
     },
-
-    tooltip(tooltip: PlayerTooltip): void {
-      this.$patch({ tooltip });
-    },
   },
 
   debounce: {

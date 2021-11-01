@@ -20,7 +20,6 @@ export const useStore = defineStore('video', {
   actions: {
     populate(payload: ModelResponse): void {
       if (this.id !== payload.data.id) {
-        console.log('reset');
         this.$reset();
       }
 

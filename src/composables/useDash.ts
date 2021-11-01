@@ -15,9 +15,6 @@ export const useDash = () => {
   const reset = () => destroy(state.player);
 
   const initialize = async (source: string, token: string) => {
-    console.log('init', source);
-    console.log('init', source);
-
     reset();
 
     // Wait for reset

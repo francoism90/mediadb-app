@@ -35,16 +35,20 @@ export default defineComponent({
       seek: +payload.toFixed(2),
     });
 
-    const onMouseHover = (event: MouseEvent) => store.tooltip({
-      position: event.clientX,
-      offset: seekerOffset.value,
-      width: seekerWidth.value,
+    const onMouseHover = (event: MouseEvent) => store.$patch({
+      tooltip: {
+        position: event.clientX,
+        offset: seekerOffset.value,
+        width: seekerWidth.value,
+      },
     });
 
-    const onMouseLeave = () => store.tooltip({
-      position: 0,
-      offset: seekerOffset.value,
-      width: seekerWidth.value,
+    const onMouseLeave = () => store.$patch({
+      tooltip: {
+        position: 0,
+        offset: seekerOffset.value,
+        width: seekerWidth.value,
+      },
     });
 
     return {
