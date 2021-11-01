@@ -8,10 +8,6 @@ export const useStore = defineStore('video', {
   }),
 
   getters: {
-    isReady(): boolean {
-      return typeof this.data?.id === 'string';
-    },
-
     id(): string | undefined {
       return this.data?.id;
     },
@@ -24,6 +20,7 @@ export const useStore = defineStore('video', {
   actions: {
     populate(payload: ModelResponse): void {
       if (this.id !== payload.data.id) {
+        console.log('reset');
         this.$reset();
       }
 

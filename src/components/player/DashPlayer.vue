@@ -36,11 +36,13 @@ export default defineComponent({
     onMounted(() => initialize(source.value, token.value));
     onBeforeUnmount(() => reset());
 
+    watch(() => source, () => initialize(source.value, token.value));
+    watch(() => store.request, (value) => update(value));
     watch(() => $q.fullscreen.isActive, () => update({ resolution: true }));
     watch(() => $q.screen.name, () => update({ resolution: true }));
-    watch(() => store.request, (value) => update(value));
 
     return {
+      source,
       container,
       video,
     };

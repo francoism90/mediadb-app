@@ -10,10 +10,10 @@ const stores = [
 ];
 
 export const useStores = () => {
-  /** Delete model in stores by matching uuid */
+  /** Delete model by matching uuid */
   const deleted = (payload: Model) => stores.forEach((store) => store.delete(payload));
 
-  /** Update model in stores by matching uuid */
+  /** Update model by matching uuid */
   const updated = (payload: Model) => stores.forEach((store) => store.update(payload));
 
   return {

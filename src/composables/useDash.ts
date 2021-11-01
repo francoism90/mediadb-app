@@ -3,18 +3,21 @@ import { DashProperties, PlayerRequest } from 'src/interfaces';
 import { create, destroy, getVideoResolution } from 'src/services/dash';
 import { computed, nextTick, reactive, ref } from 'vue';
 
-const state = reactive(<DashProperties>{});
-const container = ref<HTMLDivElement>();
-const video = ref<HTMLVideoElement>();
-
 export const useDash = () => {
   const $q = useQuasar();
+
+  const state = reactive(<DashProperties>{});
+  const container = ref<HTMLDivElement>();
+  const video = ref<HTMLVideoElement>();
 
   const resolution = computed(() => getVideoResolution(state.player));
 
   const reset = () => destroy(state.player);
 
   const initialize = async (source: string, token: string) => {
+    console.log('init', source);
+    console.log('init', source);
+
     reset();
 
     // Wait for reset

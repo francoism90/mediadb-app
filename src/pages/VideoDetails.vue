@@ -1,6 +1,6 @@
 <template>
   <q-page :key="id">
-    <template v-if="message !== ''">
+    <template v-if="state.error">
       <q-banner class="container q-py-lg">
         <template #avatar>
           <q-icon
@@ -10,12 +10,12 @@
         </template>
 
         <span class="text-body2">
-          Unable to Play Video. An error occurred. ({{ message }})
+          Unable to Play Video. An error occurred. ({{ state.error?.message }})
         </span>
       </q-banner>
     </template>
 
-    <template v-else-if="store.isReady">
+    <template v-else-if="state.ready">
       <dash-player />
 
       <div class="container">
@@ -28,10 +28,6 @@
 
         <video-similar />
       </div>
-    </template>
-
-    <template v-else>
-      Loading...
     </template>
   </q-page>
 </template>
@@ -72,12 +68,11 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { initialize, subscribe, unsubscribe, message, store } = useVideo();
+    const { initialize, subscribe, unsubscribe, state, store } = useVideo();
 
     watch(() => props.id, async (value, oldValue) => {
       await initialize(value);
 
-      // Init WebSockets
       unsubscribe(oldValue || '');
       subscribe(value || '');
     }, { immediate: true });
@@ -85,7 +80,7 @@ export default defineComponent({
     useMeta(() => ({ title: store.data?.name || '' }));
 
     return {
-      message,
+      state,
       store,
     };
   },

@@ -59,6 +59,10 @@ export interface RepositoryQuery {
 
 export type FieldError = string
 
+export interface ErrorResponse {
+  message: string,
+}
+
 export interface ValidationErrors {
   [index: number | string]: FieldError[],
 }
@@ -68,4 +72,11 @@ export interface ValidationResponse {
   message: string,
 }
 
+export type ResponseError = AxiosError<ErrorResponse, unknown>;
+
 export type ValidationError = AxiosError<ValidationResponse, unknown>;
+
+export interface LoadingState {
+  ready: boolean,
+  error: ErrorResponse | undefined
+}
