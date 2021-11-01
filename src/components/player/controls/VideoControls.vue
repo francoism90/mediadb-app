@@ -46,7 +46,7 @@ export default defineComponent({
       if (store.activity) return;
 
       timer.value = window.setTimeout(() => {
-        store.controls = true;
+        store.controls = false;
       }, 2500);
     };
 
