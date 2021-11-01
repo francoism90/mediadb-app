@@ -52,5 +52,3 @@ export const useStore = defineStore('player', {
     dispatch: 50,
   },
 });
-
-export const store = useStore();

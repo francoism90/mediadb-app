@@ -32,5 +32,3 @@ export const useStore = defineStore('session', {
     },
   },
 });
-
-export const store = useStore();

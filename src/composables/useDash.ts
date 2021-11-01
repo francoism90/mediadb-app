@@ -1,7 +1,7 @@
 import { useQuasar } from 'quasar';
 import { DashProperties, PlayerRequest } from 'src/interfaces';
-import { create, destroy } from 'src/services/dash';
-import { nextTick, reactive, ref } from 'vue';
+import { create, destroy, getVideoResolution } from 'src/services/dash';
+import { computed, nextTick, reactive, ref } from 'vue';
 
 const state = reactive(<DashProperties>{});
 const container = ref<HTMLDivElement>();
@@ -9,6 +9,8 @@ const video = ref<HTMLVideoElement>();
 
 export const useDash = () => {
   const $q = useQuasar();
+
+  const resolution = computed(() => getVideoResolution(state.player));
 
   const reset = () => destroy(state.player);
 
@@ -39,6 +41,7 @@ export const useDash = () => {
     state,
     container,
     video,
+    resolution,
     initialize,
     update,
     reset,

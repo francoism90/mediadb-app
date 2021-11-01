@@ -1,9 +1,9 @@
 import { find, inRange } from 'lodash';
 import { PlayerTrack } from 'src/interfaces';
 import { blob } from 'src/services/api';
-import { playerStore } from 'src/store';
+import { useStore } from 'src/store/videos/player';
 
-export const store = playerStore;
+export const store = useStore();
 
 export const resolutions = [
   { label: '2160p', icon: '4K', width: 3840, height: 2160 },

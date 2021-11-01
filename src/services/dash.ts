@@ -2,9 +2,11 @@ import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
 import { PlayerProperties, PlayerTrack } from 'src/interfaces';
 import { getResolution } from 'src/services/player';
-import { playerStore, videoStore } from 'src/store';
+import { useStore as videoStore } from 'src/store/videos/item';
+import { useStore as playerStore } from 'src/store/videos/player';
 
-export const store = playerStore;
+export const store = playerStore();
+export const video = videoStore();
 
 export const syncEvents = [
   'bufferLevelUpdated',
@@ -50,9 +52,9 @@ export const appendTrack = (player: MediaPlayerClass | undefined, track: PlayerT
 
 export const getTextTrackIndex = (player: MediaPlayerClass | undefined, track: TextTrack) => findIndex(player?.getVideoElement()?.textTracks, track);
 
-export const getVideoBitrate = (player: MediaPlayerClass) => player.getCurrentTrackFor('video')?.bitrateList?.find(Boolean);
+export const getVideoBitrate = (player: MediaPlayerClass | undefined) => player?.getCurrentTrackFor('video')?.bitrateList?.find(Boolean);
 
-export const getVideoResolution = (player: MediaPlayerClass) => {
+export const getVideoResolution = (player: MediaPlayerClass | undefined) => {
   const bitrate = getVideoBitrate(player);
 
   return getResolution(bitrate?.height || 0, bitrate?.width || 0);
@@ -72,7 +74,7 @@ export const setSpriteTrack = (player: MediaPlayerClass | undefined) => {
     kind: 'metadata',
     label: 'sprite',
     srclang: 'en',
-    src: videoStore.data?.sprite_url || '',
+    src: video.data?.sprite_url || '',
   });
 
   showTextTrack(player, <TextTrack>{ label: 'sprite' });

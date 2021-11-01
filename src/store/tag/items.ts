@@ -72,5 +72,3 @@ export const useStore = defineStore('tags', {
     update: 50,
   },
 });
-
-export const store = useStore();

@@ -71,5 +71,3 @@ export const useStore = defineStore('similar', {
     update: 50,
   },
 });
-
-export const store = useStore();

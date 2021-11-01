@@ -52,7 +52,7 @@
 
       <q-item-section side>
         <div class="row items-center justify-end">
-          <span class="text-caption">resolution?.label</span>
+          <span class="text-caption">{{ resolution?.label }}</span>
 
           <q-icon
             name="keyboard_arrow_right"
@@ -91,6 +91,7 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
+import { useDash } from 'src/composables/useDash';
 import { usePlayer } from 'src/composables/usePlayer';
 import { useVideo } from 'src/composables/useVideo';
 import { defineAsyncComponent, defineComponent } from 'vue';
@@ -103,6 +104,7 @@ export default defineComponent({
   emits: ['setComponent'],
 
   setup() {
+    const { resolution } = useDash();
     const { store, capture } = usePlayer();
     const { store: videoStore } = useVideo();
     const $q = useQuasar();
@@ -117,6 +119,7 @@ export default defineComponent({
     return {
       store,
       videoStore,
+      resolution,
       capture,
       edit,
     };

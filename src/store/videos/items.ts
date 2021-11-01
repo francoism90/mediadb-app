@@ -73,5 +73,3 @@ export const useStore = defineStore('videos', {
     update: 50,
   },
 });
-
-export const store = useStore();
