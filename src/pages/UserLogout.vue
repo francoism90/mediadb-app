@@ -6,14 +6,14 @@
 import { destroy, getToken } from 'src/services/auth';
 import { defineComponent } from 'vue';
 
+const redirectUri = '/';
+const token = getToken() || '';
+
 export default defineComponent({
   name: 'UserLogout',
 
   async preFetch({ redirect }) {
     try {
-      const redirectUri = '/';
-      const token = getToken() || '';
-
       await destroy({ redirectUri, token }, true);
     } catch {
       //

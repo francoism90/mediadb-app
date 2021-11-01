@@ -10,13 +10,13 @@ export const blob = async (url: string): Promise<Blob> => {
   return response.data;
 };
 
-export const find = async (path: string): Promise<ModelResponse> => {
+export const find = async (path: string) => {
   const response = await api.get<string, AxiosResponse<ModelResponse>>(path);
 
   return response.data;
 };
 
-export const all = async (path: string, params?: RepositoryQuery): Promise<RepositoryResponse> => {
+export const all = async (path: string, params?: RepositoryQuery) => {
   const response = await api.get<RepositoryQuery, AxiosResponse<RepositoryResponse>>(
     path, { params },
   );
@@ -24,25 +24,25 @@ export const all = async (path: string, params?: RepositoryQuery): Promise<Repos
   return response.data;
 };
 
-export const get = async (url: string): Promise<RepositoryResponse> => {
+export const get = async (url: string) => {
   const response = await api.get<string, AxiosResponse<RepositoryResponse>>(url);
 
   return response.data;
 };
 
-export const save = async (path: string, data: Model): Promise<RepositoryResponse> => {
+export const save = async (path: string, data: Model) => {
   const response = await api.patch<Model, AxiosResponse<RepositoryResponse>>(path, data);
 
   return response.data;
 };
 
-export const remove = async (path: string): Promise<ModelResponse> => {
+export const remove = async (path: string) => {
   const response = await api.delete<string, AxiosResponse<ModelResponse>>(path);
 
   return response.data;
 };
 
-export const favorite = async (params: Model, force?: boolean): Promise<Model> => {
+export const favorite = async (params: Model, force?: boolean) => {
   const response = await api.post<Model, AxiosResponse<Model>>(`user/favorite/${params.id}`, <Model>{
     favorite: force,
   });
@@ -50,7 +50,7 @@ export const favorite = async (params: Model, force?: boolean): Promise<Model> =
   return response.data;
 };
 
-export const follow = async (params: Model, force?: boolean): Promise<Model> => {
+export const follow = async (params: Model, force?: boolean) => {
   const response = await api.post<Model, AxiosResponse<Model>>(`user/follow/${params.id}`, <Model>{
     following: force,
   });

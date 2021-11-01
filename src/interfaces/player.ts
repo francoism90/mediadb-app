@@ -1,7 +1,7 @@
 import { MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
 
-export type PlayerTextTrack = MediaInfo | TextTrack | undefined
+export type PlayerTextTrack = MediaInfo | TextTrack | null
 
 export interface PlayerProperties {
   ready: boolean,
@@ -43,10 +43,12 @@ export interface PlayerTooltip {
 }
 
 export interface PlayerTrack {
-  id?: string,
-  name?: string,
-  type?: string,
-  url?: string,
+  id: string,
+  kind: string,
+  label: string,
+  srclang: string,
+  src: string,
+  type: string,
 }
 
 export interface PlayerRequest {

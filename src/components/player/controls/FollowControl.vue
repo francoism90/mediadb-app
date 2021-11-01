@@ -6,7 +6,7 @@
     size="24px"
     right
     tabindex="0"
-    @click="following"
+    @click="onClick"
   />
 </template>
 

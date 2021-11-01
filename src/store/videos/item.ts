@@ -48,3 +48,5 @@ export const useStore = defineStore('video', {
     update: 50,
   },
 });
+
+export const store = useStore();

@@ -19,7 +19,7 @@
       <dash-player />
 
       <div class="container">
-        <video-details />
+        <video-info />
 
         <q-separator
           color="primary"
@@ -47,7 +47,7 @@ export default defineComponent({
 
   components: {
     DashPlayer: defineAsyncComponent(() => import('src/components/player/DashPlayer.vue')),
-    VideoDetails: defineAsyncComponent(() => import('src/components/videos/VideoSection.vue')),
+    VideoInfo: defineAsyncComponent(() => import('src/components/videos/VideoInfo.vue')),
     VideoSimilar: defineAsyncComponent(() => import('src/components/videos/VideoSimilar.vue')),
   },
 
