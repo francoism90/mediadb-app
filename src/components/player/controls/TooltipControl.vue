@@ -1,18 +1,21 @@
 <template>
-  <q-img
-    v-if="store.tooltip?.position > 0"
-    :src="thumbnail"
-    :draggable="false"
+  <div
+    v-if="percent > 0"
+    class="player-thumbnail desktop-only q-my-md rounded-borders relative-position"
     :style="{ marginLeft: `${margin}px` }"
-    class="player-thumbnail desktop-only q-my-md rounded-borders no-transition"
-    fit="fill"
-    no-spinner
-    no-transition
   >
-    <div class="absolute-bottom text-caption text-white text-center">
+    <q-img
+      :src="thumbnail"
+      :draggable="false"
+      fit="fill"
+      no-spinner
+      no-transition
+    />
+
+    <div class="absolute-bottom q-ma-xs text-caption text-white text-center">
       {{ timestamp }}
     </div>
-  </q-img>
+  </div>
 </template>
 
 <script lang="ts">
