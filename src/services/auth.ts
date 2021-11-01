@@ -2,9 +2,9 @@ import { AxiosResponse } from 'axios';
 import { LocalStorage } from 'quasar';
 import { api, setAuthHeader } from 'src/boot/axios';
 import { AuthRequest, AuthResponse, LoginRequest } from 'src/interfaces';
-import { useStore } from 'src/store/session';
+import { sessionStore } from 'src/store';
 
-export const store = useStore();
+export const store = sessionStore;
 
 export const getToken = (): string | null => LocalStorage.getItem('token');
 

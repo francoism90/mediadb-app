@@ -3,6 +3,8 @@ import { findIndex } from 'lodash';
 import { PlayerProperties, PlayerTrack } from 'src/interfaces';
 import { playerStore, videoStore } from 'src/store';
 
+export const store = playerStore;
+
 export const syncEvents = [
   'bufferLevelUpdated',
   'bufferLoaded',
@@ -67,27 +69,27 @@ export const setSpriteTrack = (player: MediaPlayerClass | undefined) => {
   showTextTrack(player, <TextTrack>{ label: 'sprite' });
 };
 
-export const syncListener = (player: MediaPlayerClass, event: string) => {
+export const syncListener = (player: MediaPlayerClass | undefined, event: string) => {
   if (event === 'playbackMetaDataLoaded') {
     setSpriteTrack(player);
   }
 
-  playerStore.sync(<PlayerProperties>{
-    ready: player.isReady(),
-    autoplay: player.getAutoPlay(),
-    buffered: player.getBufferLength('video'),
-    duration: player.duration(),
-    muted: player.isMuted(),
-    paused: player.isPaused(),
-    playbackRate: player.getPlaybackRate(),
-    seeking: player.isSeeking(),
-    tracks: player.getVideoElement()?.textTracks,
-    textTrack: player.getCurrentTrackFor('text'),
-    textTracks: player.getTracksFor('text'),
-    videoTrack: player.getCurrentTrackFor('video'),
-    videoTracks: player.getTracksFor('video'),
-    time: player.time(),
-    volume: player.getVolume(),
+  store.sync(<PlayerProperties>{
+    ready: player?.isReady(),
+    autoplay: player?.getAutoPlay(),
+    buffered: player?.getBufferLength('video'),
+    duration: player?.duration(),
+    muted: player?.isMuted(),
+    paused: player?.isPaused(),
+    playbackRate: player?.getPlaybackRate(),
+    seeking: player?.isSeeking(),
+    tracks: player?.getVideoElement()?.textTracks,
+    textTrack: player?.getCurrentTrackFor('text'),
+    textTracks: player?.getTracksFor('text'),
+    videoTrack: player?.getCurrentTrackFor('video'),
+    videoTracks: player?.getTracksFor('video'),
+    time: player?.time(),
+    volume: player?.getVolume(),
   });
 };
 

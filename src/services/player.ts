@@ -3,6 +3,8 @@ import { PlayerTrack } from 'src/interfaces';
 import { blob } from 'src/services/api';
 import { playerStore } from 'src/store';
 
+export const store = playerStore;
+
 export const getSpriteCue = (time: number) => find(
   playerStore.spriteTrack?.cues, (o: VTTCue) => inRange(time, o.startTime, o.endTime),
 );
