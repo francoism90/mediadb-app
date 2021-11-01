@@ -32,10 +32,7 @@ export default defineComponent({
     const { store } = useVideos();
 
     const onClick = async (tag: TagModel) => {
-      store.reset({
-        filter: { tags: [tag.name] },
-      });
-
+      store.reset({ filter: { tags: [tag.name] } });
       await router.push({ name: 'home' });
     };
 

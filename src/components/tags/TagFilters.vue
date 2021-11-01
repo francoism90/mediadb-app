@@ -106,7 +106,6 @@ export default {
 
     const resetFilters = (): void => {
       store.$reset();
-
       window.setTimeout(() => onDialogOK(), 300);
     };
 

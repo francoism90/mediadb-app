@@ -57,10 +57,7 @@ export default defineComponent({
     const icon = computed(() => icons.find((e) => e.type === props.tag.type));
 
     const onClick = async () => {
-      store.reset({
-        filter: { tags: [props.tag.name] },
-      });
-
+      store.reset({ filter: { tags: [props.tag.name] } });
       await router.push({ name: 'home' });
     };
 
