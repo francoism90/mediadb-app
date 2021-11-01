@@ -95,7 +95,7 @@ import { usePlayer } from 'src/composables/usePlayer';
 import { useVideo } from 'src/composables/useVideo';
 import { defineAsyncComponent, defineComponent } from 'vue';
 
-const editComponent = defineAsyncComponent(() => import('src/components/videos/VideoEditor.vue'));
+const editComponent = defineAsyncComponent(() => import('components/videos/VideoEditor.vue'));
 
 export default defineComponent({
   name: 'ModelControl',

@@ -1,6 +1,7 @@
 import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
 import { PlayerProperties, PlayerTrack } from 'src/interfaces';
+import { getResolution } from 'src/services/player';
 import { playerStore, videoStore } from 'src/store';
 
 export const store = playerStore;
@@ -48,6 +49,14 @@ export const appendTrack = (player: MediaPlayerClass | undefined, track: PlayerT
 };
 
 export const getTextTrackIndex = (player: MediaPlayerClass | undefined, track: TextTrack) => findIndex(player?.getVideoElement()?.textTracks, track);
+
+export const getVideoBitrate = (player: MediaPlayerClass) => player.getCurrentTrackFor('video')?.bitrateList?.find(Boolean);
+
+export const getVideoResolution = (player: MediaPlayerClass) => {
+  const bitrate = getVideoBitrate(player);
+
+  return getResolution(bitrate?.height || 0, bitrate?.width || 0);
+};
 
 export const showTextTrack = (player: MediaPlayerClass | undefined, track: TextTrack) => {
   const index = getTextTrackIndex(player, track);
@@ -135,4 +144,6 @@ export const destroy = (player: MediaPlayerClass | undefined) => {
 
   player?.reset();
   player?.destroy();
+
+  store.$reset();
 };

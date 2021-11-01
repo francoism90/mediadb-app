@@ -67,7 +67,7 @@ export default defineComponent({
   name: 'AppLayout',
 
   components: {
-    AccountWidget: defineAsyncComponent(() => import('src/components/ui/AccountWidget.vue')),
+    AccountWidget: defineAsyncComponent(() => import('components/ui/AccountWidget.vue')),
   },
 
   setup() {

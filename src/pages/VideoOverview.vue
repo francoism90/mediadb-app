@@ -71,13 +71,13 @@ import { useVideos } from 'src/composables/useVideos';
 import { check } from 'src/services/auth';
 import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
-const filterComponent = defineAsyncComponent(() => import('src/components/videos/VideoFilters.vue'));
+const filterComponent = defineAsyncComponent(() => import('components/videos/VideoFilters.vue'));
 
 export default defineComponent({
   name: 'VideoOverview',
 
   components: {
-    Item: defineAsyncComponent(() => import('src/components/videos/VideoCard.vue')),
+    Item: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {

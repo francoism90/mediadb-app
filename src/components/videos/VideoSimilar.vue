@@ -41,7 +41,7 @@ export default defineComponent({
   name: 'VideoSimilar',
 
   components: {
-    Item: defineAsyncComponent(() => import('src/components/videos/VideoCard.vue')),
+    Item: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
   },
 
   setup() {

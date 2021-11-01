@@ -101,7 +101,7 @@ export default defineComponent({
   name: 'VideoCard',
 
   components: {
-    TagChips: defineAsyncComponent(() => import('src/components/tags/TagChips.vue')),
+    TagChips: defineAsyncComponent(() => import('components/tags/TagChips.vue')),
   },
 
   props: {

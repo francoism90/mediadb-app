@@ -78,13 +78,13 @@ const sorters = [
   { label: 'Items', value: '-items' },
 ];
 
-const filterComponent = defineAsyncComponent(() => import('src/components/tags/TagFilters.vue'));
+const filterComponent = defineAsyncComponent(() => import('components/tags/TagFilters.vue'));
 
 export default defineComponent({
   name: 'TagOverview',
 
   components: {
-    Item: defineAsyncComponent(() => import('src/components/tags/TagCard.vue')),
+    Item: defineAsyncComponent(() => import('components/tags/TagCard.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {

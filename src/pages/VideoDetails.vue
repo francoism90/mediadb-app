@@ -46,9 +46,9 @@ export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    DashPlayer: defineAsyncComponent(() => import('src/components/player/DashPlayer.vue')),
-    VideoInfo: defineAsyncComponent(() => import('src/components/videos/VideoInfo.vue')),
-    VideoSimilar: defineAsyncComponent(() => import('src/components/videos/VideoSimilar.vue')),
+    DashPlayer: defineAsyncComponent(() => import('components/player/DashPlayer.vue')),
+    VideoInfo: defineAsyncComponent(() => import('components/videos/VideoInfo.vue')),
+    VideoSimilar: defineAsyncComponent(() => import('components/videos/VideoSimilar.vue')),
   },
 
   props: {
