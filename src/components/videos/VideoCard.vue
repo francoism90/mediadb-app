@@ -125,13 +125,13 @@ export default defineComponent({
     const favoriteModel = async () => {
       await favorited(props.video, true);
 
-      $q.notify({ message: 'Added to bookmarks', icon: 'favorite' });
+      $q.notify({ message: 'Added to bookmarks.', icon: 'favorite' });
     };
 
     const followModel = async () => {
       await following(props.video, true);
 
-      $q.notify({ message: 'Added to watchlist', icon: 'watch_later' });
+      $q.notify({ message: 'Added to watchlist.', icon: 'watch_later' });
     };
 
     return {

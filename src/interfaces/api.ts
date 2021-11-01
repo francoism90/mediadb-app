@@ -68,4 +68,4 @@ export interface ValidationResponse {
   message: string,
 }
 
-export type ValidationError = AxiosError<ValidationResponse>;
+export type ValidationError = AxiosError<ValidationResponse, unknown>;

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ModelResponse, VideoModel, VideoState } from 'src/interfaces';
+import { Model, ModelResponse, VideoModel, VideoState } from 'src/interfaces';
 
 export const useStore = defineStore('video', {
   state: () => (<VideoState>{
@@ -30,13 +30,13 @@ export const useStore = defineStore('video', {
       this.$patch(payload);
     },
 
-    delete(payload: VideoModel): void {
+    delete(payload: Model | VideoModel): void {
       if (this.id === payload.id) {
         this.$reset();
       }
     },
 
-    update(payload: VideoModel): void {
+    update(payload: Model | VideoModel): void {
       if (this.id === payload.id) {
         this.$patch({ data: payload });
       }

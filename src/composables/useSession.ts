@@ -6,7 +6,7 @@ import { authenticate, check, destroy, store } from 'src/services/auth';
 import { computed, inject } from 'vue';
 
 export const useSession = () => {
-  const { deleted, updated } = useStores();
+  const { updated } = useStores();
   const echo = inject(echoKey);
 
   const roles = computed(() => store.user?.roles || []);
@@ -21,7 +21,7 @@ export const useSession = () => {
 
   const unsubscribe = () => echo?.leave(`user.${store.user?.id}`);
   const subscribe = () => echo?.private(`user.${store.user?.id}`)
-    ?.listen('.model.favorited', deleted)
+    ?.listen('.model.favorited', updated)
     ?.listen('.model.followed', updated);
 
   return {

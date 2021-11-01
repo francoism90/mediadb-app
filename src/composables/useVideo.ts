@@ -8,9 +8,9 @@ import { useStore } from 'src/store/videos/item';
 
 export const useVideo = () => {
   const store = useStore();
+  const { deleted, updated } = useStores();
   const { echo } = useSession();
   const { message, resetResponse, setResponse } = useValidation();
-  const { deleted, updated } = useStores();
 
   const initialize = async (id: string) => {
     resetResponse();

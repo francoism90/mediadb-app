@@ -21,7 +21,7 @@ export const usePlayer = () => {
       ...videoStore.data, ...{ capture_time: store.properties?.time || 0 },
     });
 
-    $q.notify({ type: 'positive', message: 'The video thumbnail will be updated' });
+    $q.notify({ type: 'positive', message: 'The video thumbnail will be updated.' });
   };
 
   return {

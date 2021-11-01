@@ -1,24 +1,23 @@
-import { useSimilar } from 'src/composables/useSimilar';
-import { useVideos } from 'src/composables/useVideos';
-import { Model, VideoModel } from 'src/interfaces';
+import { Model } from 'src/interfaces';
+import { useStore as videoStore } from 'src/store/videos/item';
+import { useStore as videosStore } from 'src/store/videos/items';
+import { useStore as similarStore } from 'src/store/videos/similar';
+
+const stores = [
+  similarStore(),
+  videoStore(),
+  videosStore(),
+];
 
 export const useStores = () => {
-  const { store: similarStore } = useSimilar();
-  const { store: videosStore } = useVideos();
-
   /** Delete model in stores by matching uuid */
-  const deleted = (payload: Model) => {
-    similarStore.delete(<VideoModel>payload);
-    videosStore.delete(<VideoModel>payload);
-  };
+  const deleted = (payload: Model) => stores.forEach((store) => store.delete(payload));
 
   /** Update model in stores by matching uuid */
-  const updated = (payload: Model) => {
-    similarStore.update(<VideoModel>payload);
-    videosStore.update(<VideoModel>payload);
-  };
+  const updated = (payload: Model) => stores.forEach((store) => store.update(payload));
 
   return {
+    stores,
     deleted,
     updated,
   };

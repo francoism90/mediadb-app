@@ -1,7 +1,7 @@
 import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
 import { mergeDeep } from 'src/helpers';
-import { RepositoryLinks, RepositoryMeta, RepositoryQuery, RepositoryResponse, VideoModel, VideosState } from 'src/interfaces';
+import { Model, RepositoryLinks, RepositoryMeta, RepositoryQuery, RepositoryResponse, VideoModel, VideosState } from 'src/interfaces';
 
 export const useStore = defineStore('similar', {
   state: () => (<VideosState>{
@@ -50,11 +50,11 @@ export const useStore = defineStore('similar', {
       this.links = payload.links;
     },
 
-    delete(payload: VideoModel): void {
+    delete(payload: Model | VideoModel): void {
       remove(this.data, { id: payload.id });
     },
 
-    update(payload: VideoModel): void {
+    update(payload: Model | VideoModel): void {
       const index = findIndex(this.data, { id: payload.id });
 
       if (index >= 0) {
