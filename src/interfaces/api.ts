@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 export interface Model {
   id: string,
   name: string,
@@ -65,3 +67,5 @@ export interface ValidationResponse {
   errors: ValidationErrors,
   message: string,
 }
+
+export type ValidationError = AxiosError<ValidationResponse>;

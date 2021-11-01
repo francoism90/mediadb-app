@@ -49,11 +49,10 @@
 </template>
 
 <script lang="ts">
-import { AxiosError } from 'axios';
 import { Platform, useMeta } from 'quasar';
 import { useSession } from 'src/composables/useSession';
 import { useValidation } from 'src/composables/useValidation';
-import { LoginRequest, ValidationResponse } from 'src/interfaces';
+import { LoginRequest, ValidationError } from 'src/interfaces';
 import { router } from 'src/router';
 import { check } from 'src/services/auth';
 import { defineComponent, reactive } from 'vue';
@@ -88,7 +87,7 @@ export default defineComponent({
 
         await router.replace(store.redirectUri);
       } catch (e: unknown) {
-        const error = e as AxiosError<ValidationResponse>;
+        const error = e as ValidationError;
 
         if (error.response) {
           setResponse(error.response.data);
