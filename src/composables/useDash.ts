@@ -1,18 +1,19 @@
+import { MediaPlayerClass } from 'dashjs';
 import { useQuasar } from 'quasar';
-import { DashProperties, PlayerRequest } from 'src/interfaces';
+import { PlayerRequest } from 'src/interfaces';
 import { create, destroy, getVideoResolution } from 'src/services/dash';
-import { computed, nextTick, reactive, readonly, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 
 export const useDash = () => {
   const $q = useQuasar();
 
-  const state = reactive(<DashProperties>{});
+  const player = ref<MediaPlayerClass | undefined>();
   const container = ref<HTMLDivElement>();
   const video = ref<HTMLVideoElement>();
 
-  const resolution = computed(() => getVideoResolution(state.player));
+  const resolution = computed(() => getVideoResolution(player.value));
 
-  const reset = () => destroy(state.player);
+  const reset = () => destroy(player.value);
 
   const initialize = async (source: string, token: string) => {
     reset();
@@ -21,24 +22,24 @@ export const useDash = () => {
     await nextTick();
 
     // Initialize player
-    state.player = create(source, token, video.value);
+    player.value = create(source, token, video.value);
   };
 
   const update = async (request: PlayerRequest) => {
     // Screen
     if (request.fullscreen) await $q.fullscreen.toggle(container.value);
-    if (request.fullscreen || request.resolution) state.player?.updatePortalSize();
+    if (request.fullscreen || request.resolution) player.value?.updatePortalSize();
 
     // Playback
-    if (request.pause && state.player?.isPaused()) state.player?.play();
-    else if (request.pause && !state.player?.isPaused()) state.player?.pause();
+    if (request.pause && player.value?.isPaused()) player.value?.play();
+    else if (request.pause && !player.value?.isPaused()) player.value?.pause();
 
     // Seeking
-    if (request.seek) state.player?.seek(request.seek);
+    if (request.seek) player.value?.seek(request.seek);
   };
 
   return {
-    state: readonly(state),
+    player,
     container,
     video,
     resolution,
