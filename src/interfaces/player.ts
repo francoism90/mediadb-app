@@ -30,12 +30,6 @@ export interface PlayerResolution {
   height: number,
 }
 
-export interface PlayerSource {
-  id?: string,
-  name?: string,
-  url: string | undefined,
-}
-
 export interface PlayerTooltip {
   position: number,
   offset: DomOffset,
@@ -52,10 +46,10 @@ export interface PlayerTrack {
 }
 
 export interface PlayerRequest {
-  pause?: boolean,
+  pause?: boolean | number,
   seek?: number,
-  fullscreen?: boolean,
-  resolution?: boolean,
+  fullscreen?: boolean | number,
+  resolution?: boolean | number,
   showTrack?: PlayerTrack,
   hideTrack?: PlayerTrack,
 }
