@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { destroy } from 'src/services/auth';
+import { destroy, getToken } from 'src/services/auth';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -11,7 +11,10 @@ export default defineComponent({
 
   async preFetch({ redirect }) {
     try {
-      await destroy({ redirectUri: '/' }, true);
+      const redirectUri = '/';
+      const token = getToken() || '';
+
+      await destroy({ redirectUri, token }, true);
     } catch {
       //
     }
