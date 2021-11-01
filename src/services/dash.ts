@@ -45,9 +45,9 @@ export const appendTrack = (player: MediaPlayerClass | undefined, track: PlayerT
   player?.getVideoElement()?.appendChild(element);
 };
 
-export const getTextTrackIndex = (player: MediaPlayerClass, track: TextTrack) => findIndex(player.getVideoElement()?.textTracks, track);
+export const getTextTrackIndex = (player: MediaPlayerClass | undefined, track: TextTrack) => findIndex(player?.getVideoElement()?.textTracks, track);
 
-export const showTextTrack = (player: MediaPlayerClass, track: TextTrack) => {
+export const showTextTrack = (player: MediaPlayerClass | undefined, track: TextTrack) => {
   const index = getTextTrackIndex(player, track);
 
   if (player?.getVideoElement() && index >= 0) {
@@ -55,19 +55,21 @@ export const showTextTrack = (player: MediaPlayerClass, track: TextTrack) => {
   }
 };
 
+export const setSpriteTrack = (player: MediaPlayerClass | undefined) => {
+  appendTrack(player, <PlayerTrack>{
+    id: 'sprite',
+    kind: 'metadata',
+    label: 'sprite',
+    srclang: 'en',
+    src: videoStore.data?.sprite_url || '',
+  });
+
+  showTextTrack(player, <TextTrack>{ label: 'sprite' });
+};
+
 export const syncListener = (player: MediaPlayerClass, event: string) => {
   if (event === 'playbackMetaDataLoaded') {
-    // Append sprite track
-    appendTrack(player, <PlayerTrack>{
-      id: 'sprite',
-      kind: 'metadata',
-      label: 'sprite',
-      srclang: 'en',
-      src: videoStore.data?.sprite_url || '',
-    });
-
-    // Enable sprite track
-    showTextTrack(player, <TextTrack>{ label: 'sprite' });
+    setSpriteTrack(player);
   }
 
   playerStore.sync(<PlayerProperties>{
