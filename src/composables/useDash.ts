@@ -11,7 +11,7 @@ export const useDash = () => {
   const container = ref<HTMLDivElement>();
   const video = ref<HTMLVideoElement>();
 
-  const resolution = computed(() => getVideoResolution(player.value));
+  const resolution = computed(() => getVideoResolution());
 
   const reset = () => destroy(player.value);
 

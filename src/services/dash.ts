@@ -1,4 +1,4 @@
-import { MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { MediaInfo, MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { findIndex } from 'lodash';
 import { PlayerProperties, PlayerTrack } from 'src/interfaces';
 import { getResolution } from 'src/services/player';
@@ -52,15 +52,6 @@ export const appendTrack = (player: MediaPlayerClass | undefined, track: PlayerT
 
 export const getTextTrackIndex = (player: MediaPlayerClass | undefined, track: TextTrack) => findIndex(player?.getVideoElement()?.textTracks, track);
 
-export const getVideoBitrate = (player: MediaPlayerClass | undefined) => player?.getCurrentTrackFor('video')?.bitrateList?.find(Boolean);
-
-export const getVideoResolution = (player: MediaPlayerClass | undefined) => {
-  const bitrate = getVideoBitrate(player);
-  console.log(player);
-
-  return getResolution(bitrate?.height || 0, bitrate?.width || 0);
-};
-
 export const showTextTrack = (player: MediaPlayerClass | undefined, track: TextTrack) => {
   const index = getTextTrackIndex(player, track);
 
@@ -81,11 +72,17 @@ export const setSpriteTrack = (player: MediaPlayerClass | undefined) => {
   showTextTrack(player, <TextTrack>{ label: 'sprite' });
 };
 
-export const syncListener = (player: MediaPlayerClass | undefined, event: string) => {
-  if (event === 'playbackMetaDataLoaded') {
-    setSpriteTrack(player);
-  }
+export const getVideoTrack = () => store.properties?.videoTrack as MediaInfo | undefined;
 
+export const getVideoBitrate = () => getVideoTrack()?.bitrateList.find(Boolean);
+
+export const getVideoResolution = () => {
+  const bitrate = getVideoBitrate();
+
+  return getResolution(bitrate?.height || 0, bitrate?.width || 0);
+};
+
+export const syncListener = (player: MediaPlayerClass | undefined, event: string) => {
   store.sync(<PlayerProperties>{
     ready: player?.isReady(),
     autoplay: player?.getAutoPlay(),
@@ -103,6 +100,13 @@ export const syncListener = (player: MediaPlayerClass | undefined, event: string
     time: player?.time(),
     volume: player?.getVolume(),
   });
+
+  if (event === 'playbackMetaDataLoaded') {
+    window.setTimeout(() => {
+      // TODO: add resume
+      setSpriteTrack(player);
+    }, 300);
+  }
 };
 
 export const startListeners = (player: MediaPlayerClass | undefined) => {
