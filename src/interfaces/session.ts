@@ -1,19 +1,18 @@
-import { UserModel, UserPreferences } from 'src/interfaces/user';
+import { UserModel } from 'src/interfaces';
 
 export interface SessionState {
-  redirectUri: string | null,
-  timestamp: number | null,
-  token: string | null,
-  preferences: UserPreferences,
+  redirectUri: string,
+  timestamp: number,
+  token: string,
   user: UserModel,
 }
 
-export interface AuthUser {
-  redirectUri?: string | null,
-  token?: string | null,
+export interface AuthRequest {
+  redirectUri?: string,
+  token?: string,
 }
 
-export interface LoginUser {
+export interface LoginRequest {
   'device_name': string,
   email: string,
   password: string,
@@ -21,6 +20,7 @@ export interface LoginUser {
 }
 
 export interface AuthResponse {
+  redirectUri: string,
   token: string,
   user: UserModel,
 }

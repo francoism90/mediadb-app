@@ -1,6 +1,8 @@
 import { MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
 
+export type PlayerTextTrack = MediaInfo | TextTrack | null
+
 export interface PlayerProperties {
   ready: boolean,
   autoplay: boolean,
@@ -13,10 +15,10 @@ export interface PlayerProperties {
   quality: number,
   seeking: boolean,
   tracks: TextTrackList,
-  textTrack: MediaInfo | null,
-  textTracks: MediaInfo[] | null,
-  videoTrack: MediaInfo | null,
-  videoTracks: MediaInfo[] | null,
+  textTrack: PlayerTextTrack,
+  textTracks: PlayerTextTrack[],
+  videoTrack: PlayerTextTrack,
+  videoTracks: PlayerTextTrack[],
   time: number,
   volume: number,
 }
@@ -28,31 +30,34 @@ export interface PlayerResolution {
   height: number,
 }
 
-export interface PlayerSource {
-  id?: string,
-  name?: string,
-  url: string | undefined,
-}
-
-export interface PlayerThumbnail {
-  seekerPosition: number,
-  seekerOffset: DomOffset,
-  seekerWidth: number,
-}
-
-export interface PlayerState {
-  module: string,
-  source: PlayerSource,
-  properties: PlayerProperties,
-  thumbnail: PlayerThumbnail,
-  activity: boolean,
-  controls: boolean,
-  fullscreen: boolean,
-  pause: boolean,
-  time: number,
+export interface PlayerTooltip {
+  position: number,
+  offset: DomOffset,
+  width: number,
 }
 
 export interface PlayerTrack {
-  type?: string,
-  url?: string,
+  id: string,
+  kind: string,
+  label: string,
+  srclang: string,
+  src: string,
+  type: string,
+}
+
+export interface PlayerRequest {
+  pause?: boolean | number,
+  seek?: number,
+  fullscreen?: boolean | number,
+  resolution?: boolean | number,
+  showTrack?: PlayerTrack,
+  hideTrack?: PlayerTrack,
+}
+
+export interface PlayerState {
+  activity: boolean,
+  controls: boolean,
+  properties: PlayerProperties,
+  request: PlayerRequest,
+  tooltip: PlayerTooltip,
 }

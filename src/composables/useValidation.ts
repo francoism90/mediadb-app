@@ -1,35 +1,24 @@
 import { get, has } from 'lodash';
-import { FieldError, FormValidator, ValidationResponse } from 'src/interfaces/form';
-import { ref } from 'vue';
+import { FieldError, ValidationResponse } from 'src/interfaces';
+import { computed, reactive } from 'vue';
 
-export default function useValidation() {
-  const validator = ref(<FormValidator>{});
+export const useValidation = () => {
+  const state = reactive(<ValidationResponse>{});
 
-  const resetResponse = () => {
-    validator.value = <ValidationResponse>{};
-  };
+  const resetResponse = () => Object.assign(state, <ValidationResponse>{});
+  const setResponse = (response: ValidationResponse) => Object.assign(state, response);
 
-  const setResponse = (response: ValidationResponse) => {
-    validator.value = response;
-  };
+  const hasError = (field: string) => has(state.errors, field);
+  const getError = (field: string) => get(state.errors, field, undefined) as FieldError[];
 
-  const hasError = (field: string): boolean => has(validator.value?.errors, field);
-
-  const getError = (field: string): FieldError => get(
-    validator.value?.errors, field, <FieldError>{},
-  ) as FieldError;
-
-  const hasMessage = (): boolean => validator.value?.message !== '';
-
-  const getMessage = (): string => validator.value?.message || '';
+  const message = computed(() => state.message || '');
 
   return {
-    getError,
-    hasError,
-    getMessage,
-    hasMessage,
-    setResponse,
+    state,
+    message,
     resetResponse,
-    validator,
+    setResponse,
+    hasError,
+    getError,
   };
-}
+};

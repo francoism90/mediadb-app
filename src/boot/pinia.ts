@@ -5,8 +5,10 @@ import { boot } from 'quasar/wrappers';
 
 export const pinia = createPinia();
 
+export const debouncer = PiniaDebounce(debounce);
+
 export default boot(({ app }) => {
-  pinia.use(PiniaDebounce(debounce));
+  pinia.use(debouncer);
 
   app.use(pinia);
 });

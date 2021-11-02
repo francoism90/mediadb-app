@@ -1,32 +1,36 @@
-import { MediaPlayerClass } from 'dashjs';
-import { PlayerSource } from 'src/interfaces/player';
-import { destroy, initialize, store, update } from 'src/services/player';
-import { nextTick, ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { useSession } from 'src/composables/useSession';
+import { useVideo } from 'src/composables/useVideo';
+import { timeFormat } from 'src/helpers';
+import { getThumbnail, store } from 'src/services/player';
+import { computed } from 'vue';
 
-export default function usePlayer() {
-  const player = ref<MediaPlayerClass | undefined>();
-  const container = ref<HTMLDivElement>();
-  const video = ref<HTMLVideoElement>();
+export const usePlayer = () => {
+  const $q = useQuasar();
+  const { store: sessionStore } = useSession();
+  const { update, store: videoStore } = useVideo();
 
-  const unload = (): void => destroy(player.value);
+  const source = computed(() => videoStore.data?.dash_url || '');
+  const token = computed(() => sessionStore.token || '');
 
-  const load = async (source: PlayerSource, view: HTMLElement | undefined): Promise<void> => {
-    unload();
+  const currentTime = computed(() => timeFormat(store.properties?.time));
+  const duration = computed(() => timeFormat(store.properties?.duration));
 
-    // Wait for reset
-    await nextTick();
+  const capture = async () => {
+    await update(videoStore.id || '', {
+      ...videoStore.data, ...{ capture_time: store.properties?.time || 0 },
+    });
 
-    // Initialize player
-    player.value = initialize(source, view);
+    $q.notify({ type: 'positive', message: 'The video thumbnail will be updated.' });
   };
 
   return {
-    load,
-    unload,
-    update,
-    container,
-    video,
-    player,
     store,
+    currentTime,
+    duration,
+    source,
+    token,
+    getThumbnail,
+    capture,
   };
-}
+};

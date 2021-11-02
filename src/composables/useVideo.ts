@@ -1,72 +1,54 @@
-import { AxiosError } from 'axios';
-import useEcho from 'src/composables/useEcho';
-import useSimilar from 'src/composables/useSimilar';
-import useVideos from 'src/composables/useVideos';
-import { ErrorResponse } from 'src/interfaces/api';
-import { VideoModel } from 'src/interfaces/video';
-import { find } from 'src/repositories/video';
-import { useStore } from 'src/store/video/item';
-import { ref } from 'vue';
+import { useLoading } from 'src/composables/useLoading';
+import { useSession } from 'src/composables/useSession';
+import { useStores } from 'src/composables/useStores';
+import { ResponseError, VideoModel } from 'src/interfaces';
+import { find, remove, save } from 'src/services/api';
+import { useStore } from 'src/store/videos/item';
 
-export default function useVideo() {
-  const { echo } = useEcho();
-  const { store: similar } = useSimilar();
-  const { store: videos } = useVideos();
+export const useVideo = () => {
   const store = useStore();
+  const { echo } = useSession();
+  const { deleted, updated } = useStores();
+  const { state, isReady, resetResponse, setResponse } = useLoading();
 
-  const errors = ref<ErrorResponse>();
+  const fetch = async (id: string) => find(`videos/${id}`);
+  const destroy = async (id: string) => remove(`videos/${id}`);
+  const update = async (id: string, payload: VideoModel) => save(`videos/${id}`, payload);
 
-  const initialize = async (id: string): Promise<void> => {
-    // Repopulate stores
-    if (store.data.id !== id) {
-      similar.reset({ filter: { similar: id } });
-    }
+  const initialize = async (id: string) => {
+    resetResponse();
 
     try {
-      const response = await find(id);
+      const response = await fetch(id);
+
       store.populate(response);
     } catch (e: unknown) {
-      const error = e as AxiosError<ErrorResponse>;
-
-      // Reset stores
-      similar.$reset();
+      const error = e as ResponseError;
 
       if (error.response) {
-        errors.value = error.response.data;
+        setResponse(error.response.data);
         return;
       }
 
       throw error;
+    } finally {
+      isReady();
     }
   };
 
-  const deleted = (payload: VideoModel): void => {
-    store.delete(payload);
-    similar.delete(payload);
-    videos.delete(payload);
-  };
-
-  const updated = (payload: VideoModel): void => {
-    store.update(payload);
-    similar.update(payload);
-    videos.update(payload);
-  };
-
-  const subscribe = (id: string): void => {
-    echo?.private(`video.${id}`)
-      .listen('.video.deleted', deleted)
-      .listen('.video.updated', updated);
-  };
-
-  const unsubscribe = (id: string): void => echo?.leave(`video.${id}`);
+  const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
+  const subscribe = (id: string) => echo?.private(`video.${id}`)
+    ?.listen('.video.deleted', deleted)
+    ?.listen('.video.updated', updated);
 
   return {
+    state,
+    store,
     initialize,
-    deleted,
-    updated,
+    fetch,
+    destroy,
+    update,
     subscribe,
     unsubscribe,
-    store,
-    errors,
   };
-}
+};

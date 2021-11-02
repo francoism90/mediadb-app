@@ -1,10 +1,15 @@
+import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
-import { TagModel, TagsLinks, TagsMeta, TagsQuery, TagsResponse, TagsState } from 'src/interfaces/tag';
+import { mergeDeep } from 'src/helpers';
+import { RepositoryLinks, RepositoryMeta, RepositoryQuery, RepositoryResponse, TagModel, TagsState } from 'src/interfaces';
 
 export const useStore = defineStore('tags', {
   state: () => (<TagsState>{
     id: Date.now(),
-    query: <TagsQuery>{
+    data: <TagModel[]>[],
+    meta: <RepositoryMeta>{},
+    links: <RepositoryLinks>{},
+    query: <RepositoryQuery>{
       append: ['items'],
       sort: 'name',
       filter: {
@@ -16,9 +21,6 @@ export const useStore = defineStore('tags', {
         size: 24,
       },
     },
-    data: <TagModel[]>[],
-    meta: <TagsMeta>{},
-    links: <TagsLinks>{},
   }),
 
   getters: {
@@ -32,21 +34,41 @@ export const useStore = defineStore('tags', {
   },
 
   actions: {
-    reset(payload?: TagsQuery): void {
+    reset(payload?: RepositoryQuery): void {
       // Merge query
       this.$patch({ query: payload || {} });
 
       // Reset results
       this.data = <TagModel[]>[];
-      this.meta = <TagsMeta>{};
-      this.links = <TagsLinks>{};
+      this.meta = <RepositoryMeta>{};
+      this.links = <RepositoryLinks>{};
       this.id = Date.now();
     },
 
-    populate(payload: TagsResponse): void {
+    populate(payload: RepositoryResponse): void {
       this.data = this.data.concat(payload.data);
       this.meta = payload.meta;
       this.links = payload.links;
     },
+
+    delete(payload: TagModel): void {
+      remove(this.data, { id: payload.id });
+    },
+
+    update(payload: TagModel): void {
+      const index = findIndex(this.data, { id: payload.id });
+
+      if (index >= 0) {
+        const model = find(this.data, { id: payload.id });
+        const object = mergeWith(model, payload, mergeDeep);
+
+        this.data.splice(index, 1, object);
+      }
+    },
+  },
+
+  debounce: {
+    delete: 50,
+    update: 50,
   },
 });

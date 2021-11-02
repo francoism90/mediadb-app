@@ -1,30 +1,31 @@
 import { defineStore } from 'pinia';
-import { AuthResponse, SessionState } from 'src/interfaces/session';
-import { UserModel, UserPreferences } from 'src/interfaces/user';
+import { AuthResponse, SessionState, UserModel } from 'src/interfaces';
 
 export const useStore = defineStore('session', {
   state: () => (<SessionState>{
-    preferences: <UserPreferences>{},
-    redirectUri: null,
-    timestamp: null,
-    token: null,
+    redirectUri: '/',
+    timestamp: 0,
+    token: '',
     user: <UserModel>{},
   }),
 
   getters: {
+    id(): string {
+      return this.user?.id || '';
+    },
+
+    name(): string {
+      return this.user?.name || '';
+    },
+
     isAuthenticated(): boolean {
-      return typeof this.token === 'string' && typeof this.user?.id === 'string';
+      return this.token !== '' && this.id !== '';
     },
   },
 
   actions: {
-    reset(): void {
-      this.token = null;
-      this.user = <UserModel>{};
-      this.timestamp = Date.now();
-    },
-
     initialize(payload: AuthResponse): void {
+      this.redirectUri = payload.redirectUri;
       this.token = payload.token;
       this.user = payload.user;
       this.timestamp = Date.now();

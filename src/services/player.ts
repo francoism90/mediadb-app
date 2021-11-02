@@ -1,12 +1,11 @@
-import { MediaPlayerClass as DashPlayer } from 'dashjs';
 import { find, inRange } from 'lodash';
-import { PlayerProperties, PlayerResolution, PlayerSource } from 'src/interfaces/player';
-import { create as createDashPlayer, destroy as DestroyDashPlayer, videoTrackBitrate } from 'src/services/dash';
-import { useStore } from 'src/store/player';
+import { PlayerTrack } from 'src/interfaces';
+import { blob } from 'src/services/api';
+import { useStore } from 'src/store/videos/player';
 
 export const store = useStore();
 
-export const resolutions: PlayerResolution[] = [
+export const resolutions = [
   { label: '2160p', icon: '4K', width: 3840, height: 2160 },
   { label: '1440p', icon: '2k', width: 2560, height: 1440 },
   { label: '1080p', icon: 'hd', width: 1920, height: 1080 },
@@ -16,48 +15,25 @@ export const resolutions: PlayerResolution[] = [
   { label: '240p', icon: 'sd', width: 426, height: 240 },
 ];
 
-export const initialize = (
-  source: PlayerSource,
-  view: HTMLElement | undefined,
-): DashPlayer | undefined => {
-  store.$patch({ source });
+export const getSpriteCue = (time: number) => find(
+  store.spriteTrack?.cues, (o: VTTCue) => inRange(time, o.startTime, o.endTime),
+);
 
-  if (store.module === 'dashjs' && typeof view !== 'undefined') {
-    return createDashPlayer(view);
-  }
+export const getThumbnailTrack = (time: number) => {
+  const cue = getSpriteCue(time) as VTTCue;
 
-  return undefined;
+  return JSON.parse(cue?.text || '{}') as PlayerTrack;
 };
 
-export const destroy = (player: DashPlayer | undefined): void => {
-  if (store.module === 'dashjs') DestroyDashPlayer(player);
-  store.$reset();
+export const getThumbnail = async (time: number) => {
+  const track = getThumbnailTrack(time);
+
+  return blob(track?.src || '');
 };
 
-export const update = (player: DashPlayer | undefined, properties: PlayerProperties): void => {
-  if (typeof player !== 'undefined' && typeof properties.fullscreen !== 'undefined') {
-    store.sync(properties);
-    if (store.module === 'dashjs') player?.updatePortalSize();
-  }
-};
-
-export const getSpriteCue = (time: number) => find(store.spriteTrack?.cues, (o: VTTCue) => inRange(
-  time, o.startTime, o.endTime,
-));
-
-export const getResolution = (height: number, width: number): PlayerResolution | undefined => {
+export const getResolution = (height: number, width: number) => {
   const heightMatch = resolutions.find((e) => height >= e.height);
   const widthMatch = resolutions.find((e) => width >= e.width);
 
   return heightMatch || widthMatch;
-};
-
-export const videoResolution = (): PlayerResolution | undefined => {
-  if (store.module === 'dashjs') {
-    const bitrate = videoTrackBitrate();
-
-    return getResolution(bitrate?.height || 0, bitrate?.width || 0);
-  }
-
-  return undefined;
 };

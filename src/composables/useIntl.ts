@@ -1,10 +1,10 @@
-import { intlKey } from 'src/services/intl';
+import { intlKey } from 'src/boot/intl';
 import { inject } from 'vue';
 
-export default function useIntl() {
+export const useIntl = () => {
   const intl = inject(intlKey);
 
   return {
     intl,
   };
-}
+};

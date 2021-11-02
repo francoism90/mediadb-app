@@ -1,34 +1,40 @@
 import { includes } from 'lodash';
-import useEcho from 'src/composables/useEcho';
-import useStore from 'src/composables/useStore';
-import { useStore as useSessionStore } from 'src/store/session';
+import { echoKey } from 'src/boot/echo';
+import { useStores } from 'src/composables/useStores';
+import { AuthRequest, LoginRequest } from 'src/interfaces';
+import { authenticate, check, destroy, store } from 'src/services/auth';
+import { computed, inject } from 'vue';
 
-export default function useSession() {
-  const store = useSessionStore();
-  const { echo } = useEcho();
-  const { updated } = useStore();
+export const useSession = () => {
+  const { updated } = useStores();
+  const echo = inject(echoKey);
 
-  const roles = store.user?.roles || [];
-  const permissions = store.user?.permissions || [];
+  const roles = computed(() => store.user?.roles || []);
+  const permissions = computed(() => store.user?.permissions || []);
 
-  const hasRole = (key: string | string[]): boolean => includes(roles, key);
-  const hasPermission = (key: string | string[]): boolean => includes(permissions, key);
+  const hasRole = (key: string | string[]) => includes(roles.value, key);
+  const hasPermission = (key: string | string[]) => includes(permissions.value, key);
 
-  const subscribe = (): void => {
-    echo?.private(`user.${store.user?.id}`)
-      .listen('.model.favorited', updated)
-      .listen('.model.followed', updated);
-  };
+  const signIn = async (data: LoginRequest) => authenticate(data, true);
+  const signOut = async (data: AuthRequest) => destroy(data, true);
+  const isValid = async (data?: AuthRequest) => check(data);
 
-  const unsubscribe = (): void => echo?.leave(`user.${store.user?.id}`);
+  const unsubscribe = () => echo?.leave(`user.${store.user?.id}`);
+  const subscribe = () => echo?.private(`user.${store.user?.id}`)
+    ?.listen('.model.favorited', updated)
+    ?.listen('.model.followed', updated);
 
   return {
+    signIn,
+    signOut,
     subscribe,
     unsubscribe,
+    isValid,
     hasRole,
     hasPermission,
+    echo,
     store,
     roles,
     permissions,
   };
-}
+};
