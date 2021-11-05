@@ -1,6 +1,6 @@
 import { RepositoryQuery, TagModel } from 'src/interfaces';
 import { all } from 'src/services/api';
-import { ref } from 'vue';
+import { readonly, ref } from 'vue';
 
 const state = ref<TagModel[]>([]);
 
@@ -12,7 +12,7 @@ export const useTagInput = () => {
   };
 
   return {
-    state,
+    state: readonly(state),
     fetch,
   };
 };

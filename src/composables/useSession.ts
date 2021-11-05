@@ -3,7 +3,7 @@ import { echoKey } from 'src/boot/echo';
 import { useStores } from 'src/composables/useStores';
 import { AuthRequest, LoginRequest } from 'src/interfaces';
 import { authenticate, check, destroy, store } from 'src/services/auth';
-import { computed, inject } from 'vue';
+import { computed, inject, readonly } from 'vue';
 
 export const useSession = () => {
   const { updated } = useStores();
@@ -25,6 +25,10 @@ export const useSession = () => {
     ?.listen('.model.followed', updated);
 
   return {
+    roles: readonly(roles),
+    permissions: readonly(permissions),
+    echo,
+    store,
     signIn,
     signOut,
     subscribe,
@@ -32,9 +36,5 @@ export const useSession = () => {
     isValid,
     hasRole,
     hasPermission,
-    echo,
-    store,
-    roles,
-    permissions,
   };
 };
