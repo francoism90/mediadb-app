@@ -25,6 +25,9 @@ export const useVideo = () => {
     } catch (e: unknown) {
       const error = e as ResponseError;
 
+      // Reset video store
+      store.$reset();
+
       if (error.response) {
         setResponse(error.response.data);
         return;

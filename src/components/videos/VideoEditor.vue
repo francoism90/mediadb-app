@@ -4,6 +4,7 @@
     @hide="onDialogHide"
   >
     <q-card
+      :key="id"
       class="bg-grey-12 q-pa-md q-dialog-plugin"
       style="width: 400px; max-width: 100vw;"
       square
@@ -165,7 +166,7 @@ export default defineComponent({
     const deleteDialog = ref<boolean>(false);
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onTagsFilter = async (val: string, update: Function): Promise<void> => {
+    const onTagsFilter = async (val: string, update: Function) => {
       await fetchTags({
         page: { number: 1, size: 5 },
         filter: { id: null, query: val },
@@ -194,7 +195,7 @@ export default defineComponent({
       }
     };
 
-    const onSubmit = async (): Promise<void> => {
+    const onSubmit = async () => {
       resetResponse();
 
       try {
@@ -213,7 +214,7 @@ export default defineComponent({
       }
     };
 
-    const onDelete = async (): Promise<void> => {
+    const onDelete = async () => {
       resetResponse();
 
       try {

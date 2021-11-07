@@ -44,10 +44,10 @@ export const useVideos = () => {
   const sorter = computed(() => store.query.sort);
 
   return {
-    fetch,
     filters,
     sorter,
     sorters,
     store,
+    fetch,
   };
 };
