@@ -15,9 +15,11 @@ export const resolutions = [
   { label: '240p', icon: 'sd', width: 426, height: 240 },
 ];
 
-export const getSpriteCue = (time: number) => find(
-  store.spriteTrack?.cues, (o: VTTCue) => inRange(time, o.startTime, o.endTime),
-);
+export const getSpriteCue = (time: number) => find(store.spriteTrack?.cues, (o: VTTCue) => inRange(
+  time,
+  o.startTime,
+  o.endTime,
+));
 
 export const getThumbnailTrack = (time: number) => {
   const cue = getSpriteCue(time) as VTTCue;

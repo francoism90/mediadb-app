@@ -17,9 +17,7 @@ export const api = axios.create({
   },
 });
 
-export const setAuthHeader = (token: string) => set(
-  api.defaults, 'headers.common.Authorization', `Bearer ${token}`,
-);
+export const setAuthHeader = (token: string) => set(api.defaults, 'headers.common.Authorization', `Bearer ${token}`);
 
 export default boot(({ app, urlPath }) => {
   api.interceptors.response.use((response) => response, (error: AxiosError) => {

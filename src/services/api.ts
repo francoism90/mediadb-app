@@ -17,9 +17,9 @@ export const find = async (path: string) => {
 };
 
 export const all = async (path: string, params?: RepositoryQuery) => {
-  const response = await api.get<RepositoryQuery, AxiosResponse<RepositoryResponse>>(
-    path, { params },
-  );
+  const response = await api.get<RepositoryQuery, AxiosResponse<RepositoryResponse>>(path, {
+    params,
+  });
 
   return response.data;
 };

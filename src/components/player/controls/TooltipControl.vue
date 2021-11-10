@@ -34,7 +34,7 @@ export default defineComponent({
 
     const width = computed(() => store.tooltip?.width || 0);
     const offset = computed(() => store.tooltip?.offset?.left || 0);
-    const position = computed(() => store.tooltip?.position - offset.value);
+    const position = computed(() => (store.tooltip?.position || 0) - offset.value);
 
     const margin = computed(() => clamp(position.value - 120, 0, width.value - 240));
     const percent = computed(() => clamp((position.value / width.value) * 100, 0, 100));
