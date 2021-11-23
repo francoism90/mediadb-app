@@ -1044,10 +1044,10 @@
   dependencies:
     tslib "^2.1.0"
 
-"@formatjs/intl@1.15.2":
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl/-/intl-1.15.2.tgz#02cb9c29ecd1371992b320b681a31c0f90991208"
-  integrity sha512-QYk0lUSrYprn2Lyui6iDhmHnSiXFTqKAMiveYOJPYQtcaWRwkCbcB0SALTZDc2kITrYxiP4/AS7ESF/0+SYSLQ==
+"@formatjs/intl@1.16.0":
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl/-/intl-1.16.0.tgz#118388adc0566532d8739039f64d288ef12b1665"
+  integrity sha512-LdOAHbg6FJz6mV5SQBMyB8D6/qHoatdoG2eke2Z2uVIFG4kgIG9ytJ4bVQ+5UMrn06StR3T5XxDKV7gg9nR6Ng==
   dependencies:
     "@formatjs/ecma402-abstract" "1.10.0"
     "@formatjs/fast-memoize" "1.2.0"
@@ -6917,12 +6917,12 @@ vue-i18n@^9.1.9:
     "@intlify/vue-devtools" "9.1.9"
     "@vue/devtools-api" "^6.0.0-beta.7"
 
-vue-intl@^6.0.16:
-  version "6.0.16"
-  resolved "https://registry.yarnpkg.com/vue-intl/-/vue-intl-6.0.16.tgz#d23c1cb8dbf2d3b9a9f74ec37520547a27c9097b"
-  integrity sha512-XkRsVgp3gxkj4SszTAvxSvHjK7EdpTvLJc6yFKchH0bRCLv7tVsq5f6oekyJ1RB76JE+2Ler4AbWeuMjxp2vyQ==
+vue-intl@^6.0.17:
+  version "6.0.17"
+  resolved "https://registry.yarnpkg.com/vue-intl/-/vue-intl-6.0.17.tgz#5d0d080d336918efb8b4e06c251d0cea03e70934"
+  integrity sha512-hggQ2VtWJCxSeCdJSIVDTchyGPHzc0fH0NQHPA96eRYnhAq/9gEzwUNyKJ0u2M/MvpFTjda7/BNstFgY8XeVAg==
   dependencies:
-    "@formatjs/intl" "1.15.2"
+    "@formatjs/intl" "1.16.0"
     tslib "^2.1.0"
 
 vue-loader@16.8.3:

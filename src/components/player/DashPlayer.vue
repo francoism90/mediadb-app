@@ -1,17 +1,19 @@
 <template>
   <div
     ref="container"
-    class="player-container relative-position row no-wrap justify-center items-center"
+    class="player-container relative-position"
   >
-    <video
-      ref="video"
-      autoPictureInPicture
-      playsinline
-      class="col"
-      crossorigin="anonymous"
-    />
+    <div class="player-video-container absolute-full">
+      <video
+        ref="video"
+        autoPictureInPicture
+        playsinline
+        class="absolute fit block no-outline"
+        crossorigin="anonymous"
+      />
 
-    <video-controls />
+      <video-controls />
+    </div>
   </div>
 </template>
 

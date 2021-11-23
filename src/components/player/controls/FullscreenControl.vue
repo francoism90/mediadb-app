@@ -2,7 +2,7 @@
   <q-icon
     :name="icon"
     color="white"
-    class="player-control cursor-pointer"
+    class="cursor-pointer"
     size="24px"
     right
     tabindex="0"

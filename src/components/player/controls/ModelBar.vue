@@ -1,5 +1,5 @@
 <template>
-  <div class="player-navigation absolute-top-right q-py-md q-px-lg">
+  <div class="player-toolbar absolute-top-right q-py-md q-px-lg">
     <favorite-control />
     <follow-control />
     <action-control />

@@ -3,9 +3,11 @@
     <tooltip-control />
     <seek-control />
 
-    <q-toolbar class="player-navigation">
+    <q-toolbar class="player-video-toolbar">
       <duration-control />
+
       <q-space />
+
       <loading-control />
       <fullscreen-control />
     </q-toolbar>

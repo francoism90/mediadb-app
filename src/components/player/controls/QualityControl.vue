@@ -3,7 +3,7 @@
     bordered
     dense
     separator
-    class="player-menu"
+    class="player-video-menu"
   />
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <q-slider
     ref="seeker"
-    class="player-seeker"
+    class="player-video-seeker"
     :model-value="store.properties?.time || 0"
     :min="0.0"
     :max="store.properties?.duration || 0"

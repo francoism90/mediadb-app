@@ -13,7 +13,7 @@
     >
       <div
         v-show="visible"
-        class="player-controls absolute-full"
+        class="player-video-controls absolute-full all-pointer-events"
       >
         <control-bar />
         <model-bar />
@@ -58,9 +58,9 @@ export default defineComponent({
     };
 
     return {
-      visible,
       activate,
       deactivate,
+      visible,
     };
   },
 });

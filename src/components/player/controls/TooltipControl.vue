@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="percent > 0"
-    class="player-thumbnail desktop-only q-my-md rounded-borders relative-position"
+    class="player-video-thumbnail desktop-only relative-position q-my-md rounded-borders"
     :style="{ marginLeft: `${margin}px` }"
   >
     <q-img
