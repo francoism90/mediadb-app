@@ -13,7 +13,7 @@ export const useStore = defineStore('player', {
 
   getters: {
     isReady(): boolean {
-      return this.properties?.ready || false;
+      return typeof this.properties?.videoTrack === 'object';
     },
 
     isWaiting(): boolean {

@@ -17,7 +17,7 @@
       >
         <control-bar />
         <model-bar />
-        <playback-control />
+        <playback-bar />
       </div>
     </transition>
   </div>
@@ -33,7 +33,7 @@ export default defineComponent({
   components: {
     ControlBar: defineAsyncComponent(() => import('components/player/controls/ControlBar.vue')),
     ModelBar: defineAsyncComponent(() => import('components/player/controls/ModelBar.vue')),
-    PlaybackControl: defineAsyncComponent(() => import('components/player/controls/PlaybackControl.vue')),
+    PlaybackBar: defineAsyncComponent(() => import('components/player/controls/PlaybackBar.vue')),
   },
 
   setup() {

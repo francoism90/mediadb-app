@@ -135,11 +135,11 @@ export default defineComponent({
     };
 
     return {
+      favoriteModel,
+      followModel,
       actions,
       duration,
       name,
-      favoriteModel,
-      followModel,
     };
   },
 });

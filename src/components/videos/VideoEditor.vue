@@ -4,16 +4,16 @@
     @hide="onDialogHide"
   >
     <q-card
-      :key="id"
+      v-if="state?.id"
       class="bg-grey-12 q-pa-md q-dialog-plugin"
-      style="width: 400px; max-width: 100vw;"
+      style="width: 450px; max-width: 100vw;"
       square
     >
       <q-dialog
         v-model="deleteDialog"
         persistent
       >
-        <q-card dark>
+        <q-card square>
           <q-card-section class="q-pt-lg q-px-xl text-body1">
             Are you sure you want to delete this video?
           </q-card-section>
@@ -236,10 +236,6 @@ export default defineComponent({
     watch(() => props.id, async (value) => initialize(value), { immediate: true });
 
     return {
-      state,
-      tags,
-      deleteDialog,
-      dialogRef,
       getError,
       hasError,
       onDelete,
@@ -247,6 +243,10 @@ export default defineComponent({
       onTagsFilter,
       onDialogHide,
       onDialogCancel,
+      state,
+      tags,
+      deleteDialog,
+      dialogRef,
     };
   },
 });

@@ -32,7 +32,7 @@
     "@babel/eslint-parser": "^7.16.3",
     "@quasar/app": "^3.2.3",
     "@types/lodash": "^4.14.177",
-    "@types/node": "^16.11.9",
+    "@types/node": "^16.11.10",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "dotenv": "^10.0.0",

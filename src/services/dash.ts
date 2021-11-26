@@ -92,6 +92,7 @@ export const syncListener = (player: MediaPlayerClass | undefined, event: string
     paused: player?.isPaused(),
     playbackRate: player?.getPlaybackRate(),
     seeking: player?.isSeeking(),
+    source: player?.getSource(),
     tracks: player?.getVideoElement()?.textTracks,
     textTrack: player?.getCurrentTrackFor('text'),
     textTracks: player?.getTracksFor('text'),

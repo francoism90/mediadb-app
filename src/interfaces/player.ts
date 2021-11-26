@@ -14,6 +14,7 @@ export interface PlayerProperties {
   playbackRate: number,
   quality: number,
   seeking: boolean,
+  source: string | object,
   tracks: TextTrackList,
   textTrack: PlayerTextTrack,
   textTracks: PlayerTextTrack[],
