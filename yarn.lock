@@ -2816,10 +2816,10 @@ csstype@^2.6.8:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.18.tgz#980a8b53085f34af313410af064f2bd241784218"
   integrity sha512-RSU6Hyeg14am3Ah4VZEmeX8H7kLwEEirXe6aU2IPfKNvhXwTflK5HQRDNI0ypQXoqmm+QPyG2IaPuQE5zMwSIQ==
 
-dashjs@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/dashjs/-/dashjs-4.1.0.tgz#af05ea4bf5374c45b74c1add8ecf3e9712453aa6"
-  integrity sha512-nVcu4f/RVTCeba5RWHYujMBDKbWOUPIXfwe1wfYYoz9alsK2NeywXIlgBhzCfWnHtcfAEEW96mbmmWiagFX0hQ==
+dashjs@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/dashjs/-/dashjs-4.2.0.tgz#fd6e6152c4e41edc45cb9b75677e8eef5daec77d"
+  integrity sha512-bDXsBKTniuyI8NomZOuxdtbmfiGRxQiiK4Nx/GG5ysLXKVnVRHAXCqI0j2/dPx2BgZHlOmbE9LeDwyS1yHKTLQ==
   dependencies:
     codem-isoboxer "0.3.6"
     es6-promise "^4.2.8"
