@@ -51,10 +51,8 @@ export interface RepositoryQuery {
   filter?: RepositoryFilter,
   append?: RepositoryOption,
   sort?: RepositoryOption,
-  page?: {
-    number?: number | null,
-    size?: number | null,
-  }
+  page?: number | null,
+  size?: number | null,
 }
 
 export type FieldError = string

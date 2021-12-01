@@ -45,8 +45,8 @@ export default defineComponent({
   },
 
   setup() {
-    const { store: similar, fetch, initialize } = useSimilar();
     const { store: video } = useVideo();
+    const { store: similar, fetch, initialize } = useSimilar(video.id || '');
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -64,9 +64,8 @@ export default defineComponent({
       done();
     };
 
-    onBeforeMount(() => initialize(video.id || ''));
-
-    watch(() => video.id, () => initialize(video.id || ''));
+    onBeforeMount(() => initialize());
+    watch(() => video.id, () => initialize());
 
     return {
       similar,

@@ -16,10 +16,6 @@ export const useStore = defineStore('tags', {
         type: null,
         query: null,
       },
-      page: {
-        number: 1,
-        size: 24,
-      },
     },
   }),
 

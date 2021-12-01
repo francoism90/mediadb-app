@@ -7,12 +7,12 @@ export const useVideos = () => {
   const store = useStore();
 
   const sorters = [
-    { label: 'Relevance', value: 'relevance' },
+    { label: 'Relevance', value: null },
     { label: 'Trending', value: 'trending' },
-    { label: 'Most Recent', value: '-created_at' },
-    { label: 'Most Views', value: '-views' },
-    { label: 'Longest', value: '-duration' },
-    { label: 'Shortest', value: 'duration' },
+    { label: 'Most Recent', value: 'created:desc' },
+    { label: 'Most Views', value: 'views:desc' },
+    { label: 'Longest', value: 'duration:desc' },
+    { label: 'Shortest', value: 'duration:asc' },
   ];
 
   const fetchNext = async () => {
@@ -44,10 +44,10 @@ export const useVideos = () => {
   const sorter = computed(() => store.query.sort);
 
   return {
+    fetch,
     filters,
     sorter,
     sorters,
     store,
-    fetch,
   };
 };

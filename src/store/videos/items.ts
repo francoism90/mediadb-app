@@ -10,16 +10,11 @@ export const useStore = defineStore('videos', {
     meta: <RepositoryMeta>{},
     links: <RepositoryLinks>{},
     query: <RepositoryQuery>{
-      append: ['poster_url'],
-      sort: 'relevance',
+      sort: null,
       filter: {
         type: null,
         tags: null,
         query: null,
-      },
-      page: {
-        number: 1,
-        size: 24,
       },
     },
   }),

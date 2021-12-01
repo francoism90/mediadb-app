@@ -9,17 +9,7 @@ export const useStore = defineStore('similar', {
     data: <VideoModel[]>[],
     meta: <RepositoryMeta>{},
     links: <RepositoryLinks>{},
-    query: <RepositoryQuery>{
-      append: ['poster_url'],
-      sort: 'relevance',
-      filter: {
-        similar: null,
-      },
-      page: {
-        number: 1,
-        size: 24,
-      },
-    },
+    query: <RepositoryQuery>{},
   }),
 
   getters: {
