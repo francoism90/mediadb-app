@@ -7,12 +7,8 @@ export const useTags = () => {
   const store = useStore();
 
   const sorters = [
-    { label: 'Relevance', value: 'relevance' },
-    { label: 'Trending', value: 'trending' },
-    { label: 'Most Recent', value: '-created_at' },
-    { label: 'Most Views', value: '-views' },
-    { label: 'Longest', value: '-duration' },
-    { label: 'Shortest', value: 'duration' },
+    { label: 'Alphabetical', value: 'name:asc' },
+    { label: 'Items', value: 'items:desc' },
   ];
 
   const fetchNext = async () => {

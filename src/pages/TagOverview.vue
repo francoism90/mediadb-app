@@ -66,17 +66,10 @@
 </template>
 
 <script lang="ts">
-import { filter } from 'lodash';
 import { useMeta, useQuasar } from 'quasar';
 import { useTags } from 'src/composables/useTags';
 import { check } from 'src/services/auth';
-import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
-
-const sorters = [
-  { label: 'Alphabetical', value: 'name' },
-  { label: 'Randomize', value: 'random' },
-  { label: 'Items', value: '-items' },
-];
+import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
 const filterComponent = defineAsyncComponent(() => import('components/tags/TagFilters.vue'));
 
@@ -97,7 +90,7 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store, fetch } = useTags();
+    const { fetch, store, filters, sorter, sorters } = useTags();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -127,13 +120,10 @@ export default defineComponent({
       });
     };
 
-    const filters = computed(() => filter(store.query.filter));
-    const sort = computed(() => store.query.sort);
-
     useMeta(() => ({ title: 'Tags' }));
 
     watch(filters, () => store.reset(), { deep: true });
-    watch(sort, () => store.reset(), { deep: true });
+    watch(sorter, () => store.reset(), { deep: true });
 
     return {
       onLoad,

@@ -8,9 +8,7 @@ export const useVideos = () => {
 
   const sorters = [
     { label: 'Relevance', value: null },
-    { label: 'Trending', value: 'trending' },
     { label: 'Most Recent', value: 'created:desc' },
-    { label: 'Most Views', value: 'views:desc' },
     { label: 'Longest', value: 'duration:desc' },
     { label: 'Shortest', value: 'duration:asc' },
   ];

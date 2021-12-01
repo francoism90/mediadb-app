@@ -10,8 +10,7 @@ export const useStore = defineStore('tags', {
     meta: <RepositoryMeta>{},
     links: <RepositoryLinks>{},
     query: <RepositoryQuery>{
-      append: ['items'],
-      sort: 'name',
+      sort: 'name:asc',
       filter: {
         type: null,
         query: null,

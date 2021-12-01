@@ -158,8 +158,7 @@ export default {
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function) => {
       await fetchTags({
-        filter: { id: null, query: val },
-        sort: val.length < 1 ? 'random' : 'relevance',
+        filter: { id: null, query: val || null },
         size: 5,
       });
 
