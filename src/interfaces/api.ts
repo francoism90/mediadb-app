@@ -49,7 +49,6 @@ export interface RepositoryQuery {
   include?: RepositoryOption,
   fields?: RepositoryOption,
   filter?: RepositoryFilter,
-  append?: RepositoryOption,
   sort?: RepositoryOption,
   page?: number | null,
   size?: number | null,
