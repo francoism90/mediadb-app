@@ -5,7 +5,7 @@ export interface VideoModel extends Model {
   'dash_url'?: string
   'episode_number': string,
   'poster_url'?: string
-  'release_date': string,
+  'released_at': string,
   'season_number': string,
   'sprite_url'?: string
   duration: number,

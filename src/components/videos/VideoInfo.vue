@@ -55,39 +55,39 @@
         {{ released }}
       </video-section>
 
-      <video-section v-if="languages.length">
+      <video-section v-if="languages?.length">
         <template #label>
           Languages :
         </template>
         <tag-list :tags="languages" />
       </video-section>
 
-      <video-section v-if="cast.length">
+      <video-section v-if="cast?.length">
         <template #label>
           Cast :
         </template>
         <tag-list :tags="cast" />
       </video-section>
 
-      <video-section v-if="genres.length">
+      <video-section v-if="genres?.length">
         <template #label>
           Genres :
         </template>
         <tag-list :tags="genres" />
       </video-section>
 
-      <video-section v-if="studios.length">
+      <video-section v-if="studios?.length">
         <template #label>
           Studios :
         </template>
         <tag-list :tags="studios" />
       </video-section>
 
-      <video-section v-if="store.data?.resolution">
+      <video-section v-if="store.data?.quality">
         <template #label>
           Resolution :
         </template>
-        {{ store.data.resolution }}
+        {{ store.data.quality }}
       </video-section>
 
       <video-section v-if="store.data?.created_at">
@@ -120,7 +120,7 @@ export default defineComponent({
 
     const duration = computed(() => timeFormat(store.data?.duration));
     const created = computed(() => dateFormat(store.data?.created_at));
-    const released = computed(() => dateFormat(store.data?.release_date));
+    const released = computed(() => dateFormat(store.data?.released_at));
 
     const cast = computed(() => tagsByType('actor'));
     const languages = computed(() => tagsByType('language'));
