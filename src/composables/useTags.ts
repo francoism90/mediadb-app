@@ -7,7 +7,7 @@ export const useTags = () => {
   const store = useStore();
 
   const sorters = [
-    { label: 'Alphabetical', value: 'name:asc' },
+    { label: 'Default', value: null },
     { label: 'Items', value: 'items:desc' },
   ];
 
@@ -40,10 +40,10 @@ export const useTags = () => {
   const sorter = computed(() => store.params.sort);
 
   return {
+    fetch,
     filters,
     sorter,
     sorters,
     store,
-    fetch,
   };
 };

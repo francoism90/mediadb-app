@@ -7,7 +7,7 @@ export const useVideos = () => {
   const store = useStore();
 
   const sorters = [
-    { label: 'Relevance', value: null },
+    { label: 'Default', value: null },
     { label: 'Most Recent', value: 'created:desc' },
     { label: 'Longest', value: 'duration:desc' },
     { label: 'Shortest', value: 'duration:asc' },
