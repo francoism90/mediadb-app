@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
-import { Model, ModelResponse, RepositoryQuery, RepositoryResponse } from 'src/interfaces';
+import { Model, ModelResponse, RepositoryParams, RepositoryResponse } from 'src/interfaces';
 
 export const blob = async (url: string): Promise<Blob> => {
   const response = await api.get<Blob, AxiosResponse<Blob>>(url, {
@@ -16,8 +16,8 @@ export const find = async (path: string) => {
   return response.data;
 };
 
-export const all = async (path: string, params?: RepositoryQuery) => {
-  const response = await api.get<RepositoryQuery, AxiosResponse<RepositoryResponse>>(path, {
+export const all = async (path: string, params?: RepositoryParams) => {
+  const response = await api.get<RepositoryParams, AxiosResponse<RepositoryResponse>>(path, {
     params,
   });
 

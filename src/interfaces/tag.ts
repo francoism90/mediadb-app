@@ -1,8 +1,12 @@
-import { Model, RepositoryQuery, RepositoryResponse } from 'src/interfaces';
+import { Model, RepositoryParams, RepositoryResponse } from 'src/interfaces';
+
+export interface TagsParams extends RepositoryParams {
+  type: string | string[] | null,
+}
 
 export interface TagsState extends RepositoryResponse {
   id: string | number | null,
-  query: RepositoryQuery,
+  params: TagsParams,
 }
 
 export interface TagModel extends Model {

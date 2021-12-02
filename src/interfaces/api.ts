@@ -39,17 +39,9 @@ export interface RepositoryResponse {
   links: RepositoryLinks,
 }
 
-export type RepositoryOption = string | string[] | null
-
-export interface RepositoryFilter {
-  [key: string]: RepositoryOption,
-}
-
-export interface RepositoryQuery {
-  include?: RepositoryOption,
-  fields?: RepositoryOption,
-  filter?: RepositoryFilter,
-  sort?: RepositoryOption,
+export interface RepositoryParams {
+  query?: string | null,
+  sort?: string | string[] | null,
   page?: number | null,
   size?: number | null,
 }

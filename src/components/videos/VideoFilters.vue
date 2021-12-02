@@ -13,7 +13,7 @@
           class="filter-search"
         >
           <q-input
-            v-model.lazy="store.query.filter.query"
+            v-model.lazy="store.params.query"
             autofocus
             borderless
             color="grey-10"
@@ -46,7 +46,7 @@
         >
           <q-item-section side>
             <q-radio
-              v-model.lazy="store.query.filter.type"
+              v-model.lazy="store.params.type"
               :val="list.value"
             />
           </q-item-section>
@@ -68,7 +68,7 @@
         <q-item>
           <q-item-label class="full-width">
             <q-select
-              v-model.lazy="store.query.filter.tags"
+              v-model.lazy="store.params.tags"
               :options="tags"
               class="q-my-sm"
               counter
@@ -157,12 +157,7 @@ export default {
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function) => {
-      await fetchTags({
-        filter: { query: val },
-        sort: 'items:desc',
-        size: 5,
-      });
-
+      await fetchTags({ query: val, sort: 'items:desc', size: 5 });
       await update();
     };
 

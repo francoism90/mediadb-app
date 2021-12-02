@@ -28,7 +28,7 @@ export const useVideos = () => {
       return;
     }
 
-    const response = await all('videos', store.query);
+    const response = await all('videos', store.params);
 
     store.populate(response);
   };
@@ -38,8 +38,8 @@ export const useVideos = () => {
     await fetchQuery();
   };
 
-  const filters = computed(() => filter(store.query.filter));
-  const sorter = computed(() => store.query.sort);
+  const filters = computed(() => filter(store.params));
+  const sorter = computed(() => store.params.sort);
 
   return {
     fetch,

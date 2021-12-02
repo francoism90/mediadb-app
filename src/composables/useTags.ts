@@ -26,7 +26,7 @@ export const useTags = () => {
       return;
     }
 
-    const response = await all('tags', store.query);
+    const response = await all('tags', store.params);
 
     store.populate(response);
   };
@@ -36,8 +36,8 @@ export const useTags = () => {
     await fetchQuery();
   };
 
-  const filters = computed(() => filter(store.query.filter));
-  const sorter = computed(() => store.query.sort);
+  const filters = computed(() => filter(store.params));
+  const sorter = computed(() => store.params.sort);
 
   return {
     filters,

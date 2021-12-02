@@ -1,7 +1,7 @@
 import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
 import { mergeDeep } from 'src/helpers';
-import { Model, RepositoryLinks, RepositoryMeta, RepositoryQuery, RepositoryResponse, VideoModel, VideosState } from 'src/interfaces';
+import { Model, RepositoryLinks, RepositoryMeta, RepositoryParams, RepositoryResponse, VideoModel, VideosParams, VideosState } from 'src/interfaces';
 
 export const useStore = defineStore('similar', {
   state: () => (<VideosState>{
@@ -9,7 +9,7 @@ export const useStore = defineStore('similar', {
     data: <VideoModel[]>[],
     meta: <RepositoryMeta>{},
     links: <RepositoryLinks>{},
-    query: <RepositoryQuery>{},
+    params: <VideosParams>{},
   }),
 
   getters: {
@@ -23,9 +23,9 @@ export const useStore = defineStore('similar', {
   },
 
   actions: {
-    reset(payload?: RepositoryQuery): void {
+    reset(payload?: RepositoryParams): void {
       // Merge query
-      this.$patch({ query: payload || {} });
+      this.$patch({ params: payload || {} });
 
       // Reset results
       this.data = <VideoModel[]>[];
