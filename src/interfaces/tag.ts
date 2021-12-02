@@ -1,7 +1,7 @@
 import { Model, RepositoryParams, RepositoryResponse } from 'src/interfaces';
 
 export interface TagsParams extends RepositoryParams {
-  type: string | string[] | null,
+  type?: string | string[] | null,
 }
 
 export interface TagsState extends RepositoryResponse {

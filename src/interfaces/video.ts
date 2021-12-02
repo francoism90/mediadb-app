@@ -20,8 +20,8 @@ export interface VideoModel extends Model {
 }
 
 export interface VideosParams extends RepositoryParams {
-  type: string | string[] | null,
-  tags: string | string[] | null,
+  type?: string | string[] | null,
+  tags?: string | string[] | null,
 }
 
 export interface VideosState extends RepositoryResponse {
