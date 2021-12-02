@@ -39,22 +39,11 @@ export interface RepositoryResponse {
   links: RepositoryLinks,
 }
 
-export type RepositoryOption = string | string[] | null
-
-export interface RepositoryFilter {
-  [key: string]: RepositoryOption,
-}
-
-export interface RepositoryQuery {
-  include?: RepositoryOption,
-  fields?: RepositoryOption,
-  filter?: RepositoryFilter,
-  append?: RepositoryOption,
-  sort?: RepositoryOption,
-  page?: {
-    number?: number | null,
-    size?: number | null,
-  }
+export interface RepositoryParams {
+  query?: string | null,
+  sort?: string | string[] | null,
+  page?: number | null,
+  size?: number | null,
 }
 
 export type FieldError = string

@@ -1,7 +1,7 @@
 import { find, findIndex, mergeWith, remove } from 'lodash';
 import { defineStore } from 'pinia';
 import { mergeDeep } from 'src/helpers';
-import { RepositoryLinks, RepositoryMeta, RepositoryQuery, RepositoryResponse, TagModel, TagsState } from 'src/interfaces';
+import { RepositoryLinks, RepositoryMeta, RepositoryResponse, TagModel, TagsParams, TagsState } from 'src/interfaces';
 
 export const useStore = defineStore('tags', {
   state: () => (<TagsState>{
@@ -9,17 +9,10 @@ export const useStore = defineStore('tags', {
     data: <TagModel[]>[],
     meta: <RepositoryMeta>{},
     links: <RepositoryLinks>{},
-    query: <RepositoryQuery>{
-      append: ['items'],
-      sort: 'name',
-      filter: {
-        type: null,
-        query: null,
-      },
-      page: {
-        number: 1,
-        size: 24,
-      },
+    params: <TagsParams>{
+      sort: null,
+      type: null,
+      query: null,
     },
   }),
 
@@ -34,9 +27,9 @@ export const useStore = defineStore('tags', {
   },
 
   actions: {
-    reset(payload?: RepositoryQuery): void {
+    reset(payload?: TagsParams): void {
       // Merge query
-      this.$patch({ query: payload || {} });
+      this.$patch({ params: payload || {} });
 
       // Reset results
       this.data = <TagModel[]>[];

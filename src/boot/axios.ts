@@ -13,6 +13,7 @@ export const api = axios.create({
       encodeValuesOnly: true,
       arrayFormat: 'comma',
       skipNulls: true,
+      strictNullHandling: true,
     });
   },
 });

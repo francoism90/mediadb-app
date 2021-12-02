@@ -13,7 +13,7 @@
           class="filter-search"
         >
           <q-input
-            v-model.lazy="store.query.filter.query"
+            v-model.lazy="store.params.query"
             autofocus
             borderless
             color="grey-10"
@@ -46,7 +46,7 @@
         >
           <q-item-section side>
             <q-radio
-              v-model.lazy="store.query.filter.type"
+              v-model.lazy="store.params.type"
               :val="list.value"
             />
           </q-item-section>

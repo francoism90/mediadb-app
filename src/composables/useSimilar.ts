@@ -3,7 +3,7 @@ import { all, get } from 'src/services/api';
 import { useStore } from 'src/store/videos/similar';
 import { computed } from 'vue';
 
-export const useSimilar = () => {
+export const useSimilar = (id: string) => {
   const store = useStore();
 
   const sorters = [
@@ -15,7 +15,7 @@ export const useSimilar = () => {
     { label: 'Shortest', value: 'duration' },
   ];
 
-  const initialize = (id: string) => store.reset({ filter: { similar: id } });
+  const initialize = () => store.reset();
 
   const fetchNext = async () => {
     if (!store.isFetchable) {
@@ -32,7 +32,7 @@ export const useSimilar = () => {
       return;
     }
 
-    const response = await all('videos', store.query);
+    const response = await all(`videos/similar/${id}`, store.params);
 
     store.populate(response);
   };
@@ -42,15 +42,15 @@ export const useSimilar = () => {
     await fetchQuery();
   };
 
-  const filters = computed(() => filter(store.query.filter));
-  const sorter = computed(() => store.query.sort);
+  const filters = computed(() => filter(store.params));
+  const sorter = computed(() => store.params.sort);
 
   return {
+    initialize,
+    fetch,
     filters,
     sorter,
     sorters,
     store,
-    initialize,
-    fetch,
   };
 };

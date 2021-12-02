@@ -7,12 +7,8 @@ export const useTags = () => {
   const store = useStore();
 
   const sorters = [
-    { label: 'Relevance', value: 'relevance' },
-    { label: 'Trending', value: 'trending' },
-    { label: 'Most Recent', value: '-created_at' },
-    { label: 'Most Views', value: '-views' },
-    { label: 'Longest', value: '-duration' },
-    { label: 'Shortest', value: 'duration' },
+    { label: 'Default', value: null },
+    { label: 'Items', value: 'items:desc' },
   ];
 
   const fetchNext = async () => {
@@ -30,7 +26,7 @@ export const useTags = () => {
       return;
     }
 
-    const response = await all('tags', store.query);
+    const response = await all('tags', store.params);
 
     store.populate(response);
   };
@@ -40,14 +36,14 @@ export const useTags = () => {
     await fetchQuery();
   };
 
-  const filters = computed(() => filter(store.query.filter));
-  const sorter = computed(() => store.query.sort);
+  const filters = computed(() => filter(store.params));
+  const sorter = computed(() => store.params.sort);
 
   return {
+    fetch,
     filters,
     sorter,
     sorters,
     store,
-    fetch,
   };
 };
