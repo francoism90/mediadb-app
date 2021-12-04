@@ -10,7 +10,7 @@
       class="poster"
     >
       <q-img
-        :alt="video.name"
+        :alt="video.title"
         :src="video.poster_url"
         :draggable="false"
         loading="lazy"
@@ -25,7 +25,7 @@
       <div class="row no-wrap">
         <div class="col">
           <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
-            {{ name }}
+            {{ video.title }}
           </div>
 
           <div class="q-pb-xs text-grey-5 text-weight-medium ellipsis-2-lines">
@@ -82,7 +82,7 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { useAcquaintances } from 'src/composables/useAcquaintances';
-import { timeFormat, titleFormat } from 'src/helpers';
+import { timeFormat } from 'src/helpers';
 import { VideoModel } from 'src/interfaces/video';
 import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
@@ -115,11 +115,6 @@ export default defineComponent({
     const $q = useQuasar();
     const { favorited, following } = useAcquaintances();
 
-    const name = computed(() => titleFormat([
-      [props.video.season_number, props.video.episode_number].join(''),
-      props.video.name,
-    ]));
-
     const duration = computed(() => timeFormat(props.video.duration));
 
     const favoriteModel = async () => {
@@ -139,7 +134,6 @@ export default defineComponent({
       followModel,
       actions,
       duration,
-      name,
     };
   },
 });

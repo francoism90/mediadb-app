@@ -4,7 +4,7 @@
     class="video-details q-py-md"
   >
     <h1 class="text-h3 text-white ellipsis-2-lines">
-      {{ store.data?.name }}
+      {{ store.data?.title }}
     </h1>
 
     <div class="q-gutter-sm text-white">

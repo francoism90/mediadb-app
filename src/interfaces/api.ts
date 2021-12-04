@@ -2,13 +2,13 @@ import { AxiosError } from 'axios';
 
 export interface Model {
   id: string,
-  name: string,
   slug?: string,
+  name?: string,
   description?: string,
   favorite?: boolean,
   following?: boolean,
-  'created_at': string,
-  'updated_at': string,
+  'created_at'?: string,
+  'updated_at'?: string,
 }
 
 export interface ModelResponse {
