@@ -12,9 +12,10 @@ export const echo = new Echo({
   wsHost: process.env.WS_HOST,
   wsPort: process.env.WS_PORT,
   wssPort: process.env.WS_PORT,
+  forceTLS: true,
+  encrypted: true,
   disableStats: true,
   enabledTransports: ['ws', 'wss'],
-  forceTLS: true,
   authEndpoint: `${process.env.API_URL}/broadcasting/auth`,
   authorizer: (channel: PusherChannel) => ({
     // eslint-disable-next-line @typescript-eslint/ban-types
