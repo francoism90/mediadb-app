@@ -90,7 +90,7 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { fetch, store, filters, sorter, sorters } = useTags();
+    const { fetch, store, filters, sorters } = useTags();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -123,7 +123,6 @@ export default defineComponent({
     useMeta(() => ({ title: 'Tags' }));
 
     watch(filters, () => store.reset(), { deep: true });
-    watch(sorter, () => store.reset(), { deep: true });
 
     return {
       onLoad,

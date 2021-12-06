@@ -39,12 +39,10 @@ export const useVideos = () => {
   };
 
   const filters = computed(() => filter(store.params));
-  const sorter = computed(() => store.params.sort);
 
   return {
     fetch,
     filters,
-    sorter,
     sorters,
     store,
   };

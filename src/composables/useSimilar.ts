@@ -43,13 +43,11 @@ export const useSimilar = (id: string) => {
   };
 
   const filters = computed(() => filter(store.params));
-  const sorter = computed(() => store.params.sort);
 
   return {
     initialize,
     fetch,
     filters,
-    sorter,
     sorters,
     store,
   };
