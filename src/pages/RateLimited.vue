@@ -1,25 +1,22 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
+  <div class="fullscreen text-white text-center q-pa-md flex flex-center">
     <div>
-      <div style="font-size: 30vh;">
-        404
+      <div style="font-size: 15vh;">
+        421
       </div>
 
-      <div
-        class="text-h2"
-        style="opacity: 0.4;"
-      >
-        Oops. Try again later...
+      <div class="text-body1 text-grey-5">
+        Oops. Please try again later..
       </div>
 
       <q-btn
         class="q-mt-xl"
-        color="white"
-        text-color="blue"
+        color="grey-10"
+        text-color="primary"
         unelevated
-        to="/"
-        label="Go Home"
+        label="Go Back"
         no-caps
+        @click="onClick"
       />
     </div>
   </div>
@@ -33,7 +30,13 @@ export default defineComponent({
   name: 'RateLimited',
 
   setup() {
+    const onClick = () => window.history.back();
+
     useMeta(() => ({ title: '421 - Rate Limit' }));
+
+    return {
+      onClick,
+    };
   },
 });
 </script>
