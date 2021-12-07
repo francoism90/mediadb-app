@@ -6,7 +6,7 @@
     <q-header
       bordered
       class="header row no-wrap items-center content-center bg-dark"
-      height-hint="58"
+      height-hint="48"
     >
       <q-toolbar class="header-container container fluid">
         <router-link
