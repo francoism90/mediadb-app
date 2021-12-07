@@ -86,7 +86,7 @@ import { useDialogPluginComponent } from 'quasar';
 import { useTags } from 'src/composables/useTags';
 
 const lists = [
-  { label: 'Show All', value: null },
+  { label: 'All Categories', value: null },
   { label: 'Actors', value: 'actor' },
   { label: 'Genres', value: 'genre' },
   { label: 'Languages', value: 'language' },
@@ -110,11 +110,11 @@ export default {
     };
 
     return {
+      onDialogHide,
+      resetFilters,
       dialogRef,
       store,
       lists,
-      onDialogHide,
-      resetFilters,
     };
   },
 };
