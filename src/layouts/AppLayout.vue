@@ -53,7 +53,7 @@ import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMou
 const tabs = [
   {
     icon: 'o_ondemand_video',
-    label: 'Ondemand',
+    label: 'Videos',
     route: { name: 'home' },
   },
   {

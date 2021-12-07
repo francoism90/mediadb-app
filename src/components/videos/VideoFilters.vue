@@ -137,7 +137,7 @@ import { useTagInput } from 'src/composables/useTagInput';
 import { useVideos } from 'src/composables/useVideos';
 
 const lists = [
-  { label: 'All Content', value: null },
+  { label: 'Watchable', value: null },
   { label: 'Bookmarks', value: 'favorites' },
   { label: 'Watchlist', value: 'following' },
   { label: 'History', value: 'viewed' },
