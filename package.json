@@ -10,7 +10,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@capacitor/core": "^3.3.2",
+    "@capacitor/core": "^3.3.3",
     "@capacitor/status-bar": "^1.0.6",
     "@pinia/plugin-debounce": "^0.0.2",
     "@quasar/extras": "^1.12.2",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.3",
     "@quasar/app": "^3.2.5",
-    "@types/lodash": "^4.14.177",
+    "@types/lodash": "^4.14.178",
     "@types/node": "^16.11.12",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
