@@ -81,7 +81,7 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import { useAcquaintances } from 'src/composables/useAcquaintances';
+import { useVideo } from 'src/composables/useVideo';
 import { timeFormat } from 'src/helpers';
 import { VideoModel } from 'src/interfaces/video';
 import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
@@ -113,18 +113,18 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { favorited, following } = useAcquaintances();
+    const { favorite, follow } = useVideo();
 
     const duration = computed(() => timeFormat(props.video.duration));
 
     const favoriteModel = async () => {
-      await favorited(props.video, true);
+      await favorite(props.video?.id || '', <VideoModel>{ favorite: true });
 
       $q.notify({ message: 'Added to bookmarks.', icon: 'favorite' });
     };
 
     const followModel = async () => {
-      await following(props.video, true);
+      await follow(props.video?.id || '', <VideoModel>{ following: true });
 
       $q.notify({ message: 'Added to watchlist.', icon: 'watch_later' });
     };

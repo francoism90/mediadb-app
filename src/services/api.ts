@@ -30,7 +30,7 @@ export const get = async (url: string) => {
   return response.data;
 };
 
-export const save = async (path: string, data: Model) => {
+export const save = async (path: string, data: Model | undefined) => {
   const response = await api.patch<Model, AxiosResponse<RepositoryResponse>>(path, data);
 
   return response.data;
@@ -38,22 +38,6 @@ export const save = async (path: string, data: Model) => {
 
 export const remove = async (path: string) => {
   const response = await api.delete<string, AxiosResponse<ModelResponse>>(path);
-
-  return response.data;
-};
-
-export const favorite = async (params: Model, force?: boolean) => {
-  const response = await api.post<Model, AxiosResponse<Model>>(`user/favorite/${params.id}`, <Model>{
-    favorite: force,
-  });
-
-  return response.data;
-};
-
-export const follow = async (params: Model, force?: boolean) => {
-  const response = await api.post<Model, AxiosResponse<Model>>(`user/follow/${params.id}`, <Model>{
-    following: force,
-  });
 
   return response.data;
 };

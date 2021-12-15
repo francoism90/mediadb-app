@@ -14,6 +14,8 @@ export const useVideo = () => {
   const fetch = async (id: string) => find(`videos/${id}`);
   const destroy = async (id: string) => remove(`videos/${id}`);
   const update = async (id: string, payload: VideoModel) => save(`videos/${id}`, payload);
+  const favorite = async (id: string, payload?: VideoModel) => save(`videos/favorite/${id}`, payload);
+  const follow = async (id: string, payload?: VideoModel) => save(`videos/follow/${id}`, payload);
 
   const initialize = async (id: string) => {
     resetResponse();
@@ -51,6 +53,8 @@ export const useVideo = () => {
     fetch,
     destroy,
     update,
+    favorite,
+    follow,
     subscribe,
     unsubscribe,
   };
