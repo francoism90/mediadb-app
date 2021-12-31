@@ -18,7 +18,7 @@ export const usePlayer = () => {
 
   const capture = async () => {
     await update(videoStore.id || '', {
-      ...videoStore.data, ...{ thumbnail: store.properties?.time || 0 },
+      ...videoStore.data, ...{ thumbnail: store.properties?.time || videoStore.data?.thumbnail },
     });
 
     $q.notify({ type: 'positive', message: 'The video thumbnail will be updated.' });
