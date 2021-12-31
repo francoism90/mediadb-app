@@ -1,7 +1,6 @@
 import { MediaModel, Model, ModelResponse, RepositoryParams, RepositoryResponse, TagModel } from 'src/interfaces';
 
 export interface VideoModel extends Model {
-  'capture_time'?: number,
   'dash_url'?: string
   'production_code': string,
   'episode_number': string,
@@ -18,6 +17,7 @@ export interface VideoModel extends Model {
   overview?: string,
   status?: string,
   tags?: TagModel[],
+  thumbnail?: number,
   type?: string,
   views?: number,
 }
