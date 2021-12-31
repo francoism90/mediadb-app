@@ -1,11 +1,12 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-dark q-py-lg">
+    <q-toolbar class="bg-dark filter-toolbar">
       <q-select
         v-model.lazy="store.params.sort"
         :options="sorters"
         behavior="menu"
-        class="q-px-none text-caption"
+        class="text-caption"
+        input-class="q-px-none q-py-xs"
         dropdown-icon="expand_more"
         borderless
         emit-value
@@ -48,7 +49,7 @@
             :key="index"
             class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
           >
-            <item :video="item" />
+            <video-item :video="item" />
           </q-intersection>
         </div>
 
@@ -77,7 +78,7 @@ export default defineComponent({
   name: 'VideoOverview',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
+    VideoItem: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {

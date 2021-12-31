@@ -1,11 +1,12 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-dark q-py-lg">
+    <q-toolbar class="bg-dark filter-toolbar">
       <q-select
         v-model.lazy="store.params.sort"
         :options="sorters"
         behavior="menu"
-        class="q-px-none text-caption"
+        class="text-caption"
+        input-class="q-px-none q-py-xs"
         dropdown-icon="expand_more"
         borderless
         emit-value
