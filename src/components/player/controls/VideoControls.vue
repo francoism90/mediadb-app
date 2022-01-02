@@ -4,7 +4,7 @@
     @mouseenter="activate"
     @mouseleave="deactivate"
     @mousemove="activate"
-    @touchstart="activate"
+    @touchstart.passive="activate"
   >
     <transition
       appear
