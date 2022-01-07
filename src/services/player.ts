@@ -160,8 +160,8 @@ export const destroy = (player: MediaPlayerClass | undefined) => {
   store.$reset();
 };
 
-export const getCueByTime = (track: TextTrack, time: number) => find(
-  track.cues,
+export const getCueByTime = (track: TextTrack | undefined, time: number) => find(
+  track?.cues,
   (o: VTTCue) => inRange(time, o.startTime, o.endTime),
 );
 
