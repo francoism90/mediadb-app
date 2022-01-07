@@ -1,9 +1,12 @@
+import { useQuasar } from 'quasar';
 import { Player } from 'shaka-player';
-import { VideoModel } from 'src/interfaces';
+import { PlayerRequest, VideoModel } from 'src/interfaces';
 import { create, eventManager, events, store, sync } from 'src/services/player';
 import { ref } from 'vue';
 
 export const usePlayer = () => {
+  const $q = useQuasar();
+
   const $player = ref<Player>();
   const container = ref<HTMLDivElement>();
   const element = ref<HTMLMediaElement>();
@@ -22,6 +25,18 @@ export const usePlayer = () => {
     });
   };
 
+  const update = async (request: PlayerRequest) => {
+    // Screen
+    if (request.fullscreen) await $q.fullscreen.toggle(container.value);
+
+    // Playback
+    if (request.pause && element.value?.paused) await element.value?.play();
+    else if (request.pause && !element.value?.paused) element.value?.pause();
+
+    // Seeking
+    if (request.seek && element.value?.currentTime) element.value.currentTime = request.seek || 0;
+  };
+
   const reset = async () => {
     // Stop event listeners
     manager.removeAll();
@@ -38,9 +53,11 @@ export const usePlayer = () => {
   };
 
   return {
-    initialize,
-    reset,
     container,
     element,
+    store,
+    initialize,
+    update,
+    reset,
   };
 };

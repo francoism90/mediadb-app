@@ -42,7 +42,7 @@ export const sync = (element: HTMLMediaElement | undefined) => store.sync({
   error: element?.error,
   muted: element?.muted || false,
   networkState: element?.networkState || 0,
-  paused: element?.paused || true,
+  paused: element?.paused || false,
   seekable: element?.seekable,
   textTracks: element?.textTracks || undefined,
   volume: element?.volume || 0,

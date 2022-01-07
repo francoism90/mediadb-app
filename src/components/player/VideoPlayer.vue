@@ -10,14 +10,11 @@
         playsinline
         class="absolute fit block no-outline"
         crossorigin="anonymous"
-        controls
       />
 
-      <!-- <video-controls :state="state" /> -->
+      <video-controls />
     </div>
   </div>
-
-  <video-controls />
 </template>
 
 <script lang="ts">
@@ -36,12 +33,13 @@ export default defineComponent({
   setup() {
     const { token } = useSession();
     const { store } = useVideo();
-    const { container, element, initialize, reset } = usePlayer();
+    const { container, element, store: player, initialize, reset, update } = usePlayer();
 
     onMounted(() => initialize(store.data, token.value));
     onBeforeUnmount(() => reset());
 
     watch(() => store.data, () => initialize(store.data, token.value));
+    watch(() => player.request, (value) => update(value));
 
     return {
       container,
