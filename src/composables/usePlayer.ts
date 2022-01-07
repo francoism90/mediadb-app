@@ -7,6 +7,7 @@ import { computed } from 'vue';
 
 export const usePlayer = () => {
   const $q = useQuasar();
+
   const { store: sessionStore } = useSession();
   const { update, store: videoStore } = useVideo();
 

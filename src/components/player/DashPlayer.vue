@@ -40,8 +40,8 @@ export default defineComponent({
 
     watch(() => source, () => initialize(source.value, token.value));
     watch(() => store.request, (value) => update(value));
-    watch(() => $q.fullscreen.isActive, () => update({ resolution: true }));
-    watch(() => $q.screen.name, () => update({ resolution: true }));
+    watch(() => $q.fullscreen.isActive, () => update({ resolution: +new Date() }));
+    watch(() => $q.screen.name, () => update({ resolution: +new Date() }));
 
     return {
       source,
