@@ -1,49 +1,16 @@
-import { MediaInfo } from 'dashjs';
-import { DomOffset } from 'quasar';
-
-export type PlayerTextTrack = MediaInfo | TextTrack | null
-
 export interface PlayerProperties {
-  ready: boolean,
-  autoplay: boolean,
-  buffered: number,
+  readyState: number,
+  buffered: TimeRanges | undefined,
+  currentTime: number,
   duration: number,
-  fullscreen: boolean,
+  ended: boolean,
+  error: MediaError | null | undefined,
   muted: boolean,
+  networkState: number,
   paused: boolean,
-  playbackRate: number,
-  quality: number,
-  seeking: boolean,
-  source: string | object,
-  tracks: TextTrackList,
-  textTrack: PlayerTextTrack,
-  textTracks: PlayerTextTrack[],
-  videoTrack: PlayerTextTrack,
-  videoTracks: PlayerTextTrack[],
-  time: number,
+  seekable: TimeRanges | undefined,
+  textTracks: TextTrackList | undefined,
   volume: number,
-}
-
-export interface PlayerResolution {
-  label: string,
-  icon: string,
-  width: number,
-  height: number,
-}
-
-export interface PlayerTooltip {
-  position: number,
-  offset: DomOffset,
-  width: number,
-}
-
-export interface PlayerTrack {
-  id: string,
-  kind: string,
-  label: string,
-  srclang: string,
-  src: string,
-  type: string,
 }
 
 export interface PlayerRequest {
@@ -51,8 +18,8 @@ export interface PlayerRequest {
   seek?: number,
   fullscreen?: boolean | number,
   resolution?: boolean | number,
-  showTrack?: PlayerTrack,
-  hideTrack?: PlayerTrack,
+  // showTrack?: PlayerTrack,
+  // hideTrack?: PlayerTrack,
 }
 
 export interface PlayerState {
@@ -60,5 +27,5 @@ export interface PlayerState {
   controls: boolean,
   properties: PlayerProperties,
   request: PlayerRequest,
-  tooltip: PlayerTooltip,
+  // tooltip: PlayerTooltip,
 }

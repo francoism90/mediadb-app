@@ -1,36 +1,46 @@
-import { useQuasar } from 'quasar';
-import { useSession } from 'src/composables/useSession';
-import { useVideo } from 'src/composables/useVideo';
-import { timeFormat } from 'src/helpers';
-import { getThumbnail, store } from 'src/services/player';
-import { computed } from 'vue';
+import { Player } from 'shaka-player';
+import { VideoModel } from 'src/interfaces';
+import { create, eventManager, events, store, sync } from 'src/services/player';
+import { ref } from 'vue';
 
 export const usePlayer = () => {
-  const $q = useQuasar();
-  const { store: sessionStore } = useSession();
-  const { update, store: videoStore } = useVideo();
+  const $player = ref<Player>();
+  const container = ref<HTMLDivElement>();
+  const element = ref<HTMLMediaElement>();
 
-  const source = computed(() => videoStore.data?.dash_url || '');
-  const token = computed(() => sessionStore.token || '');
+  const manager = eventManager();
 
-  const currentTime = computed(() => timeFormat(store.properties?.time));
-  const duration = computed(() => timeFormat(store.properties?.duration));
+  const initialize = async (model: VideoModel, token: string) => {
+    if (!element.value) {
+      return;
+    }
 
-  const capture = async () => {
-    await update(videoStore.id || '', {
-      ...videoStore.data, ...{ thumbnail: store.properties?.time || videoStore.data?.thumbnail },
+    $player.value = await create(model, element.value, token);
+
+    events.forEach((event) => {
+      manager.listen(element.value as HTMLMediaElement, event, () => sync(element.value));
     });
+  };
 
-    $q.notify({ type: 'positive', message: 'The video thumbnail will be updated.' });
+  const reset = async () => {
+    // Stop event listeners
+    manager.removeAll();
+
+    // Destroy player
+    await $player.value?.destroy();
+
+    /// @doc https://stackoverflow.com/a/28060352
+    element.value?.removeAttribute('src');
+    element.value?.load();
+
+    // Reset store
+    store.$reset();
   };
 
   return {
-    store,
-    currentTime,
-    duration,
-    source,
-    token,
-    getThumbnail,
-    capture,
+    initialize,
+    reset,
+    container,
+    element,
   };
 };

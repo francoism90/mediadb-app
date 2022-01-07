@@ -1,41 +1,74 @@
-import { find, inRange } from 'lodash';
-import { PlayerTrack } from 'src/interfaces';
-import { blob } from 'src/services/api';
+import * as shaka from 'shaka-player';
+import { VideoModel } from 'src/interfaces';
 import { useStore } from 'src/store/videos/player';
 
 export const store = useStore();
 
-export const resolutions = [
-  { label: '2160p', icon: '4K', width: 3840, height: 2160 },
-  { label: '1440p', icon: '2k', width: 2560, height: 1440 },
-  { label: '1080p', icon: 'hd', width: 1920, height: 1080 },
-  { label: '720p', icon: 'hd', width: 1280, height: 720 },
-  { label: '480p', icon: 'sd', width: 854, height: 480 },
-  { label: '360p', icon: 'sd', width: 640, height: 360 },
-  { label: '240p', icon: 'sd', width: 426, height: 240 },
+export const create = async (model: VideoModel, element: HTMLMediaElement | undefined, token: string) => {
+  // Prepare browser
+  await shaka.polyfill.installAll();
+
+  // create player
+  const player = new shaka.Player();
+
+  // Set authorization header
+  player.getNetworkingEngine()?.registerRequestFilter((type, request) => {
+    request.headers.Authorization = `Bearer ${token}`;
+  });
+
+  // Load video
+  if (element) {
+    await player.attach(element);
+    await player.load(model.dash_url || '');
+
+    // Set default tracks
+    const track = await player.addTextTrackAsync(model.sprite_url || '', 'en', 'metadata');
+
+    player.selectTextTrack(track);
+    player.setTextTrackVisibility(true);
+  }
+
+  return player;
+};
+
+export const eventManager = () => new shaka.util.EventManager();
+
+export const sync = (element: HTMLMediaElement | undefined) => store.sync({
+  readyState: element?.readyState || 0,
+  buffered: element?.buffered,
+  currentTime: element?.currentTime || 0,
+  duration: element?.duration || 0,
+  ended: element?.ended || true,
+  error: element?.error,
+  muted: element?.muted || false,
+  networkState: element?.networkState || 0,
+  paused: element?.paused || true,
+  seekable: element?.seekable,
+  textTracks: element?.textTracks || undefined,
+  volume: element?.volume || 0,
+});
+
+export const events = [
+  'abort',
+  'canplay',
+  'canplaythrough',
+  'durationchange',
+  'emptied',
+  'ended',
+  'error',
+  'loadeddata',
+  'loadedmetadata',
+  'loadstart',
+  'pause',
+  'play',
+  'playing',
+  'progress',
+  'ratechange',
+  'seeked',
+  'seeking',
+  'stalled',
+  'suspend',
+  'timeupdate',
+  'volumechange',
+  'waiting',
 ];
-
-export const getSpriteCue = (time: number) => find(store.spriteTrack?.cues, (o: VTTCue) => inRange(
-  time,
-  o.startTime,
-  o.endTime,
-));
-
-export const getThumbnailTrack = (time: number) => {
-  const cue = getSpriteCue(time) as VTTCue;
-
-  return JSON.parse(cue?.text || '{}') as PlayerTrack;
-};
-
-export const getThumbnail = async (time: number) => {
-  const track = getThumbnailTrack(time);
-
-  return blob(track?.src || '');
-};
-
-export const getResolution = (height: number, width: number) => {
-  const heightMatch = resolutions.find((e) => height >= e.height);
-  const widthMatch = resolutions.find((e) => width >= e.width);
-
-  return heightMatch || widthMatch;
-};

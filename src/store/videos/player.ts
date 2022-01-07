@@ -1,36 +1,34 @@
-import { find } from 'lodash';
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerRequest, PlayerState, PlayerTextTrack, PlayerTooltip } from 'src/interfaces';
+import { PlayerProperties, PlayerRequest, PlayerState } from 'src/interfaces';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
     activity: false,
     controls: false,
-    request: <PlayerRequest>{},
     properties: <PlayerProperties>{},
-    tooltip: <PlayerTooltip>{},
+    request: <PlayerRequest>{},
   }),
 
   getters: {
-    isReady(): boolean {
-      return typeof this.properties?.videoTrack === 'object';
-    },
+    // isReady(): boolean {
+    //   // return typeof this.properties?.videoTrack === 'object';
+    // },
 
-    isWaiting(): boolean {
-      return !this.properties?.ready || this.properties?.seeking;
-    },
+    // isWaiting(): boolean {
+    //   return !this.properties?.ready || this.properties?.seeking;
+    // },
 
-    spriteTrack(): TextTrack {
-      return find(this.properties?.tracks, { label: 'sprite' }) as TextTrack;
-    },
+    // spriteTrack(): TextTrack {
+    //   return find(this.properties?.tracks, { label: 'sprite' }) as TextTrack;
+    // },
 
-    textTrack(): PlayerTextTrack {
-      return this.properties?.textTrack;
-    },
+    // textTrack(): PlayerTextTrack {
+    //   return this.properties?.textTrack;
+    // },
 
-    textTracks(): PlayerTextTrack[] {
-      return this.properties?.textTracks;
-    },
+    // textTracks(): PlayerTextTrack[] {
+    //   return this.properties?.textTracks;
+    // },
   },
 
   actions: {
