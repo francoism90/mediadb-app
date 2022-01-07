@@ -1,6 +1,7 @@
 import { find } from 'lodash';
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerRequest, PlayerState, PlayerTextTrack, PlayerTooltip } from 'src/interfaces';
+import { PlayerProperties, PlayerRequest, PlayerState, PlayerTextTrack, PlayerTooltip, VideoModel } from 'src/interfaces';
+import { useStore as useVideoStore } from 'src/store/videos/item';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
@@ -18,6 +19,11 @@ export const useStore = defineStore('player', {
 
     isWaiting(): boolean {
       return !this.properties?.ready || this.properties?.seeking;
+    },
+
+    model(): VideoModel {
+      const videoStore = useVideoStore();
+      return videoStore.data;
     },
 
     spriteTrack(): TextTrack {
