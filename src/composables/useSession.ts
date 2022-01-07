@@ -1,12 +1,11 @@
 import { includes } from 'lodash';
 import { echoKey } from 'src/boot/echo';
-import { useStores } from 'src/composables/useStores';
 import { AuthRequest, LoginRequest } from 'src/interfaces';
 import { authenticate, check, destroy, store } from 'src/services/auth';
+import { updated } from 'src/services/store';
 import { computed, inject, readonly } from 'vue';
 
 export const useSession = () => {
-  const { updated } = useStores();
   const echo = inject(echoKey);
 
   const roles = computed(() => store.user?.roles || []);

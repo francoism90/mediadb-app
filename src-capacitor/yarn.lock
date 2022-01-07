@@ -2,20 +2,20 @@
 # yarn lockfile v1
 
 
-"@capacitor/android@^3.3.3":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.3.3.tgz#b09708e58fb942e2b5afe6081c7377d4785271aa"
-  integrity sha512-YfLW8gh/b3ZifmhQPFS9ybAnPp4MutQWGFYiAVecRh3O5nJD/UgZAmUmqpSoWRAOWbNGLX4lhWUIs+cCf552fg==
+"@capacitor/android@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.3.4.tgz#ee6565f53d9e78368b9b2d50ee778b961f4d3729"
+  integrity sha512-5eaiZr79Dm1MNBjszVBXx8Io8YH+/RyFS6ix6V2LaKC4xj4i24kBJug5AHV4UbBBr9e/+RsAE9sui+SlkB1jNg==
 
 "@capacitor/app@^1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-1.0.7.tgz#60e5b33299138b100910fdeb18a2cbc48beb53bd"
   integrity sha512-7CcMGp9yshBR0fkmNPVsYmUUhlAQnJFCeJGJIF3862D5l+drBjEOE+QoGjiKtaqPriadkGCsoYVrX10yGULDpA==
 
-"@capacitor/cli@^3.3.3":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.3.3.tgz#07a146615a9723e89879a8e4847be3e57a0cbc5d"
-  integrity sha512-dRwBnHuc6UzXfQX3nvfMR70hG59CpXumqIXNtl+bZqoGWRUafJiGSY5KJJYOqk5xslQDA2VdBLkq39+wslQGAg==
+"@capacitor/cli@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.3.4.tgz#695cbf80c7a628a738d09161cda95bdd454ce0ef"
+  integrity sha512-kAyB+WoKk7YvC3Z5bA8E8a2oEVjv+KdJQxjSiUNYy9KiLny4PEUWzIUjiPZcWOH7JGuHGz5FNRTy1irkd+rV5A==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.1"
     "@ionic/utils-fs" "^3.1.5"
@@ -34,10 +34,10 @@
     tslib "^2.1.0"
     xml2js "^0.4.23"
 
-"@capacitor/core@^3.3.3":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.3.3.tgz#a1868a536a0b82381c2eaeb9aeca424ffbc5bca3"
-  integrity sha512-5oN3dUxdVXSvrTvTkmKBoBh7qISi+PVrsxHyjqq7Kr573dQnm8LsZ0/24PpJsGp08lD/+nFtFzOtPODJvYLVgg==
+"@capacitor/core@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.3.4.tgz#5a302731d2d7a5461e10c55a6c113602b873d855"
+  integrity sha512-C4IQhSj60cr4OwMrm85r+5QB8WIvoBpvusUntxpJdVmhIzsooMQQ+3sTsXa2Rn+G57/zA2S/VpQsvUKasGwBtA==
   dependencies:
     tslib "^2.1.0"
 

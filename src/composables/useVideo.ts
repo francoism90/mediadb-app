@@ -1,14 +1,13 @@
 import { useLoading } from 'src/composables/useLoading';
 import { useSession } from 'src/composables/useSession';
-import { useStores } from 'src/composables/useStores';
 import { ResponseError, VideoModel } from 'src/interfaces';
 import { find, remove, save } from 'src/services/api';
+import { deleted, updated } from 'src/services/store';
 import { useStore } from 'src/store/videos/item';
 
 export const useVideo = () => {
   const store = useStore();
   const { echo } = useSession();
-  const { deleted, updated } = useStores();
   const { state, isReady, resetResponse, setResponse } = useLoading();
 
   const fetch = async (id: string) => find(`videos/${id}`);
@@ -22,7 +21,6 @@ export const useVideo = () => {
 
     try {
       const response = await fetch(id);
-
       store.populate(response);
     } catch (e: unknown) {
       const error = e as ResponseError;
