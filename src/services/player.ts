@@ -144,8 +144,6 @@ export const create = (source: string, token: string, view: HTMLElement | undefi
 export const destroy = (player: MediaPlayerClass | undefined) => {
   removeListeners(player);
 
-  player?.pause();
-
   player?.getVideoElement()?.childNodes?.forEach((child) => {
     player.getVideoElement()?.removeChild(child);
   });
