@@ -15,22 +15,17 @@ export const resolutions = [
   { label: '240p', icon: 'sd', width: 426, height: 240 },
 ];
 
-export const getSpriteCue = (time: number) => find(store.spriteTrack?.cues, (o: VTTCue) => inRange(
-  time,
-  o.startTime,
-  o.endTime,
-));
-
-export const getThumbnailTrack = (time: number) => {
-  const cue = getSpriteCue(time) as VTTCue;
-
-  return JSON.parse(cue?.text || '{}') as PlayerTrack;
-};
+export const getCueByTime = (track: TextTrack, time: number) => find(
+  track.cues,
+  (o: VTTCue) => inRange(time, o.startTime, o.endTime),
+);
 
 export const getThumbnail = async (time: number) => {
-  const track = getThumbnailTrack(time);
+  const cue = getCueByTime(store.spriteTrack, time) as VTTCue;
 
-  return blob(track?.src || '');
+  const obj = JSON.parse(cue?.text || '{}') as PlayerTrack;
+
+  return blob(obj?.src || '');
 };
 
 export const getResolution = (height: number, width: number) => {
