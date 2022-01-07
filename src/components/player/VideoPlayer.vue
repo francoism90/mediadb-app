@@ -19,12 +19,11 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import { useDash } from 'src/composables/useDash';
 import { usePlayer } from 'src/composables/usePlayer';
 import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, watch } from 'vue';
 
 export default defineComponent({
-  name: 'DashPlayer',
+  name: 'VideoPlayer',
 
   components: {
     VideoControls: defineAsyncComponent(() => import('components/player/controls/VideoControls.vue')),
@@ -32,19 +31,17 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { container, video, initialize, reset, update } = useDash();
-    const { store, source, token } = usePlayer();
+    const { container, store, video, initialize, reset, update } = usePlayer();
 
-    onMounted(() => initialize(source.value, token.value));
+    onMounted(() => initialize());
     onBeforeUnmount(() => reset());
 
-    watch(() => source, () => initialize(source.value, token.value));
+    watch(() => store.model, () => initialize());
     watch(() => store.request, (value) => update(value));
     watch(() => $q.fullscreen.isActive, () => update({ resolution: +new Date() }));
     watch(() => $q.screen.name, () => update({ resolution: +new Date() }));
 
     return {
-      source,
       container,
       video,
     };

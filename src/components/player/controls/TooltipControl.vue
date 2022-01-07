@@ -5,7 +5,7 @@
     :style="{ marginLeft: `${margin}px` }"
   >
     <q-img
-      :src="thumbnail"
+      :src="uri"
       :draggable="false"
       fit="fill"
       no-spinner
@@ -28,9 +28,9 @@ export default defineComponent({
   name: 'TooltipControl',
 
   setup() {
-    const { getThumbnail, store } = usePlayer();
+    const { thumbnail, store } = usePlayer();
 
-    const thumbnail = ref<string>();
+    const uri = ref<string>();
 
     const width = computed(() => store.tooltip?.width || 0);
     const offset = computed(() => store.tooltip?.offset?.left || 0);
@@ -42,14 +42,12 @@ export default defineComponent({
     const timestamp = computed(() => timeFormat(time.value || 0));
 
     const render = async (): Promise<void> => {
-      const response = await getThumbnail(time.value);
-
+      const response = await thumbnail(time.value);
       const reader = new window.FileReader();
 
       reader.readAsDataURL(response);
-
       reader.onload = () => {
-        thumbnail.value = reader.result?.toString() || '';
+        uri.value = reader.result?.toString() || '';
       };
     };
 
@@ -59,8 +57,8 @@ export default defineComponent({
       store,
       margin,
       percent,
-      thumbnail,
       timestamp,
+      uri,
     };
   },
 });

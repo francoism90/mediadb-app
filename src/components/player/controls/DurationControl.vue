@@ -1,5 +1,5 @@
 <template>
-  <span class="text-caption">{{ currentTime }} / {{ duration }}</span>
+  <span class="text-caption">{{ time }} / {{ duration }}</span>
 </template>
 
 <script lang="ts">
@@ -10,11 +10,11 @@ export default defineComponent({
   name: 'DurationControl',
 
   setup() {
-    const { currentTime, duration } = usePlayer();
+    const { duration, time } = usePlayer();
 
     return {
-      currentTime,
       duration,
+      time,
     };
   },
 });

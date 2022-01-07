@@ -165,22 +165,22 @@ export const getCueByTime = (track: TextTrack, time: number) => find(
   (o: VTTCue) => inRange(time, o.startTime, o.endTime),
 );
 
-export const getThumbnail = async (time: number) => {
+export const getThumbnailUrl = async (time: number) => {
   const cue = getCueByTime(store.spriteTrack, time) as VTTCue;
   const obj = JSON.parse(cue?.text || '{}') as PlayerTrack;
 
   return blob(obj?.src || '');
 };
 
-export const getResolution = (height: number, width: number) => {
+export const getResolutionMatch = (height: number, width: number) => {
   const heightMatch = resolutions.find((e) => height >= e.height);
   const widthMatch = resolutions.find((e) => width >= e.width);
 
   return heightMatch || widthMatch;
 };
 
-export const getVideoResolution = () => {
+export const getResolution = () => {
   const bitrate = getVideoBitrate();
 
-  return getResolution(bitrate?.height || 0, bitrate?.width || 0);
+  return getResolutionMatch(bitrate?.height || 0, bitrate?.width || 0);
 };

@@ -1,6 +1,7 @@
 import { find } from 'lodash';
 import { defineStore } from 'pinia';
 import { PlayerProperties, PlayerRequest, PlayerState, PlayerTextTrack, PlayerTooltip, VideoModel } from 'src/interfaces';
+import { useStore as useSessionStore } from 'src/store/session';
 import { useStore as useVideoStore } from 'src/store/videos/item';
 
 export const useStore = defineStore('player', {
@@ -13,17 +14,22 @@ export const useStore = defineStore('player', {
   }),
 
   getters: {
+    model(): VideoModel {
+      const videoStore = useVideoStore();
+      return videoStore.data;
+    },
+
+    token(): string {
+      const sessionStore = useSessionStore();
+      return sessionStore.token;
+    },
+
     isReady(): boolean {
       return typeof this.properties?.videoTrack === 'object';
     },
 
     isWaiting(): boolean {
       return !this.properties?.ready || this.properties?.seeking;
-    },
-
-    model(): VideoModel {
-      const videoStore = useVideoStore();
-      return videoStore.data;
     },
 
     spriteTrack(): TextTrack {

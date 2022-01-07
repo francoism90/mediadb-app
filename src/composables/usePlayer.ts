@@ -1,37 +1,58 @@
+import { MediaPlayerClass } from 'dashjs';
 import { useQuasar } from 'quasar';
-import { useSession } from 'src/composables/useSession';
-import { useVideo } from 'src/composables/useVideo';
 import { timeFormat } from 'src/helpers';
-import { getThumbnail, store } from 'src/services/player';
-import { computed } from 'vue';
+import { PlayerRequest } from 'src/interfaces';
+import { create, destroy, getResolution, getThumbnailUrl, store } from 'src/services/player';
+import { computed, nextTick, ref } from 'vue';
 
 export const usePlayer = () => {
   const $q = useQuasar();
 
-  const { store: sessionStore } = useSession();
-  const { update, store: videoStore } = useVideo();
+  const $player = ref<MediaPlayerClass | undefined>();
+  const container = ref<HTMLDivElement>();
+  const video = ref<HTMLVideoElement>();
 
-  const source = computed(() => videoStore.data?.dash_url || '');
-  const token = computed(() => sessionStore.token || '');
-
-  const currentTime = computed(() => timeFormat(store.properties?.time));
+  const time = computed(() => timeFormat(store.properties?.time));
   const duration = computed(() => timeFormat(store.properties?.duration));
+  const resolution = computed(() => getResolution());
 
-  const capture = async () => {
-    await update(videoStore.id || '', {
-      ...videoStore.data, ...{ thumbnail: store.properties?.time || videoStore.data?.thumbnail },
-    });
+  const reset = () => destroy($player.value);
 
-    $q.notify({ type: 'positive', message: 'The video thumbnail will be updated.' });
+  const initialize = async () => {
+    reset();
+
+    // Wait for reset
+    await nextTick();
+
+    // Initialize player
+    $player.value = create(store.model.dash_url || '', store.token, video.value);
   };
+
+  const update = async (request: PlayerRequest) => {
+    // Screen
+    if (request.fullscreen) await $q.fullscreen.toggle(container.value);
+    if (request.fullscreen || request.resolution) $player.value?.updatePortalSize();
+
+    // Playback
+    if (request.pause && $player.value?.isPaused()) $player.value?.play();
+    else if (request.pause && !$player.value?.isPaused()) $player.value?.pause();
+
+    // Seeking
+    if (request.seek) $player.value?.seek(request.seek);
+  };
+
+  const thumbnail = async (payload: number) => getThumbnailUrl(payload);
 
   return {
     store,
-    currentTime,
+    container,
+    video,
     duration,
-    source,
-    token,
-    getThumbnail,
-    capture,
+    resolution,
+    time,
+    initialize,
+    update,
+    reset,
+    thumbnail,
   };
 };

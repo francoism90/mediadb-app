@@ -16,7 +16,7 @@
     </template>
 
     <template v-else-if="state.ready">
-      <dash-player />
+      <video-player />
 
       <div class="container">
         <video-info />
@@ -42,7 +42,7 @@ export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    DashPlayer: defineAsyncComponent(() => import('components/player/DashPlayer.vue')),
+    VideoPlayer: defineAsyncComponent(() => import('src/components/player/VideoPlayer.vue')),
     VideoInfo: defineAsyncComponent(() => import('components/videos/VideoInfo.vue')),
     VideoSimilar: defineAsyncComponent(() => import('components/videos/VideoSimilar.vue')),
   },

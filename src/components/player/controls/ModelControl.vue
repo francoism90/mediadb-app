@@ -7,7 +7,7 @@
   >
     <q-item
       v-close-popup
-      :disable="!videoStore.id"
+      :disable="!store.model"
       clickable
       @click="edit"
     >
@@ -91,7 +91,6 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
-import { useDash } from 'src/composables/useDash';
 import { usePlayer } from 'src/composables/usePlayer';
 import { useVideo } from 'src/composables/useVideo';
 import { defineAsyncComponent, defineComponent } from 'vue';
@@ -104,21 +103,27 @@ export default defineComponent({
   emits: ['setComponent'],
 
   setup() {
-    const { resolution } = useDash();
-    const { store, capture } = usePlayer();
-    const { store: videoStore } = useVideo();
     const $q = useQuasar();
+    const { resolution, store } = usePlayer();
+    const { update } = useVideo();
 
     const edit = () => $q.dialog({
       component: editComponent,
       componentProps: {
-        id: videoStore.id,
+        id: store.model.id,
       },
     });
 
+    const capture = async () => {
+      await update(store.model.id, {
+        ...store.model, ...{ thumbnail: store.properties?.time || store.model?.thumbnail },
+      });
+
+      $q.notify({ type: 'positive', message: 'The video thumbnail will be updated.' });
+    };
+
     return {
       store,
-      videoStore,
       resolution,
       capture,
       edit,
