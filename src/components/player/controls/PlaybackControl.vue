@@ -40,9 +40,9 @@ export default defineComponent({
 
     const icon = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
 
-    const togglePlayback = () => store.dispatch({ pause: +new Date() });
-    const decreaseTime = () => store.dispatch({ seekBackwards: +new Date() });
-    const increaseTime = () => store.dispatch({ seekForward: +new Date() });
+    const togglePlayback = () => store.dispatch('TogglePlayback');
+    const decreaseTime = () => store.dispatch('FastRewind');
+    const increaseTime = () => store.dispatch('FastForward');
 
     return {
       togglePlayback,

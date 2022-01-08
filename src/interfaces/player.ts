@@ -46,16 +46,10 @@ export interface PlayerTrack {
   type: string,
 }
 
-export interface PlayerRequest {
-  capture?: number,
-  fullscreen?: number,
-  pause?: number,
-  resolution?: number,
-  seek?: number,
-  seekBackwards?: number,
-  seekForward?: number,
-  showTrack?: PlayerTrack,
-  hideTrack?: PlayerTrack,
+export interface PlayerEvent {
+  id: number,
+  name: string,
+  params?: number | string
 }
 
 export interface PlayerState {
@@ -63,6 +57,6 @@ export interface PlayerState {
   activity: boolean,
   controls: boolean,
   properties: PlayerProperties,
-  request: PlayerRequest,
+  event: PlayerEvent,
   tooltip: PlayerTooltip,
 }

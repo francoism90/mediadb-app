@@ -105,14 +105,14 @@ export default defineComponent({
     const $q = useQuasar();
     const { resolution, store } = usePlayer();
 
+    const capture = () => store.dispatch('CreateCapture');
+
     const edit = () => $q.dialog({
       component: editComponent,
       componentProps: {
         id: store.model.id,
       },
     });
-
-    const capture = () => store.dispatch({ capture: +new Date() });
 
     return {
       store,

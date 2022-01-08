@@ -23,7 +23,6 @@
 
 <script lang="ts">
 import { and, useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
-import { useQuasar } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
 import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, watch } from 'vue';
 
@@ -36,7 +35,6 @@ export default defineComponent({
 
   setup() {
     const { container, store, video, initialize, manager, reset } = usePlayer();
-    const $q = useQuasar();
     const activeElement = useActiveElement();
     const keys = useMagicKeys();
 
@@ -46,15 +44,13 @@ export default defineComponent({
     onBeforeUnmount(() => reset());
 
     watch(() => store.model, () => initialize());
-    watch(() => store.request, (value) => manager(value));
-    watch(() => $q.fullscreen.isActive, () => manager({ resolution: +new Date() }));
-    watch(() => $q.screen.name, () => manager({ resolution: +new Date() }));
+    watch(() => store.event, (value) => manager(value));
 
     // Key combination
-    whenever(and(keys.left, disableKeys), () => store.dispatch({ seekBackwards: +new Date() }));
-    whenever(and(keys.right, disableKeys), () => store.dispatch({ seekForward: +new Date() }));
-    whenever(and(keys.shift_space, disableKeys), () => store.dispatch({ pause: +new Date() }));
-    whenever(and(keys.shift_s, disableKeys), () => store.dispatch({ capture: +new Date() }));
+    whenever(and(keys.left, disableKeys), () => store.dispatch('FastRewind'));
+    whenever(and(keys.right, disableKeys), () => store.dispatch('FastForward'));
+    whenever(and(keys.shift_space, disableKeys), () => store.dispatch('TogglePlayback'));
+    whenever(and(keys.shift_s, disableKeys), () => store.dispatch('CreateCapture'));
 
     return {
       container,

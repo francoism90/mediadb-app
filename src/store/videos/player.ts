@@ -1,6 +1,6 @@
 import { find } from 'lodash';
 import { defineStore } from 'pinia';
-import { PlayerProperties, PlayerRequest, PlayerState, PlayerTextTrack, PlayerTooltip, VideoModel } from 'src/interfaces';
+import { PlayerEvent, PlayerProperties, PlayerState, PlayerTextTrack, PlayerTooltip, VideoModel } from 'src/interfaces';
 import { useStore as useSessionStore } from 'src/store/session';
 import { useStore as useVideoStore } from 'src/store/videos/item';
 
@@ -9,8 +9,8 @@ export const useStore = defineStore('player', {
     ready: false,
     activity: false,
     controls: false,
-    request: <PlayerRequest>{},
     properties: <PlayerProperties>{},
+    event: <PlayerEvent>{},
     tooltip: <PlayerTooltip>{},
   }),
 
@@ -51,8 +51,8 @@ export const useStore = defineStore('player', {
       this.$patch({ properties });
     },
 
-    dispatch(request: PlayerRequest): void {
-      this.request = request;
+    dispatch(name: string, params?: string | number): void {
+      this.event = { id: +new Date(), name, params };
     },
   },
 
