@@ -49,6 +49,8 @@ export interface PlayerTrack {
 export interface PlayerRequest {
   pause?: number,
   seek?: number,
+  seekBackwards?: number,
+  seekForward?: number,
   fullscreen?: number,
   resolution?: number,
   showTrack?: PlayerTrack,

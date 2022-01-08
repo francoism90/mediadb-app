@@ -49,6 +49,8 @@ export const usePlayer = () => {
 
     // Seeking
     if (request.seek) $player.value?.seek(request.seek);
+    if (request.seekBackwards) $player.value?.seek((store.properties?.time || 0) - 10);
+    if (request.seekForward) $player.value?.seek((store.properties?.time || 0) + 10);
   };
 
   const thumbnail = async (payload: number) => getThumbnailUrl(payload);

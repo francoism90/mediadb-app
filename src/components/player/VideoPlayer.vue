@@ -22,9 +22,10 @@
 </template>
 
 <script lang="ts">
+import { and, useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { useQuasar } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
-import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, watch } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -34,9 +35,12 @@ export default defineComponent({
   },
 
   setup() {
-    const $q = useQuasar();
-
     const { container, store, video, initialize, reset, update } = usePlayer();
+    const $q = useQuasar();
+    const activeElement = useActiveElement();
+    const keys = useMagicKeys();
+
+    const disableKeys = computed(() => activeElement.value?.tagName !== 'INPUT' && activeElement.value?.tagName !== 'TEXTAREA');
 
     onMounted(() => initialize());
     onBeforeUnmount(() => reset());
@@ -45,6 +49,11 @@ export default defineComponent({
     watch(() => store.request, (value) => update(value));
     watch(() => $q.fullscreen.isActive, () => update({ resolution: +new Date() }));
     watch(() => $q.screen.name, () => update({ resolution: +new Date() }));
+
+    // Key combination
+    whenever(and(keys.ctrl_left, disableKeys), () => store.dispatch({ seekBackwards: +new Date() }));
+    whenever(and(keys.ctrl_right, disableKeys), () => store.dispatch({ seekForward: +new Date() }));
+    whenever(and(keys.ctrl_space, disableKeys), () => store.dispatch({ pause: +new Date() }));
 
     return {
       container,

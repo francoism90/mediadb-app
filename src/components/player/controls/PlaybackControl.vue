@@ -41,16 +41,8 @@ export default defineComponent({
     const icon = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
 
     const togglePlayback = () => store.dispatch({ pause: +new Date() });
-
-    const decreaseTime = () => {
-      const time = (store.properties?.time || 0) - 10;
-      store.dispatch({ seek: +time.toFixed(2) });
-    };
-
-    const increaseTime = () => {
-      const time = (store.properties?.time || 0) + 10;
-      store.dispatch({ seek: +time.toFixed(2) });
-    };
+    const decreaseTime = () => store.dispatch({ seekBackwards: +new Date() });
+    const increaseTime = () => store.dispatch({ seekForward: +new Date() });
 
     return {
       togglePlayback,
