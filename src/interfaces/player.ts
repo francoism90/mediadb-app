@@ -56,6 +56,7 @@ export interface PlayerRequest {
 }
 
 export interface PlayerState {
+  ready: boolean,
   activity: boolean,
   controls: boolean,
   properties: PlayerProperties,

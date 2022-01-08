@@ -6,6 +6,7 @@ import { useStore as useVideoStore } from 'src/store/videos/item';
 
 export const useStore = defineStore('player', {
   state: () => (<PlayerState>{
+    ready: false,
     activity: false,
     controls: false,
     request: <PlayerRequest>{},

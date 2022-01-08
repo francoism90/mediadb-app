@@ -18,7 +18,11 @@
     <template v-else-if="state.ready">
       <video-player />
 
-      <div class="container">
+      <q-intersection
+        class="container"
+        transition="fade"
+        once
+      >
         <video-info />
 
         <q-separator
@@ -27,7 +31,7 @@
         />
 
         <video-similar />
-      </div>
+      </q-intersection>
     </template>
   </q-page>
 </template>

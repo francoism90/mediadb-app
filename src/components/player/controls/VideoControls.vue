@@ -58,9 +58,9 @@ export default defineComponent({
     };
 
     return {
+      visible,
       activate,
       deactivate,
-      visible,
     };
   },
 });
