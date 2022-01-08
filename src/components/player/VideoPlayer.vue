@@ -35,7 +35,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { container, store, video, initialize, reset, update } = usePlayer();
+    const { container, store, video, initialize, manager, reset } = usePlayer();
     const $q = useQuasar();
     const activeElement = useActiveElement();
     const keys = useMagicKeys();
@@ -46,9 +46,9 @@ export default defineComponent({
     onBeforeUnmount(() => reset());
 
     watch(() => store.model, () => initialize());
-    watch(() => store.request, (value) => update(value));
-    watch(() => $q.fullscreen.isActive, () => update({ resolution: +new Date() }));
-    watch(() => $q.screen.name, () => update({ resolution: +new Date() }));
+    watch(() => store.request, (value) => manager(value));
+    watch(() => $q.fullscreen.isActive, () => manager({ resolution: +new Date() }));
+    watch(() => $q.screen.name, () => manager({ resolution: +new Date() }));
 
     // Key combination
     whenever(and(keys.ctrl_left, disableKeys), () => store.dispatch({ seekBackwards: +new Date() }));

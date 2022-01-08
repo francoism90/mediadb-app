@@ -134,7 +134,7 @@
 </template>
 
 <script lang="ts">
-import { useDialogPluginComponent, useQuasar } from 'quasar';
+import { useDialogPluginComponent } from 'quasar';
 import { useTagInput } from 'src/composables/useTagInput';
 import { useValidation } from 'src/composables/useValidation';
 import { useVideo } from 'src/composables/useVideo';
@@ -160,7 +160,6 @@ export default defineComponent({
     const { getError, hasError, resetResponse, setResponse } = useValidation();
     const { fetch, destroy, update: save } = useVideo();
     const { state: tags, fetch: fetchTags } = useTagInput();
-    const $q = useQuasar();
 
     const state = reactive(<VideoModel>{});
     const deleteDialog = ref<boolean>(false);
@@ -200,8 +199,6 @@ export default defineComponent({
 
       try {
         await save(state.id, state);
-
-        $q.notify({ type: 'positive', message: 'The video has been updated.' });
       } catch (e: unknown) {
         const error = e as ValidationError;
 
@@ -219,8 +216,6 @@ export default defineComponent({
 
       try {
         await destroy(state.id);
-
-        $q.notify({ type: 'positive', message: 'The video has been deleted.' });
       } catch (e: unknown) {
         const error = e as ValidationError;
 

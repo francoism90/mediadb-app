@@ -1,12 +1,13 @@
 import { useLoading } from 'src/composables/useLoading';
 import { useSession } from 'src/composables/useSession';
+import { useStores } from 'src/composables/useStores';
 import { ResponseError, VideoModel } from 'src/interfaces';
 import { find, remove, save } from 'src/services/api';
-import { deleted, updated } from 'src/services/store';
 import { useStore } from 'src/store/videos/item';
 
 export const useVideo = () => {
   const store = useStore();
+  const { onDelete, onUpdate } = useStores();
   const { echo } = useSession();
   const { state, startLoading, stopLoading } = useLoading();
 
@@ -41,8 +42,8 @@ export const useVideo = () => {
 
   const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
   const subscribe = (id: string) => echo?.private(`video.${id}`)
-    ?.listen('.video.deleted', deleted)
-    ?.listen('.video.updated', updated);
+    ?.listen('.video.deleted', onDelete)
+    ?.listen('.video.updated', onUpdate);
 
   return {
     state,

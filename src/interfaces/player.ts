@@ -47,12 +47,13 @@ export interface PlayerTrack {
 }
 
 export interface PlayerRequest {
+  capture?: number,
+  fullscreen?: number,
   pause?: number,
+  resolution?: number,
   seek?: number,
   seekBackwards?: number,
   seekForward?: number,
-  fullscreen?: number,
-  resolution?: number,
   showTrack?: PlayerTrack,
   hideTrack?: PlayerTrack,
 }

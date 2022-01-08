@@ -92,7 +92,6 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
-import { useVideo } from 'src/composables/useVideo';
 import { defineAsyncComponent, defineComponent } from 'vue';
 
 const editComponent = defineAsyncComponent(() => import('components/videos/VideoEditor.vue'));
@@ -105,7 +104,6 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
     const { resolution, store } = usePlayer();
-    const { update } = useVideo();
 
     const edit = () => $q.dialog({
       component: editComponent,
@@ -114,13 +112,7 @@ export default defineComponent({
       },
     });
 
-    const capture = async () => {
-      await update(store.model.id, {
-        ...store.model, ...{ thumbnail: store.properties?.time || store.model?.thumbnail },
-      });
-
-      $q.notify({ type: 'positive', message: 'The video thumbnail will be updated.' });
-    };
+    const capture = () => store.dispatch({ capture: +new Date() });
 
     return {
       store,
