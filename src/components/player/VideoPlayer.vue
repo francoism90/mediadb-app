@@ -51,9 +51,10 @@ export default defineComponent({
     watch(() => $q.screen.name, () => manager({ resolution: +new Date() }));
 
     // Key combination
-    whenever(and(keys.ctrl_left, disableKeys), () => store.dispatch({ seekBackwards: +new Date() }));
-    whenever(and(keys.ctrl_right, disableKeys), () => store.dispatch({ seekForward: +new Date() }));
-    whenever(and(keys.ctrl_space, disableKeys), () => store.dispatch({ pause: +new Date() }));
+    whenever(and(keys.left, disableKeys), () => store.dispatch({ seekBackwards: +new Date() }));
+    whenever(and(keys.right, disableKeys), () => store.dispatch({ seekForward: +new Date() }));
+    whenever(and(keys.shift_space, disableKeys), () => store.dispatch({ pause: +new Date() }));
+    whenever(and(keys.shift_s, disableKeys), () => store.dispatch({ capture: +new Date() }));
 
     return {
       container,
