@@ -1,3 +1,4 @@
+import { useQuasar } from 'quasar';
 import { ErrorResponse, LoadingState } from 'src/interfaces/api';
 import { reactive, readonly } from 'vue';
 
@@ -7,19 +8,29 @@ const defaultState = () => <LoadingState>{
 };
 
 export const useLoading = () => {
+  const $q = useQuasar();
+
   const state = reactive(defaultState());
 
-  const resetResponse = () => Object.assign(state, defaultState());
-  const setResponse = (response: ErrorResponse) => { state.error = response; };
+  const startLoading = () => {
+    Object.assign(state, defaultState());
 
-  const isLoading = () => { state.ready = false; };
-  const isReady = () => { state.ready = true; };
+    $q.loadingBar.start();
+  };
+
+  const stopLoading = (response?: ErrorResponse) => {
+    state.ready = true;
+    state.error = response || state.error;
+
+    $q.loadingBar.stop();
+  };
+
+  const incrementLoading = (value: number) => $q.loadingBar.increment(value);
 
   return {
     state: readonly(state),
-    resetResponse,
-    setResponse,
-    isLoading,
-    isReady,
+    startLoading,
+    stopLoading,
+    incrementLoading,
   };
 };

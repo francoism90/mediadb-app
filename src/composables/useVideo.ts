@@ -8,7 +8,7 @@ import { useStore } from 'src/store/videos/item';
 export const useVideo = () => {
   const store = useStore();
   const { echo } = useSession();
-  const { state, isReady, resetResponse, setResponse } = useLoading();
+  const { state, startLoading, stopLoading } = useLoading();
 
   const fetch = async (id: string) => find(`videos/${id}`);
   const destroy = async (id: string) => remove(`videos/${id}`);
@@ -17,7 +17,7 @@ export const useVideo = () => {
   const follow = async (id: string, payload?: VideoModel) => save(`videos/follow/${id}`, payload);
 
   const initialize = async (id: string) => {
-    resetResponse();
+    startLoading();
 
     try {
       const response = await fetch(id);
@@ -29,13 +29,13 @@ export const useVideo = () => {
       store.$reset();
 
       if (error.response) {
-        setResponse(error.response.data);
+        stopLoading(error.response.data);
         return;
       }
 
       throw error;
     } finally {
-      isReady();
+      stopLoading();
     }
   };
 

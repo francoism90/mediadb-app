@@ -87,7 +87,12 @@ module.exports = configure((ctx) => ({
   // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
   framework: {
     config: {
-      dark: true
+      dark: true,
+      loadingBar: {
+        skipHijack: true,
+        size: '3px',
+        color: 'primary',
+      },
     },
 
     iconSet: 'material-icons', // Quasar icon set
@@ -104,6 +109,7 @@ module.exports = configure((ctx) => ({
     plugins: [
       'AppFullscreen',
       'Dialog',
+      'LoadingBar',
       'LocalStorage',
       'Meta',
       'Notify',
