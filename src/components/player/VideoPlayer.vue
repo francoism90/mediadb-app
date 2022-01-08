@@ -3,17 +3,21 @@
     ref="container"
     class="player-container relative-position"
   >
-    <div class="player-video-container absolute-full">
-      <video
-        ref="video"
-        autoPictureInPicture
-        playsinline
-        class="absolute fit block no-outline"
-        crossorigin="anonymous"
-      />
+    <video
+      ref="video"
+      autoPictureInPicture
+      playsinline
+      class="player-video-element absolute fit block no-outline"
+      crossorigin="anonymous"
+    />
 
-      <video-controls />
-    </div>
+    <video-controls />
+
+    <q-skeleton
+      v-if="!store.ready"
+      height="100%"
+      width="100%"
+    />
   </div>
 </template>
 
@@ -31,6 +35,7 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
+
     const { container, store, video, initialize, reset, update } = usePlayer();
 
     onMounted(() => initialize());
@@ -44,6 +49,7 @@ export default defineComponent({
     return {
       container,
       video,
+      store,
     };
   },
 });
