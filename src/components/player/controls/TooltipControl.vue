@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="percent > 0"
-    class="player-video-thumbnail desktop-only relative-position q-my-md rounded-borders"
+    class="player-video-thumbnail desktop-only relative-position q-my-md"
     :style="{ marginLeft: `${margin}px` }"
   >
     <q-img
@@ -12,8 +12,8 @@
       no-transition
     />
 
-    <div class="absolute-bottom q-ma-xs text-caption text-white text-center">
-      {{ timestamp }}
+    <div class="absolute-bottom q-ma-xs text-center">
+      <span class="text-caption text-white">{{ timestamp }}</span>
     </div>
   </div>
 </template>
