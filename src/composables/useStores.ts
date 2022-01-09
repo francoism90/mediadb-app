@@ -18,7 +18,7 @@ export const useStores = () => {
   const onDelete = (model: Model) => {
     $q.notify({
       type: 'info',
-      message: 'A deletion has just been done.',
+      message: 'A deletion has just been made.',
       caption: model.name || model.id,
     });
 
