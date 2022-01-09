@@ -14,7 +14,7 @@
     <video-controls />
 
     <q-skeleton
-      v-if="!store.ready"
+      v-if="!store.isReady"
       height="100%"
       width="100%"
     />

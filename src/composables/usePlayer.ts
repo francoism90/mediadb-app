@@ -18,13 +18,7 @@ export const usePlayer = () => {
   const duration = computed(() => timeFormat(store.properties?.duration));
   const resolution = computed(() => getResolution());
 
-  const reset = () => {
-    // Set ready state
-    store.ready = false;
-
-    // Destroy player
-    destroy($player.value);
-  };
+  const reset = () => destroy($player.value);
 
   const initialize = async () => {
     // Destroy player
@@ -35,9 +29,6 @@ export const usePlayer = () => {
 
     // Initialize player
     $player.value = create(store.model.dash_url || '', store.token, video.value);
-
-    // Set ready state
-    store.ready = true;
   };
 
   const thumbnail = async (payload: number) => getThumbnailUrl(payload);

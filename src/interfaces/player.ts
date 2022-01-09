@@ -49,7 +49,6 @@ export interface PlayerTrack {
 }
 
 export interface PlayerState {
-  ready: boolean,
   activity: boolean,
   controls: boolean,
   fullscreen: boolean,
