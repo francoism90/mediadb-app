@@ -44,13 +44,18 @@ export default defineComponent({
     onBeforeUnmount(() => reset());
 
     watch(() => store.model, () => initialize());
-    watch(() => store.event, (value) => manager(value));
+
+    // Player Events
+    watch(() => store.capture, (value) => manager('CreateCapture', value));
+    watch(() => store.fullscreen, (value) => manager('ToggleFullscreen', value));
+    watch(() => store.playback, (value) => manager('TogglePlayback', value));
+    watch(() => store.seek, (value) => manager('PlayerSeek', value));
 
     // Key combination
-    whenever(and(keys.left, disableKeys), () => store.dispatch('FastRewind'));
-    whenever(and(keys.right, disableKeys), () => store.dispatch('FastForward'));
-    whenever(and(keys.shift_space, disableKeys), () => store.dispatch('TogglePlayback'));
-    whenever(and(keys.shift_s, disableKeys), () => store.dispatch('CreateCapture'));
+    whenever(and(keys.left, disableKeys), () => manager('PlayerSeek', store.properties.time - 10));
+    whenever(and(keys.right, disableKeys), () => manager('PlayerSeek', store.properties.time + 10));
+    whenever(and(keys.shift_space, disableKeys), () => manager('TogglePlayback'));
+    whenever(and(keys.shift_s, disableKeys), () => manager('CreateCapture'));
 
     return {
       container,

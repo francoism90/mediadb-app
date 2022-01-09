@@ -31,8 +31,6 @@ export default defineComponent({
     const seekerWidth = computed(() => dom.width(<Element>seeker.value?.$el));
     const seekerOffset = computed(() => dom.offset(<Element>seeker.value?.$el));
 
-    const setCurrentTime = (payload: number) => store.dispatch('PlayerSeek', +payload.toFixed(2));
-
     const onMouseHover = (event: MouseEvent) => store.$patch({
       tooltip: {
         position: event.clientX,
@@ -48,6 +46,8 @@ export default defineComponent({
         width: seekerWidth.value,
       },
     });
+
+    const setCurrentTime = (payload: number) => { store.seek = payload; };
 
     return {
       onMouseHover,

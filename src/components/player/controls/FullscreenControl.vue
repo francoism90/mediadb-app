@@ -22,7 +22,7 @@ export default defineComponent({
 
     const icon = computed(() => (store.properties?.fullscreen ? 'fullscreen_exit' : 'fullscreen'));
 
-    const onClick = () => store.dispatch('ToggleFullscreen');
+    const onClick = () => { store.fullscreen = !store.fullscreen; };
 
     return {
       icon,

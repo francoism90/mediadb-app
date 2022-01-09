@@ -42,16 +42,11 @@ export const usePlayer = () => {
 
   const thumbnail = async (payload: number) => getThumbnailUrl(payload);
 
-  const manager = async (event: PlayerEvent) => {
-    const { name, params } = event;
-
+  const manager = async (name: string, params?: PlayerEvent) => {
     switch (name) {
-      case 'UpdatePortal':
-        $player.value?.updatePortalSize();
-        break;
-
       case 'ToggleFullscreen':
         await $q.fullscreen.toggle(container.value);
+        $player.value?.updatePortalSize();
         break;
 
       case 'TogglePlayback':
@@ -63,16 +58,11 @@ export const usePlayer = () => {
         $player.value?.seek(<number>params || 0);
         break;
 
-      case 'FastRewind':
-        $player.value?.seek((store.properties?.time || 10) - 10);
-        break;
-
-      case 'FastForward':
-        $player.value?.seek((store.properties?.time || 0) + 10);
-        break;
-
       case 'CreateCapture':
-        await update(store.model.id, { ...store.model, ...{ thumbnail: store.properties?.time || store.model?.thumbnail } });
+        await update(store.model.id, {
+          ...store.model,
+          ...{ thumbnail: <number>params || store.properties?.time || store.model?.thumbnail },
+        });
         break;
 
       default:

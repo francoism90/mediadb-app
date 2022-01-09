@@ -3,6 +3,8 @@ import { DomOffset } from 'quasar';
 
 export type PlayerTextTrack = MediaInfo | TextTrack | null
 
+export type PlayerEvent = boolean | string | number | PlayerTextTrack
+
 export interface PlayerProperties {
   ready: boolean,
   autoplay: boolean,
@@ -46,17 +48,14 @@ export interface PlayerTrack {
   type: string,
 }
 
-export interface PlayerEvent {
-  id: number,
-  name: string,
-  params?: number | string
-}
-
 export interface PlayerState {
   ready: boolean,
   activity: boolean,
   controls: boolean,
+  fullscreen: boolean,
+  playback: boolean,
+  seek: number,
+  capture: number,
   properties: PlayerProperties,
-  event: PlayerEvent,
   tooltip: PlayerTooltip,
 }
