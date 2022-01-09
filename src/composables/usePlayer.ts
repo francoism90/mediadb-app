@@ -34,10 +34,13 @@ export const usePlayer = () => {
   const thumbnail = async (payload: number) => getThumbnailUrl(payload);
 
   const manager = async (name: string, params?: PlayerEvent) => {
+    if (!store.isReady) {
+      return;
+    }
+
     switch (name) {
       case 'ToggleFullscreen':
         await $q.fullscreen.toggle(container.value);
-        $player.value?.updatePortalSize();
         break;
 
       case 'TogglePlayback':

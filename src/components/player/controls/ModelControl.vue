@@ -40,7 +40,6 @@
     </q-item>
 
     <q-item
-      :disable="!store.isReady"
       clickable
       @click="$emit('setComponent', 'QualityControl')"
     >
