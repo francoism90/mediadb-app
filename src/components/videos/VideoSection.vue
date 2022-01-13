@@ -1,5 +1,5 @@
 <template>
-  <q-item class="text-body2">
+  <q-item>
     <q-item-section
       top
       class="text-grey-1 text-weight-medium video-details-label"

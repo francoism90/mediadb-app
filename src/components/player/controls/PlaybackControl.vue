@@ -1,6 +1,6 @@
 <template>
   <div class="player-navigation absolute-center">
-    <div class="row no-wrap justify-between items-center content-center q-col-gutter-lg">
+    <div class="row no-wrap items-center content-center q-col-gutter-lg">
       <q-icon
         name="replay_10"
         class="cursor-pointer"
@@ -10,7 +10,7 @@
       />
 
       <q-icon
-        :name="icon"
+        :name="playing"
         class="cursor-pointer"
         size="72px"
         tabindex="0"
@@ -38,18 +38,18 @@ export default defineComponent({
   setup() {
     const { store } = usePlayer();
 
-    const icon = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
+    const playing = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
 
     const togglePlayback = () => { store.playback = !store.playback; };
     const decreaseTime = () => { store.seek = store.properties.time - 10; };
     const increaseTime = () => { store.seek = store.properties.time + 10; };
 
     return {
+      playing,
+      store,
       togglePlayback,
       decreaseTime,
       increaseTime,
-      icon,
-      store,
     };
   },
 });

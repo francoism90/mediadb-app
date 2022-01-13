@@ -24,10 +24,10 @@ export const useStore = defineStore('player', {
     },
 
     isReady(): boolean {
-      return typeof this.properties?.videoTrack === 'object';
+      return this.properties?.ready;
     },
 
-    isWaiting(): boolean {
+    isLoading(): boolean {
       return !this.properties?.ready || this.properties?.seeking;
     },
 

@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     const { store } = usePlayer();
 
-    const loading = computed(() => store.isWaiting);
+    const loading = computed(() => store.isLoading);
 
     return {
       loading,

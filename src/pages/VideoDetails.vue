@@ -10,7 +10,7 @@
         </template>
 
         <span class="text-body2">
-          Unable to Play Video. An error occurred. ({{ state.error?.message }})
+          Unable to Play Video. An error occurred. ({{ state.error?.message || '404 - Not Found' }})
         </span>
       </q-banner>
     </template>
@@ -74,14 +74,14 @@ export default defineComponent({
   setup(props) {
     const { initialize, subscribe, unsubscribe, state, store } = useVideo();
 
+    useMeta(() => ({ title: store.data?.name || '' }));
+
     watch(() => props.id, async (value, oldValue) => {
       await initialize(value);
 
       unsubscribe(oldValue || '');
       subscribe(value || '');
     }, { immediate: true });
-
-    useMeta(() => ({ title: store.data?.name || '' }));
 
     return {
       state,

@@ -16,7 +16,6 @@
         class="player-video-controls absolute-full all-pointer-events"
       >
         <control-bar />
-        <model-bar />
         <playback-bar />
       </div>
     </transition>
@@ -32,7 +31,6 @@ export default defineComponent({
 
   components: {
     ControlBar: defineAsyncComponent(() => import('components/player/controls/ControlBar.vue')),
-    ModelBar: defineAsyncComponent(() => import('components/player/controls/ModelBar.vue')),
     PlaybackBar: defineAsyncComponent(() => import('components/player/controls/PlaybackBar.vue')),
   },
 
