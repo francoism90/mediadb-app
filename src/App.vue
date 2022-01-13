@@ -18,8 +18,19 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
     const meta = useMeta(metaData);
-
     const { isUsable, onEnterFullScreen, onLeaveFullScreen } = useDevice();
+
+    // Configure loading
+    $q.loadingBar.setDefaults({
+      color: 'primary',
+      size: '3px',
+      position: 'top',
+      hijackFilter(url: string) {
+        const parsedUrl = new URL(url);
+
+        return parsedUrl.pathname.includes('api');
+      },
+    });
 
     watch(() => $q.fullscreen.isActive, async (value): Promise<void> => {
       if (isUsable() && value === true) await onEnterFullScreen();
