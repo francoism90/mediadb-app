@@ -23,7 +23,7 @@ export default defineComponent({
     // Configure loading
     $q.loadingBar.setDefaults({
       color: 'primary',
-      size: '3px',
+      size: '2px',
       position: 'top',
       hijackFilter(url: string) {
         const parsedUrl = new URL(url);

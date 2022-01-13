@@ -11,16 +11,7 @@
       crossorigin="anonymous"
     />
 
-    <template v-if="!store.isReady">
-      <q-skeleton
-        height="100%"
-        width="100%"
-      />
-    </template>
-
-    <template v-else>
-      <video-controls />
-    </template>
+    <video-controls v-if="store.isReady" />
   </div>
 </template>
 
