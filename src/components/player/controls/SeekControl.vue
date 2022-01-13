@@ -50,12 +50,12 @@ export default defineComponent({
     const setCurrentTime = (payload: number) => { store.seek = payload; };
 
     return {
-      onMouseHover,
-      onMouseLeave,
-      setCurrentTime,
       buffered,
       seeker,
       store,
+      onMouseHover,
+      onMouseLeave,
+      setCurrentTime,
     };
   },
 });
