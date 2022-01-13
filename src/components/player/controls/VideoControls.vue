@@ -1,10 +1,10 @@
 <template>
   <div
     class="absolute-full"
-    @mouseenter="activate"
-    @mouseleave="deactivate"
-    @mousemove="activate"
-    @touchstart.passive="activate"
+    @mouseenter="start"
+    @mouseleave="start"
+    @mousemove="start"
+    @touchstart.passive="start"
   >
     <transition
       appear
@@ -12,7 +12,7 @@
       leave-active-class="animated fadeOut"
     >
       <div
-        v-show="visible"
+        v-show="!ready"
         class="player-video-controls absolute-full all-pointer-events"
       >
         <control-bar />
@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import { usePlayer } from 'src/composables/usePlayer';
-import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
+import { useTimeout } from '@vueuse/core';
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoControls',
@@ -35,30 +35,12 @@ export default defineComponent({
   },
 
   setup() {
-    const { store } = usePlayer();
-    const timer = ref<number>(0);
-
-    const visible = computed(() => store.activity || store.controls);
-
-    const deactivate = (): void => {
-      if (store.activity) return;
-
-      timer.value = window.setTimeout(() => {
-        store.controls = false;
-      }, 2500);
-    };
-
-    const activate = (): void => {
-      clearTimeout(timer.value);
-
-      store.controls = true;
-      deactivate();
-    };
+    const { ready, start, stop } = useTimeout(2000, { controls: true });
 
     return {
-      visible,
-      activate,
-      deactivate,
+      ready,
+      start,
+      stop,
     };
   },
 });

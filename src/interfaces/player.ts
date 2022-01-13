@@ -49,8 +49,6 @@ export interface PlayerTrack {
 }
 
 export interface PlayerState {
-  activity: boolean,
-  controls: boolean,
   fullscreen: boolean,
   playback: boolean,
   seek: number,
