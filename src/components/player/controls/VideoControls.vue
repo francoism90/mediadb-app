@@ -16,7 +16,7 @@
         class="player-video-controls absolute-full all-pointer-events"
       >
         <control-bar />
-        <playback-bar />
+        <playback-control />
       </div>
     </transition>
   </div>
@@ -31,7 +31,7 @@ export default defineComponent({
 
   components: {
     ControlBar: defineAsyncComponent(() => import('components/player/controls/ControlBar.vue')),
-    PlaybackBar: defineAsyncComponent(() => import('components/player/controls/PlaybackBar.vue')),
+    PlaybackControl: defineAsyncComponent(() => import('components/player/controls/PlaybackControl.vue')),
   },
 
   setup() {
