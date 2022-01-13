@@ -1,35 +1,38 @@
 <template>
-  <div class="video-similar q-py-md">
-    <h1 class="text-h3 text-white ellipsis">
-      More Like This
-    </h1>
+  <q-separator
+    color="primary"
+    size="3px"
+  />
 
-    <q-pull-to-refresh @refresh="onRefresh">
-      <q-infinite-scroll
-        :key="similar.id"
-        @load="onLoad"
-      >
-        <div class="row justify-start items-start content-start q-col-gutter-md">
-          <q-intersection
-            v-for="(item, index) in similar.data"
-            :key="index"
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
-          >
-            <item :video="item" />
-          </q-intersection>
-        </div>
-
-        <template #loading>
-          <div class="row no-wrap justify-center q-my-md">
-            <q-spinner-oval
-              color="primary"
-              size="2em"
-            />
-          </div>
-        </template>
-      </q-infinite-scroll>
-    </q-pull-to-refresh>
+  <div class="q-py-lg text-overline ellipsis">
+    More Like This
   </div>
+
+  <q-pull-to-refresh @refresh="onRefresh">
+    <q-infinite-scroll
+      :key="similar.id"
+      @load="onLoad"
+    >
+      <div class="row justify-start items-start content-start q-col-gutter-md">
+        <q-intersection
+          v-for="(item, index) in similar.data"
+          :key="index"
+          class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
+        >
+          <item :video="item" />
+        </q-intersection>
+      </div>
+
+      <template #loading>
+        <div class="row no-wrap justify-center q-my-md">
+          <q-spinner-oval
+            color="primary"
+            size="2em"
+          />
+        </div>
+      </template>
+    </q-infinite-scroll>
+  </q-pull-to-refresh>
 </template>
 
 <script lang="ts">

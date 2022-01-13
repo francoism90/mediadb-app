@@ -24,12 +24,6 @@
         once
       >
         <video-info />
-
-        <q-separator
-          color="primary"
-          size="3px"
-        />
-
         <video-similar />
       </q-intersection>
     </template>

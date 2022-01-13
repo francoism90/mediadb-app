@@ -5,7 +5,7 @@
 
   <q-list
     dense
-    class="q-py-md video-details-list"
+    class="q-py-sm video-details-list"
   >
     <video-section v-if="duration">
       <template #label>
