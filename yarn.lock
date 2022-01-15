@@ -1057,17 +1057,17 @@
   dependencies:
     tslib "^2.1.0"
 
-"@formatjs/intl@1.18.2":
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl/-/intl-1.18.2.tgz#df9cde24670c9dc8349651e20519c867bc6805c6"
-  integrity sha512-n84m7x5GGOK8jYRu6/t0iy3FO/fmpOK0qkrL4XbEe6ve0Vz59JwH9XQrQpYRPhhvAD4NYAUNcsxZ5q5AKWSkNg==
+"@formatjs/intl@1.18.3":
+  version "1.18.3"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl/-/intl-1.18.3.tgz#dfbddd9ae2cf70ea8f76fb4d27c49322d209911d"
+  integrity sha512-eMdU2FBAvC2vMeQRjvBhJeRNsftZ2VXdB4jW1KKbP72O4JWB9lv2KqEdS2jo6DfhDvm0EAMZXMNEEK8ybTxfyA==
   dependencies:
     "@formatjs/ecma402-abstract" "1.11.1"
     "@formatjs/fast-memoize" "1.2.1"
     "@formatjs/icu-messageformat-parser" "2.0.16"
     "@formatjs/intl-displaynames" "5.4.0"
     "@formatjs/intl-listformat" "6.5.0"
-    intl-messageformat "9.11.1"
+    intl-messageformat "9.11.2"
     tslib "^2.1.0"
 
 "@humanwhocodes/config-array@^0.9.2":
@@ -2698,10 +2698,10 @@ core-js-compat@^3.18.0, core-js-compat@^3.19.0, core-js-compat@^3.6.5:
     browserslist "^4.17.5"
     semver "7.0.0"
 
-core-js@^3.20.2:
-  version "3.20.2"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.2.tgz#46468d8601eafc8b266bd2dd6bf9dee622779581"
-  integrity sha512-nuqhq11DcOAbFBV4zCbKeGbKQsUDRqTX0oqx7AttUBuqe3h20ixsE039QHelbL6P4h+9kytVqyEtyZ6gsiwEYw==
+core-js@^3.20.3:
+  version "3.20.3"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.3.tgz#c710d0a676e684522f3db4ee84e5e18a9d11d69a"
+  integrity sha512-vVl8j8ph6tRS3B8qir40H7yw7voy17xL0piAjlbBUsH7WIfzoedL/ZOr1OV9FyZQLWXsayOJyV4tnRyXR85/ag==
 
 core-js@^3.6.5:
   version "3.19.0"
@@ -3153,10 +3153,10 @@ dot-prop@6.0.1:
   dependencies:
     is-obj "^2.0.0"
 
-dotenv@^11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-11.0.0.tgz#ee37feddf8ada6d348a79e198312d4a8abfd1c1e"
-  integrity sha512-Fp/b504Y5W+e+FpCxTFMUZ7ZEQkQYF0rx+KZtmwixJxGQbLHrhCwo3FjZgNC8vIfrSi29PABNbMoCGD9YoiXbQ==
+dotenv@^12.0.3:
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-12.0.3.tgz#362b83f866dfed8e540deaa5bbcb3c8ab401dcb6"
+  integrity sha512-RlOysyzyGiABgDFgITo5fRnMV1QStdoVvkXhnxQc5Or/CiQo52s2Bh6DVMvzZsmFQ9IrNxYHOC/gdpNwHsitnQ==
 
 duplexer@^0.1.2:
   version "0.1.2"
@@ -4313,10 +4313,10 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-intl-messageformat@9.11.1:
-  version "9.11.1"
-  resolved "https://registry.yarnpkg.com/intl-messageformat/-/intl-messageformat-9.11.1.tgz#915b04ea3730b0bb80de8ff9b1a33383a61fc5b0"
-  integrity sha512-kT0i8AIa1Aez8jGn1i9Xva/sdbjOPY15abR82qnU4jnESjxtynHLW1CBh9ehs13sPA8cE/4A2d6LEne91oDp4w==
+intl-messageformat@9.11.2:
+  version "9.11.2"
+  resolved "https://registry.yarnpkg.com/intl-messageformat/-/intl-messageformat-9.11.2.tgz#b94b1c5bcfff9de63017ffe2fb787a16a28967df"
+  integrity sha512-4wsinP2ObVK1Rz5C4121lgVeHeOCW32FOsqcVXtJNdlow+NypJKmnrije9rOc0bKxPwtto9IkXdgakXUmYXVHw==
   dependencies:
     "@formatjs/ecma402-abstract" "1.11.1"
     "@formatjs/fast-memoize" "1.2.1"
@@ -5979,10 +5979,10 @@ qs@^6.10.3:
   dependencies:
     side-channel "^1.0.4"
 
-quasar@^2.4.9:
-  version "2.4.9"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.4.9.tgz#81b8efdf442474038a7eff2a8735863ddf86b443"
-  integrity sha512-b07pI3mAM3NKv3jFDYLevHTh3CPtkaplA1Afw5S+07rZGNdhA5SItln2yWXZWeGi+DiX+AZxfoCzihz/NFWYZQ==
+quasar@^2.4.10:
+  version "2.4.10"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.4.10.tgz#d04ea753b0100ad2932a2dbaeb4d893154c717b8"
+  integrity sha512-fYd3VwUqtAyRBAbL+4CnadjFjyFJtMIeIOjeQzvycSdPqsv30WtVjz6SYIN53mZ7lFY0xfvnvHCfeVRPEl1FYw==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
@@ -7141,13 +7141,13 @@ vue-i18n@^9.1.9:
     "@intlify/vue-devtools" "9.1.9"
     "@vue/devtools-api" "^6.0.0-beta.7"
 
-vue-intl@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/vue-intl/-/vue-intl-6.1.1.tgz#9468c8d5405bbbd0aa5499a55a98741a870c508d"
-  integrity sha512-CVhyJO7qcZMmxxIcKBbIFxR+ayJ9HzDUnVcI404i/vgXVy4as7O9aMayqVbVZAMlBHC6A+20iw+y/XIbNlcoZA==
+vue-intl@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/vue-intl/-/vue-intl-6.1.2.tgz#5cd19c6595c10f98b51134b30035fd6fe26f3c56"
+  integrity sha512-KOKeHh47jxaqwIgbmu6YPDAkVtV8w6zTsH/yoVMX2nKSSlejRV+3zFmngIPemEv3f1FKzRszkthz3ywngFDIYg==
   dependencies:
     "@babel/types" "^7.12.11"
-    "@formatjs/intl" "1.18.2"
+    "@formatjs/intl" "1.18.3"
     tslib "^2.1.0"
 
 vue-loader@16.8.3:

@@ -1,8 +1,9 @@
 import { StatusBar } from '@capacitor/status-bar';
+import { has } from 'lodash';
 import { Platform } from 'quasar';
 
 export const useDevice = () => {
-  const isUsable = () => Platform.is.capacitor === true;
+  const isUsable = () => has(Platform.is, 'capacitor');
 
   const screenOrientationLandscape = async () => window.screen.orientation.lock('landscape');
   const screenOrientationUnlock = () => window.screen.orientation.unlock();

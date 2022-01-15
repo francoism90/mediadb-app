@@ -27,7 +27,6 @@ export default defineComponent({
       position: 'top',
       hijackFilter(url: string) {
         const parsedUrl = new URL(url);
-
         return parsedUrl.pathname.includes('api');
       },
     });
