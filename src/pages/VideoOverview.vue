@@ -4,25 +4,7 @@
       Video Library
 
       <template #meta>
-        <div class="q-gutter-sm">
-          <q-chip
-            square
-            clickable="false"
-            color="transparent"
-            class="video-overview-chip"
-            label="44316 videos"
-            icon="o_movie"
-          />
-
-          <q-chip
-            square
-            clickable="false"
-            color="transparent"
-            class="video-overview-chip"
-            label="44316 tags"
-            icon="o_tag"
-          />
-        </div>
+        <span>44316 videos</span>
       </template>
     </page-hero>
 

@@ -17,7 +17,6 @@
 
     <template v-else-if="state.ready">
       <video-title />
-      <video-player />
     </template>
   </q-page>
 </template>
@@ -33,7 +32,6 @@ export default defineComponent({
 
   components: {
     VideoTitle: defineAsyncComponent(() => import('components/videos/VideoTitle.vue')),
-    VideoPlayer: defineAsyncComponent(() => import('src/components/player/VideoPlayer.vue')),
   },
 
   props: {

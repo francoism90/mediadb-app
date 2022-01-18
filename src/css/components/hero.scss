@@ -1,11 +1,10 @@
 .hero {
   position: relative;
   background: $grey-10;
-  margin-top: $space-base * 2.5;
-  margin-bottom: $space-base * 2.5;
-  padding-left: $space-base * 2.5;
-  padding-top: $space-base * 2.5;
-  padding-bottom: $space-base * 2.5;
+  margin-bottom: $space-base * 2;
+  padding-left: $space-base * 2;
+  padding-top: $space-base * 2;
+  padding-bottom: $space-base * 2;
 
   @media (max-width: $breakpoint-xs-max) {
     padding-left: $space-base;
@@ -17,7 +16,7 @@
     content: "";
     height: 100%;
     margin-right: calc(-100vw);
-    background: $grey-10;
+    background: inherit;
     right: 0;
     top: 0;
     width: 100vw;
@@ -73,5 +72,53 @@
 
   span:last-child:after {
     content: "";
+  }
+}
+
+.hero-section {
+  position: relative;
+  margin-bottom: $space-base;
+  padding-top: $space-base / 2;
+  padding-bottom: $space-base / 2;
+
+  &::after {
+    content: "";
+    height: 100%;
+    margin-right: calc(-100vw);
+    background: inherit;
+    right: 0;
+    top: 0;
+    width: 100vw;
+    position: absolute;
+  }
+}
+
+.hero-section h1 {
+  position: relative;
+  display: block;
+  margin: 0;
+  font-size: 1.65rem;
+  text-transform: capitalize;
+  color: $grey-9;
+  border-bottom: 4px solid $grey-2;
+
+  span {
+    display: inline-block;
+    position: relative;
+    padding-bottom: $space-base / 2;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+
+    &::after {
+      content: "";
+      height: 4px;
+      width: 100%;
+      background: $primary;
+      left: 0;
+      bottom: -4px;
+      position: absolute;
+      z-index: 10;
+    }
   }
 }

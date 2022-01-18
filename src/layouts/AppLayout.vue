@@ -3,7 +3,31 @@
     :key="sessionKey"
     view="hHh lpR fFf"
   >
-    <div class="header" />
+    <div
+      class="header container transparent"
+      reveal
+    >
+      <q-toolbar>
+        <q-space />
+
+        <q-btn-group unelevated>
+          <q-btn
+            class="q-pa-sm"
+            color="grey-10"
+            icon="video_library"
+            :to="{ name: 'home' }"
+          />
+
+          <q-separator vertical />
+
+          <q-btn
+            class="q-pa-sm"
+            color="grey-10"
+            icon="shuffle"
+          />
+        </q-btn-group>
+      </q-toolbar>
+    </div>
 
     <q-page-container>
       <router-view />

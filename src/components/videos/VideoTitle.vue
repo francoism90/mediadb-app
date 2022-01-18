@@ -1,5 +1,8 @@
 <template>
   <video-hero />
+  <video-player />
+  <video-actions />
+  <video-similar />
 </template>
 
 <script lang="ts">
@@ -10,6 +13,9 @@ export default defineComponent({
 
   components: {
     VideoHero: defineAsyncComponent(() => import('components/videos/VideoHero.vue')),
+    VideoActions: defineAsyncComponent(() => import('components/videos/VideoActions.vue')),
+    VideoSimilar: defineAsyncComponent(() => import('components/videos/VideoSimilar.vue')),
+    VideoPlayer: defineAsyncComponent(() => import('components/player/VideoPlayer.vue')),
   },
 });
 </script>
