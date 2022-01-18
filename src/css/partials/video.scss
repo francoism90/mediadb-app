@@ -5,8 +5,13 @@
   padding-left: 0;
 }
 
-.video-overview-search {
-  border: $layout-border;
+.video-search-field {
+  border: 1px solid var(--video-search-border, #bdbdbd);
+  color: 1px solid var(--video-search-color, #4a4b50) !important;
+}
+
+.video-search-input {
+  font-weight: 600;
 }
 
 .video-item {

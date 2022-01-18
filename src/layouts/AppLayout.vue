@@ -1,11 +1,10 @@
 <template>
   <q-layout
     :key="sessionKey"
-    view="hHh lpR fFf"
+    view="hhh lpR fff"
   >
-    <div
+    <q-header
       class="header container transparent"
-      reveal
     >
       <q-toolbar>
         <q-space />
@@ -39,7 +38,7 @@
           />
         </q-btn-group>
       </q-toolbar>
-    </div>
+    </q-header>
 
     <q-page-container>
       <router-view />

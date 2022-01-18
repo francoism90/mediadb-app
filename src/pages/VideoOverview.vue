@@ -13,14 +13,14 @@
         borderless
         square
         placeholder="Enter a keyword, tag, ..."
-        class="video-overview-search q-px-md full-width"
-        input-class="text-grey-7 text-weight-medium"
+        class="video-search-field q-px-md full-width"
+        input-class="video-search-input"
       >
         <template #append>
           <q-icon
             name="filter_list"
             class="cursor-pointer"
-            color="grey-6"
+            color="grey-5"
           />
         </template>
       </q-input>
