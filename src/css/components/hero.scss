@@ -29,33 +29,49 @@
   position: relative;
   display: block;
   margin: 0;
+  font-size: 1.85rem;
   text-transform: uppercase;
   border-bottom: 4px solid rgba(255, 255, 255, 0.1);
-}
 
-.hero span {
-  display: inline-block;
-  position: relative;
-  padding-bottom: $space-base / 2.5;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
+  span {
+    display: inline-block;
+    position: relative;
+    padding-bottom: $space-base / 2.5;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 
-  &::after {
-    content: "";
-    height: 4px;
-    width: 100%;
-    background: $primary;
-    left: 0;
-    bottom: -4px;
-    position: absolute;
-    z-index: 10;
+    &::after {
+      content: "";
+      height: 4px;
+      width: 100%;
+      background: $primary;
+      left: 0;
+      bottom: -4px;
+      position: absolute;
+      z-index: 10;
+    }
   }
 }
 
 .hero p {
-  font-weight: 400;
+  font-size: 0.95rem;
+  font-weight: 500;
   display: block;
   margin: 0;
   margin-top: $space-base / 2.5;
+
+  span {
+    position: relative;
+  }
+
+  span:after {
+    content: "|";
+    opacity: 0.3;
+    padding: 0 0.5rem;
+  }
+
+  span:last-child:after {
+    content: "";
+  }
 }

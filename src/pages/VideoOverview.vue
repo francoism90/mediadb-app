@@ -1,11 +1,9 @@
 <template>
   <q-page class="container">
     <page-hero>
-      <template #main>
-        Video Library
-      </template>
+      Video Library
 
-      <template #footer>
+      <template #meta>
         <div class="q-gutter-sm">
           <q-chip
             square

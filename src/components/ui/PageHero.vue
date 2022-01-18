@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
-    <h1><span><slot name="main" /></span></h1>
-    <p><slot name="footer" /></p>
+    <h1><span><slot /></span></h1>
+    <p><slot name="meta" /></p>
   </div>
 </template>
 
