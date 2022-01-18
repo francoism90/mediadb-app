@@ -1,0 +1,10 @@
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Inter var", sans-serif;
+  }
+}
+
+body {
+  background: var(--body-bg-color) !important;
+  overflow-x: hidden;
+}

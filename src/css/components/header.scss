@@ -5,3 +5,7 @@
     padding: $space-base 0;
   }
 }
+
+.header-navigation {
+  border: var(--header-nav-border, "none");
+}

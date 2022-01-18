@@ -29,6 +29,7 @@
   display: block;
   margin: 0;
   font-size: 1.85rem;
+  color: $grey-1;
   text-transform: uppercase;
   border-bottom: 4px solid rgba(255, 255, 255, 0.1);
 
@@ -54,6 +55,7 @@
 }
 
 .hero p {
+  color: $grey-1;
   font-size: 0.95rem;
   font-weight: 500;
   display: block;
