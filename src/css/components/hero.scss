@@ -27,7 +27,7 @@
   display: block;
   margin: 0;
   font-size: 1.85rem;
-  color: $grey-1;
+  color: var(--hero-color, #f5f5f5);
   text-transform: uppercase;
   border-bottom: 4px solid rgba(255, 255, 255, 0.1);
 
@@ -53,7 +53,7 @@
 }
 
 .hero p {
-  color: $grey-1;
+  color: var(--hero-subtitle-color, #f5f5f5);
   font-size: 0.95rem;
   font-weight: 500;
   display: block;
@@ -99,7 +99,7 @@
   margin: 0;
   font-size: 1.65rem;
   text-transform: capitalize;
-  color: $grey-9;
+  color: var(--hero-section-color, #3b3d42);
   border-bottom: 4px solid $grey-2;
 
   span {

@@ -32,10 +32,23 @@
             {{ duration }}
           </div>
 
-          <tag-chips
+          <div
             v-if="video.tags?.length"
-            :tags="video.tags"
-          />
+            class="q-py-xs q-gutter-xs"
+          >
+            <q-chip
+              v-for="tag in video.tags"
+              :key="tag.id"
+              :label="tag.name"
+              class="video-item-tag"
+              clickable
+              text-color="grey-6"
+              size="0.95em"
+              dense
+              square
+              @click="filterTag(tag)"
+            />
+          </div>
         </div>
 
         <div class="col-auto">
@@ -82,9 +95,12 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { useVideo } from 'src/composables/useVideo';
+import { useVideos } from 'src/composables/useVideos';
 import { timeFormat } from 'src/helpers';
+import { TagModel } from 'src/interfaces';
 import { VideoModel } from 'src/interfaces/video';
-import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
+import { router } from 'src/router';
+import { computed, defineComponent, PropType } from 'vue';
 
 const actions = [
   {
@@ -100,10 +116,6 @@ const actions = [
 export default defineComponent({
   name: 'VideoCard',
 
-  components: {
-    TagChips: defineAsyncComponent(() => import('components/tags/TagChips.vue')),
-  },
-
   props: {
     video: {
       type: Object as PropType<VideoModel>,
@@ -113,6 +125,7 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
+    const { store } = useVideos();
     const { favorite, follow } = useVideo();
 
     const duration = computed(() => timeFormat(props.video.duration));
@@ -129,11 +142,18 @@ export default defineComponent({
       $q.notify({ message: 'Added to watchlist.', icon: 'watch_later' });
     };
 
+    const filterTag = async (tag: TagModel) => {
+      store.reset({ tags: [tag.name] });
+
+      await router.push({ name: 'home' });
+    };
+
     return {
-      favoriteModel,
-      followModel,
       actions,
       duration,
+      favoriteModel,
+      followModel,
+      filterTag,
     };
   },
 });

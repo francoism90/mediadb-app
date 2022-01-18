@@ -23,15 +23,6 @@
             <video-item :video="item" />
           </q-intersection>
         </div>
-
-        <template #loading>
-          <div class="row no-wrap justify-center q-py-lg">
-            <q-spinner-oval
-              color="primary"
-              size="2em"
-            />
-          </div>
-        </template>
       </q-infinite-scroll>
     </q-pull-to-refresh>
   </q-page>

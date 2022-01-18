@@ -45,6 +45,8 @@
       </div>
     </div>
   </q-toolbar>
+
+  <video-tags :tags="store.data.tags" />
 </template>
 
 <script lang="ts">
@@ -56,6 +58,10 @@ const editComponent = defineAsyncComponent(() => import('components/video/VideoE
 
 export default defineComponent({
   name: 'VideoActions',
+
+  components: {
+    VideoTags: defineAsyncComponent(() => import('components/video/VideoTags.vue')),
+  },
 
   setup() {
     const { store, favorite, follow } = useVideo();
