@@ -17,11 +17,6 @@ const routes: RouteRecordRaw[] = [
         props: true,
       },
       {
-        path: 'tags',
-        name: 'tags',
-        component: () => import('src/pages/TagOverview.vue'),
-      },
-      {
         path: 'settings',
         name: 'settings',
         component: () => import('src/pages/UserSettings.vue'),

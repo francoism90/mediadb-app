@@ -2,29 +2,12 @@
   <q-page class="container">
     <page-hero>
       Video Library
-
       <template #meta>
         <span>44316 videos</span>
       </template>
     </page-hero>
 
-    <q-toolbar class="q-pb-xl">
-      <q-input
-        borderless
-        square
-        placeholder="Enter a keyword, tag, ..."
-        class="video-search-field q-px-md full-width"
-        input-class="video-search-input"
-      >
-        <template #append>
-          <q-icon
-            name="filter_list"
-            class="cursor-pointer"
-            color="grey-5"
-          />
-        </template>
-      </q-input>
-    </q-toolbar>
+    <video-filter />
 
     <q-pull-to-refresh @refresh="onRefresh">
       <q-infinite-scroll
@@ -55,19 +38,18 @@
 </template>
 
 <script lang="ts">
-import { useMeta, useQuasar } from 'quasar';
+import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
 import { check } from 'src/services/auth';
 import { defineAsyncComponent, defineComponent, watch } from 'vue';
-
-const filterComponent = defineAsyncComponent(() => import('components/videos/VideoFilters.vue'));
 
 export default defineComponent({
   name: 'VideoOverview',
 
   components: {
     PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
-    VideoItem: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
+    VideoFilter: defineAsyncComponent(() => import('components/videos/VideoFilter.vue')),
+    VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
@@ -79,8 +61,7 @@ export default defineComponent({
   },
 
   setup() {
-    const $q = useQuasar();
-    const { fetch, store, filters, sorters } = useVideos();
+    const { fetch, store, filters } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -98,18 +79,6 @@ export default defineComponent({
       done();
     };
 
-    const toggleFilters = (): void => {
-      $q.dialog({
-        component: filterComponent,
-        componentProps: {
-          maximized: true,
-          position: 'right',
-          transitionShow: 'slide-left',
-          transitionHide: 'slide-right',
-        },
-      });
-    };
-
     useMeta(() => ({ title: 'Videos' }));
 
     watch(filters, () => store.reset(), { deep: true });
@@ -117,10 +86,7 @@ export default defineComponent({
     return {
       onLoad,
       onRefresh,
-      toggleFilters,
-      filters,
       store,
-      sorters,
     };
   },
 });
