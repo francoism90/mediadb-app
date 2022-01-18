@@ -35,7 +35,7 @@
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"
-            class="col-xs-12 col-sm-6 col-md-6 video-card-placeholder"
+            class="col-xs-12 col-sm-6 col-md-6 video-item-placeholder"
           >
             <video-item :video="item" />
           </q-intersection>

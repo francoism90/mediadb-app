@@ -4,7 +4,7 @@
       v-for="(tag, index) in tags"
       :key="index"
       :label="tag.name"
-      class="text-caption"
+      class="video-item-tag"
       clickable
       icon="tag"
       color="grey-3"
@@ -38,6 +38,7 @@ export default defineComponent({
 
     const onClick = async (tag: TagModel) => {
       store.reset({ tags: [tag.name] });
+
       await router.push({ name: 'home' });
     };
 

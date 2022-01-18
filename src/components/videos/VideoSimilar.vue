@@ -12,7 +12,7 @@
         <q-intersection
           v-for="(item, index) in similar.data"
           :key="index"
-          class="col-xs-12 col-sm-6 video-card-placeholder"
+          class="col-xs-12 col-sm-6 video-item-placeholder"
         >
           <item :video="item" />
         </q-intersection>

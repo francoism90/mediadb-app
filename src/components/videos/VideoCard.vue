@@ -1,34 +1,34 @@
 <template>
   <q-card
-    class="video-card transparent"
+    class="video-item transparent"
     draggable="false"
     flat
     square
   >
     <router-link
       :to="{ name: 'video', params: { id: video.id, slug: video.slug }}"
-      class="video-card-poster"
+      class="video-item-poster"
     >
       <q-img
         :alt="video.title"
         :src="video.poster_url"
         :draggable="false"
         loading="lazy"
-        class="video-card-img"
+        class="video-item-img"
         fit="fill"
         no-spinner
         no-transition
       />
     </router-link>
 
-    <q-card-section class="video-card-body">
+    <q-card-section class="video-item-body">
       <div class="row no-wrap">
         <div class="col">
-          <div class="q-pb-xs text-grey-8 text-weight-medium ellipsis-2-lines">
+          <div class="video-item-title q-pb-xs text-weight-medium ellipsis-2-lines">
             {{ video.title }}
           </div>
 
-          <div class="q-pb-xs text-grey-6 text-weight-medium ellipsis-2-lines">
+          <div class="video-item-duration q-pb-xs text-weight-medium ellipsis-2-lines">
             {{ duration }}
           </div>
 
