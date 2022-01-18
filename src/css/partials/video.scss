@@ -1,5 +1,5 @@
-.video-chip {
-  font-size: 0.8rem;
+.video-overview-chip {
+  font-size: 0.9rem;
   font-weight: 500;
   color: $grey-3;
   padding-left: 0;
@@ -7,25 +7,32 @@
 
 .video-overview-search {
   border: 1px solid $grey-5;
-  color: $grey-6 !important;
-  font-weight: 500;
 }
 
-.video-item {
+.video-card {
+  border: 1px solid $grey-3;
+}
+
+.video-card-placeholder {
   height: 400px;
   min-height: 400px;
   max-height: 400px;
   min-width: 180px;
 }
 
-.video-details-label {
-  width: 150px;
-  max-width: 150px;
+.video-card-poster {
+  display: block;
+  height: 220px;
 }
 
-.video-details-list {
-  &.q-list--dense > .q-item,
-  &.q-item--dense {
-    padding-left: 0;
-  }
+.video-card-img {
+  background-color: $grey-2;
+  border-bottom: 1px solid $grey-3;
+  height: 100%;
+  width: 100%;
+}
+
+.video-card-body {
+  padding: $space-base;
+  background-color: $grey-1;
 }

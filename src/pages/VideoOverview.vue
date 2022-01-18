@@ -8,26 +8,22 @@
       <template #footer>
         <div class="q-gutter-sm">
           <q-chip
-            dense
             square
             clickable="false"
             color="transparent"
-            class="video-chip"
+            class="video-overview-chip"
+            label="44316 videos"
             icon="o_movie"
-          >
-            44316 videos
-          </q-chip>
+          />
 
           <q-chip
-            dense
             square
             clickable="false"
             color="transparent"
-            class="video-chip"
+            class="video-overview-chip"
+            label="44316 tags"
             icon="o_tag"
-          >
-            44316 tags
-          </q-chip>
+          />
         </div>
       </template>
     </page-hero>
@@ -38,13 +34,13 @@
         square
         placeholder="Enter a keyword, tag, ..."
         class="video-overview-search q-px-md full-width"
-        input-class="text-grey-6"
+        input-class="text-grey-7 text-weight-medium"
       >
         <template #append>
           <q-icon
             name="filter_list"
             class="cursor-pointer"
-            color="grey-5"
+            color="grey-6"
           />
         </template>
       </q-input>
@@ -59,7 +55,7 @@
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"
-            class="col-xs-12 col-sm-6 col-md-6 video-item"
+            class="col-xs-12 col-sm-6 col-md-6 video-card-placeholder"
           >
             <video-item :video="item" />
           </q-intersection>

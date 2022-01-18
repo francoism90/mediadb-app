@@ -6,9 +6,10 @@
       :label="tag.name"
       class="text-caption"
       clickable
-      color="grey-10"
+      icon="tag"
+      color="grey-3"
+      text-color="grey-6"
       size="0.95em"
-      text-color="grey-5"
       dense
       square
       @click="onClick(tag)"
