@@ -1,41 +1,19 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-dark filter-toolbar">
-      <q-select
-        v-model.lazy="store.params.sort"
-        :options="sorters"
-        behavior="menu"
-        class="text-caption"
-        input-class="q-px-none q-py-xs"
-        dropdown-icon="expand_more"
-        borderless
-        emit-value
-        dense
-        hide-bottom-space
-        map-options
-        options-dense
-        popup-content-class="menu bordered"
-      >
-        <template #prepend>
-          <span class="text-body2 mobile-hide">Sort by</span>
-        </template>
-      </q-select>
+    <div class="hero">
+      <h1><span>Video Library</span></h1>
+      <p class="hero-subtitle">
+        Search Results for: lorem ipsum dolor
+      </p>
+    </div>
 
-      <q-space />
-
-      <q-btn
-        icon="filter_list"
-        color="grey-5"
-        outline
-        label="Filters"
-        @click="toggleFilters"
-      >
-        <q-badge
-          v-if="filters.length > 0"
-          :label="filters.length"
-          floating
-        />
-      </q-btn>
+    <q-toolbar class="q-pb-xl">
+      <q-input
+        placeholder="Enter a keyword..."
+        class="full-width"
+        square
+        outlined
+      />
     </q-toolbar>
 
     <q-pull-to-refresh @refresh="onRefresh">
@@ -43,11 +21,11 @@
         :key="store.id"
         @load="onLoad"
       >
-        <div class="row justify-start items-start content-start q-col-gutter-md">
+        <div class="row justify-start items-start content-start q-col-gutter-xl">
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
+            class="col-xs-12 col-sm-6 col-md-6 video-item"
           >
             <video-item :video="item" />
           </q-intersection>

@@ -1,0 +1,64 @@
+.hero {
+  position: relative;
+  background: $grey-10;
+  margin-top: $space-base * 5;
+  margin-bottom: $space-base * 5;
+  padding-left: $space-base * 2.5;
+  padding-top: $space-base * 2.5;
+  padding-bottom: $space-base * 2.5;
+
+  @media (max-width: $breakpoint-xs-max) {
+    padding-left: $space-base;
+    padding-top: $space-base;
+    padding-bottom: $space-base;
+  }
+
+  &::after {
+    content: "";
+    height: 100%;
+    margin-right: calc(-100vw);
+    background: $grey-10;
+    right: 0;
+    top: 0;
+    width: 100vw;
+    position: absolute;
+    z-index: 90;
+  }
+}
+
+.hero h1 {
+  position: relative;
+  display: block;
+  margin: 0px;
+  text-transform: uppercase;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero span {
+  display: inline-block;
+  position: relative;
+  padding-bottom: $space-base / 2.5;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+
+  &::after {
+    content: "";
+    height: 4px;
+    width: 100%;
+    background: $primary;
+    left: 0;
+    bottom: -4px;
+    position: absolute;
+    z-index: 10;
+  }
+}
+
+.hero p {
+  font-weight: 400;
+  display: block;
+  margin: 0;
+  margin-top: $space-base / 2.5;
+  font-size: 1.25rem;
+  font-family: inherit;
+}
