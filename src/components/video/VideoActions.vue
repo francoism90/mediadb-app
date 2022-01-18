@@ -52,7 +52,7 @@ import { useQuasar } from 'quasar';
 import { useVideo } from 'src/composables/useVideo';
 import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
-const editComponent = defineAsyncComponent(() => import('components/videos/VideoEditor.vue'));
+const editComponent = defineAsyncComponent(() => import('components/video/VideoEditor.vue'));
 
 export default defineComponent({
   name: 'VideoActions',

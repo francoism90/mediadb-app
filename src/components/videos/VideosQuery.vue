@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="q-pb-xl">
+  <q-toolbar class="q-pb-lg">
     <q-input
       v-model.lazy="store.params.query"
       :debounce="350"

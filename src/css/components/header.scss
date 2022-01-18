@@ -1,9 +1,6 @@
 .header {
-  padding: $space-base * 2 0;
-
-  @media (max-width: $breakpoint-xs-max) {
-    padding: $space-base 0;
-  }
+  display: flex;
+  height: 100px;
 }
 
 .header-navigation {

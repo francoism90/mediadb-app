@@ -2,12 +2,12 @@
   flex-grow: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding-left: $space-base * 2.5;
-  padding-right: $space-base * 2.5;
+  padding-left: 32px;
+  padding-right: 32px;
 
   @media (max-width: $breakpoint-xs-max) {
-    padding-left: $space-base;
-    padding-right: $space-base;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   &.fluid {

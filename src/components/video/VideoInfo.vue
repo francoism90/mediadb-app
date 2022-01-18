@@ -25,9 +25,9 @@ export default defineComponent({
   name: 'VideoInfo',
 
   components: {
-    VideoActions: defineAsyncComponent(() => import('components/videos/VideoActions.vue')),
-    VideoMetadata: defineAsyncComponent(() => import('src/components/videos/VideoMeta.vue')),
-    VideoTitle: defineAsyncComponent(() => import('src/components/videos/VideoTitle.vue')),
+    VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
+    VideoMetadata: defineAsyncComponent(() => import('src/components/video/VideoMeta.vue')),
+    VideoTitle: defineAsyncComponent(() => import('src/components/video/VideoTitle.vue')),
   },
 
   setup() {

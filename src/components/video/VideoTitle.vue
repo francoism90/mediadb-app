@@ -12,9 +12,9 @@ export default defineComponent({
   name: 'VideoTitle',
 
   components: {
-    VideoHero: defineAsyncComponent(() => import('components/videos/VideoHero.vue')),
-    VideoActions: defineAsyncComponent(() => import('components/videos/VideoActions.vue')),
-    VideoSimilar: defineAsyncComponent(() => import('components/videos/VideoSimilar.vue')),
+    VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
+    VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
+    VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
     VideoPlayer: defineAsyncComponent(() => import('components/player/VideoPlayer.vue')),
   },
 });

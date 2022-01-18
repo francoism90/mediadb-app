@@ -39,7 +39,7 @@ export default defineComponent({
   name: 'VideoSimilar',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
+    Item: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
     SectionHero: defineAsyncComponent(() => import('components/ui/SectionHero.vue')),
   },
 

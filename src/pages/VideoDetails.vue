@@ -31,7 +31,7 @@ export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    VideoTitle: defineAsyncComponent(() => import('components/videos/VideoTitle.vue')),
+    VideoTitle: defineAsyncComponent(() => import('components/video/VideoTitle.vue')),
   },
 
   props: {

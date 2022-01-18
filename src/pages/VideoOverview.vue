@@ -7,7 +7,7 @@
       </template>
     </page-hero>
 
-    <video-filter />
+    <video-query />
 
     <q-pull-to-refresh @refresh="onRefresh">
       <q-infinite-scroll
@@ -48,8 +48,8 @@ export default defineComponent({
 
   components: {
     PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
-    VideoFilter: defineAsyncComponent(() => import('components/videos/VideoFilter.vue')),
     VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
+    VideoQuery: defineAsyncComponent(() => import('src/components/videos/VideosQuery.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
@@ -84,9 +84,9 @@ export default defineComponent({
     watch(filters, () => store.reset(), { deep: true });
 
     return {
+      store,
       onLoad,
       onRefresh,
-      store,
     };
   },
 });
