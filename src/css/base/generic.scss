@@ -8,8 +8,8 @@ body {
   overflow-x: hidden;
 }
 
-body.body--light,
-body.body--dark {
+body.body--dark,
+body.body--light {
   background: #ebebeb;
   background: -webkit-linear-gradient(
     to right,
@@ -27,4 +27,8 @@ body.body--dark {
     #e0e0e0,
     #dbdbdb
   );
+}
+
+.border {
+  border: $layout-border;
 }
