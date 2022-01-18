@@ -3,6 +3,8 @@
     :key="sessionKey"
     view="hHh lpR fFf"
   >
+    <div class="header" />
+
     <q-page-container>
       <router-view />
     </q-page-container>

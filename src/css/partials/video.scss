@@ -1,3 +1,16 @@
+.video-chip {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $grey-3;
+  padding-left: 0;
+}
+
+.video-overview-search {
+  border: 1px solid $grey-5;
+  color: $grey-6 !important;
+  font-weight: 500;
+}
+
 .video-item {
   height: 400px;
   min-height: 400px;

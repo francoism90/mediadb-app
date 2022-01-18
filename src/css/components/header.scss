@@ -1,0 +1,7 @@
+.header {
+  height: $space-base;
+
+  @media (max-width: $breakpoint-xs-max) {
+    height: 0;
+  }
+}

@@ -1,19 +1,53 @@
 <template>
   <q-page class="container">
-    <div class="hero">
-      <h1><span>Video Library</span></h1>
-      <p class="hero-subtitle">
-        Search Results for: lorem ipsum dolor
-      </p>
-    </div>
+    <page-hero>
+      <template #main>
+        Video Library
+      </template>
+
+      <template #footer>
+        <div class="q-gutter-sm">
+          <q-chip
+            dense
+            square
+            clickable="false"
+            color="transparent"
+            class="video-chip"
+            icon="o_movie"
+          >
+            44316 videos
+          </q-chip>
+
+          <q-chip
+            dense
+            square
+            clickable="false"
+            color="transparent"
+            class="video-chip"
+            icon="o_tag"
+          >
+            44316 tags
+          </q-chip>
+        </div>
+      </template>
+    </page-hero>
 
     <q-toolbar class="q-pb-xl">
       <q-input
-        placeholder="Enter a keyword..."
-        class="full-width"
+        borderless
         square
-        outlined
-      />
+        placeholder="Enter a keyword, tag, ..."
+        class="video-overview-search q-px-md full-width"
+        input-class="text-grey-6"
+      >
+        <template #append>
+          <q-icon
+            name="filter_list"
+            class="cursor-pointer"
+            color="grey-5"
+          />
+        </template>
+      </q-input>
     </q-toolbar>
 
     <q-pull-to-refresh @refresh="onRefresh">
@@ -56,6 +90,7 @@ export default defineComponent({
   name: 'VideoOverview',
 
   components: {
+    PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
     VideoItem: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
   },
 

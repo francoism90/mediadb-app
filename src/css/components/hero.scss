@@ -1,8 +1,8 @@
 .hero {
   position: relative;
   background: $grey-10;
-  margin-top: $space-base * 5;
-  margin-bottom: $space-base * 5;
+  margin-top: $space-base * 2.5;
+  margin-bottom: $space-base * 2.5;
   padding-left: $space-base * 2.5;
   padding-top: $space-base * 2.5;
   padding-bottom: $space-base * 2.5;
@@ -22,14 +22,13 @@
     top: 0;
     width: 100vw;
     position: absolute;
-    z-index: 90;
   }
 }
 
 .hero h1 {
   position: relative;
   display: block;
-  margin: 0px;
+  margin: 0;
   text-transform: uppercase;
   border-bottom: 4px solid rgba(255, 255, 255, 0.1);
 }

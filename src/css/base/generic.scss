@@ -10,5 +10,21 @@ body {
 
 body.body--light,
 body.body--dark {
-  background: #cdcdcd;
+  background: #ebebeb;
+  background: -webkit-linear-gradient(
+    to right,
+    #eaeaea,
+    #dbdbdb,
+    #ebebeb,
+    #dbdbdb,
+    #eaeaea
+  );
+  background: linear-gradient(
+    to right,
+    #eaeaea,
+    #dbdbdb,
+    #ebebeb,
+    #dbdbdb,
+    #eaeaea
+  );
 }
