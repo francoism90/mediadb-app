@@ -1,30 +1,52 @@
 <template>
   <div class="filter-item-field">
     <h1>Duration</h1>
-    <p>Under 4 minutes</p>
-    <p>4 - 20 minutes</p>
-    <p>Over 20 minutes</p>
+    <p
+      v-for="(item, index) in items"
+      :key="index"
+      :class="{ 'text-weight-bold': isActive(item.value) }"
+      @click="toggle(item.value)"
+    >
+      {{ item.label }}
+      <q-icon
+        v-if="isActive(item.value)"
+        name="close"
+        size="16px"
+      />
+    </p>
   </div>
 </template>
 
 <script lang="ts">
-import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
+
+const items = [
+  { label: 'Under 4 minutes', value: 'duration:0-4' },
+  { label: '4 - 20 minutes', value: 'duration:4-20' },
+  { label: 'Over 20 minutes', value: 'duration:20+' },
+];
 
 export default defineComponent({
-  name: 'FilterDuration',
+  name: 'FilterList',
 
   setup() {
     const { store } = useVideos();
 
-    const visible = ref<boolean>(true);
+    const active = computed(() => store.params.type);
 
-    useMeta(() => ({ title: 'Videos' }));
+    const isActive = (value: string | null) => value === active.value;
+
+    const toggle = (value: string | null) => {
+      if (isActive(value)) store.params.type = null;
+      else store.params.type = value;
+    };
 
     return {
-      store,
-      visible,
+      active,
+      items,
+      toggle,
+      isActive,
     };
   },
 });
