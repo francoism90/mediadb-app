@@ -1,6 +1,6 @@
 <template>
   <section-hero>
-    More Like This
+    Similar Videos
   </section-hero>
 
   <q-pull-to-refresh @refresh="onRefresh">

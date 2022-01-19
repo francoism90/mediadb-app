@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { dateFormat, timeFormat } from 'src/helpers';
 import { Model, ModelResponse, VideoModel, VideoState } from 'src/interfaces';
 
 export const useStore = defineStore('video', {
@@ -15,14 +14,6 @@ export const useStore = defineStore('video', {
 
     name(): string {
       return this.data?.name || '';
-    },
-
-    duration(): string {
-      return timeFormat(this.data?.duration);
-    },
-
-    created(): string {
-      return dateFormat(this.data?.created_at);
     },
   },
 
