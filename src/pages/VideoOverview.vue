@@ -1,28 +1,40 @@
 <template>
   <q-page class="container">
-    <page-hero>
+    <page-hero class="q-mb-lg">
       Video Library
       <template #meta>
         <span>44316 videos</span>
       </template>
     </page-hero>
 
-    <video-query />
+    <video-filters />
 
-    <q-pull-to-refresh @refresh="onRefresh">
+    <q-pull-to-refresh
+      class="q-py-lg"
+      @refresh="onRefresh"
+    >
       <q-infinite-scroll
         :key="store.id"
         @load="onLoad"
       >
-        <div class="row justify-start items-start content-start q-col-gutter-xl">
+        <div class="row justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"
-            class="col-xs-12 col-sm-6 col-md-6 video-item-placeholder"
+            class="col-xs-12 col-sm-12 col-md-6 video-item-placeholder"
           >
             <video-item :video="item" />
           </q-intersection>
         </div>
+
+        <template #loading>
+          <div class="row no-wrap justify-center q-py-lg">
+            <q-spinner-oval
+              color="primary"
+              size="2em"
+            />
+          </div>
+        </template>
       </q-infinite-scroll>
     </q-pull-to-refresh>
   </q-page>
@@ -40,7 +52,7 @@ export default defineComponent({
   components: {
     PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
     VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
-    VideoQuery: defineAsyncComponent(() => import('src/components/videos/VideosQuery.vue')),
+    VideoFilters: defineAsyncComponent(() => import('src/components/videos/VideoFilters.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
