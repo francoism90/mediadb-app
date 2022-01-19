@@ -57,8 +57,8 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
     const { store, subscribe, unsubscribe } = useSession();
-    const sessionKey = computed(() => store.token || +new Date());
 
+    const sessionKey = computed(() => store.token || +new Date());
     const darkMode = computed(() => ($q.dark.isActive ? 'dark_mode' : 'o_dark_mode'));
 
     const toggleMode = () => $q.dark.toggle();

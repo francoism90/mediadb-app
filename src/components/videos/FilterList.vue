@@ -1,6 +1,6 @@
 <template>
   <div class="filter-item-field">
-    <h1>List</h1>
+    <h1>By List</h1>
     <p
       v-for="(item, index) in items"
       :key="index"
