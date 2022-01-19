@@ -7,7 +7,7 @@
       square
       hide-bottom-space
       placeholder="Enter a keyword, tag, ..."
-      class="video-search-field q-px-md full-width"
+      class="video-search-field full-width"
       input-class="video-search-input"
     >
       <template #append>
