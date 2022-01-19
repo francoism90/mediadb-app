@@ -35,7 +35,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { ready, start, stop } = useTimeout(2000 * 9999, { controls: true });
+    const { ready, start, stop } = useTimeout(2000, { controls: true });
 
     return {
       ready,
