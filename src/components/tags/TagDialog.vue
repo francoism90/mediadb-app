@@ -76,9 +76,9 @@ export default defineComponent({
     watch(filters, () => store.reset(), { deep: true });
 
     return {
-      dialogRef,
       id,
       store,
+      dialogRef,
       onDialogHide,
       onDialogCancel,
       onLoad,

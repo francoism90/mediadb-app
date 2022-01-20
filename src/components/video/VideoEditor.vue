@@ -1,6 +1,7 @@
 <template>
   <q-dialog
     ref="dialogRef"
+    square
     @hide="onDialogHide"
   >
     <q-card
@@ -231,6 +232,10 @@ export default defineComponent({
     watch(() => props.id, async (value) => initialize(value), { immediate: true });
 
     return {
+      state,
+      tags,
+      deleteDialog,
+      dialogRef,
       getError,
       hasError,
       onDelete,
@@ -238,10 +243,6 @@ export default defineComponent({
       onTagsFilter,
       onDialogHide,
       onDialogCancel,
-      state,
-      tags,
-      deleteDialog,
-      dialogRef,
     };
   },
 });
