@@ -1,10 +1,18 @@
-.tag-item {
-  height: 300px;
-  min-height: 300px;
-  max-height: 300px;
-  min-width: 180px;
+.tag-dialog {
+  background-color: var(--tag-dialog-bg, #e9e9e9);
+  color: var(--tag-dialog-color, #3b3d42);
+  width: 600px !important;
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  height: 500px;
+  max-height: 500px;
+}
 
-  .poster {
-    height: 200px;
-  }
+.tag-item {
+  color: var(--tag-item-color, #3b3d42);
+  height: 140px;
+  min-height: 140px;
+  max-height: 140px;
+  min-width: 100px;
+  text-align: center;
 }

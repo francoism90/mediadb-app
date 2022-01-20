@@ -103,7 +103,6 @@ module.exports = configure((ctx) => ({
     plugins: [
       'AppFullscreen',
       'Dialog',
-      'LoadingBar',
       'LocalStorage',
       'Meta',
       'Notify',

@@ -25,6 +25,15 @@
           <q-btn
             class="q-pa-sm"
             color="grey-10"
+            icon="o_tag"
+            @click="toggleDialog"
+          />
+
+          <q-separator vertical />
+
+          <q-btn
+            class="q-pa-sm"
+            color="grey-10"
             :icon="darkMode"
             @click="toggleMode"
           />
@@ -49,7 +58,9 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { useSession } from 'src/composables/useSession';
-import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
+
+const tagComponent = defineAsyncComponent(() => import('components/tags/TagDialog.vue'));
 
 export default defineComponent({
   name: 'AppLayout',
@@ -61,6 +72,7 @@ export default defineComponent({
     const sessionKey = computed(() => store.token || +new Date());
     const darkMode = computed(() => ($q.dark.isActive ? 'dark_mode' : 'o_dark_mode'));
 
+    const toggleDialog = () => $q.dialog({ component: tagComponent });
     const toggleMode = () => $q.dark.toggle();
 
     onMounted(() => subscribe());
@@ -69,6 +81,7 @@ export default defineComponent({
     return {
       sessionKey,
       darkMode,
+      toggleDialog,
       toggleMode,
     };
   },
