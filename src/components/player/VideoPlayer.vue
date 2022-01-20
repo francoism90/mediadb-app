@@ -1,7 +1,7 @@
 <template>
   <div
     ref="container"
-    class="player-container relative-position q-my-md"
+    class="player-container relative-position q-mb-md"
   >
     <video
       ref="video"
