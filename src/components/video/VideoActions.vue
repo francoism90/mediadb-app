@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="q-py-lg no-wrap justify-center items-center content-center">
+  <q-toolbar class="q-py-sm no-wrap justify-center items-center content-center">
     <q-btn-group unelevated>
       <q-btn
         class="q-pa-sm"

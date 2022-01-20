@@ -1,13 +1,5 @@
 .hero {
   position: relative;
-  background: $grey-10;
-  padding: 24px 32px;
-  padding-right: 0;
-
-  @media (max-width: $breakpoint-xs-max) {
-    padding: 16px;
-    padding-right: 0;
-  }
 
   &::after {
     content: "";
@@ -25,10 +17,9 @@
     display: block;
     margin: 0;
     line-height: initial;
-    font-size: 1.65rem;
-    color: var(--hero-color, #f5f5f5);
-    text-transform: uppercase;
-    border-bottom: 4px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.5rem;
+    color: var(--hero-color, #3b3d42);
+    border-bottom: 4px solid $grey-4;
 
     span {
       display: inline-block;
@@ -52,7 +43,7 @@
   }
 
   p {
-    color: var(--hero-subtitle-color, #f5f5f5);
+    color: var(--hero-subtitle-color, #3b3d42);
     font-size: 0.95rem;
     font-weight: 500;
     display: block;
@@ -98,7 +89,7 @@
     line-height: initial;
     text-transform: capitalize;
     color: var(--hero-section-color, #3b3d42);
-    border-bottom: 4px solid $grey-3;
+    border-bottom: 4px solid $grey-4;
 
     span {
       display: inline-block;

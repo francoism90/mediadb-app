@@ -1,12 +1,5 @@
 <template>
   <q-page class="container">
-    <page-hero class="q-mb-lg">
-      Video Library
-      <template #meta>
-        <span>44316 videos</span>
-      </template>
-    </page-hero>
-
     <video-filters />
 
     <q-pull-to-refresh
@@ -50,7 +43,6 @@ export default defineComponent({
   name: 'VideoOverview',
 
   components: {
-    PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
     VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
     VideoFilters: defineAsyncComponent(() => import('src/components/videos/VideoFilters.vue')),
   },
