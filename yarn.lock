@@ -973,17 +973,17 @@
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
 
-"@capacitor/core@^3.3.4":
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.3.4.tgz#5a302731d2d7a5461e10c55a6c113602b873d855"
-  integrity sha512-C4IQhSj60cr4OwMrm85r+5QB8WIvoBpvusUntxpJdVmhIzsooMQQ+3sTsXa2Rn+G57/zA2S/VpQsvUKasGwBtA==
+"@capacitor/core@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.4.0.tgz#c0e8c36fe9d3dbc05f57e644aa1aefa2184d20d8"
+  integrity sha512-utfMAYZyU8SL+JkVOcqanjmWarSBlvCyVDPL6AnXG/B//9VtleZ5NtorUXL0ggnK7t+Zbd8xGgA+LN7mn4+3Lw==
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/status-bar@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.6.tgz#d58c9087cfc7c7377e8009bea86152e4fdd2939e"
-  integrity sha512-5MGWFq76iiKvHpbZ/Xc0Zig3WZyzWZ62wvC4qxak8OuVHBNG4fA1p/XXY9teQPaU3SupEJHnLkw6Gn1LuDp+ew==
+"@capacitor/status-bar@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.7.tgz#98d5758f3db12fbb3d5bf895a01d7de903dd6129"
+  integrity sha512-Z4flqIGCeVDQ/IwFZEjHS0uLun2r70CG+6bs24ENKsSnirXFXvmzDOY60qff9eywP6pNLYqgcSaznnQ0eIu3Vw==
 
 "@eslint/eslintrc@^1.0.5":
   version "1.0.5"
@@ -1715,18 +1715,18 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.24.tgz#d74615e856013b17fb60b19b09d712729ad5e090"
   integrity sha512-BUgRiZCkCrqDps5aQ9av05xcge3rn092ztKIh17tHkeEFgP4zfXMQWBA2zfdoCdCEdBL26xtOv+FZYiOp9RUDA==
 
-"@vueuse/core@^7.5.3":
-  version "7.5.3"
-  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-7.5.3.tgz#7e8ea430a293670f12e5052a5285cb4ef8e9c758"
-  integrity sha512-D9j5ymHFMFRXQqCp0yZJkf/bvBGiz0MrKUa364p+L8dMyd5zyq2K1JmHyvoBd4xbTFRfmQ1h878u6YE5LCkDVQ==
+"@vueuse/core@^7.5.4":
+  version "7.5.4"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-7.5.4.tgz#c515c6795f1b8ab9a50e62e2f1aa75aac5f1ca14"
+  integrity sha512-PKmyHN2lZuttGgKmsoMMqiSojSYYKraszilP0gpQIGcLt2YoLABaG3VFjdPs2tY6DM+HG3o70HuzOMEQCY8fqQ==
   dependencies:
-    "@vueuse/shared" "7.5.3"
+    "@vueuse/shared" "7.5.4"
     vue-demi "*"
 
-"@vueuse/shared@7.5.3":
-  version "7.5.3"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-7.5.3.tgz#2a844f38e45b1002e14d8f0ab5b41221c4fb9b09"
-  integrity sha512-BJ71cxHN5VByW1S58Gl85NFJaQu93F7Vs7K/MuAKsIIuHm9PBbkR5Vxkg9ko9cBdiKVt+FNoo13BhdbA+Vwycg==
+"@vueuse/shared@7.5.4":
+  version "7.5.4"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-7.5.4.tgz#4285e5c47fe5f2d608f115bf2aa26154f474e881"
+  integrity sha512-750RnGUEgg1+K4jGVkv7M5UOStAa/IjAInV6BugyBOvRYL2l1lcIDUi4V/qIKTlhd2oUAByCEnlqIpFD2a3tfw==
   dependencies:
     vue-demi "*"
 
@@ -6059,10 +6059,10 @@ qs@^6.10.3:
   dependencies:
     side-channel "^1.0.4"
 
-quasar@^2.4.11:
-  version "2.4.11"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.4.11.tgz#b8e590de3a5e0d164f5d89c02e805e7a28e66e06"
-  integrity sha512-qwtjgw1R4pNkBQp5vP/YXmROEzPUGylTB93sJ8nmTQjiETr98XBJ+up7BIwoso330X9PzOwNWanTuSwsZz7M7Q==
+quasar@^2.4.12:
+  version "2.4.12"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.4.12.tgz#a2f4f17fd433ca766b675f51e4cf7e351af76ab5"
+  integrity sha512-obyqi5wxHpnlPSTfT/WEVCqt+J5LcgnjRGGmhuYMOrgSj8ytSbm5ToZfi/gj1yurifnX4dCIkneFtuFdOHnLZQ==
 
 queue-microtask@^1.2.2:
   version "1.2.3"

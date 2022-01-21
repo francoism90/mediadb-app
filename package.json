@@ -10,12 +10,12 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@capacitor/core": "^3.3.4",
-    "@capacitor/status-bar": "^1.0.6",
+    "@capacitor/core": "^3.4.0",
+    "@capacitor/status-bar": "^1.0.7",
     "@pinia/plugin-debounce": "^0.0.2",
     "@quasar/extras": "^1.12.4",
     "@types/qs": "^6.9.7",
-    "@vueuse/core": "^7.5.3",
+    "@vueuse/core": "^7.5.4",
     "axios": "^0.25.0",
     "core-js": "^3.20.3",
     "dashjs": "^4.2.1",
@@ -25,7 +25,7 @@
     "pinia": "^2.0.9",
     "pusher-js": "^7.0.3",
     "qs": "^6.10.3",
-    "quasar": "^2.4.11",
+    "quasar": "^2.4.12",
     "vue-i18n": "^9.1.9",
     "vue-intl": "^6.1.2"
   },

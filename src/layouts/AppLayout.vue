@@ -34,8 +34,8 @@
           <q-btn
             class="q-pa-sm"
             color="grey-10"
-            :icon="darkMode"
-            @click="toggleMode"
+            :icon="iconMode"
+            @click="toggleDarkMode"
           />
 
           <q-separator vertical />
@@ -57,8 +57,9 @@
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
+import { useDarkMode } from 'src/composables/useDarkMode';
 import { useSession } from 'src/composables/useSession';
-import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, onBeforeMount, onBeforeUnmount, onMounted } from 'vue';
 
 const tagComponent = defineAsyncComponent(() => import('components/tags/TagDialog.vue'));
 
@@ -67,22 +68,32 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store, subscribe, unsubscribe } = useSession();
+    const { store, subscribe, unsubscribe, getItem, setItem } = useSession();
+    const { getMode, setMode, toggleMode } = useDarkMode();
 
     const sessionKey = computed(() => store.token || +new Date());
-    const darkMode = computed(() => ($q.dark.isActive ? 'dark_mode' : 'o_dark_mode'));
+    const darkMode = computed(() => <boolean>getItem('dark_mode', false));
+    const iconMode = computed(() => (getMode() ? 'dark_mode' : 'o_dark_mode'));
 
     const toggleDialog = () => $q.dialog({ component: tagComponent });
-    const toggleMode = () => $q.dark.toggle();
 
-    onMounted(() => subscribe());
+    const toggleDarkMode = () => {
+      // Store mode
+      setItem('dark_mode', !getMode());
+
+      // Toggle mode change
+      toggleMode();
+    };
+
+    onBeforeMount(() => setMode(darkMode.value));
     onBeforeUnmount(() => unsubscribe());
+    onMounted(() => subscribe());
 
     return {
       sessionKey,
-      darkMode,
+      iconMode,
       toggleDialog,
-      toggleMode,
+      toggleDarkMode,
     };
   },
 });

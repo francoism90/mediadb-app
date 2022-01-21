@@ -6,9 +6,13 @@ import { useStore } from 'src/store/session';
 
 export const store = useStore();
 
-export const getToken = (): string | null => LocalStorage.getItem('token');
+export const getItem = (key: string, fallback?: string | number | boolean) => LocalStorage.getItem(key) ?? fallback;
 
-export const setToken = (payload: string) => LocalStorage.set('token', payload);
+export const setItem = (key: string, value: string | number | boolean) => LocalStorage.set(key, value);
+
+export const getToken = () => getItem('token') ?? '';
+
+export const setToken = (payload: string) => setItem('token', payload);
 
 export const initialize = async (payload?: AuthRequest) => {
   const requestToken = payload?.token || getToken();
@@ -22,12 +26,12 @@ export const initialize = async (payload?: AuthRequest) => {
   // Fetch requested user using token
   const response = await api.get<AuthRequest, AxiosResponse<AuthResponse>>('user', {
     headers: {
-      Authorization: `Bearer ${requestToken || ''}`,
+      Authorization: `Bearer ${<string>requestToken}`,
     },
   });
 
   const redirectUri = requestUri || store.redirectUri;
-  const token = response.data?.token || '';
+  const token = response.data?.token;
   const user = response.data?.user || undefined;
 
   // Set Bearer

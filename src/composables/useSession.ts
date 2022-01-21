@@ -1,7 +1,7 @@
 import { includes } from 'lodash';
 import { echoKey } from 'src/boot/echo';
 import { AuthRequest, LoginRequest } from 'src/interfaces';
-import { authenticate, check, destroy, store } from 'src/services/auth';
+import { authenticate, check, destroy, getItem, setItem, store } from 'src/services/auth';
 import { updated } from 'src/services/store';
 import { computed, inject, readonly } from 'vue';
 
@@ -28,6 +28,8 @@ export const useSession = () => {
     permissions: readonly(permissions),
     echo,
     store,
+    setItem,
+    getItem,
     signIn,
     signOut,
     subscribe,
