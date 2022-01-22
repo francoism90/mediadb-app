@@ -1,50 +1,50 @@
 <template>
-  <q-page class="container fluid">
-    <q-card
-      class="bg-grey-10 fixed-center"
-      style="width: 400px; max-width: 100vw;"
-      square
-    >
-      <q-form @submit="onSubmit">
-        <q-card-section class="row no-wrap justify-between items-center content-center">
-          <div class="col text-h6 ellipsis">
-            Sign In to MediaDB
-          </div>
-        </q-card-section>
+  <q-page class="fullscreen q-pa-md flex flex-center">
+    <div>
+      <page-hero class="q-mb-md">
+        Sign In
+      </page-hero>
 
-        <q-separator :dark="false" />
+      <q-card
+        class="auth-card"
+        style="width: 400px; max-width: 100vw;"
+        flat
+        square
+      >
+        <q-form @submit="onSubmit">
+          <q-card-section class="q-px-xl">
+            <q-input
+              v-model.trim="state.email"
+              :error-message="getError('email')?.find(Boolean)"
+              :error="hasError('email')"
+              autofocus
+              label="Your email"
+              type="email"
+            />
 
-        <q-card-section class="q-px-xl q-gutter-sm">
-          <q-input
-            v-model.trim="state.email"
-            :error-message="getError('email')?.find(Boolean)"
-            :error="hasError('email')"
-            autofocus
-            label="Your email"
-            type="email"
-          />
+            <q-input
+              v-model.trim="state.password"
+              :error-message="getError('password')?.find(Boolean)"
+              :error="hasError('password')"
+              label="Your password"
+              type="password"
+            />
+          </q-card-section>
 
-          <q-input
-            v-model.trim="state.password"
-            :error-message="getError('password')?.find(Boolean)"
-            :error="hasError('password')"
-            label="Your password"
-            type="password"
-          />
-        </q-card-section>
-
-        <q-card-actions
-          align="center"
-          class="q-pb-lg"
-        >
-          <q-btn
-            color="primary"
-            type="submit"
-            label="Sign In"
-          />
-        </q-card-actions>
-      </q-form>
-    </q-card>
+          <q-card-actions
+            align="center"
+            class="q-pb-lg"
+          >
+            <q-btn
+              color="primary"
+              type="submit"
+              label="Sign In"
+              flat
+            />
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </div>
   </q-page>
 </template>
 
@@ -55,7 +55,7 @@ import { useValidation } from 'src/composables/useValidation';
 import { LoginRequest, ValidationError } from 'src/interfaces';
 import { router } from 'src/router';
 import { check } from 'src/services/auth';
-import { defineComponent, reactive } from 'vue';
+import { defineAsyncComponent, defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   name: 'UserLogin',
@@ -66,6 +66,10 @@ export default defineComponent({
     if (authenticated) {
       redirect({ name: 'home' });
     }
+  },
+
+  components: {
+    PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
   },
 
   setup() {
@@ -84,7 +88,6 @@ export default defineComponent({
 
       try {
         await signIn(state);
-
         await router.replace(store.redirectUri);
       } catch (e: unknown) {
         const error = e as ValidationError;

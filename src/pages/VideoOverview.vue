@@ -44,7 +44,7 @@ export default defineComponent({
 
   components: {
     VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
-    VideoFilters: defineAsyncComponent(() => import('src/components/videos/VideoFilters.vue')),
+    VideoFilters: defineAsyncComponent(() => import('components/videos/VideoFilters.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
