@@ -10,6 +10,7 @@ export const useStores = () => {
       type: 'positive',
       message: 'An update has just been made.',
       caption: model.name || model.id,
+      classes: 'no-shadow',
     });
 
     updated(model);
@@ -20,6 +21,7 @@ export const useStores = () => {
       type: 'info',
       message: 'A deletion has just been made.',
       caption: model.name || model.id,
+      classes: 'no-shadow',
     });
 
     deleted(model);

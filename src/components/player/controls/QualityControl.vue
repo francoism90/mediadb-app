@@ -1,9 +1,14 @@
 <template>
-  <template v-if="store.isLoading">
-    <q-spinner size="24px" />
-  </template>
+  <div class="q-gutter-x-md">
+    <template v-if="store.isLoading">
+      <q-spinner
+        color="white"
+        size="24px"
+      />
+    </template>
 
-  <span class="text-weight-medium text-white">{{ resolution?.label }}</span>
+    <span class="text-weight-medium text-white">{{ resolution?.label }}</span>
+  </div>
 </template>
 
 <script lang="ts">
