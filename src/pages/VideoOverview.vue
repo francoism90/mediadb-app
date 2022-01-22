@@ -7,7 +7,7 @@
       @refresh="onRefresh"
     >
       <q-infinite-scroll
-        :key="id"
+        :key="store.id"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-lg">
@@ -37,7 +37,7 @@
 import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
 import { check } from 'src/services/auth';
-import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
+import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoOverview',
@@ -57,8 +57,6 @@ export default defineComponent({
 
   setup() {
     const { fetch, store, filters } = useVideos();
-
-    const id = computed(() => store.id || +new Date());
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -81,7 +79,6 @@ export default defineComponent({
     watch(filters, () => store.reset(), { deep: true });
 
     return {
-      id,
       store,
       onLoad,
       onRefresh,

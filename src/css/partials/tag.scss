@@ -8,11 +8,20 @@
   max-height: 500px;
 }
 
+.tag-search-field {
+  border: 1px solid var(--tag-search-border, #bdbdbd);
+}
+
+.tag-search-input {
+  font-weight: 500;
+  color: var(--tag-search-color, #3b3d42) !important;
+}
+
 .tag-item {
   color: var(--tag-item-color, #3b3d42);
-  height: 140px;
-  min-height: 140px;
-  max-height: 140px;
+  height: 130px;
+  min-height: 130px;
+  max-height: 130px;
   min-width: 100px;
   text-align: center;
 }

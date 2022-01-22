@@ -33,7 +33,6 @@
 </template>
 
 <script lang="ts">
-import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
 import { defineAsyncComponent, defineComponent, ref } from 'vue';
 
@@ -50,8 +49,6 @@ export default defineComponent({
     const { store } = useVideos();
 
     const visible = ref<boolean>(false);
-
-    useMeta(() => ({ title: 'Videos' }));
 
     return {
       store,

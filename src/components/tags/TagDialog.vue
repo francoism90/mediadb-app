@@ -5,11 +5,16 @@
     @hide="onDialogHide"
   >
     <div
-      class="tag-dialog q-py-lg scroll"
+      class="tag-dialog scroll"
     >
-      <q-pull-to-refresh @refresh="onRefresh">
+      <tag-filters />
+
+      <q-pull-to-refresh
+        class="q-py-lg"
+        @refresh="onRefresh"
+      >
         <q-infinite-scroll
-          :key="id"
+          :key="store.id"
           @load="onLoad"
         >
           <div class="row justify-start items-start content-start q-col-gutter-md">
@@ -39,12 +44,13 @@
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
 import { useTags } from 'src/composables/useTags';
-import { computed, defineAsyncComponent, defineComponent, watch } from 'vue';
+import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
 export default defineComponent({
   name: 'TagDialog',
 
   components: {
+    TagFilters: defineAsyncComponent(() => import('components/tags/TagFilters.vue')),
     TagItem: defineAsyncComponent(() => import('components/tags/TagItem.vue')),
   },
 
@@ -55,8 +61,6 @@ export default defineComponent({
   setup() {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
     const { fetch, store, filters } = useTags();
-
-    const id = computed(() => store.id || +new Date());
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -76,7 +80,6 @@ export default defineComponent({
     watch(filters, () => store.reset(), { deep: true });
 
     return {
-      id,
       store,
       dialogRef,
       onDialogHide,
