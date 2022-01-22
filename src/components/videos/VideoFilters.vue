@@ -11,9 +11,17 @@
   >
     <template #append>
       <q-icon
-        name="filter_list"
-        class="cursor-pointer"
+        v-if="store.params.query"
+        name="clear"
         color="grey-5"
+        class="cursor-pointer q-px-xs"
+        @click.stop="store.params.query = null"
+      />
+
+      <q-icon
+        name="filter_list"
+        color="grey-5"
+        class="cursor-pointer"
         @click="visible = !visible"
       />
     </template>

@@ -10,7 +10,17 @@
       placeholder="Enter a keyword..."
       class="tag-search-field q-px-sm full-width"
       input-class="tag-search-input"
-    />
+    >
+      <template #append>
+        <q-icon
+          v-if="store.params.query"
+          name="clear"
+          class="cursor-pointer q-px-xs"
+          color="grey-6"
+          @click.stop="store.params.query = null"
+        />
+      </template>
+    </q-input>
   </div>
 </template>
 
