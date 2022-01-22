@@ -2,6 +2,7 @@
   <div class="q-px-lg q-pt-lg">
     <q-input
       v-model.lazy="store.params.query"
+      :dark="false"
       :debounce="350"
       borderless
       dense

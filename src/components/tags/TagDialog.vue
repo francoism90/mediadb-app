@@ -4,9 +4,7 @@
     square
     @hide="onDialogHide"
   >
-    <div
-      class="tag-dialog scroll"
-    >
+    <div class="tag-dialog scroll">
       <tag-filters />
 
       <q-pull-to-refresh

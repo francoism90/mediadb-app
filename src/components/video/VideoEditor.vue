@@ -6,15 +6,21 @@
   >
     <q-card
       v-if="state?.id"
-      class="bg-grey-12 q-pa-md q-dialog-plugin"
-      style="width: 450px; max-width: 100vw;"
+      flat
       square
+      class="q-dialog-plugin dialog q-pa-md scroll"
+      style="width: 500px; max-width: 100vw;"
     >
       <q-dialog
         v-model="deleteDialog"
         persistent
       >
-        <q-card square>
+        <q-card
+          class="dialog"
+          :dark="false"
+          flat
+          square
+        >
           <q-card-section class="q-pt-lg q-px-xl text-body1">
             Are you sure you want to delete this video?
           </q-card-section>
@@ -25,11 +31,13 @@
           >
             <q-btn
               v-close-popup
+              flat
               label="Cancel"
             />
 
             <q-btn
               v-close-popup="3"
+              flat
               color="primary"
               label="Confirm"
               @click="onDelete"
@@ -40,16 +48,9 @@
 
       <q-form @submit="onSubmit">
         <q-card-section>
-          <div class="text-h4 ellipsis">
-            Edit Video
-          </div>
-        </q-card-section>
-
-        <q-separator color="grey-8" />
-
-        <q-card-section class="q-gutter-sm">
           <q-input
             v-model.trim="state.name"
+            :dark="false"
             :error-message="getError('name')?.find(Boolean)"
             :error="hasError('name')"
             :maxlength="255"
@@ -61,17 +62,19 @@
 
           <q-select
             v-model.lazy="state.tags"
-            :options="tags"
+            :dark="false"
             :error-message="getError('tags')?.find(Boolean)"
             :error="hasError('tags')"
+            :options="tags"
+            :options-dark="false"
             counter
+            popup-content-class="dialog-popup"
             display-value="name"
             dropdown-icon="expand_more"
             label="Tags"
             max-values="15"
             multiple
             option-label="name"
-            popup-content-class="bg-grey-9"
             square
             use-chips
             use-input
@@ -80,7 +83,7 @@
             <template #option="scope">
               <q-item v-bind="scope.itemProps">
                 <q-item-section>
-                  <q-item-label>
+                  <q-item-label class="text-weight-medium">
                     {{ scope.opt.name }}
                   </q-item-label>
 
@@ -97,6 +100,7 @@
 
           <q-input
             v-model.trim="state.episode_number"
+            :dark="false"
             :error-message="getError('episode_number')?.find(Boolean)"
             :error="hasError('episode_number')"
             :maxlength="255"
@@ -107,6 +111,7 @@
 
           <q-input
             v-model.trim="state.season_number"
+            :dark="false"
             :error-message="getError('season_number')?.find(Boolean)"
             :error="hasError('season_number')"
             :maxlength="255"
@@ -120,11 +125,13 @@
           <q-btn
             color="grey-8"
             label="Delete"
+            flat
             @click="deleteDialog = true"
           />
 
           <q-btn
             color="primary"
+            flat
             label="Save Changes"
             @click="onSubmit"
           />
