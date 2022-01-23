@@ -1,5 +1,5 @@
 <template>
-  <div class="q-mb-lg q-gutter-xs">
+  <div class="q-my-md q-gutter-xs">
     <q-chip
       v-for="tag in tags"
       :key="tag.id"

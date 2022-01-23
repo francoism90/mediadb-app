@@ -1,13 +1,13 @@
 <template>
   <q-card
-    class="video-item transparent"
+    class="video-item"
     draggable="false"
     flat
     square
   >
     <router-link
       :to="{ name: 'video', params: { id: video.id, slug: video.slug }}"
-      class="video-item-poster"
+      class="video-item-thumbnail"
     >
       <q-img
         :alt="video.title"
@@ -37,7 +37,7 @@
             class="q-py-xs q-gutter-xs"
           >
             <q-chip
-              v-for="tag in video.tags"
+              v-for="tag in video.tags.slice(0, 5)"
               :key="tag.id"
               :label="tag.name"
               class="video-item-tag"
@@ -48,6 +48,8 @@
               square
               @click="filterTag(tag)"
             />
+
+            <span v-if="video.tags.length >= 6">...</span>
           </div>
         </div>
 
@@ -131,13 +133,13 @@ export default defineComponent({
     const duration = computed(() => timeFormat(props.video.duration));
 
     const favoriteModel = async () => {
-      await favorite(props.video?.id || '', <VideoModel>{ favorite: true });
+      await favorite(props.video.id, <VideoModel>{ favorite: true });
 
       $q.notify({ message: 'Added to bookmarks.', icon: 'favorite' });
     };
 
     const followModel = async () => {
-      await follow(props.video?.id || '', <VideoModel>{ following: true });
+      await follow(props.video.id, <VideoModel>{ following: true });
 
       $q.notify({ message: 'Added to watchlist.', icon: 'watch_later' });
     };

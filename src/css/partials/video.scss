@@ -15,6 +15,7 @@
 }
 
 .video-item {
+  background-color: var(--video-item-bg, #f5f5f5);
   border: 1px solid var(--video-item-border, #e0e0e0);
 }
 
@@ -25,7 +26,7 @@
   min-width: 200px;
 }
 
-.video-item-poster {
+.video-item-thumbnail {
   display: block;
   height: 220px;
 }
@@ -39,7 +40,6 @@
 
 .video-item-body {
   padding: 16px;
-  background-color: var(--video-item-bg, #f5f5f5);
 }
 
 .video-item-title {
