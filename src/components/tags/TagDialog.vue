@@ -4,37 +4,38 @@
     square
     @hide="onDialogHide"
   >
-    <div class="tag-dialog scroll">
+    <div class="dialog tag-dialog">
       <tag-filters />
 
-      <q-pull-to-refresh
-        class="q-py-lg"
-        @refresh="onRefresh"
-      >
-        <q-infinite-scroll
-          :key="store.id"
-          @load="onLoad"
-        >
-          <div class="row justify-start items-start content-start q-col-gutter-md">
-            <q-intersection
-              v-for="(item, index) in store.data"
-              :key="index"
-              class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 tag-item"
-            >
-              <tag-item :tag="item" />
-            </q-intersection>
-          </div>
+      <q-separator color="grey-4" />
 
-          <template #loading>
-            <div class="row no-wrap justify-center q-py-lg">
-              <q-spinner-oval
-                color="primary"
-                size="2em"
-              />
+      <q-scroll-area style="height: 400px;">
+        <q-pull-to-refresh @refresh="onRefresh">
+          <q-infinite-scroll
+            :key="store.id"
+            @load="onLoad"
+          >
+            <div class="row justify-start items-start content-start q-col-gutter-md">
+              <q-intersection
+                v-for="(item, index) in store.data"
+                :key="index"
+                class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 tag-item"
+              >
+                <tag-item :tag="item" />
+              </q-intersection>
             </div>
-          </template>
-        </q-infinite-scroll>
-      </q-pull-to-refresh>
+
+            <template #loading>
+              <div class="row no-wrap justify-center q-py-lg">
+                <q-spinner-oval
+                  color="primary"
+                  size="2em"
+                />
+              </div>
+            </template>
+          </q-infinite-scroll>
+        </q-pull-to-refresh>
+      </q-scroll-area>
     </div>
   </q-dialog>
 </template>

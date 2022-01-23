@@ -1,5 +1,5 @@
 <template>
-  <div class="q-px-lg q-pt-lg">
+  <div class="q-pa-lg">
     <q-input
       v-model.lazy="store.params.query"
       :dark="false"

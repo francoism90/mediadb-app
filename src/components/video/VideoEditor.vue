@@ -47,7 +47,7 @@
       </q-dialog>
 
       <q-form @submit="onSubmit">
-        <q-card-section>
+        <q-card-section class="q-gutter-md">
           <q-input
             v-model.trim="state.name"
             :dark="false"
