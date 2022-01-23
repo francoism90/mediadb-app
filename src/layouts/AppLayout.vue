@@ -43,7 +43,8 @@
           <q-btn
             class="q-pa-sm"
             color="grey-10"
-            icon="o_shuffle"
+            icon="o_logout"
+            :to="{ name: 'logout' }"
           />
         </q-btn-group>
       </q-toolbar>

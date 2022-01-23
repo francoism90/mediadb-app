@@ -1,18 +1,17 @@
 <template>
-  <q-page class="fullscreen q-pa-md flex flex-center">
-    <div>
+  <q-page class="fullscreen flex flex-center">
+    <div class="container auth">
       <page-hero class="q-mb-md">
         Sign In
       </page-hero>
 
       <q-card
-        class="auth-card"
-        style="width: 400px; max-width: 100vw;"
+        class="auth-dialog"
         flat
         square
       >
         <q-form @submit="onSubmit">
-          <q-card-section class="q-px-xl">
+          <q-card-section class="q-gutter-sm">
             <q-input
               v-model.trim="state.email"
               :error-message="getError('email')?.find(Boolean)"
