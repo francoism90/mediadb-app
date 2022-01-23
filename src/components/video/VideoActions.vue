@@ -38,7 +38,7 @@
       style="height: 35px;"
     >
       <div class="col">
-        <span class="text-grey-5 text-weight-bold">{{ store.data.views || 0 }}</span>
+        <span class="text-grey-5 text-weight-bold">{{ views }}</span>
       </div>
       <div class="col-auto">
         <span class="text-grey-5">views</span>
@@ -52,6 +52,7 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { useVideo } from 'src/composables/useVideo';
+import { average } from 'src/helpers/number';
 import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
 const editComponent = defineAsyncComponent(() => import('components/video/VideoEditor.vue'));
@@ -69,6 +70,7 @@ export default defineComponent({
 
     const favorited = computed(() => (store.data?.favorite === true ? 'favorite' : 'favorite_border'));
     const following = computed(() => (store.data?.following === true ? 'watch_later' : 'o_watch_later'));
+    const views = computed(() => average(store.data?.views || 0));
 
     const toggleFavorite = async () => favorite(store.id);
     const toggleFollow = async () => follow(store.id);
@@ -84,6 +86,7 @@ export default defineComponent({
       store,
       favorited,
       following,
+      views,
       edit,
       toggleFavorite,
       toggleFollow,
