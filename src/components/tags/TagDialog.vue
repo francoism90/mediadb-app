@@ -4,7 +4,12 @@
     square
     @hide="onDialogHide"
   >
-    <div class="dialog tag-dialog">
+    <q-card
+      v-if="store?.id"
+      flat
+      square
+      class="q-dialog-plugin dialog video-dialog"
+    >
       <tag-filters />
 
       <q-separator color="grey-4" />
@@ -36,7 +41,7 @@
           </q-infinite-scroll>
         </q-pull-to-refresh>
       </q-scroll-area>
-    </div>
+    </q-card>
   </q-dialog>
 </template>
 

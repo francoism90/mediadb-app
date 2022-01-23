@@ -8,8 +8,7 @@
       v-if="state?.id"
       flat
       square
-      class="q-dialog-plugin dialog q-pa-md scroll"
-      style="width: 500px; max-width: 100vw;"
+      class="q-dialog-plugin dialog video-dialog"
     >
       <q-dialog
         v-model="deleteDialog"
@@ -46,8 +45,11 @@
         </q-card>
       </q-dialog>
 
-      <q-form @submit="onSubmit">
-        <q-card-section class="q-gutter-md">
+      <q-form
+        class="q-pa-md"
+        @submit="onSubmit"
+      >
+        <q-card-section class="q-gutter-sm">
           <q-input
             v-model.trim="state.name"
             :dark="false"
