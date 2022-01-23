@@ -1,3 +1,3 @@
 import numbro from 'numbro';
 
-export const average = (payload: number) => numbro(payload).format({ average: true, totalLength: 2 });
+export const average = (payload: number) => numbro(payload).format({ average: true });
