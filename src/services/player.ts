@@ -68,16 +68,16 @@ export const showTextTrack = (player: MediaPlayerClass | undefined, track: TextT
   }
 };
 
-export const setSpriteTrack = (player: MediaPlayerClass | undefined) => {
+export const setThumbnailTrack = (player: MediaPlayerClass | undefined) => {
   appendTrack(player, <PlayerTrack>{
-    id: 'sprite',
+    id: 'thumbnail',
     kind: 'metadata',
-    label: 'sprite',
+    label: 'thumbnail',
     srclang: 'en',
-    src: store.model.sprite_url,
+    src: store.model?.sprite_url,
   });
 
-  showTextTrack(player, <TextTrack>{ label: 'sprite' });
+  showTextTrack(player, <TextTrack>{ label: 'thumbnail' });
 };
 
 export const getVideoTrack = () => store.properties?.videoTrack as MediaInfo | undefined;
@@ -107,7 +107,7 @@ export const listener = (player: MediaPlayerClass | undefined, event: string) =>
   if (event === 'playbackMetaDataLoaded') {
     window.setTimeout(() => {
       // TODO: add resume
-      setSpriteTrack(player);
+      setThumbnailTrack(player);
     }, 100);
   }
 };
@@ -164,7 +164,7 @@ export const getCueByTime = (track: TextTrack | undefined, time: number) => find
 );
 
 export const getThumbnailUrl = async (time: number) => {
-  const cue = getCueByTime(store.spriteTrack, time) as VTTCue;
+  const cue = getCueByTime(store.thumbnailTrack, time) as VTTCue;
   const obj = JSON.parse(cue?.text || '{}') as PlayerTrack;
 
   return blob(obj?.src || '');
