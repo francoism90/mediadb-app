@@ -32,7 +32,6 @@
 
 .video-item-thumbnail {
   display: block;
-  height: 220px;
 }
 
 .video-item-img {
@@ -40,6 +39,7 @@
   border-bottom: 1px solid var(--video-item-border, #e0e0e0);
   height: 100%;
   width: 100%;
+  max-height: 240px;
 }
 
 .video-item-body {
