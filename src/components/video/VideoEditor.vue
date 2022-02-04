@@ -72,14 +72,14 @@
           >
             <template #option="scope">
               <q-item v-bind="scope.itemProps">
-                <q-item-section>
-                  <q-item-label class="text-weight-medium">
+                <q-item-section class="tag-select">
+                  <q-item-label class="tag-select-title text-weight-medium">
                     {{ scope.opt.name }}
                   </q-item-label>
 
                   <q-item-label
                     caption
-                    class="text-capitalize"
+                    class="tag-select-meta text-capitalize"
                   >
                     {{ scope.opt.type }}
                   </q-item-label>
