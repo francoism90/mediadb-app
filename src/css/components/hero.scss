@@ -25,7 +25,7 @@
 
     span:after {
       content: "|";
-      opacity: 0.3;
+      color: var(--border-color);
       padding: 0 0.5rem;
     }
 

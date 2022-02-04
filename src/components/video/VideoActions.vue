@@ -1,28 +1,28 @@
 <template>
   <q-toolbar class="q-py-sm no-wrap justify-center items-center content-center">
-    <q-btn-group unelevated>
+    <div class="q-gutter-x-none">
       <q-btn
-        class="btn-primary q-pa-sm"
+        class="btn-primary transparent q-pa-sm"
         icon="movie"
         @click="edit"
       />
 
       <q-btn
-        class="btn-primary q-pa-sm"
+        class="btn-primary transparent q-pa-sm"
         :icon="following"
         @click="toggleFollow"
       />
 
       <q-btn
-        class="btn-primary q-pa-sm"
+        class="btn-primary transparent q-pa-sm"
         :icon="favorited"
         @click="toggleFavorite"
       />
-    </q-btn-group>
+    </div>
 
     <q-separator
+      class="seperator"
       spaced="lg"
-      color="grey-4"
       vertical
     />
 

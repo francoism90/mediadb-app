@@ -9,23 +9,23 @@
       <q-toolbar>
         <q-space />
 
-        <div class="q-gutter-x-xs">
+        <div class="q-gutter-x-none">
           <q-btn
-            class="btn-primary q-pa-sm"
+            class="btn-primary transparent q-pa-sm"
             icon="o_video_library"
             size="14px"
             :to="{ name: 'home' }"
           />
 
           <q-btn
-            class="btn-primary q-pa-sm"
+            class="btn-primary transparent q-pa-sm"
             icon="o_tag"
             size="14px"
             @click="toggleDialog"
           />
 
           <q-btn
-            class="btn-primary q-pa-sm"
+            class="btn-primary transparent q-pa-sm"
             icon="o_logout"
             size="14px"
             :to="{ name: 'logout' }"

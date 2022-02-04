@@ -1,25 +1,17 @@
 <template>
   <q-dialog
     ref="dialogRef"
-    square
     @hide="onDialogHide"
   >
     <q-card
       v-if="state?.id"
-      flat
-      square
-      class="q-dialog-plugin dialog video-dialog"
+      class="q-dialog-plugin dialog"
     >
       <q-dialog
         v-model="deleteDialog"
         persistent
       >
-        <q-card
-          class="dialog"
-          :dark="false"
-          flat
-          square
-        >
+        <q-card class="dialog">
           <q-card-section class="q-pt-lg q-px-xl text-body1">
             Are you sure you want to delete this video?
           </q-card-section>
@@ -125,14 +117,14 @@
 
         <q-card-actions align="right">
           <q-btn
-            color="grey-8"
+            class="btn-secondary"
             label="Delete"
             flat
             @click="deleteDialog = true"
           />
 
           <q-btn
-            color="primary"
+            class="btn-primary"
             flat
             label="Save Changes"
             @click="onSubmit"

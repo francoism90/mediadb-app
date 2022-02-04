@@ -1,3 +1,13 @@
 .btn-primary {
-  color: var(--text-primary);
+  background: var(--button-primary-bg);
+  border-radius: var(--border-radius);
+  color: var(--btn-primary-color);
+  font-weight: 600;
+}
+
+.btn-secondary {
+  background: var(--button-secondary-bg);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  font-weight: 500;
 }
