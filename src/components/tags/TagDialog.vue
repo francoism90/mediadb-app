@@ -1,18 +1,15 @@
 <template>
   <q-dialog
     ref="dialogRef"
-    square
     @hide="onDialogHide"
   >
     <q-card
       v-if="store?.id"
-      flat
-      square
-      class="q-dialog-plugin dialog video-dialog"
+      class="q-dialog-plugin dialog"
     >
       <tag-filters />
 
-      <q-separator color="grey-4" />
+      <q-separator />
 
       <q-scroll-area style="height: 400px;">
         <q-pull-to-refresh @refresh="onRefresh">

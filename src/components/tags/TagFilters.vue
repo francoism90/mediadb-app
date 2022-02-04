@@ -1,28 +1,24 @@
 <template>
-  <div class="q-pa-lg">
-    <q-input
-      v-model.lazy="store.params.query"
-      :dark="false"
-      :debounce="350"
-      borderless
-      dense
-      square
-      hide-bottom-space
-      placeholder="Enter a keyword..."
-      class="tag-search-field q-px-sm full-width"
-      input-class="tag-search-input"
-    >
-      <template #append>
-        <q-icon
-          v-if="store.params.query"
-          name="clear"
-          class="cursor-pointer q-px-xs"
-          color="grey-6"
-          @click.stop="store.params.query = null"
-        />
-      </template>
-    </q-input>
-  </div>
+  <q-input
+    v-model.lazy="store.params.query"
+    :debounce="350"
+    autofocus
+    borderless
+    dense
+    square
+    hide-bottom-space
+    placeholder="Enter a keyword..."
+    class="input input-text tag-search full-width"
+  >
+    <template #append>
+      <q-icon
+        v-if="store.params.query"
+        name="clear"
+        class="cursor-pointer q-px-xs"
+        @click.stop="store.params.query = null"
+      />
+    </template>
+  </q-input>
 </template>
 
 <script lang="ts">

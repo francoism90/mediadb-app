@@ -14,11 +14,11 @@
         size="32px"
       />
 
-      <div class="q-py-xs cursor-pointer text-weight-medium ellipsis-2-lines">
+      <div class="q-py-xs text-weight-medium ellipsis-2-lines cursor-pointer">
         {{ tag.name }}
       </div>
 
-      <div class="ellipsis">
+      <div class="tag-item-meta ellipsis">
         {{ tag.items }} items
       </div>
     </q-card-section>

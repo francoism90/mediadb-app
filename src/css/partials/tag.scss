@@ -1,21 +1,27 @@
-.tag-dialog {
-  width: 600px;
-}
+.tag-search {
+  padding: 0 16px;
 
-.tag-search-field {
-  border: 1px solid var(--tag-search-border, #bdbdbd);
-}
+  .q-field__control,
+  .q-field__marginal {
+    height: 58px;
+  }
 
-.tag-search-input {
-  font-weight: 500;
-  color: var(--tag-search-color, #3b3d42) !important;
+  .q-field__native,
+  .q-field__marginal {
+    font-weight: 500;
+  }
 }
 
 .tag-item {
-  color: var(--tag-item-color, #3b3d42);
+  color: var(--text-primary);
   height: 130px;
   min-height: 130px;
   max-height: 130px;
   min-width: 100px;
   text-align: center;
+
+  &-meta,
+  &-more {
+    color: var(--text-secondary);
+  }
 }
