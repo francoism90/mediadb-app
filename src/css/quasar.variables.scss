@@ -129,15 +129,14 @@ $primary: #f44336;
 $secondary: #26a69a;
 $accent: #9c27b0;
 
-$separator-color: $grey-9;
-$separator-dark-color: $grey-9;
+$separator-color: var(--border-color);
+$separator-dark-color: var(--border-color);
 
-$generic-border-radius: 2px;
-$typography-font-family: "Inter", -apple-system, "BlinkMacSystemFont",
-  "Segoe UI", "Helvetica", "Arial", sans-serif;
+$generic-border-radius: var(--border-radius);
+$typography-font-family: var(--font-primary-family);
 $min-line-height: 1.2;
 
-$button-border-radius: 2px;
+$button-border-radius: var(--border-radius);
 $button-padding: 4px 16px;
 $button-dense-padding: 2px 6px;
 $button-font-size: 0.95em;
@@ -158,14 +157,14 @@ $toolbar-title-font-weight: map-get($text-weights, "medium");
 $toolbar-title-letter-spacing: 0;
 $toolbar-title-padding: 0;
 
-$layout-border: 1px solid $grey-4;
+$layout-border: 1px solid var(--border-color);
 $layout-shadow: none;
 
-$menu-background: $grey-3;
+$menu-background: var(--background-secondary);
 $menu-box-shadow: none;
 $menu-max-width: 100vw;
 
-$tooltip-color: $grey-1;
+$tooltip-color: var(--text-primary);
 $tooltip-background: $grey-6;
 $tooltip-padding: 3px 5px;
 $tooltip-border-radius: $generic-border-radius;
@@ -174,8 +173,8 @@ $tooltip-mobile-padding: 4px 8px;
 $tooltip-mobile-fontsize: 0.75rem;
 
 $input-font-size: 1rem;
-$input-text-color: $grey-8;
-$input-label-color: $grey-8;
+$input-text-color: var(--text-primary);
+$input-label-color: var(--text-secondary);
 
 $img-content-padding: 0;
 $img-content-color: $grey-5;

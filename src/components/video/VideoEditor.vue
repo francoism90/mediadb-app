@@ -44,24 +44,24 @@
         <q-card-section class="q-gutter-sm">
           <q-input
             v-model.trim="state.name"
-            :dark="false"
             :error-message="getError('name')?.find(Boolean)"
             :error="hasError('name')"
             :maxlength="255"
             autofocus
             counter
+            class="input input-text"
             label="Title"
             type="text"
           />
 
           <q-select
             v-model.lazy="state.tags"
-            :dark="false"
             :error-message="getError('tags')?.find(Boolean)"
             :error="hasError('tags')"
             :options="tags"
             :options-dark="false"
             counter
+            class="input input-text"
             popup-content-class="dialog-popup"
             display-value="name"
             dropdown-icon="expand_more"
@@ -94,22 +94,22 @@
 
           <q-input
             v-model.trim="state.episode_number"
-            :dark="false"
             :error-message="getError('episode_number')?.find(Boolean)"
             :error="hasError('episode_number')"
             :maxlength="255"
             counter
+            class="input input-text"
             label="Episode"
             type="text"
           />
 
           <q-input
             v-model.trim="state.season_number"
-            :dark="false"
             :error-message="getError('season_number')?.find(Boolean)"
             :error="hasError('season_number')"
             :maxlength="255"
             counter
+            class="input input-text"
             label="Season"
             type="text"
           />
@@ -124,7 +124,7 @@
           />
 
           <q-btn
-            class="btn-primary"
+            class="btn-submit"
             flat
             label="Save Changes"
             @click="onSubmit"

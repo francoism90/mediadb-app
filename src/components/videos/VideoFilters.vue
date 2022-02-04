@@ -5,7 +5,7 @@
     borderless
     hide-bottom-space
     placeholder="Search"
-    class="input input-text full-width"
+    class="input input-text video-search full-width"
   >
     <template #append>
       <q-icon

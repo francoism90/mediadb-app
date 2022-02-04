@@ -1,13 +1,20 @@
 .btn-primary {
   background: var(--button-primary-bg);
-  border-radius: var(--border-radius);
   color: var(--btn-primary-color);
+  border-radius: var(--border-radius);
   font-weight: 600;
 }
 
 .btn-secondary {
   background: var(--button-secondary-bg);
+  color: var(--button-secondary-color);
   border-radius: var(--border-radius);
-  color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.btn-submit {
+  background: var(--button-submit-bg);
+  color: var(--btn-submit-color);
+  border-radius: var(--border-radius);
+  font-weight: 600;
 }

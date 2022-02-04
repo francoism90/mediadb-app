@@ -47,6 +47,23 @@
   width: 600px;
 }
 
+.video-search {
+  background: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0 16px;
+
+  .q-field__control,
+  .q-field__marginal {
+    height: 48px;
+  }
+
+  .q-field__native,
+  .q-field__marginal {
+    font-weight: 500;
+  }
+}
+
 .video-overview-chip {
   font-size: 0.9rem;
   font-weight: 500;
