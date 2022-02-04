@@ -3,20 +3,24 @@
     <div class="container auth">
       <page-hero class="q-mb-md">
         Sign In
+
+        <template #meta>
+          Login to your account
+        </template>
       </page-hero>
 
-      <q-card
-        class="auth-dialog"
-        flat
-        square
-      >
-        <q-form @submit="onSubmit">
+      <q-card class="auth-form">
+        <q-form
+          class="q-pa-md"
+          @submit="onSubmit"
+        >
           <q-card-section class="q-gutter-sm">
             <q-input
               v-model.trim="state.email"
               :error-message="getError('email')?.find(Boolean)"
               :error="hasError('email')"
               autofocus
+              class="input input-text"
               label="Your email"
               type="email"
             />
@@ -25,20 +29,17 @@
               v-model.trim="state.password"
               :error-message="getError('password')?.find(Boolean)"
               :error="hasError('password')"
+              class="input input-text"
               label="Your password"
               type="password"
             />
           </q-card-section>
 
-          <q-card-actions
-            align="center"
-            class="q-pb-lg"
-          >
+          <q-card-actions align="right">
             <q-btn
-              color="primary"
+              class="btn-submit"
               type="submit"
               label="Sign In"
-              flat
             />
           </q-card-actions>
         </q-form>

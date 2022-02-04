@@ -6,12 +6,12 @@
   overflow-x: hidden !important;
   width: 600px;
   max-width: 100vw;
-}
 
-.dialog-popup {
-  background-color: var(--background-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--text-primary);
-  width: 450px;
+  &-popup {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    width: 450px;
+  }
 }
