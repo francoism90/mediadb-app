@@ -1,7 +1,7 @@
 <template>
-  <section-hero>
+  <h1 class="hero-secondary">
     Similar Videos
-  </section-hero>
+  </h1>
 
   <q-pull-to-refresh @refresh="onRefresh">
     <q-infinite-scroll
@@ -40,7 +40,6 @@ export default defineComponent({
 
   components: {
     Item: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
-    SectionHero: defineAsyncComponent(() => import('components/ui/SectionHero.vue')),
   },
 
   setup() {

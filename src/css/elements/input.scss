@@ -1,0 +1,20 @@
+.input {
+  background: var(--background-secondary);
+
+  &-text {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0 16px;
+
+    .q-field__control,
+    .q-field__marginal {
+      height: 48px;
+    }
+
+    .q-field__native,
+    .q-field__marginal {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+  }
+}

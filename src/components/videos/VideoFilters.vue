@@ -3,24 +3,20 @@
     v-model.lazy="store.params.query"
     :debounce="350"
     borderless
-    square
     hide-bottom-space
-    placeholder="Enter a keyword..."
-    class="video-search-field q-px-md full-width"
-    input-class="video-search-input"
+    placeholder="Search"
+    class="input input-text full-width"
   >
     <template #append>
       <q-icon
         v-if="store.params.query"
         name="clear"
-        color="grey-5"
         class="cursor-pointer q-px-xs"
         @click.stop="store.params.query = null"
       />
 
       <q-icon
         name="filter_list"
-        color="grey-5"
         class="cursor-pointer"
         @click="visible = !visible"
       />

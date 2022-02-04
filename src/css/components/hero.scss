@@ -1,54 +1,23 @@
 .hero {
-  position: relative;
-
-  &::after {
-    content: "";
-    height: 100%;
-    margin-right: calc(-100vw);
-    background: inherit;
-    right: 0;
-    top: 0;
-    width: 100vw;
-    position: absolute;
-  }
-
   h1 {
-    position: relative;
     display: block;
+    line-height: 2rem;
     margin: 0;
-    line-height: initial;
+    padding: 0;
     font-size: 1.5rem;
-    color: var(--hero-color, #3b3d42);
-    border-bottom: 4px solid $grey-4;
-
-    span {
-      display: inline-block;
-      position: relative;
-      padding-bottom: 8px;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
-
-      &::after {
-        content: "";
-        height: 4px;
-        width: 100%;
-        background: $primary;
-        left: 0;
-        bottom: -4px;
-        position: absolute;
-        z-index: 10;
-      }
-    }
+    color: var(--text-primary);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 
   p {
-    color: var(--hero-subtitle-color, #3b3d42);
+    color: var(--text-secondary);
     font-size: 0.95rem;
     font-weight: 500;
     display: block;
     margin: 0;
-    margin-top: 8px;
+    padding: 0;
 
     span {
       position: relative;
@@ -66,49 +35,12 @@
   }
 }
 
-.hero-section {
-  position: relative;
-  padding: 16px 0;
-
-  &::after {
-    content: "";
-    height: 100%;
-    margin-right: calc(-100vw);
-    background: inherit;
-    right: 0;
-    top: 0;
-    width: 100vw;
-    position: absolute;
-  }
-
-  h1 {
-    position: relative;
-    display: block;
-    margin: 0;
-    font-size: 1.4rem;
-    line-height: initial;
-    text-transform: capitalize;
-    color: var(--hero-section-color, #3b3d42);
-    border-bottom: 4px solid $grey-4;
-
-    span {
-      display: inline-block;
-      position: relative;
-      padding-bottom: 8px;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
-
-      &::after {
-        content: "";
-        height: 4px;
-        width: 100%;
-        background: $primary;
-        left: 0;
-        bottom: -4px;
-        position: absolute;
-        z-index: 10;
-      }
-    }
-  }
+.hero-secondary {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 4rem;
+  margin: 0;
+  padding: 0;
+  text-transform: capitalize;
+  color: var(--text-primary);
 }

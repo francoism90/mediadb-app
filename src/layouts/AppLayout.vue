@@ -9,44 +9,28 @@
       <q-toolbar>
         <q-space />
 
-        <q-btn-group
-          class="header-navigation"
-          unelevated
-        >
+        <div class="q-gutter-x-xs">
           <q-btn
-            class="q-pa-sm"
-            color="grey-10"
+            class="btn-primary q-pa-sm"
             icon="o_video_library"
+            size="14px"
             :to="{ name: 'home' }"
           />
 
-          <q-separator vertical />
-
           <q-btn
-            class="q-pa-sm"
-            color="grey-10"
+            class="btn-primary q-pa-sm"
             icon="o_tag"
+            size="14px"
             @click="toggleDialog"
           />
 
-          <q-separator vertical />
-
           <q-btn
-            class="q-pa-sm"
-            color="grey-10"
-            :icon="iconMode"
-            @click="toggleDarkMode"
-          />
-
-          <q-separator vertical />
-
-          <q-btn
-            class="q-pa-sm"
-            color="grey-10"
+            class="btn-primary q-pa-sm"
             icon="o_logout"
+            size="14px"
             :to="{ name: 'logout' }"
           />
-        </q-btn-group>
+        </div>
       </q-toolbar>
     </q-header>
 

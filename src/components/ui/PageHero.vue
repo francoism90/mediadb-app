@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <h1><span><slot /></span></h1>
+    <h1><slot /></h1>
     <p><slot name="meta" /></p>
   </div>
 </template>

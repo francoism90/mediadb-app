@@ -2,26 +2,19 @@
   <q-toolbar class="q-py-sm no-wrap justify-center items-center content-center">
     <q-btn-group unelevated>
       <q-btn
-        class="q-pa-sm"
-        color="grey-10"
+        class="btn-primary q-pa-sm"
         icon="movie"
         @click="edit"
       />
 
-      <q-separator vertical />
-
       <q-btn
-        class="q-pa-sm"
-        color="grey-10"
+        class="btn-primary q-pa-sm"
         :icon="following"
         @click="toggleFollow"
       />
 
-      <q-separator vertical />
-
       <q-btn
-        class="q-pa-sm"
-        color="grey-10"
+        class="btn-primary q-pa-sm"
         :icon="favorited"
         @click="toggleFavorite"
       />
@@ -33,15 +26,12 @@
       vertical
     />
 
-    <div
-      class="column inline no-wrap items-center"
-      style="height: 35px;"
-    >
+    <div class="video-views column inline no-wrap items-center">
       <div class="col">
-        <span class="text-grey-5 text-weight-bold">{{ views }}</span>
+        <span class="text-weight-bold">{{ views }}</span>
       </div>
       <div class="col-auto">
-        <span class="text-grey-5">views</span>
+        <span class="video-views-meta text-weight-medium">views</span>
       </div>
     </div>
   </q-toolbar>

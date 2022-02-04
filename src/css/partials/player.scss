@@ -22,14 +22,6 @@
 
 .player-video-controls {
   z-index: 30;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 30%,
-    transparent 65%,
-    rgba(0, 0, 0, 0.35) 83.5%,
-    $dark
-  );
 }
 
 .player-video-toolbar {

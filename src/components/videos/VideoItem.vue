@@ -1,40 +1,38 @@
 <template>
   <q-card
-    class="video-item"
+    class="transparent"
     draggable="false"
     flat
     square
   >
-    <router-link
-      :to="{ name: 'video', params: { id: video.id, slug: video.slug }}"
-      class="video-item-thumbnail"
-    >
+    <router-link :to="{ name: 'video', params: { id: video.id, slug: video.slug } }">
       <q-img
         :alt="video.title"
         :src="video.poster_url"
         :draggable="false"
         loading="lazy"
-        class="video-item-img"
+        class="video-item-cover cursor-pointer"
+        img-class="video-item-img"
         fit="fill"
         no-spinner
         no-transition
       />
     </router-link>
 
-    <q-card-section class="video-item-body">
+    <q-card-section class="video-item-content">
       <div class="row no-wrap">
         <div class="col">
-          <div class="video-item-title q-pb-xs text-weight-medium ellipsis-2-lines">
+          <div class="video-item-title ellipsis-2-lines">
             {{ video.title }}
           </div>
 
-          <div class="video-item-duration q-pb-xs text-weight-medium ellipsis-2-lines">
+          <div class="video-item-meta ellipsis-2-lines">
             {{ duration }}
           </div>
 
           <div
             v-if="video.tags?.length"
-            class="q-py-xs q-gutter-xs"
+            class="video-item-tags q-py-xs q-gutter-xs"
           >
             <q-chip
               v-for="tag in video.tags.slice(0, 5)"
@@ -56,7 +54,7 @@
         <div class="col-auto">
           <q-icon
             aria-label="More actions"
-            class="cursor-pointer text-grey-6"
+            class="video-item-more cursor-pointer"
             name="more_vert"
             size="24px"
             right
