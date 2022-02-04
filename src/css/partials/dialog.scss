@@ -8,7 +8,10 @@
   max-width: 100vw;
 }
 
-// .dialog-popup {
-//   background-color: var(--dialog-bg, #fff);
-//   color: var(--dialog-color, #3b3d42);
-// }
+.dialog-popup {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  width: 450px;
+}

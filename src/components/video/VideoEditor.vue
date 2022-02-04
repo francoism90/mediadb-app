@@ -7,11 +7,8 @@
       v-if="state?.id"
       class="q-dialog-plugin dialog"
     >
-      <q-dialog
-        v-model="deleteDialog"
-        persistent
-      >
-        <q-card class="dialog">
+      <q-dialog v-model="deleteDialog">
+        <q-card class="dialog dialog-popup">
           <q-card-section class="q-pt-lg q-px-xl text-body1">
             Are you sure you want to delete this video?
           </q-card-section>
@@ -22,14 +19,13 @@
           >
             <q-btn
               v-close-popup
-              flat
+              class="btn-secondary"
               label="Cancel"
             />
 
             <q-btn
               v-close-popup="3"
-              flat
-              color="primary"
+              class="btn-submit"
               label="Confirm"
               @click="onDelete"
             />
