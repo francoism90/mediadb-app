@@ -121,7 +121,6 @@
 
           <q-btn
             class="btn-submit"
-            type="submit"
             label="Save Changes"
             @click="onSubmit"
           />
