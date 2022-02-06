@@ -1,6 +1,7 @@
 .header {
   display: flex;
   height: 80px;
+  background: var(--background);
 
   &-logo {
     color: var(--text-secondary);

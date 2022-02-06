@@ -4,7 +4,9 @@
     view="hhh lpR fff"
   >
     <q-header
-      class="header container container-fluid transparent"
+      class="header container container-fluid"
+      height-hint="80"
+      reveal
     >
       <q-toolbar>
         <router-link
