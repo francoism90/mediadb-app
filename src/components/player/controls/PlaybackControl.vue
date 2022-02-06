@@ -1,10 +1,9 @@
 <template>
-  <div class="player-navigation absolute-center">
+  <div class="player-video-control absolute-center">
     <div class="row no-wrap items-center content-center q-col-gutter-lg">
       <q-icon
         name="replay_10"
         class="cursor-pointer"
-        color="white"
         size="36px"
         tabindex="0"
         @click="decreaseTime"
@@ -13,7 +12,6 @@
       <q-icon
         :name="playing"
         class="cursor-pointer"
-        color="white"
         size="72px"
         tabindex="0"
         @click="togglePlayback"
@@ -22,7 +20,6 @@
       <q-icon
         name="forward_10"
         class="cursor-pointer"
-        color="white"
         size="36px"
         tabindex="0"
         @click="increaseTime"

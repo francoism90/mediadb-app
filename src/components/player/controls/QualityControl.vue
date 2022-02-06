@@ -1,13 +1,10 @@
 <template>
-  <div class="q-gutter-x-md">
+  <div class="player-video-control q-gutter-x-md">
     <template v-if="store.isLoading">
-      <q-spinner
-        color="white"
-        size="24px"
-      />
+      <q-spinner size="20px" />
     </template>
 
-    <span class="text-weight-medium text-white">{{ resolution?.label }}</span>
+    <span class="text-weight-medium">{{ resolution?.label }}</span>
   </div>
 </template>
 
