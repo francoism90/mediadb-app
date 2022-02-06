@@ -11,7 +11,7 @@
       <q-icon
         :name="icon?.name || 'o_tag'"
         class="cursor-pointer"
-        size="32px"
+        size="24px"
       />
 
       <div class="q-py-xs text-weight-medium ellipsis-2-lines cursor-pointer">

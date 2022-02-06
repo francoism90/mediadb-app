@@ -21,14 +21,21 @@
         <div class="q-gutter-x-none">
           <q-btn
             class="btn-primary header-item q-pa-sm"
-            icon="o_tag"
+            icon="tag"
             size="14px"
             @click="toggleDialog"
           />
 
           <q-btn
             class="btn-primary header-item q-pa-sm"
-            icon="o_logout"
+            icon="casino"
+            size="14px"
+            :to="{ name: 'roulette' }"
+          />
+
+          <q-btn
+            class="btn-primary header-item q-pa-sm"
+            icon="logout"
             size="14px"
             :to="{ name: 'logout' }"
           />
