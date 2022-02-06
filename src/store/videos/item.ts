@@ -15,6 +15,10 @@ export const useStore = defineStore('video', {
     name(): string {
       return this.data?.name || '';
     },
+
+    title(): string {
+      return this.data?.title || '';
+    },
   },
 
   actions: {

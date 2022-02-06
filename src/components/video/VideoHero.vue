@@ -1,6 +1,6 @@
 <template>
   <page-hero class="q-mb-md">
-    {{ store.name }}
+    {{ store.title }}
 
     <template #meta>
       <span v-if="episode">{{ episode }}</span>

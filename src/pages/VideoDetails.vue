@@ -57,7 +57,7 @@ export default defineComponent({
   setup(props) {
     const { initialize, subscribe, unsubscribe, state, store } = useVideo();
 
-    useMeta(() => ({ title: store.data?.name || '' }));
+    useMeta(() => ({ title: store?.title || '' }));
 
     watch(() => props.id, async (value, oldValue) => {
       await initialize(value);
