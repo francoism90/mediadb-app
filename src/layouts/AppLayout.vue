@@ -4,28 +4,28 @@
     view="hhh lpR fff"
   >
     <q-header
-      class="header container transparent"
+      class="header container container-fluid transparent"
     >
       <q-toolbar>
+        <router-link
+          class="header-logo"
+          :to="{ name: 'home' }"
+        >
+          MediaDB
+        </router-link>
+
         <q-space />
 
         <div class="q-gutter-x-none">
           <q-btn
-            class="btn-primary transparent q-pa-sm"
-            icon="o_video_library"
-            size="14px"
-            :to="{ name: 'home' }"
-          />
-
-          <q-btn
-            class="btn-primary transparent q-pa-sm"
+            class="btn-primary header-item q-pa-sm"
             icon="o_tag"
             size="14px"
             @click="toggleDialog"
           />
 
           <q-btn
-            class="btn-primary transparent q-pa-sm"
+            class="btn-primary header-item q-pa-sm"
             icon="o_logout"
             size="14px"
             :to="{ name: 'logout' }"

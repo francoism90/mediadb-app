@@ -1,4 +1,17 @@
 .header {
   display: flex;
   height: 80px;
+
+  &-logo {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  &-item {
+    color: var(--text-secondary);
+
+    .q-icon {
+      color: var(--text-secondary);
+    }
+  }
 }
