@@ -37,6 +37,7 @@
 
           <q-card-actions align="right">
             <q-btn
+              type="submit"
               class="btn-submit"
               label="Sign In"
             />

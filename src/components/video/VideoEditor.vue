@@ -120,9 +120,9 @@
           />
 
           <q-btn
+            type="submit"
             class="btn-submit"
             label="Save Changes"
-            @click="onSubmit"
           />
         </q-card-actions>
       </q-form>
