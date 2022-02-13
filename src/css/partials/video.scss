@@ -1,18 +1,14 @@
 .video-item {
-  min-height: 400px;
+  min-height: 380px;
   min-width: 200px;
   font-weight: 500;
   color: var(--text-primary);
 
   &-content {
-    padding: 10px 0;
+    padding: 8px 0;
   }
 
-  &-title {
-    font-weight: 600;
-  }
-
-  &-cover {
+  &-thumb {
     height: 230px;
   }
 
@@ -22,12 +18,23 @@
     width: 100%;
   }
 
-  &-meta,
-  &-more {
+  &-title {
+    padding-top: 4px;
+    font-weight: 600;
+  }
+
+  &-meta {
+    padding-top: 4px;
     color: var(--text-secondary);
   }
 
+  &-tags {
+    padding-top: 8px;
+  }
+
   &-tag {
+    height: 24px;
+    padding: 0 8px;
     background: var(--background-secondary);
     color: var(--text-primary) !important;
     font-size: 0.85rem;
@@ -50,13 +57,9 @@
   padding: 0 16px;
 
   .q-field__control,
-  .q-field__marginal {
-    height: 48px;
-  }
-
   .q-field__native,
   .q-field__marginal {
-    font-weight: 500;
+    height: 48px;
   }
 }
 
@@ -65,11 +68,4 @@
   font-weight: 500;
   color: $grey-3;
   padding-left: 0;
-}
-
-.video-item-placeholder {
-  height: 432px;
-  min-height: 432px;
-  max-height: 432px;
-  min-width: 200px;
 }

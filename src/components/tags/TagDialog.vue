@@ -1,6 +1,7 @@
 <template>
   <q-dialog
     ref="dialogRef"
+    position="top"
     @hide="onDialogHide"
   >
     <q-card
@@ -11,7 +12,7 @@
 
       <q-separator />
 
-      <q-scroll-area style="height: 400px;">
+      <q-scroll-area class="tag-search-scroll">
         <q-pull-to-refresh @refresh="onRefresh">
           <q-infinite-scroll
             :key="store.id"

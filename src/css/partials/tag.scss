@@ -1,14 +1,16 @@
 .tag-search {
-  padding: 0 16px;
+  padding: 0;
 
   .q-field__control,
-  .q-field__marginal {
-    height: 58px;
-  }
-
   .q-field__native,
   .q-field__marginal {
     font-weight: 500;
+    height: 40px;
+  }
+
+  &-scroll {
+    margin: 16px 0;
+    height: 400px;
   }
 }
 

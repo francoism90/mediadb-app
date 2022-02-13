@@ -11,7 +11,7 @@
         :src="video.poster_url"
         :draggable="false"
         loading="lazy"
-        class="video-item-cover cursor-pointer"
+        class="video-item-thumb cursor-pointer"
         img-class="video-item-img"
         fit="fill"
         no-spinner

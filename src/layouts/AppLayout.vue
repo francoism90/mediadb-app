@@ -21,6 +21,13 @@
         <div class="q-gutter-x-none">
           <q-btn
             class="btn-primary header-item q-pa-sm"
+            icon="o_search"
+            size="14px"
+            @click="toggleDialog"
+          />
+
+          <q-btn
+            class="btn-primary header-item q-pa-sm"
             icon="tag"
             size="14px"
             @click="toggleDialog"

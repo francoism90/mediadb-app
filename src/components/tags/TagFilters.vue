@@ -4,19 +4,16 @@
     :debounce="350"
     autofocus
     borderless
+    clearable
+    clear-icon="close"
     dense
     square
     hide-bottom-space
-    placeholder="Enter a keyword..."
+    placeholder="Search Tags"
     class="input input-text tag-search full-width"
   >
-    <template #append>
-      <q-icon
-        v-if="store.params.query"
-        name="clear"
-        class="cursor-pointer q-px-xs"
-        @click.stop="store.params.query = null"
-      />
+    <template #prepend>
+      <q-icon name="search" />
     </template>
   </q-input>
 </template>
