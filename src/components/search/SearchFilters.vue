@@ -10,7 +10,7 @@
     square
     hide-bottom-space
     placeholder="Search Videos"
-    class="input input-text tag-search full-width"
+    class="input input-text search-input full-width"
   >
     <template #prepend>
       <q-icon name="search" />
@@ -19,14 +19,14 @@
 </template>
 
 <script lang="ts">
-import { useTags } from 'src/composables/useTags';
+import { useSearch } from 'src/composables/useSearch';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'VideoFilters',
+  name: 'SearchFilters',
 
   setup() {
-    const { store } = useTags();
+    const { store } = useSearch();
 
     return {
       store,

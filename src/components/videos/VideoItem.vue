@@ -54,7 +54,7 @@
         <div class="col-auto">
           <q-icon
             aria-label="More actions"
-            class="video-item-more cursor-pointer"
+            class="video-item-meta cursor-pointer"
             name="more_vert"
             size="24px"
             right

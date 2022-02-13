@@ -23,14 +23,14 @@
             class="btn-primary header-item q-pa-sm"
             icon="o_search"
             size="14px"
-            @click="toggleDialog"
+            @click="videosDialog"
           />
 
           <q-btn
             class="btn-primary header-item q-pa-sm"
             icon="tag"
             size="14px"
-            @click="toggleDialog"
+            @click="tagsDialog"
           />
 
           <q-btn
@@ -61,7 +61,8 @@ import { useQuasar } from 'quasar';
 import { useSession } from 'src/composables/useSession';
 import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
 
-const tagComponent = defineAsyncComponent(() => import('components/tags/TagDialog.vue'));
+const tagsComponent = defineAsyncComponent(() => import('components/tags/TagDialog.vue'));
+const videosComponent = defineAsyncComponent(() => import('src/components/search/SearchDialog.vue'));
 
 export default defineComponent({
   name: 'AppLayout',
@@ -72,14 +73,16 @@ export default defineComponent({
 
     const sessionKey = computed(() => store.token || +new Date());
 
-    const toggleDialog = () => $q.dialog({ component: tagComponent });
+    const tagsDialog = () => $q.dialog({ component: tagsComponent });
+    const videosDialog = () => $q.dialog({ component: videosComponent });
 
     onBeforeUnmount(() => unsubscribe());
     onMounted(() => subscribe());
 
     return {
       sessionKey,
-      toggleDialog,
+      tagsDialog,
+      videosDialog,
     };
   },
 });

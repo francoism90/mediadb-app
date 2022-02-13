@@ -88,8 +88,15 @@ module.exports = configure((ctx) => ({
   framework: {
     config: {
       dark: true,
+
+      capacitor: {
+        backButton: true,
+        backButtonExit: true,
+      }
     },
+
     iconSet: 'material-icons', // Quasar icon set
+
     lang: 'en-US', // Quasar language pack
 
     // For special cases outside of where the auto-import stategy can have an impact
