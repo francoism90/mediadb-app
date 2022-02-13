@@ -6,7 +6,7 @@
     square
   >
     <q-card-section horizontal>
-      <q-card-section class="col q-pa-none">
+      <div class="col q-pa-none">
         <div class="search-item-title ellipsis-2-lines">
           {{ model.title }}
         </div>
@@ -32,9 +32,9 @@
 
           <span v-if="model.tags.length >= 6">...</span>
         </div>
-      </q-card-section>
+      </div>
 
-      <q-card-section class="col-5 flex flex-center">
+      <div class="col-5 flex flex-center">
         <q-img
           :alt="model.title"
           :src="model.poster_url"
@@ -43,7 +43,7 @@
           img-class="search-item-img"
           class="search-item-thumb cursor-pointer"
         />
-      </q-card-section>
+      </div>
     </q-card-section>
   </q-card>
 </template>

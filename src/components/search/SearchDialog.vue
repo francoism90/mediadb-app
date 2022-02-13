@@ -42,10 +42,13 @@
           </q-pull-to-refresh>
         </q-scroll-area>
 
-        <q-card-actions align="right">
+        <q-card-actions
+          class="q-pa-none"
+          align="right"
+        >
           <q-btn
             type="submit"
-            icon="zoom_in"
+            icon="manage_search"
             class="btn-primary"
             label="Filter Results"
             no-caps
