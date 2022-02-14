@@ -9,14 +9,11 @@
     >
       <q-dialog v-model="deleteDialog">
         <q-card class="dialog dialog-popup">
-          <q-card-section class="q-pt-lg q-px-xl text-body1">
+          <q-card-section class="q-pa-sm text-center text-body1">
             Are you sure you want to delete this video?
           </q-card-section>
 
-          <q-card-actions
-            align="center"
-            class="q-pb-lg"
-          >
+          <q-card-actions align="center">
             <q-btn
               v-close-popup
               class="btn-secondary"
