@@ -137,10 +137,10 @@ $typography-font-family: var(--font-primary-family);
 $min-line-height: 1.2;
 
 $button-border-radius: var(--border-radius);
-$button-padding: 4px 16px;
-$button-dense-padding: 2px 6px;
+$button-padding: 0 16px;
+$button-dense-padding: 0 8px;
 $button-font-size: 0.825rem;
-$button-line-height: 1.715em;
+$button-line-height: 32px;
 $button-shadow: none;
 $button-shadow-active: none;
 $button-font-weight: map-get($text-weights, "medium");

@@ -2,9 +2,11 @@
   background: var(--button-primary-bg);
   color: var(--btn-color);
   border-radius: var(--border-radius);
-  font-weight: 500;
+  min-height: 32px;
 
   .q-icon {
+    font-size: 1.5rem;
+
     &.on-left {
       margin-right: 8px;
     }
