@@ -1,0 +1,36 @@
+.select {
+  background: transparent;
+  color: var(--text-primary);
+
+  .q-field__control,
+  .q-field__marginal,
+  .q-field__native {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .q-field__marginal {
+    color: var(--text-secondary);
+    height: 32px;
+
+    .q-icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  .q-field__after,
+  .q-field__append {
+    padding-left: 3px;
+  }
+
+  .q-field__before,
+  .q-field__prepend {
+    padding-right: 6px;
+  }
+}
+
+.q-field--auto-height .q-field__control,
+.q-field--auto-height .q-field__native {
+  min-height: 32px;
+  color: var(--text-primary);
+}

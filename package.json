@@ -16,7 +16,7 @@
     "@quasar/extras": "^1.12.5",
     "@types/qs": "^6.9.7",
     "@vueuse/core": "^7.6.2",
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "core-js": "^3.21.0",
     "dashjs": "^4.2.1",
     "dayjs": "^1.10.7",

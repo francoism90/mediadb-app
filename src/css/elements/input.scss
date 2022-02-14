@@ -1,12 +1,7 @@
 .input {
   color: var(--text-primary);
-  font-weight: 500;
 
   &-text {
-    .q-field__native {
-      color: var(--text-primary);
-    }
-
     .q-field__marginal {
       color: var(--text-secondary);
     }
