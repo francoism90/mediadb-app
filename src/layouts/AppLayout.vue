@@ -20,28 +20,28 @@
 
         <div class="q-gutter-x-none">
           <q-btn
-            class="btn-primary header-item q-pa-sm"
+            class="btn header-item q-pa-sm"
             icon="o_search"
             size="14px"
             @click="videosDialog"
           />
 
           <q-btn
-            class="btn-primary header-item q-pa-sm"
+            class="btn header-item q-pa-sm"
             icon="tag"
             size="14px"
             @click="tagsDialog"
           />
 
           <q-btn
-            class="btn-primary header-item q-pa-sm"
+            class="btn header-item q-pa-sm"
             icon="casino"
             size="14px"
             :to="{ name: 'roulette' }"
           />
 
           <q-btn
-            class="btn-primary header-item q-pa-sm"
+            class="btn header-item q-pa-sm"
             icon="logout"
             size="14px"
             :to="{ name: 'logout' }"

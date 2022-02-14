@@ -42,14 +42,6 @@
   }
 }
 
-.video-views {
-  height: 36px;
-
-  &-meta {
-    color: var(--text-secondary);
-  }
-}
-
 .video-search {
   background: var(--background-secondary);
   border: 1px solid var(--border-color);
@@ -60,6 +52,14 @@
   .q-field__native,
   .q-field__marginal {
     height: 48px;
+  }
+}
+
+.video-views {
+  height: 36px;
+
+  &-meta {
+    color: var(--text-secondary);
   }
 }
 

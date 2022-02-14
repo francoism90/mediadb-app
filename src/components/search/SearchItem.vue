@@ -20,7 +20,7 @@
           class="search-item-tags q-py-xs q-gutter-xs"
         >
           <q-chip
-            v-for="tag in model.tags.slice(0, 5)"
+            v-for="tag in model.tags.slice(0, 3)"
             :key="tag.id"
             :label="tag.name"
             class="search-item-tag"
@@ -28,13 +28,17 @@
             size="0.95em"
             dense
             square
+            @click="filterTag(tag)"
           />
 
-          <span v-if="model.tags.length >= 6">...</span>
+          <span v-if="model.tags.length >= 4">...</span>
         </div>
       </div>
 
-      <div class="col-5 flex flex-center">
+      <router-link
+        class="col-5"
+        :to="{ name: 'video', params: { id: model.id, slug: model.slug } }"
+      >
         <q-img
           :alt="model.title"
           :src="model.poster_url"
@@ -43,14 +47,16 @@
           img-class="search-item-img"
           class="search-item-thumb cursor-pointer"
         />
-      </div>
+      </router-link>
     </q-card-section>
   </q-card>
 </template>
 
 <script lang="ts">
+import { useVideos } from 'src/composables/useVideos';
 import { timeFormat } from 'src/helpers';
-import { VideoModel } from 'src/interfaces';
+import { TagModel, VideoModel } from 'src/interfaces';
+import { router } from 'src/router';
 import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -64,10 +70,19 @@ export default defineComponent({
   },
 
   setup(props) {
+    const { store } = useVideos();
+
     const duration = computed(() => timeFormat(props.model.duration));
+
+    const filterTag = async (tag: TagModel) => {
+      store.reset({ query: tag.name });
+
+      await router.push({ name: 'home' });
+    };
 
     return {
       duration,
+      filterTag,
     };
   },
 });

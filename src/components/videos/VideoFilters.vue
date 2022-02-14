@@ -1,9 +1,19 @@
 <template>
   <q-toolbar>
+    <template v-if="query">
+      <q-btn
+        :label="query.slice(0, 20) + (query?.length > 20 ? '...' : '')"
+        class="btn btn-bordered btn-reset"
+        icon-right="close"
+        no-caps
+        @click="reset"
+      />
+    </template>
+
     <q-space />
 
     <q-btn
-      class="btn-primary btn-bordered"
+      class="btn btn-bordered"
       label="Filters"
       icon="filter_list"
       @click="visible = !visible"
@@ -25,15 +35,7 @@
 
 <script lang="ts">
 import { useVideos } from 'src/composables/useVideos';
-import { defineAsyncComponent, defineComponent, ref } from 'vue';
-
-const sorters = [
-  { label: 'Default', value: null },
-  { label: 'Most Recent', value: 'created:desc' },
-  { label: 'Most Viewed', value: 'views:desc' },
-  { label: 'Longest', value: 'duration:desc' },
-  { label: 'Shortest', value: 'duration:asc' },
-];
+import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'VideoFilters',
@@ -48,11 +50,14 @@ export default defineComponent({
     const { store } = useVideos();
 
     const visible = ref<boolean>(false);
+    const query = computed(() => store.params.query);
+
+    const reset = () => { store.params.query = null; };
 
     return {
-      store,
-      sorters,
+      query,
       visible,
+      reset,
     };
   },
 });

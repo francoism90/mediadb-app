@@ -42,16 +42,13 @@
           </q-pull-to-refresh>
         </q-scroll-area>
 
-        <q-card-actions
-          class="q-pa-none"
-          align="right"
-        >
+        <q-card-actions class="q-px-none">
           <q-btn
-            type="submit"
             icon="manage_search"
-            class="btn-primary"
-            label="Filter Results"
+            class="btn btn-submit full-width"
+            label="All Results"
             no-caps
+            @click="onClick"
           />
         </q-card-actions>
       </template>
@@ -68,6 +65,8 @@
 <script lang="ts">
 import { useDialogPluginComponent } from 'quasar';
 import { useSearch } from 'src/composables/useSearch';
+import { useVideos } from 'src/composables/useVideos';
+import { router } from 'src/router';
 import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
 export default defineComponent({
@@ -85,6 +84,14 @@ export default defineComponent({
   setup() {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
     const { fetch, store, filters } = useSearch();
+    const { store: VideoStore } = useVideos();
+
+    const onClick = async () => {
+      VideoStore.reset({ query: store.params.query });
+
+      await router.push({ name: 'home' });
+      onDialogHide();
+    };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -108,6 +115,7 @@ export default defineComponent({
       dialogRef,
       onDialogHide,
       onDialogCancel,
+      onClick,
       onLoad,
       onRefresh,
     };

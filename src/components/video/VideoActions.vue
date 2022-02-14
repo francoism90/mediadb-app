@@ -2,19 +2,19 @@
   <q-toolbar class="q-py-sm no-wrap justify-center items-center content-center">
     <div class="q-gutter-x-none">
       <q-btn
-        class="btn-primary transparent q-pa-sm"
+        class="btn transparent q-pa-sm"
         icon="movie"
         @click="edit"
       />
 
       <q-btn
-        class="btn-primary transparent q-pa-sm"
+        class="btn transparent q-pa-sm"
         :icon="following"
         @click="toggleFollow"
       />
 
       <q-btn
-        class="btn-primary transparent q-pa-sm"
+        class="btn transparent q-pa-sm"
         :icon="favorited"
         @click="toggleFavorite"
       />
