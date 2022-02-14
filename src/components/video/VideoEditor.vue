@@ -33,10 +33,7 @@
         </q-card>
       </q-dialog>
 
-      <q-form
-        class="q-pa-md"
-        @submit="onSubmit"
-      >
+      <q-form @submit="onSubmit">
         <q-card-section class="q-gutter-sm">
           <q-input
             v-model.trim="state.name"

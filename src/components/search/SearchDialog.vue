@@ -102,6 +102,7 @@ export default defineComponent({
         await done(true);
       }
     };
+
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
       store.reset();
