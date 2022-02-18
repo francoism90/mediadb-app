@@ -24,9 +24,9 @@
     <div v-show="visible">
       <nav class="q-pt-lg">
         <div class="filter-form row q-col-gutter-md">
-          <filter-list class="col-xs-12 col-sm-12 col-md-4" />
-          <filter-duration class="col-xs-12 col-sm-12 col-md-4" />
-          <filter-sorter class="col-xs-12 col-sm-12 col-md-4" />
+          <filter-list class="col-xs-12 col-md-4" />
+          <filter-features class="col-xs-12 col-md-4" />
+          <filter-sorter class="col-xs-12 col-md-4" />
         </div>
       </nav>
     </div>
@@ -41,7 +41,7 @@ export default defineComponent({
   name: 'VideoFilters',
 
   components: {
-    FilterDuration: defineAsyncComponent(() => import('components/videos/FilterDuration.vue')),
+    FilterFeatures: defineAsyncComponent(() => import('src/components/videos/FilterFeatures.vue')),
     FilterList: defineAsyncComponent(() => import('components/videos/FilterList.vue')),
     FilterSorter: defineAsyncComponent(() => import('components/videos/FilterSorter.vue')),
   },

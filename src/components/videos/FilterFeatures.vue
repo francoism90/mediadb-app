@@ -1,6 +1,6 @@
 <template>
   <div class="filter-item-field">
-    <h1>Duration</h1>
+    <h1>Features</h1>
     <p
       v-for="(item, index) in items"
       :key="index"
@@ -22,9 +22,12 @@ import { useVideos } from 'src/composables/useVideos';
 import { computed, defineComponent } from 'vue';
 
 const items = [
-  { label: 'Under 4 minutes', value: 'duration:0-4' },
-  { label: '4 - 20 minutes', value: 'duration:4-20' },
-  { label: 'Over 20 minutes', value: 'duration:20+' },
+  { label: '4K', value: '4k' },
+  { label: 'HD', value: 'hd' },
+  { label: 'Subtitles/CC', value: 'cc' },
+  { label: 'VR', value: 'vr' },
+  { label: '3D', value: '3d' },
+  { label: 'HDR', value: 'hdr' },
 ];
 
 export default defineComponent({
@@ -33,13 +36,13 @@ export default defineComponent({
   setup() {
     const { store } = useVideos();
 
-    const active = computed(() => store.params.type);
+    const active = computed(() => store.params.features);
 
     const isActive = (value: string | null) => value === active.value;
 
     const toggle = (value: string | null) => {
-      if (isActive(value)) store.params.type = null;
-      else store.params.type = value;
+      if (isActive(value)) store.params.features = null;
+      else store.params.features = value;
     };
 
     return {

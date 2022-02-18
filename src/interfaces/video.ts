@@ -23,6 +23,7 @@ export interface VideoModel extends Model {
 }
 
 export interface VideosParams extends RepositoryParams {
+  features?: string | string[] | null,
   type?: string | string[] | null,
   tags?: string | string[] | null,
 }
