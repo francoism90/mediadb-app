@@ -87,10 +87,16 @@ module.exports = configure((ctx) => ({
   // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
   framework: {
     config: {
-      dark: true
+      dark: true,
+
+      capacitor: {
+        backButton: true,
+        backButtonExit: true,
+      }
     },
 
     iconSet: 'material-icons', // Quasar icon set
+
     lang: 'en-US', // Quasar language pack
 
     // For special cases outside of where the auto-import stategy can have an impact
@@ -104,7 +110,6 @@ module.exports = configure((ctx) => ({
     plugins: [
       'AppFullscreen',
       'Dialog',
-      'LoadingBar',
       'LocalStorage',
       'Meta',
       'Notify',

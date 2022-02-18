@@ -29,16 +29,16 @@ export const useStore = defineStore('player', {
       return !this.properties?.ready || this.properties?.seeking;
     },
 
-    spriteTrack(): TextTrack {
-      return find(this.properties?.tracks, { label: 'sprite' }) as TextTrack;
-    },
-
     textTrack(): PlayerTextTrack {
       return this.properties?.textTrack;
     },
 
     textTracks(): PlayerTextTrack[] {
       return this.properties?.textTracks;
+    },
+
+    thumbnailTrack(): TextTrack {
+      return find(this.properties?.tracks, { label: 'thumbnail' }) as TextTrack;
     },
   },
 

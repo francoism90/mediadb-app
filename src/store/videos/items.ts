@@ -12,6 +12,7 @@ export const useStore = defineStore('videos', {
     params: <VideosParams>{
       query: null,
       sort: null,
+      features: null,
       tags: null,
       type: null,
     },

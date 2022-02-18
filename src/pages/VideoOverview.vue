@@ -1,53 +1,20 @@
 <template>
   <q-page class="container">
-    <q-toolbar class="bg-dark filter-toolbar">
-      <q-select
-        v-model.lazy="store.params.sort"
-        :options="sorters"
-        behavior="menu"
-        class="text-caption"
-        input-class="q-px-none q-py-xs"
-        dropdown-icon="expand_more"
-        borderless
-        emit-value
-        dense
-        hide-bottom-space
-        map-options
-        options-dense
-        popup-content-class="menu bordered"
-      >
-        <template #prepend>
-          <span class="text-body2 mobile-hide">Sort by</span>
-        </template>
-      </q-select>
+    <video-filters />
 
-      <q-space />
-
-      <q-btn
-        icon="filter_list"
-        color="grey-5"
-        outline
-        label="Filters"
-        @click="toggleFilters"
-      >
-        <q-badge
-          v-if="filters.length > 0"
-          :label="filters.length"
-          floating
-        />
-      </q-btn>
-    </q-toolbar>
-
-    <q-pull-to-refresh @refresh="onRefresh">
+    <q-pull-to-refresh
+      class="q-py-lg"
+      @refresh="onRefresh"
+    >
       <q-infinite-scroll
         :key="store.id"
         @load="onLoad"
       >
-        <div class="row justify-start items-start content-start q-col-gutter-md">
+        <div class="row justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
             v-for="(item, index) in store.data"
             :key="index"
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
+            class="col-xs-12 col-sm-6 video-item"
           >
             <video-item :video="item" />
           </q-intersection>
@@ -67,18 +34,17 @@
 </template>
 
 <script lang="ts">
-import { useMeta, useQuasar } from 'quasar';
+import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
 import { check } from 'src/services/auth';
 import { defineAsyncComponent, defineComponent, watch } from 'vue';
-
-const filterComponent = defineAsyncComponent(() => import('components/videos/VideoFilters.vue'));
 
 export default defineComponent({
   name: 'VideoOverview',
 
   components: {
-    VideoItem: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
+    VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
+    VideoFilters: defineAsyncComponent(() => import('components/videos/VideoFilters.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
@@ -90,8 +56,7 @@ export default defineComponent({
   },
 
   setup() {
-    const $q = useQuasar();
-    const { fetch, store, filters, sorters } = useVideos();
+    const { fetch, store, filters } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -109,29 +74,14 @@ export default defineComponent({
       done();
     };
 
-    const toggleFilters = (): void => {
-      $q.dialog({
-        component: filterComponent,
-        componentProps: {
-          maximized: true,
-          position: 'right',
-          transitionShow: 'slide-left',
-          transitionHide: 'slide-right',
-        },
-      });
-    };
-
     useMeta(() => ({ title: 'Videos' }));
 
     watch(filters, () => store.reset(), { deep: true });
 
     return {
+      store,
       onLoad,
       onRefresh,
-      toggleFilters,
-      filters,
-      store,
-      sorters,
     };
   },
 });

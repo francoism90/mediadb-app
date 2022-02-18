@@ -1,15 +1,11 @@
 <template>
-  <div class="q-py-xs q-gutter-xs">
+  <div class="q-my-md q-gutter-xs">
     <q-chip
-      v-for="(tag, index) in tags"
-      :key="index"
+      v-for="tag in tags"
+      :key="tag.id"
       :label="tag.name"
-      class="text-caption"
+      class="video-item-tag"
       clickable
-      color="grey-10"
-      size="0.95em"
-      text-color="grey-5"
-      dense
       square
       @click="onClick(tag)"
     />
@@ -18,12 +14,12 @@
 
 <script lang="ts">
 import { useVideos } from 'src/composables/useVideos';
-import { TagModel } from 'src/interfaces/tag';
+import { TagModel } from 'src/interfaces';
 import { router } from 'src/router';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
-  name: 'TagChips',
+  name: 'VideoTags',
 
   props: {
     tags: {
@@ -36,11 +32,13 @@ export default defineComponent({
     const { store } = useVideos();
 
     const onClick = async (tag: TagModel) => {
-      store.reset({ tags: [tag.name] });
+      store.reset({ query: tag.name });
+
       await router.push({ name: 'home' });
     };
 
     return {
+      store,
       onClick,
     };
   },

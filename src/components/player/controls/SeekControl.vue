@@ -1,7 +1,7 @@
 <template>
   <q-slider
     ref="seeker"
-    class="player-video-seeker"
+    class="player-video-control player-video-seeker"
     :model-value="store.properties?.time || 0"
     :min="0.0"
     :max="store.properties?.duration || 0"
@@ -47,7 +47,7 @@ export default defineComponent({
       },
     });
 
-    const setCurrentTime = (payload: number) => { store.seek = payload; };
+    const setCurrentTime = (payload: number | null) => { store.seek = payload; };
 
     return {
       buffered,

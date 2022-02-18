@@ -1,12 +1,7 @@
 <template>
-  <q-separator
-    color="primary"
-    size="3px"
-  />
-
-  <div class="q-py-lg text-overline ellipsis">
-    More Like This
-  </div>
+  <h1 class="hero-secondary">
+    Similar Videos
+  </h1>
 
   <q-pull-to-refresh @refresh="onRefresh">
     <q-infinite-scroll
@@ -17,7 +12,7 @@
         <q-intersection
           v-for="(item, index) in similar.data"
           :key="index"
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 video-item"
+          class="col-xs-12 col-sm-6 video-item-placeholder"
         >
           <item :video="item" />
         </q-intersection>
@@ -44,7 +39,7 @@ export default defineComponent({
   name: 'VideoSimilar',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/videos/VideoCard.vue')),
+    Item: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
   },
 
   setup() {

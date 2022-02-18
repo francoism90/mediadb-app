@@ -1,0 +1,12 @@
+.auth {
+  width: 450px;
+  max-width: 450px;
+
+  &-form {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    overflow-x: hidden !important;
+  }
+}

@@ -5,31 +5,24 @@
   >
     <q-card
       v-if="state?.id"
-      class="bg-grey-12 q-pa-md q-dialog-plugin"
-      style="width: 450px; max-width: 100vw;"
-      square
+      class="q-dialog-plugin dialog"
     >
-      <q-dialog
-        v-model="deleteDialog"
-        persistent
-      >
-        <q-card square>
-          <q-card-section class="q-pt-lg q-px-xl text-body1">
+      <q-dialog v-model="deleteDialog">
+        <q-card class="dialog dialog-popup">
+          <q-card-section class="q-pa-sm text-center text-body1">
             Are you sure you want to delete this video?
           </q-card-section>
 
-          <q-card-actions
-            align="center"
-            class="q-pb-lg"
-          >
+          <q-card-actions align="center">
             <q-btn
               v-close-popup
+              class="btn-secondary"
               label="Cancel"
             />
 
             <q-btn
               v-close-popup="3"
-              color="primary"
+              class="btn-submit"
               label="Confirm"
               @click="onDelete"
             />
@@ -38,14 +31,6 @@
       </q-dialog>
 
       <q-form @submit="onSubmit">
-        <q-card-section>
-          <div class="text-h4 ellipsis">
-            Edit Video
-          </div>
-        </q-card-section>
-
-        <q-separator color="grey-8" />
-
         <q-card-section class="q-gutter-sm">
           <q-input
             v-model.trim="state.name"
@@ -54,23 +39,26 @@
             :maxlength="255"
             autofocus
             counter
+            class="input input-text"
             label="Title"
             type="text"
           />
 
           <q-select
             v-model.lazy="state.tags"
-            :options="tags"
             :error-message="getError('tags')?.find(Boolean)"
             :error="hasError('tags')"
+            :options="tags"
+            :options-dark="false"
             counter
+            class="input input-text"
+            popup-content-class="dialog-popup"
             display-value="name"
             dropdown-icon="expand_more"
             label="Tags"
             max-values="15"
             multiple
             option-label="name"
-            popup-content-class="bg-grey-9"
             square
             use-chips
             use-input
@@ -78,14 +66,14 @@
           >
             <template #option="scope">
               <q-item v-bind="scope.itemProps">
-                <q-item-section>
-                  <q-item-label>
+                <q-item-section class="tag-select">
+                  <q-item-label class="tag-select-title text-weight-medium">
                     {{ scope.opt.name }}
                   </q-item-label>
 
                   <q-item-label
                     caption
-                    class="text-capitalize"
+                    class="tag-select-meta text-capitalize"
                   >
                     {{ scope.opt.type }}
                   </q-item-label>
@@ -100,6 +88,7 @@
             :error="hasError('episode_number')"
             :maxlength="255"
             counter
+            class="input input-text"
             label="Episode"
             type="text"
           />
@@ -110,6 +99,7 @@
             :error="hasError('season_number')"
             :maxlength="255"
             counter
+            class="input input-text"
             label="Season"
             type="text"
           />
@@ -117,15 +107,16 @@
 
         <q-card-actions align="right">
           <q-btn
-            color="grey-8"
+            class="btn-secondary"
             label="Delete"
+            flat
             @click="deleteDialog = true"
           />
 
           <q-btn
-            color="primary"
+            type="submit"
+            class="btn-submit"
             label="Save Changes"
-            @click="onSubmit"
           />
         </q-card-actions>
       </q-form>
@@ -231,6 +222,10 @@ export default defineComponent({
     watch(() => props.id, async (value) => initialize(value), { immediate: true });
 
     return {
+      state,
+      tags,
+      deleteDialog,
+      dialogRef,
       getError,
       hasError,
       onDelete,
@@ -238,10 +233,6 @@ export default defineComponent({
       onTagsFilter,
       onDialogHide,
       onDialogCancel,
-      state,
-      tags,
-      deleteDialog,
-      dialogRef,
     };
   },
 });

@@ -1,42 +1,52 @@
 <template>
   <q-layout
     :key="sessionKey"
-    view="hHh lpR fFf"
+    view="hhh lpR fff"
   >
     <q-header
-      bordered
-      class="header row no-wrap items-center content-center bg-dark"
-      height-hint="52"
+      class="header container container-fluid"
+      height-hint="80"
+      reveal
     >
-      <q-toolbar class="header-container container fluid">
+      <q-toolbar>
         <router-link
-          to="/"
-          class="text-body2 text-weight-bold text-grey-4"
+          class="header-logo"
+          :to="{ name: 'home' }"
         >
           MediaDB
         </router-link>
 
         <q-space />
 
-        <q-tabs
-          indicator-color="primary"
-          content-class="header-tabs text-grey-5"
-          left-icon="chevron_left"
-          right-icon="chevron_right"
-          inline-label
-          stretch
-        >
-          <q-route-tab
-            v-for="(tab, index) in tabs"
-            :key="index"
-            :to="tab.route"
-            :icon="tab.icon"
-            :label="tab.label"
-            exact
+        <div class="q-gutter-x-none">
+          <q-btn
+            class="btn header-item q-pa-sm"
+            icon="o_search"
+            size="14px"
+            @click="videosDialog"
           />
-        </q-tabs>
 
-        <account-widget />
+          <q-btn
+            class="btn header-item q-pa-sm"
+            icon="tag"
+            size="14px"
+            @click="tagsDialog"
+          />
+
+          <q-btn
+            class="btn header-item q-pa-sm"
+            icon="casino"
+            size="14px"
+            :to="{ name: 'roulette' }"
+          />
+
+          <q-btn
+            class="btn header-item q-pa-sm"
+            icon="logout"
+            size="14px"
+            :to="{ name: 'logout' }"
+          />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -47,39 +57,32 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import { useSession } from 'src/composables/useSession';
 import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
 
-const tabs = [
-  {
-    icon: 'o_ondemand_video',
-    label: 'Videos',
-    route: { name: 'home' },
-  },
-  {
-    icon: 'o_tag',
-    label: 'Tags',
-    route: { name: 'tags' },
-  },
-];
+const tagsComponent = defineAsyncComponent(() => import('components/tags/TagDialog.vue'));
+const videosComponent = defineAsyncComponent(() => import('src/components/search/SearchDialog.vue'));
 
 export default defineComponent({
   name: 'AppLayout',
 
-  components: {
-    AccountWidget: defineAsyncComponent(() => import('components/ui/AccountWidget.vue')),
-  },
-
   setup() {
+    const $q = useQuasar();
     const { store, subscribe, unsubscribe } = useSession();
+
     const sessionKey = computed(() => store.token || +new Date());
 
-    onMounted(() => subscribe());
+    const tagsDialog = () => $q.dialog({ component: tagsComponent });
+    const videosDialog = () => $q.dialog({ component: videosComponent });
+
     onBeforeUnmount(() => unsubscribe());
+    onMounted(() => subscribe());
 
     return {
       sessionKey,
-      tabs,
+      tagsDialog,
+      videosDialog,
     };
   },
 });

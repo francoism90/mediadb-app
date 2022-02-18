@@ -1,121 +1,36 @@
 <template>
-  <q-dialog
-    ref="dialogRef"
-    @hide="onDialogHide"
+  <q-input
+    v-model.lazy="store.params.query"
+    :debounce="350"
+    autofocus
+    borderless
+    clearable
+    clear-icon="close"
+    dense
+    square
+    hide-bottom-space
+    placeholder="Search Tags"
+    class="input input-text tag-search full-width"
   >
-    <div class="filter-container scroll fit">
-      <q-list
-        dense
-        class="filter-list"
-      >
-        <q-item-label
-          header
-          class="filter-search"
-        >
-          <q-input
-            v-model.lazy="store.params.query"
-            autofocus
-            borderless
-            color="grey-10"
-            clearable
-            debounce="500"
-            dense
-            hide-bottom-space
-            input-class="text-caption"
-            placeholder="Search tags.."
-            type="text"
-          >
-            <template #prepend>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-        </q-item-label>
-
-        <q-item-label
-          header
-          class="filter-header"
-        >
-          Filter By List
-        </q-item-label>
-
-        <q-item
-          v-for="(list, index) in lists"
-          :key="index"
-          v-ripple
-          tag="label"
-        >
-          <q-item-section side>
-            <q-radio
-              v-model.lazy="store.params.type"
-              :val="list.value"
-            />
-          </q-item-section>
-          <q-item-section>{{ list.label }}</q-item-section>
-        </q-item>
-
-        <q-separator
-          spaced
-          class="transparent"
-        />
-
-        <q-item-label
-          header
-          class="filter-header"
-        />
-
-        <q-item>
-          <q-item-label class="full-width">
-            <q-btn
-              class="q-my-sm q-py-sm full-width"
-              color="grey-5"
-              icon="restart_alt"
-              label="Reset Filters"
-              no-caps
-              outline
-              @click="resetFilters"
-            />
-          </q-item-label>
-        </q-item>
-      </q-list>
-    </div>
-  </q-dialog>
+    <template #prepend>
+      <q-icon name="search" />
+    </template>
+  </q-input>
 </template>
 
 <script lang="ts">
-import { useDialogPluginComponent } from 'quasar';
 import { useTags } from 'src/composables/useTags';
+import { defineComponent } from 'vue';
 
-const lists = [
-  { label: 'All Categories', value: null },
-  { label: 'Actors', value: 'actor' },
-  { label: 'Genres', value: 'genre' },
-  { label: 'Languages', value: 'language' },
-  { label: 'Studios', value: 'studio' },
-];
-
-export default {
+export default defineComponent({
   name: 'TagFilters',
 
-  emits: [
-    ...useDialogPluginComponent.emits,
-  ],
-
   setup() {
-    const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
     const { store } = useTags();
 
-    const resetFilters = (): void => {
-      store.$reset();
-      window.setTimeout(() => onDialogOK(), 300);
-    };
-
     return {
-      onDialogHide,
-      resetFilters,
-      dialogRef,
       store,
-      lists,
     };
   },
-};
+});
 </script>

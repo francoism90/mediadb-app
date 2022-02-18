@@ -1,8 +1,7 @@
 <template>
   <q-icon
     :name="icon"
-    color="white"
-    class="cursor-pointer"
+    class="player-video-control cursor-pointer"
     size="24px"
     right
     tabindex="0"

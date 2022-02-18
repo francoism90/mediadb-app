@@ -1,5 +1,5 @@
 <template>
-  <q-page :key="id">
+  <q-page class="container">
     <template v-if="state.error">
       <q-banner class="container q-py-lg">
         <template #avatar>
@@ -16,16 +16,7 @@
     </template>
 
     <template v-else-if="state.ready">
-      <video-player />
-
-      <q-intersection
-        class="container"
-        transition="fade"
-        once
-      >
-        <video-info />
-        <video-similar />
-      </q-intersection>
+      <video-title />
     </template>
   </q-page>
 </template>
@@ -40,9 +31,7 @@ export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    VideoPlayer: defineAsyncComponent(() => import('src/components/player/VideoPlayer.vue')),
-    VideoInfo: defineAsyncComponent(() => import('components/videos/VideoInfo.vue')),
-    VideoSimilar: defineAsyncComponent(() => import('components/videos/VideoSimilar.vue')),
+    VideoTitle: defineAsyncComponent(() => import('components/video/VideoTitle.vue')),
   },
 
   props: {
@@ -68,7 +57,7 @@ export default defineComponent({
   setup(props) {
     const { initialize, subscribe, unsubscribe, state, store } = useVideo();
 
-    useMeta(() => ({ title: store.data?.name || '' }));
+    useMeta(() => ({ title: store?.title || '' }));
 
     watch(() => props.id, async (value, oldValue) => {
       await initialize(value);

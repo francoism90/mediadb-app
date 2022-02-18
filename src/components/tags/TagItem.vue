@@ -1,28 +1,24 @@
 <template>
   <q-card
-    class="tag-item"
+    v-close-popup
+    class="tag-item transparent"
     draggable="false"
     flat
     square
+    @click="query"
   >
-    <q-card-section
-      class="poster q-pa-none"
-      @click="onClick"
-    >
+    <q-card-section>
       <q-icon
         :name="icon?.name || 'o_tag'"
-        class="poster-image cursor-pointer"
-        color="grey-5"
-        size="32px"
+        class="cursor-pointer"
+        size="24px"
       />
-    </q-card-section>
 
-    <q-card-section class="q-px-none">
-      <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
+      <div class="q-py-xs text-weight-medium ellipsis-2-lines cursor-pointer">
         {{ tag.name }}
       </div>
 
-      <div class="text-grey-5 text-weight-medium ellipsis">
+      <div class="tag-item-meta ellipsis">
         {{ tag.items }} items
       </div>
     </q-card-section>
@@ -42,7 +38,7 @@ const icons = [
 ];
 
 export default defineComponent({
-  name: 'TagCard',
+  name: 'TagItem',
 
   props: {
     tag: {
@@ -56,14 +52,15 @@ export default defineComponent({
 
     const icon = computed(() => icons.find((e) => e.type === props.tag.type));
 
-    const onClick = async () => {
-      store.reset({ tags: [props.tag.name] });
+    const query = async () => {
+      store.reset({ query: props.tag.name });
+
       await router.push({ name: 'home' });
     };
 
     return {
       icon,
-      onClick,
+      query,
     };
   },
 });

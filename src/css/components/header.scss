@@ -1,13 +1,18 @@
-.header,
-.header-container {
-  height: 52px;
-  line-height: 52px;
-}
+.header {
+  display: flex;
+  height: 80px;
+  background: var(--background);
 
-.header-tabs {
-  @media (max-width: $breakpoint-xs-max) {
-    .q-tab__label {
-      display: none;
+  &-logo {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  &-item {
+    color: var(--text-secondary);
+
+    .q-icon {
+      color: var(--text-secondary);
     }
   }
 }

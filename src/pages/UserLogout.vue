@@ -7,7 +7,7 @@ import { destroy, getToken } from 'src/services/auth';
 import { defineComponent } from 'vue';
 
 const redirectUri = '/';
-const token = getToken() || '';
+const token = getToken() as string;
 
 export default defineComponent({
   name: 'UserLogout',

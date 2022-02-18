@@ -1,10 +1,36 @@
-.tag-item {
-  height: 300px;
-  min-height: 300px;
-  max-height: 300px;
-  min-width: 180px;
+.tag-search {
+  padding: 0;
 
-  .poster {
-    height: 200px;
+  .q-field__control,
+  .q-field__native,
+  .q-field__marginal {
+    font-weight: 500;
+    height: 40px;
+  }
+
+  &-scroll {
+    margin: 16px 0;
+    height: 400px;
+  }
+}
+
+.tag-item {
+  color: var(--text-primary);
+  height: 120px;
+  min-height: 120px;
+  max-height: 120px;
+  min-width: 100px;
+  text-align: center;
+
+  &-meta {
+    color: var(--text-secondary);
+  }
+}
+
+.tag-select {
+  color: var(--text-primary);
+
+  &-meta {
+    color: var(--text-secondary);
   }
 }

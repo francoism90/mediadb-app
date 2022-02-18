@@ -1,0 +1,9 @@
+.input {
+  color: var(--text-primary);
+
+  &-text {
+    .q-field__marginal {
+      color: var(--text-secondary);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+:root {
+  --font-primary-family: "Inter", -apple-system, "BlinkMacSystemFont",
+    "Segoe UI", "Helvetica", "Arial", sans-serif;
+  --background: #030303;
+  --background-secondary: #1d1d1d;
+  --border-color: hsla(0, 0%, 53.3%, 0.35);
+  --border-radius: 0;
+  --text-primary: hsla(0, 100%, 100%, 0.88);
+  --text-secondary: #aaa;
+  --text-disabled: #717171;
+  --button-primary-bg: transparent;
+  --button-primary-color: #aaa;
+  --button-secondary-bg: #1d1d1d;
+  --button-secondary-color: hsla(0, 100%, 100%, 0.88);
+  --button-submit-bg: #f44336;
+  --button-submit-color: hsla(0, 100%, 100%, 0.88);
+}
+
+// body.body--light {
+//
+// }

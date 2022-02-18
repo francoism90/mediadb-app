@@ -6,14 +6,6 @@ import { computed } from 'vue';
 export const useVideos = () => {
   const store = useStore();
 
-  const sorters = [
-    { label: 'Default', value: null },
-    { label: 'Most Recent', value: 'created:desc' },
-    { label: 'Most Viewed', value: 'views:desc' },
-    { label: 'Longest', value: 'duration:desc' },
-    { label: 'Shortest', value: 'duration:asc' },
-  ];
-
   const fetchNext = async () => {
     if (!store.isFetchable) {
       return;
@@ -44,7 +36,6 @@ export const useVideos = () => {
   return {
     fetch,
     filters,
-    sorters,
     store,
   };
 };

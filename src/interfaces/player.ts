@@ -49,10 +49,10 @@ export interface PlayerTrack {
 }
 
 export interface PlayerState {
-  fullscreen: boolean,
-  playback: boolean,
-  seek: number,
-  capture: number,
+  fullscreen: boolean | null,
+  playback: boolean | null,
+  seek: number | null,
+  capture: number | null,
   properties: PlayerProperties,
   tooltip: PlayerTooltip,
 }

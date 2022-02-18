@@ -5,10 +5,10 @@ import utc from 'dayjs/plugin/utc';
 dayjs.extend(duration);
 dayjs.extend(utc);
 
-export const timeFormat = (value: number | undefined) => dayjs((value || 0) * 1000)
+export const timeFormat = (value: number | undefined, format?: string) => dayjs((value || 0) * 1000)
   .utc()
-  .format('HH:mm:ss')
+  .format(format || 'HH:mm:ss')
   .replace(/^0(?:0:0?)?/, '');
 
-export const dateFormat = (value: string | number | undefined) => dayjs(value || Date.now())
-  .format('D MMMM YYYY');
+export const dateFormat = (value: string | undefined, format?: string) => dayjs(value || Date.now())
+  .format(format || 'D MMMM YYYY');

@@ -1,0 +1,38 @@
+.btn {
+  background: var(--button-primary-bg);
+  color: var(--btn-color);
+  border-radius: var(--border-radius);
+  min-height: 32px;
+
+  .q-icon {
+    font-size: 1.5rem;
+
+    &.on-left {
+      margin-right: 8px;
+    }
+
+    &.on-right {
+      margin-left: 8px;
+    }
+  }
+
+  &-secondary {
+    background: var(--button-secondary-bg);
+    color: var(--button-secondary-color);
+  }
+
+  &-submit {
+    background: var(--button-submit-bg);
+    color: var(--btn-submit-color);
+  }
+
+  &-bordered {
+    border: 1px solid var(--border-color);
+  }
+
+  &-reset {
+    .q-icon {
+      font-size: 0.95rem;
+    }
+  }
+}

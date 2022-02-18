@@ -11,15 +11,15 @@ const routes: RouteRecordRaw[] = [
         component: () => import('src/pages/VideoOverview.vue'),
       },
       {
+        path: '',
+        name: 'roulette',
+        component: () => import('src/pages/VideoRoulette.vue'),
+      },
+      {
         path: 'video/:id/:slug?',
         name: 'video',
         component: () => import('src/pages/VideoDetails.vue'),
         props: true,
-      },
-      {
-        path: 'tags',
-        name: 'tags',
-        component: () => import('src/pages/TagOverview.vue'),
       },
       {
         path: 'settings',

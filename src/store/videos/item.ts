@@ -8,12 +8,16 @@ export const useStore = defineStore('video', {
   }),
 
   getters: {
-    id(): string | undefined {
-      return this.data?.id;
+    id(): string {
+      return this.data?.id || '';
     },
 
-    name(): string | undefined {
-      return this.data?.name;
+    name(): string {
+      return this.data?.name || '';
+    },
+
+    title(): string {
+      return this.data?.title || '';
     },
   },
 

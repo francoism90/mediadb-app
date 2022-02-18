@@ -1,47 +1,60 @@
 <template>
   <q-card
-    class="video-item"
+    class="transparent"
     draggable="false"
     flat
     square
   >
-    <router-link
-      :to="{ name: 'video', params: { id: video.id, slug: video.slug }}"
-      class="poster"
-    >
+    <router-link :to="{ name: 'video', params: { id: video.id, slug: video.slug } }">
       <q-img
         :alt="video.title"
         :src="video.poster_url"
         :draggable="false"
         loading="lazy"
-        class="poster-image"
+        class="video-item-thumb cursor-pointer"
+        img-class="video-item-img"
         fit="fill"
         no-spinner
         no-transition
       />
     </router-link>
 
-    <q-card-section class="q-px-none q-py-md">
+    <q-card-section class="video-item-content">
       <div class="row no-wrap">
         <div class="col">
-          <div class="q-pb-xs text-weight-medium ellipsis-2-lines">
+          <div class="video-item-title ellipsis-2-lines">
             {{ video.title }}
           </div>
 
-          <div class="q-pb-xs text-grey-5 text-weight-medium ellipsis-2-lines">
+          <div class="video-item-meta ellipsis-2-lines">
             {{ duration }}
           </div>
 
-          <tag-chips
+          <div
             v-if="video.tags?.length"
-            :tags="video.tags"
-          />
+            class="video-item-tags q-py-xs q-gutter-xs"
+          >
+            <q-chip
+              v-for="tag in video.tags.slice(0, 5)"
+              :key="tag.id"
+              :label="tag.name"
+              class="video-item-tag"
+              clickable
+              text-color="grey-6"
+              size="0.95em"
+              dense
+              square
+              @click="filterTag(tag)"
+            />
+
+            <span v-if="video.tags.length >= 6">...</span>
+          </div>
         </div>
 
         <div class="col-auto">
           <q-icon
             aria-label="More actions"
-            class="cursor-pointer text-grey-5"
+            class="video-item-meta cursor-pointer"
             name="more_vert"
             size="24px"
             right
@@ -82,9 +95,12 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { useVideo } from 'src/composables/useVideo';
+import { useVideos } from 'src/composables/useVideos';
 import { timeFormat } from 'src/helpers';
+import { TagModel } from 'src/interfaces';
 import { VideoModel } from 'src/interfaces/video';
-import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
+import { router } from 'src/router';
+import { computed, defineComponent, PropType } from 'vue';
 
 const actions = [
   {
@@ -100,10 +116,6 @@ const actions = [
 export default defineComponent({
   name: 'VideoCard',
 
-  components: {
-    TagChips: defineAsyncComponent(() => import('components/tags/TagChips.vue')),
-  },
-
   props: {
     video: {
       type: Object as PropType<VideoModel>,
@@ -113,27 +125,35 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
+    const { store } = useVideos();
     const { favorite, follow } = useVideo();
 
     const duration = computed(() => timeFormat(props.video.duration));
 
     const favoriteModel = async () => {
-      await favorite(props.video?.id || '', <VideoModel>{ favorite: true });
+      await favorite(props.video.id, <VideoModel>{ favorite: true });
 
       $q.notify({ message: 'Added to bookmarks.', icon: 'favorite' });
     };
 
     const followModel = async () => {
-      await follow(props.video?.id || '', <VideoModel>{ following: true });
+      await follow(props.video.id, <VideoModel>{ following: true });
 
       $q.notify({ message: 'Added to watchlist.', icon: 'watch_later' });
     };
 
+    const filterTag = async (tag: TagModel) => {
+      store.reset({ query: tag.name });
+
+      await router.push({ name: 'home' });
+    };
+
     return {
-      favoriteModel,
-      followModel,
       actions,
       duration,
+      favoriteModel,
+      followModel,
+      filterTag,
     };
   },
 });

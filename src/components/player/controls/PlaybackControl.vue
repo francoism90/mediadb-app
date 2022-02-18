@@ -1,5 +1,5 @@
 <template>
-  <div class="player-navigation absolute-center">
+  <div class="player-video-control absolute-center">
     <div class="row no-wrap items-center content-center q-col-gutter-lg">
       <q-icon
         name="replay_10"

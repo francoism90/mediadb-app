@@ -4,20 +4,12 @@
   }
 }
 
-body.body--light,
-body.body--dark {
-  background: $dark-page;
-}
-
-::-moz-focus-inner {
-  border: 0;
-}
-
-:focus {
-  outline: none;
+body {
+  background: var(--background) !important;
+  color: var(--text-primary) !important;
+  overflow-x: hidden !important;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 }

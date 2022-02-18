@@ -1,0 +1,22 @@
+.dialog {
+  margin: 64px;
+  padding: 32px;
+  width: calc(600px + 32px);
+  max-width: 100vw !important;
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  overflow-x: hidden !important;
+
+  @media (max-width: $breakpoint-xs-max) {
+    max-height: 100vh !important;
+    margin: 16px;
+  }
+
+  &-popup {
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    width: 450px;
+  }
+}
