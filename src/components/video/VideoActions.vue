@@ -21,7 +21,6 @@
     </div>
 
     <q-separator
-      class="seperator"
       spaced="lg"
       vertical
     />
