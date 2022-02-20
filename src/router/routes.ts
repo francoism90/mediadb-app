@@ -11,7 +11,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('src/pages/VideoOverview.vue'),
       },
       {
-        path: '',
+        path: 'roulette',
         name: 'roulette',
         component: () => import('src/pages/VideoRoulette.vue'),
       },
