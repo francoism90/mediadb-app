@@ -4,7 +4,7 @@
     class="player-video relative-position q-my-md"
   >
     <video
-      ref="video"
+      ref="element"
       autoPictureInPicture
       playsinline
       class="player-video-element absolute fit block no-outline"
@@ -18,7 +18,8 @@
 <script lang="ts">
 // import { and, useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { usePlayer } from 'src/composables/usePlayer';
-import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, PropType } from 'vue';
+import { VideoModel } from 'src/interfaces';
+import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -28,20 +29,23 @@ export default defineComponent({
   },
 
   props: {
-    source: {
-      type: String as PropType<string>,
+    model: {
+      type: Object as PropType<VideoModel>,
       required: true,
     },
   },
 
   setup(props) {
-    const { initialize, destroy, player, container, video } = usePlayer();
+    const container = ref<HTMLDivElement>();
+    const element = ref<HTMLVideoElement>();
+
+    const { initialize, destroy, player } = usePlayer();
     // const activeElement = useActiveElement();
     // const keys = useMagicKeys();
 
     // const disableKeys = computed(() => activeElement.value?.tagName !== 'INPUT' && activeElement.value?.tagName !== 'TEXTAREA');
 
-    onMounted(() => initialize(props.source, video.value));
+    onMounted(() => initialize(props.model, element.value));
     onBeforeUnmount(() => destroy(player.value));
 
     // watch(() => store.model, () => initialize());
@@ -60,7 +64,7 @@ export default defineComponent({
 
     return {
       container,
-      video,
+      element,
     };
   },
 });

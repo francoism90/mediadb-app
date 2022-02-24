@@ -17,7 +17,7 @@
 
     <template v-else-if="state.ready">
       <video-hero />
-      <video-player :source="source" />
+      <video-player :model="store.data" />
       <video-actions />
       <video-tags />
       <video-similar />
@@ -29,7 +29,7 @@
 import { useMeta } from 'quasar';
 import { useVideo } from 'src/composables/useVideo';
 import { check } from 'src/services/auth';
-import { computed, defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
+import { defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoDetails',
@@ -65,8 +65,6 @@ export default defineComponent({
   setup(props) {
     const { initialize, subscribe, unsubscribe, state, store } = useVideo();
 
-    const source = computed(() => store.data.dash_url || '');
-
     useMeta(() => ({ title: store?.title || '' }));
 
     watch(() => props.id, async (value, oldValue) => {
@@ -79,7 +77,6 @@ export default defineComponent({
     return {
       state,
       store,
-      source,
     };
   },
 });

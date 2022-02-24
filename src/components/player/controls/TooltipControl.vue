@@ -4,6 +4,7 @@
     :style="{ marginLeft: `${margin}px` }"
   >
     <q-img
+      v-if="uri"
       :src="uri"
       :draggable="false"
       fit="fill"
@@ -21,6 +22,7 @@
 import { clamp, debounce } from 'lodash';
 import { usePlayer } from 'src/composables/usePlayer';
 import { timeFormat } from 'src/helpers';
+import { getTrackCueBlob } from 'src/services/player';
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
 
 export default defineComponent({
@@ -44,7 +46,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { state } = usePlayer();
+    const { player, state } = usePlayer();
 
     const uri = ref<string>();
 
@@ -53,6 +55,8 @@ export default defineComponent({
     const percent = computed(() => clamp((position.value / props.seekerWidth) * 100, 0, 100));
     const time = computed(() => (state?.duration || 0) * (percent.value / 100));
     const timestamp = computed(() => timeFormat(time.value || 0));
+
+    const thumbnail = async (payload: number) => getTrackCueBlob(player.value, 'thumbnail', payload);
 
     const render = async (): Promise<void> => {
       const response = await thumbnail(time.value);
@@ -67,9 +71,7 @@ export default defineComponent({
     watch(percent, debounce(render, 25));
 
     return {
-      state,
       margin,
-      percent,
       timestamp,
       uri,
     };

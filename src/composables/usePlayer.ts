@@ -1,14 +1,11 @@
 import { Event, MediaPlayerClass } from 'dashjs';
-import { PlayerState } from 'src/interfaces';
+import { PlayerState, PlayerTrack, VideoModel } from 'src/interfaces';
 import { getToken } from 'src/services/auth';
-import { addListeners, create, destroy } from 'src/services/player';
+import { addListeners, appendTrack, create, destroy, showTextTrack } from 'src/services/player';
 import { nextTick, reactive, ref } from 'vue';
 
 const player = ref<MediaPlayerClass>();
 const state = reactive(<PlayerState>{});
-
-const container = ref<HTMLDivElement>();
-const video = ref<HTMLVideoElement>();
 
 export const usePlayer = () => {
   const handler = (event: Event) => {
@@ -39,7 +36,7 @@ export const usePlayer = () => {
     }
   };
 
-  const initialize = async (source: string | undefined, element: HTMLElement | undefined) => {
+  const initialize = async (model: VideoModel, view: HTMLElement | undefined) => {
     destroy(player.value);
 
     // Wait for reset
@@ -49,9 +46,19 @@ export const usePlayer = () => {
     const token = <string>getToken();
 
     // Initialize player
-    player.value = create(source || '', token, element);
+    player.value = create(model.dash_url || '', token, view);
 
     addListeners(player.value, handler);
+
+    appendTrack(player.value, <PlayerTrack>{
+      id: 'thumbnail',
+      kind: 'metadata',
+      label: 'thumbnail',
+      srclang: 'en',
+      src: model.sprite_url,
+    });
+
+    showTextTrack(player.value, <TextTrack>{ label: 'thumbnail' });
   };
 
   return {
@@ -59,7 +66,5 @@ export const usePlayer = () => {
     destroy,
     player,
     state,
-    container,
-    video,
   };
 };
