@@ -1,4 +1,4 @@
-import { MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { Event, MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { find, findIndex, inRange } from 'lodash';
 import { PlayerTrack } from 'src/interfaces';
 import { blob } from 'src/services/api';
@@ -65,17 +65,19 @@ export const showTextTrack = (player: MediaPlayerClass | undefined, track: TextT
   }
 };
 
-export const addListeners = (player: MediaPlayerClass | undefined, callback: () => void) => {
+// eslint-disable-next-line no-unused-vars
+export const addListeners = (player: MediaPlayerClass | undefined, callback: (event: Event) => void) => {
   events.forEach((event) => {
     player?.on(event.type, callback);
   });
 };
 
-// export const removeListeners = (player: MediaPlayerClass | undefined, callback: (type: string) => {
-//   events.forEach((event) => {
-//     player?.off(event.type, () => callback);
-//   });
-// };
+// eslint-disable-next-line no-unused-vars
+export const removeListeners = (player: MediaPlayerClass | undefined, callback: (event: Event) => void) => {
+  events.forEach((event) => {
+    player?.off(event.type, callback);
+  });
+};
 
 export const create = (source: string, token: string, view: HTMLElement | undefined) => {
   const player = MediaPlayer().create();

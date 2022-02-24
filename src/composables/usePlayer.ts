@@ -1,38 +1,42 @@
-import { MediaPlayerClass } from 'dashjs';
-import { debounce } from 'lodash';
-import { PlayerFrame, PlayerState } from 'src/interfaces';
+import { Event, MediaPlayerClass } from 'dashjs';
+import { PlayerState } from 'src/interfaces';
 import { getToken } from 'src/services/auth';
 import { addListeners, create, destroy } from 'src/services/player';
-import { nextTick, ref } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
 
 const player = ref<MediaPlayerClass>();
-const state = ref<PlayerState>();
-const frame = ref<PlayerFrame>();
+const state = reactive(<PlayerState>{});
 
 const container = ref<HTMLDivElement>();
 const video = ref<HTMLVideoElement>();
 
 export const usePlayer = () => {
-  const handler = () => {
-    // We need to fill the state ourselves
-    state.value = <PlayerState>{
-      ready: player.value?.isReady(),
-      autoplay: player.value?.getAutoPlay(),
-      buffered: player.value?.getBufferLength('video'),
-      duration: player.value?.duration(),
-      muted: player.value?.isMuted(),
-      paused: player.value?.isPaused(),
-      playbackRate: player.value?.getPlaybackRate(),
-      seeking: player.value?.isSeeking(),
-      source: player.value?.getSource(),
-      tracks: player.value?.getVideoElement()?.textTracks,
-      textTrack: player.value?.getCurrentTrackFor('text'),
-      textTracks: player.value?.getTracksFor('text'),
-      videoTrack: player.value?.getCurrentTrackFor('video'),
-      videoTracks: player.value?.getTracksFor('video'),
-      time: player.value?.time(),
-      volume: player.value?.getVolume(),
-    };
+  const handler = (event: Event) => {
+    // buffer
+    if (['buffer', 'can'].some((str) => event.type.startsWith(str))) {
+      state.ready = player.value?.isReady();
+      state.buffered = player.value?.getBufferLength('video');
+    }
+
+    // playback
+    if (['playback'].some((str) => event.type.startsWith(str))) {
+      state.duration = player.value?.duration();
+      state.muted = player.value?.isMuted();
+      state.paused = player.value?.isPaused();
+      state.playbackRate = player.value?.getPlaybackRate();
+      state.seeking = player.value?.isSeeking();
+      state.time = player.value?.time();
+      state.volume = player.value?.getVolume();
+    }
+
+    // track
+    if (['track', 'text', 'quality'].some((str) => event.type.startsWith(str))) {
+      state.tracks = player.value?.getVideoElement()?.textTracks;
+      state.textTrack = player.value?.getCurrentTrackFor('text');
+      state.textTracks = player.value?.getTracksFor('text');
+      state.videoTrack = player.value?.getCurrentTrackFor('video');
+      state.videoTracks = player.value?.getTracksFor('video');
+    }
   };
 
   const initialize = async (source: string | undefined, element: HTMLElement | undefined) => {
@@ -47,20 +51,15 @@ export const usePlayer = () => {
     // Initialize player
     player.value = create(source || '', token, element);
 
-    addListeners(player.value, debounce(handler, 100));
-  };
-
-  const setFrame = (payload: PlayerFrame) => {
-    frame.value = payload;
+    addListeners(player.value, handler);
   };
 
   return {
+    initialize,
+    destroy,
     player,
     state,
     container,
     video,
-    initialize,
-    destroy,
-    setFrame,
   };
 };

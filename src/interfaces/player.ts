@@ -1,27 +1,27 @@
-import { MediaInfo } from 'dashjs';
+import { Event, MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
 
 export type PlayerTextTrack = MediaInfo | TextTrack | null
 
+export type PlayerEvent = Event | TextTrack | null
+
 export interface PlayerState {
-  ready: boolean,
-  autoplay: boolean,
-  buffered: number,
-  duration: number,
-  fullscreen: boolean,
-  muted: boolean,
-  paused: boolean,
-  playbackRate: number,
-  quality: number,
-  seeking: boolean,
-  source: string | object,
-  tracks: TextTrackList,
-  textTrack: PlayerTextTrack,
-  textTracks: PlayerTextTrack[],
-  videoTrack: PlayerTextTrack,
-  videoTracks: PlayerTextTrack[],
-  time: number,
-  volume: number,
+  ready: boolean | undefined,
+  buffered: number | undefined,
+  duration: number | undefined,
+  fullscreen: boolean | undefined,
+  muted: boolean | undefined,
+  paused: boolean | undefined,
+  playbackRate: number | undefined,
+  quality: number | undefined,
+  seeking: boolean | undefined,
+  time: number | undefined,
+  tracks: TextTrackList | undefined,
+  volume: number | undefined,
+  textTrack: PlayerTextTrack | undefined,
+  textTracks: PlayerTextTrack[] | undefined,
+  videoTrack: PlayerTextTrack | undefined,
+  videoTracks: PlayerTextTrack[] | undefined,
 }
 
 export interface PlayerResolution {
