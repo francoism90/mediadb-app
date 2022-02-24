@@ -45,10 +45,10 @@ export default defineComponent({
     const increaseTime = () => player.value?.seek((state.time || 10) + 10);
 
     return {
-      playing,
       togglePlayback,
       decreaseTime,
       increaseTime,
+      playing,
     };
   },
 });

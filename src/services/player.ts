@@ -33,16 +33,6 @@ export const events = [
   { type: 'trackChangeRendered' },
 ];
 
-export const resolutions = [
-  { label: '2160p', icon: '4K', width: 3840, height: 2160 },
-  { label: '1440p', icon: '2k', width: 2560, height: 1440 },
-  { label: '1080p', icon: 'hd', width: 1920, height: 1080 },
-  { label: '720p', icon: 'hd', width: 1280, height: 720 },
-  { label: '480p', icon: 'sd', width: 854, height: 480 },
-  { label: '360p', icon: 'sd', width: 640, height: 360 },
-  { label: '240p', icon: 'sd', width: 426, height: 240 },
-];
-
 export const appendTrack = (player: MediaPlayerClass | undefined, track: PlayerTrack) => {
   const element = document.createElement('track');
 
@@ -114,17 +104,4 @@ export const getTrackCueBlob = async (player: MediaPlayerClass | undefined, id: 
   const obj = JSON.parse(cue?.text || '{}') as PlayerTrack;
 
   return blob(obj?.src || '');
-};
-
-export const getVideoResolution = (height: number, width: number) => {
-  const heightMatch = resolutions.find((e) => height >= e.height);
-  const widthMatch = resolutions.find((e) => width >= e.width);
-
-  return heightMatch || widthMatch;
-};
-
-export const getVideoTrackResolution = (player: MediaPlayerClass | undefined) => {
-  const bitrate = player?.getTopBitrateInfoFor('video');
-
-  return getVideoResolution(bitrate?.height || 0, bitrate?.width || 0);
 };
