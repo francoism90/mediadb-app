@@ -19,7 +19,7 @@ export const usePlayer = () => {
     }
 
     // playback
-    if (['playback'].some((str) => event.type.startsWith(str))) {
+    if (event.type.startsWith('playback')) {
       state.duration = player.value?.duration();
       state.muted = player.value?.isMuted();
       state.paused = player.value?.isPaused();
@@ -30,7 +30,7 @@ export const usePlayer = () => {
     }
 
     // track
-    if (['track', 'text', 'quality'].some((str) => event.type.startsWith(str))) {
+    if (['stream', 'track', 'text', 'quality'].some((str) => event.type.startsWith(str))) {
       state.tracks = player.value?.getVideoElement()?.textTracks;
       state.textTrack = player.value?.getCurrentTrackFor('text');
       state.textTracks = player.value?.getTracksFor('text');

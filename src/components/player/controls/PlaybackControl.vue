@@ -38,11 +38,11 @@ export default defineComponent({
   setup() {
     const { player, state } = usePlayer();
 
-    const playing = computed(() => (state.value?.paused ? 'play_arrow' : 'pause'));
+    const playing = computed(() => (state.paused ? 'play_arrow' : 'pause'));
 
-    const togglePlayback = () => (state.value?.paused ? player.value?.play() : player.value?.pause());
-    const decreaseTime = () => player.value?.seek((state.value?.time || 10) - 10);
-    const increaseTime = () => player.value?.seek((state.value?.time || 10) + 10);
+    const togglePlayback = () => (state.paused ? player.value?.play() : player.value?.pause());
+    const decreaseTime = () => player.value?.seek((state.time || 10) - 10);
+    const increaseTime = () => player.value?.seek((state.time || 10) + 10);
 
     return {
       playing,
