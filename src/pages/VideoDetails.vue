@@ -17,7 +17,7 @@
 
     <template v-else-if="state.ready">
       <video-hero />
-      <video-player :model="store.data" />
+      <video-player />
       <video-actions />
       <video-tags />
       <video-similar />
@@ -35,11 +35,11 @@ export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
     VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
+    VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
+    VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
     VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
     VideoTags: defineAsyncComponent(() => import('components/video/VideoTags.vue')),
-    VideoPlayer: defineAsyncComponent(() => import('components/player/VideoPlayer.vue')),
   },
 
   props: {

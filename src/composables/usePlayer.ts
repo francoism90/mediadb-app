@@ -50,6 +50,7 @@ export const usePlayer = () => {
 
     addListeners(player.value, handler);
 
+    // Append tracks
     appendTrack(player.value, <PlayerTrack>{
       id: 'thumbnail',
       kind: 'metadata',
