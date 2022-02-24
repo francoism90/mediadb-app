@@ -1,39 +1,36 @@
-import { MediaInfo, MediaPlayer, MediaPlayerClass } from 'dashjs';
+import { MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { find, findIndex, inRange } from 'lodash';
-import { PlayerProperties, PlayerTrack } from 'src/interfaces';
+import { PlayerTrack } from 'src/interfaces';
 import { blob } from 'src/services/api';
-import { useStore } from 'src/store/videos/player';
-
-export const store = useStore();
 
 export const events = [
-  'bufferLevelUpdated',
-  'bufferLoaded',
-  'bufferStalled',
-  'bufferStateChanged',
-  'canPlay',
-  'canPlayThrough',
-  'playbackEnded',
-  'playbackError',
-  'playbackLoadedData',
-  'playbackMetaDataLoaded',
-  'playbackNotAllowed',
-  'playbackPaused',
-  'playbackPlaying',
-  'playbackProgress',
-  'playbackRateChanged',
-  'playbackSeekAsked',
-  'playbackSeeked',
-  'playbackSeeking',
-  'PlaybackSeekingEvent',
-  'playbackStalled',
-  'playbackStarted',
-  'playbackTimeUpdated',
-  'playbackWaiting',
-  'qualityChangeRendered',
-  'qualityChangeRequested',
-  'textTrackAdded',
-  'trackChangeRendered',
+  { type: 'bufferLevelUpdated' },
+  { type: 'bufferLoaded' },
+  { type: 'bufferStalled' },
+  { type: 'bufferStateChanged' },
+  { type: 'canPlay' },
+  { type: 'canPlayThrough' },
+  { type: 'playbackEnded' },
+  { type: 'playbackError' },
+  { type: 'playbackLoadedData' },
+  { type: 'playbackMetaDataLoaded' },
+  { type: 'playbackNotAllowed' },
+  { type: 'playbackPaused' },
+  { type: 'playbackPlaying' },
+  { type: 'playbackProgress' },
+  { type: 'playbackRateChanged' },
+  { type: 'playbackSeekAsked' },
+  { type: 'playbackSeeked' },
+  { type: 'playbackSeeking' },
+  { type: 'PlaybackSeekingEvent' },
+  { type: 'playbackStalled' },
+  { type: 'playbackStarted' },
+  { type: 'playbackTimeUpdated' },
+  { type: 'playbackWaiting' },
+  { type: 'qualityChangeRendered' },
+  { type: 'qualityChangeRequested' },
+  { type: 'textTrackAdded' },
+  { type: 'trackChangeRendered' },
 ];
 
 export const resolutions = [
@@ -68,61 +65,17 @@ export const showTextTrack = (player: MediaPlayerClass | undefined, track: TextT
   }
 };
 
-export const setThumbnailTrack = (player: MediaPlayerClass | undefined) => {
-  appendTrack(player, <PlayerTrack>{
-    id: 'thumbnail',
-    kind: 'metadata',
-    label: 'thumbnail',
-    srclang: 'en',
-    src: store.model?.sprite_url,
-  });
-
-  showTextTrack(player, <TextTrack>{ label: 'thumbnail' });
-};
-
-export const getVideoTrack = () => store.properties?.videoTrack as MediaInfo | undefined;
-
-export const getVideoBitrate = () => getVideoTrack()?.bitrateList.find(Boolean);
-
-export const listener = (player: MediaPlayerClass | undefined, event: string) => {
-  store.sync(<PlayerProperties>{
-    ready: player?.isReady(),
-    autoplay: player?.getAutoPlay(),
-    buffered: player?.getBufferLength('video'),
-    duration: player?.duration(),
-    muted: player?.isMuted(),
-    paused: player?.isPaused(),
-    playbackRate: player?.getPlaybackRate(),
-    seeking: player?.isSeeking(),
-    source: player?.getSource(),
-    tracks: player?.getVideoElement()?.textTracks,
-    textTrack: player?.getCurrentTrackFor('text'),
-    textTracks: player?.getTracksFor('text'),
-    videoTrack: player?.getCurrentTrackFor('video'),
-    videoTracks: player?.getTracksFor('video'),
-    time: player?.time(),
-    volume: player?.getVolume(),
-  });
-
-  if (event === 'playbackMetaDataLoaded') {
-    window.setTimeout(() => {
-      // TODO: add resume
-      setThumbnailTrack(player);
-    }, 100);
-  }
-};
-
-export const useListeners = (player: MediaPlayerClass | undefined) => {
+export const addListeners = (player: MediaPlayerClass | undefined, callback: () => void) => {
   events.forEach((event) => {
-    player?.on(event, () => listener(player, event));
+    player?.on(event.type, callback);
   });
 };
 
-export const removeListeners = (player: MediaPlayerClass | undefined) => {
-  events.forEach((event) => {
-    player?.off(event, () => listener(player, event));
-  });
-};
+// export const removeListeners = (player: MediaPlayerClass | undefined, callback: (type: string) => {
+//   events.forEach((event) => {
+//     player?.off(event.type, () => callback);
+//   });
+// };
 
 export const create = (source: string, token: string, view: HTMLElement | undefined) => {
   const player = MediaPlayer().create();
@@ -136,49 +89,40 @@ export const create = (source: string, token: string, view: HTMLElement | undefi
 
   player.initialize(view, source, true);
 
-  useListeners(player);
-
   return player;
 };
 
 export const destroy = (player: MediaPlayerClass | undefined) => {
-  removeListeners(player);
-
   player?.getVideoElement()?.childNodes?.forEach((child) => {
     player.getVideoElement()?.removeChild(child);
   });
 
-  // @doc https://stackoverflow.com/a/28060352
-  player?.getVideoElement()?.removeAttribute('src');
-  player?.getVideoElement()?.load();
-
-  player?.reset();
-  player?.destroy();
-
-  store.$reset();
+  player?.pause();
 };
 
-export const getCueByTime = (track: TextTrack | undefined, time: number) => find(
+export const getTrackCueByTime = (track: TextTrack | null | undefined, time: number) => find(
   track?.cues,
   (o: VTTCue) => inRange(time, o.startTime, o.endTime),
 );
 
-export const getThumbnailUrl = async (time: number) => {
-  const cue = getCueByTime(store.thumbnailTrack, time) as VTTCue;
+export const getTrackCueBlob = async (player: MediaPlayerClass | undefined, id: string, time: number) => {
+  const track = player?.getVideoElement().textTracks.getTrackById(id);
+
+  const cue = getTrackCueByTime(track, time) as VTTCue;
   const obj = JSON.parse(cue?.text || '{}') as PlayerTrack;
 
   return blob(obj?.src || '');
 };
 
-export const getResolutionMatch = (height: number, width: number) => {
+export const getVideoResolution = (height: number, width: number) => {
   const heightMatch = resolutions.find((e) => height >= e.height);
   const widthMatch = resolutions.find((e) => width >= e.width);
 
   return heightMatch || widthMatch;
 };
 
-export const getResolution = () => {
-  const bitrate = getVideoBitrate();
+export const getVideoTrackResolution = (player: MediaPlayerClass | undefined) => {
+  const bitrate = player?.getTopBitrateInfoFor('video');
 
-  return getResolutionMatch(bitrate?.height || 0, bitrate?.width || 0);
+  return getVideoResolution(bitrate?.height || 0, bitrate?.width || 0);
 };

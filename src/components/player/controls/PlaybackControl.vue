@@ -36,17 +36,16 @@ export default defineComponent({
   name: 'PlaybackControl',
 
   setup() {
-    const { store } = usePlayer();
+    const { player, state } = usePlayer();
 
-    const playing = computed(() => (store.properties?.paused ? 'play_arrow' : 'pause'));
+    const playing = computed(() => (state.value?.paused ? 'play_arrow' : 'pause'));
 
-    const togglePlayback = () => { store.playback = !store.playback; };
-    const decreaseTime = () => { store.seek = store.properties.time - 10; };
-    const increaseTime = () => { store.seek = store.properties.time + 10; };
+    const togglePlayback = () => (state.value?.paused ? player.value?.play() : player.value?.pause());
+    const decreaseTime = () => player.value?.seek((state.value?.time || 10) - 10);
+    const increaseTime = () => player.value?.seek((state.value?.time || 10) + 10);
 
     return {
       playing,
-      store,
       togglePlayback,
       decreaseTime,
       increaseTime,
