@@ -24,8 +24,8 @@ export default defineComponent({
     const onClick = () => { state.fullscreen = !state.fullscreen; };
 
     return {
-      icon,
       onClick,
+      icon,
     };
   },
 });
