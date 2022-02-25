@@ -16,9 +16,10 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
 import { useVideo } from 'src/composables/useVideo';
-import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue';
+import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -31,11 +32,14 @@ export default defineComponent({
     const container = ref<HTMLDivElement>();
     const element = ref<HTMLVideoElement>();
 
-    const { initialize, destroy, player } = usePlayer();
+    const $q = useQuasar();
+    const { initialize, destroy, player, state } = usePlayer();
     const { store } = useVideo();
 
     onMounted(() => initialize(store.data, element.value));
     onBeforeUnmount(() => destroy(player.value));
+
+    watch(() => state.fullscreen, () => $q.fullscreen.toggle(container.value));
 
     return {
       container,
