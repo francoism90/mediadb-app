@@ -37,21 +37,26 @@ export default defineComponent({
     const activeElement = useActiveElement();
     const keys = useMagicKeys();
     const { initialize, destroy, player, state } = usePlayer();
-    const { store } = useVideo();
+    const { update, store } = useVideo();
 
     const disableKeys = computed(() => activeElement.value?.tagName !== 'INPUT' && activeElement.value?.tagName !== 'TEXTAREA');
+
+    const capture = () => update(store.id, {
+      ...store.data,
+      ...{ thumbnail: state.time || store.data?.thumbnail },
+    });
 
     onMounted(() => initialize(store.data, element.value));
     onBeforeUnmount(() => destroy(player.value));
 
-    // Player Events
+    // Player events
     watch(() => state.fullscreen, () => $q.fullscreen.toggle(container.value));
 
-    // Keycombinations
+    // Key combinations
     whenever(and(keys.left, disableKeys), () => player.value?.seek((state.time || 10) - 10));
     whenever(and(keys.right, disableKeys), () => player.value?.seek((state.time || 10) + 10));
     whenever(and(keys.shift_space, disableKeys), () => (state.paused ? player.value?.play() : player.value?.pause()));
-    // whenever(and(keys.shift_s, disableKeys), () => manager('CreateCapture'));
+    whenever(and(keys.shift_s, disableKeys), () => capture());
 
     return {
       container,
