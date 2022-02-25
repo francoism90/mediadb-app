@@ -16,10 +16,11 @@
 </template>
 
 <script lang="ts">
+import { and, useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { useQuasar } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
 import { useVideo } from 'src/composables/useVideo';
-import { defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -33,13 +34,24 @@ export default defineComponent({
     const element = ref<HTMLVideoElement>();
 
     const $q = useQuasar();
+    const activeElement = useActiveElement();
+    const keys = useMagicKeys();
     const { initialize, destroy, player, state } = usePlayer();
     const { store } = useVideo();
+
+    const disableKeys = computed(() => activeElement.value?.tagName !== 'INPUT' && activeElement.value?.tagName !== 'TEXTAREA');
 
     onMounted(() => initialize(store.data, element.value));
     onBeforeUnmount(() => destroy(player.value));
 
+    // Player Events
     watch(() => state.fullscreen, () => $q.fullscreen.toggle(container.value));
+
+    // Keycombinations
+    whenever(and(keys.left, disableKeys), () => player.value?.seek((state.time || 10) - 10));
+    whenever(and(keys.right, disableKeys), () => player.value?.seek((state.time || 10) + 10));
+    whenever(and(keys.shift_space, disableKeys), () => (state.paused ? player.value?.play() : player.value?.pause()));
+    // whenever(and(keys.shift_s, disableKeys), () => manager('CreateCapture'));
 
     return {
       container,
