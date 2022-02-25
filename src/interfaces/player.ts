@@ -1,29 +1,28 @@
-import { MediaInfo } from 'dashjs';
+import { BitrateInfo, Event, MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
 
 export type PlayerTextTrack = MediaInfo | TextTrack | null
 
-export type PlayerEvent = boolean | string | number | PlayerTextTrack
+export type PlayerEvent = Event | TextTrack | null
 
-export interface PlayerProperties {
-  ready: boolean,
-  autoplay: boolean,
-  buffered: number,
-  duration: number,
-  fullscreen: boolean,
-  muted: boolean,
-  paused: boolean,
-  playbackRate: number,
-  quality: number,
-  seeking: boolean,
-  source: string | object,
-  tracks: TextTrackList,
-  textTrack: PlayerTextTrack,
-  textTracks: PlayerTextTrack[],
-  videoTrack: PlayerTextTrack,
-  videoTracks: PlayerTextTrack[],
-  time: number,
-  volume: number,
+export interface PlayerState {
+  ready: boolean | undefined,
+  bitrate: BitrateInfo | undefined,
+  buffered: number | undefined,
+  duration: number | undefined,
+  fullscreen: boolean | undefined,
+  muted: boolean | undefined,
+  paused: boolean | undefined,
+  playbackRate: number | undefined,
+  quality: number | undefined,
+  seeking: boolean | undefined,
+  time: number | undefined,
+  tracks: TextTrackList | undefined,
+  volume: number | undefined,
+  textTrack: PlayerTextTrack | undefined,
+  textTracks: PlayerTextTrack[] | undefined,
+  videoTrack: PlayerTextTrack | undefined,
+  videoTracks: PlayerTextTrack[] | undefined,
 }
 
 export interface PlayerResolution {
@@ -33,7 +32,7 @@ export interface PlayerResolution {
   height: number,
 }
 
-export interface PlayerTooltip {
+export interface PlayerFrame {
   position: number,
   offset: DomOffset,
   width: number,
@@ -46,13 +45,4 @@ export interface PlayerTrack {
   srclang: string,
   src: string,
   type: string,
-}
-
-export interface PlayerState {
-  fullscreen: boolean | null,
-  playback: boolean | null,
-  seek: number | null,
-  capture: number | null,
-  properties: PlayerProperties,
-  tooltip: PlayerTooltip,
 }

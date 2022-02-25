@@ -17,15 +17,15 @@ export default defineComponent({
   name: 'FullscreenControl',
 
   setup() {
-    const { store } = usePlayer();
+    const { state } = usePlayer();
 
-    const icon = computed(() => (store.properties?.fullscreen ? 'fullscreen_exit' : 'fullscreen'));
+    const icon = computed(() => (state.fullscreen ? 'fullscreen_exit' : 'fullscreen'));
 
-    const onClick = () => { store.fullscreen = !store.fullscreen; };
+    const onClick = () => { state.fullscreen = !state.fullscreen; };
 
     return {
-      icon,
       onClick,
+      icon,
     };
   },
 });

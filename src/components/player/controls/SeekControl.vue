@@ -1,10 +1,17 @@
 <template>
+  <tooltip-control
+    v-if="seeker"
+    :seeker-position="seeker"
+    :seeker-offset="seekerOffset"
+    :seeker-width="seekerWidth"
+  />
+
   <q-slider
-    ref="seeker"
+    ref="slider"
     class="player-video-control player-video-seeker"
-    :model-value="store.properties?.time || 0"
+    :model-value="state.time || 0"
     :min="0.0"
-    :max="store.properties?.duration || 0"
+    :max="state.duration || 0"
     :step="0"
     :style="{ '--buffer': `${buffered}%` }"
     color="primary"
@@ -18,44 +25,44 @@
 <script lang="ts">
 import { dom, QSlider } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'SeekControl',
 
+  components: {
+    TooltipControl: defineAsyncComponent(() => import('components/player/controls/TooltipControl.vue')),
+  },
+
   setup() {
-    const { store } = usePlayer();
-    const seeker = ref<QSlider>();
+    const { player, state } = usePlayer();
+    const slider = ref<QSlider>();
+    const seeker = ref<number>();
 
-    const buffered = computed(() => Math.round(store.properties?.buffered || 0));
-    const seekerWidth = computed(() => dom.width(<Element>seeker.value?.$el));
-    const seekerOffset = computed(() => dom.offset(<Element>seeker.value?.$el));
+    const buffered = computed(() => Math.round(state.buffered || 0));
+    const seekerOffset = computed(() => dom.offset(<Element>slider.value?.$el).left);
+    const seekerWidth = computed(() => dom.width(<Element>slider.value?.$el));
 
-    const onMouseHover = (event: MouseEvent) => store.$patch({
-      tooltip: {
-        position: event.clientX,
-        offset: seekerOffset.value,
-        width: seekerWidth.value,
-      },
-    });
+    const onMouseHover = (event: MouseEvent) => {
+      seeker.value = event.clientX;
+    };
 
-    const onMouseLeave = () => store.$patch({
-      tooltip: {
-        position: 0,
-        offset: seekerOffset.value,
-        width: seekerWidth.value,
-      },
-    });
+    const onMouseLeave = () => {
+      seeker.value = undefined;
+    };
 
-    const setCurrentTime = (payload: number | null) => { store.seek = payload; };
+    const setCurrentTime = (payload: number | null) => player.value?.seek(payload || 0);
 
     return {
-      buffered,
-      seeker,
-      store,
       onMouseHover,
       onMouseLeave,
       setCurrentTime,
+      buffered,
+      seeker,
+      seekerOffset,
+      seekerWidth,
+      slider,
+      state,
     };
   },
 });

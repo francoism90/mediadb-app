@@ -16,7 +16,11 @@
     </template>
 
     <template v-else-if="state.ready">
-      <video-title />
+      <video-hero />
+      <video-player />
+      <video-actions />
+      <video-tags />
+      <video-similar />
     </template>
   </q-page>
 </template>
@@ -31,7 +35,11 @@ export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    VideoTitle: defineAsyncComponent(() => import('components/video/VideoTitle.vue')),
+    VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
+    VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
+    VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
+    VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
+    VideoTags: defineAsyncComponent(() => import('components/video/VideoTags.vue')),
   },
 
   props: {

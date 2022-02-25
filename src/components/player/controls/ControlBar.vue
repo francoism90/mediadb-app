@@ -1,6 +1,5 @@
 <template>
   <div class="absolute-bottom q-py-md q-px-lg">
-    <tooltip-control />
     <seek-control />
 
     <q-toolbar class="player-video-toolbar">
@@ -23,7 +22,6 @@ export default defineComponent({
     FullscreenControl: defineAsyncComponent(() => import('components/player/controls/FullscreenControl.vue')),
     QualityControl: defineAsyncComponent(() => import('components/player/controls/QualityControl.vue')),
     SeekControl: defineAsyncComponent(() => import('components/player/controls/SeekControl.vue')),
-    TooltipControl: defineAsyncComponent(() => import('components/player/controls/TooltipControl.vue')),
   },
 });
 </script>

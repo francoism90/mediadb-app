@@ -38,9 +38,9 @@ export default defineComponent({
     const { ready, start, stop } = useTimeout(2000, { controls: true });
 
     return {
-      ready,
       start,
       stop,
+      ready,
     };
   },
 });

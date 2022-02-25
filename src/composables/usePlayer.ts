@@ -1,78 +1,72 @@
-import { MediaPlayerClass } from 'dashjs';
-import { useQuasar } from 'quasar';
-import { useVideo } from 'src/composables/useVideo';
-import { timeFormat } from 'src/helpers';
-import { PlayerEvent } from 'src/interfaces';
-import { create, destroy, getResolution, getThumbnailUrl, store } from 'src/services/player';
-import { computed, nextTick, ref } from 'vue';
+import { Event, MediaPlayerClass } from 'dashjs';
+import { PlayerState, PlayerTrack, VideoModel } from 'src/interfaces';
+import { getToken } from 'src/services/auth';
+import { addListeners, appendTrack, create, destroy, showTextTrack } from 'src/services/player';
+import { nextTick, reactive, ref } from 'vue';
+
+const player = ref<MediaPlayerClass>();
+const state = reactive(<PlayerState>{});
 
 export const usePlayer = () => {
-  const $q = useQuasar();
-  const { update } = useVideo();
+  const handler = (event: Event) => {
+    // buffer
+    if (['buffer', 'can'].some((str) => event.type.startsWith(str))) {
+      state.ready = player.value?.isReady();
+      state.buffered = player.value?.getBufferLength('video');
+    }
 
-  const $player = ref<MediaPlayerClass | undefined>();
-  const container = ref<HTMLDivElement>();
-  const video = ref<HTMLVideoElement>();
+    // playback
+    if (event.type.startsWith('playback')) {
+      state.duration = player.value?.duration();
+      state.muted = player.value?.isMuted();
+      state.paused = player.value?.isPaused();
+      state.playbackRate = player.value?.getPlaybackRate();
+      state.seeking = player.value?.isSeeking();
+      state.time = player.value?.time();
+      state.volume = player.value?.getVolume();
+    }
 
-  const time = computed(() => timeFormat(store.properties?.time));
-  const duration = computed(() => timeFormat(store.properties?.duration));
-  const resolution = computed(() => getResolution());
+    // track
+    if (['stream', 'track', 'text', 'quality'].some((str) => event.type.startsWith(str))) {
+      state.bitrate = player.value?.getTopBitrateInfoFor('video');
+      state.tracks = player.value?.getVideoElement()?.textTracks;
+      state.textTrack = player.value?.getCurrentTrackFor('text');
+      state.textTracks = player.value?.getTracksFor('text');
+      state.videoTrack = player.value?.getCurrentTrackFor('video');
+      state.videoTracks = player.value?.getTracksFor('video');
+    }
+  };
 
-  const reset = () => destroy($player.value);
-
-  const initialize = async () => {
-    // Destroy player
-    reset();
+  const initialize = async (model: VideoModel, view: HTMLElement | undefined) => {
+    destroy(player.value);
 
     // Wait for reset
     await nextTick();
 
+    // Get token
+    const token = <string>getToken();
+
     // Initialize player
-    $player.value = create(store.model.dash_url || '', store.token, video.value);
-  };
+    player.value = create(model.dash_url || '', token, view);
 
-  const thumbnail = async (payload: number) => getThumbnailUrl(payload);
+    addListeners(player.value, handler);
 
-  const manager = async (name: string, params?: PlayerEvent) => {
-    if (!store.isReady) {
-      return;
-    }
+    // Append tracks
+    appendTrack(player.value, <PlayerTrack>{
+      id: 'thumbnail',
+      kind: 'metadata',
+      label: 'thumbnail',
+      srclang: 'en',
+      src: model.sprite_url,
+    });
 
-    switch (name) {
-      case 'ToggleFullscreen':
-        await $q.fullscreen.toggle(container.value);
-        break;
-
-      case 'TogglePlayback':
-        if ($player.value?.isPaused()) $player.value?.play();
-        else $player.value?.pause();
-        break;
-
-      case 'PlayerSeek':
-        $player.value?.seek(<number>params || 0);
-        break;
-
-      case 'CreateCapture':
-        await update(store.model.id, {
-          ...store.model,
-          ...{ thumbnail: <number>params || store.properties?.time || store.model?.thumbnail },
-        });
-        break;
-
-      default:
-    }
+    showTextTrack(player.value, <TextTrack>{ label: 'thumbnail' });
   };
 
   return {
-    store,
-    container,
-    video,
-    duration,
-    resolution,
-    time,
     initialize,
-    manager,
-    reset,
-    thumbnail,
+    destroy,
+    player,
+    state,
   };
 };

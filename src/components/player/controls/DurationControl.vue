@@ -4,13 +4,17 @@
 
 <script lang="ts">
 import { usePlayer } from 'src/composables/usePlayer';
-import { defineComponent } from 'vue';
+import { timeFormat } from 'src/helpers';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'DurationControl',
 
   setup() {
-    const { duration, time } = usePlayer();
+    const { state } = usePlayer();
+
+    const duration = computed(() => timeFormat(state.duration));
+    const time = computed(() => timeFormat(state.time));
 
     return {
       duration,
