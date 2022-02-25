@@ -1,4 +1,4 @@
-import { Event, MediaInfo } from 'dashjs';
+import { BitrateInfo, Event, MediaInfo } from 'dashjs';
 import { DomOffset } from 'quasar';
 
 export type PlayerTextTrack = MediaInfo | TextTrack | null
@@ -7,6 +7,7 @@ export type PlayerEvent = Event | TextTrack | null
 
 export interface PlayerState {
   ready: boolean | undefined,
+  bitrate: BitrateInfo | undefined,
   buffered: number | undefined,
   duration: number | undefined,
   fullscreen: boolean | undefined,

@@ -28,6 +28,7 @@ export const usePlayer = () => {
 
     // track
     if (['stream', 'track', 'text', 'quality'].some((str) => event.type.startsWith(str))) {
+      state.bitrate = player.value?.getTopBitrateInfoFor('video');
       state.tracks = player.value?.getVideoElement()?.textTracks;
       state.textTrack = player.value?.getCurrentTrackFor('text');
       state.textTracks = player.value?.getTracksFor('text');
