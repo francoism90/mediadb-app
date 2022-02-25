@@ -6,8 +6,6 @@
     :seeker-width="seekerWidth"
   />
 
-  {{ seeker }}
-
   <q-slider
     ref="slider"
     class="player-video-control player-video-seeker"
