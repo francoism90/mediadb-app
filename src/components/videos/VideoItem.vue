@@ -10,6 +10,7 @@
         :alt="video.title"
         :src="video.poster_url"
         :draggable="false"
+        :ratio="16/9"
         loading="lazy"
         class="video-item-thumb cursor-pointer"
         img-class="video-item-img"

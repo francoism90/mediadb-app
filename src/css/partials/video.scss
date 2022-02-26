@@ -8,8 +8,10 @@
     padding: 8px 0;
   }
 
-  &-thumb {
-    height: 230px;
+  &-thumb,
+  &-img {
+    min-height: 200px;
+    max-height: 230px;
   }
 
   &-img {
