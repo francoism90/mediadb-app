@@ -1,5 +1,5 @@
 <template>
-  <q-page class="container">
+  <q-page>
     <template v-if="state.error">
       <q-banner class="container q-py-lg">
         <template #avatar>

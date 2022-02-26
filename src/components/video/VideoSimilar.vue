@@ -1,33 +1,35 @@
 <template>
-  <h1 class="hero-secondary">
-    Similar Videos
-  </h1>
+  <div class="container">
+    <h1 class="hero-secondary">
+      Similar Videos
+    </h1>
 
-  <q-pull-to-refresh @refresh="onRefresh">
-    <q-infinite-scroll
-      :key="similar.id"
-      @load="onLoad"
-    >
-      <div class="row justify-start items-start content-start q-col-gutter-md">
-        <q-intersection
-          v-for="(item, index) in similar.data"
-          :key="index"
-          class="col-xs-12 col-sm-6 video-item-placeholder"
-        >
-          <item :video="item" />
-        </q-intersection>
-      </div>
-
-      <template #loading>
-        <div class="row no-wrap justify-center q-my-md">
-          <q-spinner-oval
-            color="primary"
-            size="2em"
-          />
+    <q-pull-to-refresh @refresh="onRefresh">
+      <q-infinite-scroll
+        :key="similar.id"
+        @load="onLoad"
+      >
+        <div class="row justify-start items-start content-start q-col-gutter-md">
+          <q-intersection
+            v-for="(item, index) in similar.data"
+            :key="index"
+            class="col-xs-12 col-sm-6 video-item-placeholder"
+          >
+            <item :video="item" />
+          </q-intersection>
         </div>
-      </template>
-    </q-infinite-scroll>
-  </q-pull-to-refresh>
+
+        <template #loading>
+          <div class="row no-wrap justify-center q-my-md">
+            <q-spinner-oval
+              color="primary"
+              size="2em"
+            />
+          </div>
+        </template>
+      </q-infinite-scroll>
+    </q-pull-to-refresh>
+  </div>
 </template>
 
 <script lang="ts">

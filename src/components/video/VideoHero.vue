@@ -1,5 +1,5 @@
 <template>
-  <page-hero class="q-mb-md">
+  <page-hero class="container q-mb-md">
     {{ store.title }}
 
     <template #meta>
