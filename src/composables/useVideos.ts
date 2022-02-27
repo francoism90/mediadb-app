@@ -33,7 +33,6 @@ export const useVideos = () => {
     const { error, data } = await api('videos').get().json<VideosResponse>();
 
     // On error
-    state.id = +new Date();
     state.error = error || null;
 
     update(data.value);
@@ -45,6 +44,7 @@ export const useVideos = () => {
   };
 
   const reset = () => {
+    state.id = +new Date();
     state.data = undefined;
     state.meta = undefined;
     state.links = undefined;
