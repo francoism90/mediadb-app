@@ -1,4 +1,4 @@
-import { MediaModel, Model, RepositoryParams, RepositoryResponse, TagModel } from 'src/interfaces';
+import { MediaModel, Model, RepositoryLinks, RepositoryMeta, RepositoryParams, TagModel } from 'src/interfaces';
 
 export interface VideoModel extends Model {
   id: string,
@@ -24,24 +24,33 @@ export interface VideoModel extends Model {
   views?: number,
 }
 
-export interface VideoResponse {
-  data: VideoModel | undefined,
-  meta: object | undefined,
-}
-
 export interface VideoState {
   data: VideoModel | undefined,
   meta: object | undefined,
   error: unknown | undefined,
 }
 
+export interface VideoResponse {
+  data: VideoModel | undefined,
+  meta: object | undefined,
+}
+
+export interface VideosState {
+  id: number,
+  data: VideoModel[] | undefined,
+  meta: RepositoryMeta | undefined,
+  links: RepositoryLinks | undefined,
+  error: unknown | undefined,
+}
+
+export interface VideosResponse {
+  data: VideoModel[] | undefined,
+  meta: RepositoryMeta | undefined,
+  links: RepositoryLinks | undefined,
+}
+
 export interface VideosParams extends RepositoryParams {
   features?: string | string[] | null,
   type?: string | string[] | null,
   tags?: string | string[] | null,
-}
-
-export interface VideosState extends RepositoryResponse {
-  id: string | number,
-  params: VideosParams,
 }

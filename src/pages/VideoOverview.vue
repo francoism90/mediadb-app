@@ -1,22 +1,25 @@
 <template>
   <q-page class="container">
-    <video-filters />
+    <!-- <video-filters /> -->
+
+    {{ state.id }}
+
+    {{ state.links }}
 
     <q-pull-to-refresh
       class="q-py-lg"
       @refresh="onRefresh"
     >
       <q-infinite-scroll
-        :key="store.id"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
-            v-for="(item, index) in store.data"
+            v-for="(item, index) in state.data"
             :key="index"
             class="col-xs-12 col-sm-6 video-item"
           >
-            <video-item :video="item" />
+            {{ item }}
           </q-intersection>
         </div>
 
@@ -36,33 +39,35 @@
 <script lang="ts">
 import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
-import { check } from 'src/services/auth';
-import { defineAsyncComponent, defineComponent, watch } from 'vue';
+import { fetch } from 'src/services/auth';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoOverview',
 
   components: {
-    VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
-    VideoFilters: defineAsyncComponent(() => import('components/videos/VideoFilters.vue')),
+    // VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
+    // VideoFilters: defineAsyncComponent(() => import('components/videos/VideoFilters.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await check({ redirectUri: urlPath });
+    const { data } = await fetch();
 
-    if (!authenticated) {
-      redirect({ name: 'login' });
+    if (!data.value) {
+      redirect({ name: 'login', query: { redirect: urlPath } });
     }
   },
 
   setup() {
-    const { fetch, store, filters } = useVideos();
+    const { populate, reset, state } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
+      console.log(state.links);
+
       try {
-        await fetch();
-        await done(!store.isFetchable);
+        await populate();
+        await done(false);
       } catch {
         await done(true);
       }
@@ -70,18 +75,18 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onRefresh = (done: Function): void => {
-      store.reset();
+      reset();
       done();
     };
 
     useMeta(() => ({ title: 'Videos' }));
 
-    watch(filters, () => store.reset(), { deep: true });
+    // watch(filters, () => store.reset(), { deep: true });
 
     return {
-      store,
       onLoad,
       onRefresh,
+      state,
     };
   },
 });

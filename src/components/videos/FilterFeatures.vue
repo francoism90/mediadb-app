@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="filter-item-field">
     <h1>Features</h1>
     <p
@@ -53,4 +53,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

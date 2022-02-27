@@ -1,18 +1,18 @@
-import { TagModel, TagsParams } from 'src/interfaces';
-import { all } from 'src/services/api';
-import { readonly, ref } from 'vue';
+// import { TagModel, TagsParams } from 'src/interfaces';
+// import { all } from 'src/services/api';
+// import { readonly, ref } from 'vue';
 
-const state = ref<TagModel[]>();
+// const state = ref<TagModel[]>();
 
-export const useTagInput = () => {
-  const fetch = async (params: TagsParams) => {
-    const response = await all('tags', params);
+// export const useTagInput = () => {
+//   const fetch = async (params: TagsParams) => {
+//     const response = await all('tags', params);
 
-    state.value = <TagModel[]>response.data;
-  };
+//     state.value = <TagModel[]>response.data;
+//   };
 
-  return {
-    fetch,
-    state: readonly(state),
-  };
-};
+//   return {
+//     fetch,
+//     state: readonly(state),
+//   };
+// };

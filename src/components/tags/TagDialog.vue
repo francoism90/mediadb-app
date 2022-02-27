@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-dialog
     ref="dialogRef"
     position="top"
@@ -92,4 +92,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

@@ -33,7 +33,6 @@ module.exports = configure((ctx) => ({
     'pinia',
     'i18n',
     'intl',
-    'axios',
     'echo',
   ],
 

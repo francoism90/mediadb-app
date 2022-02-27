@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="filter-item-field">
     <h1>Sort By</h1>
     <p
@@ -51,4 +51,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

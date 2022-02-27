@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-input
     v-model.lazy="store.params.query"
     :debounce="350"
@@ -33,4 +33,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

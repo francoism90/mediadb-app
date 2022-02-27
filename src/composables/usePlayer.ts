@@ -47,7 +47,7 @@ export const usePlayer = () => {
     const token = getToken();
 
     // Initialize player
-    player.value = create(model?.dash_url || '', token, view);
+    player.value = create(model?.dash_url || '', token || '', view);
 
     addListeners(player.value, handler);
 

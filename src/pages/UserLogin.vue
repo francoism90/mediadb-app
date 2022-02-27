@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-page class="fullscreen flex flex-center">
     <div class="container auth">
       <page-hero class="q-mb-md">
@@ -111,4 +111,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

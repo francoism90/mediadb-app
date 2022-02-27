@@ -1,14 +1,13 @@
-import { api } from 'src/boot/fetch';
-import { useSession } from 'src/composables/useSession';
-import { useStores } from 'src/composables/useStores';
+// import { useSession } from 'src/composables/useSession';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces';
+import { api } from 'src/services/api';
 import { reactive, readonly } from 'vue';
 
 const state = reactive(<VideoState>{});
 
 export const useVideo = () => {
-  const { onDelete, onUpdate } = useStores();
-  const { echo } = useSession();
+  // const { onDelete, onUpdate } = useStores();
+  // const { echo } = useSession();
 
   const update = (payload: VideoResponse | null) => {
     if (typeof payload?.data?.id === 'string') {
@@ -70,10 +69,10 @@ export const useVideo = () => {
     update(data.value);
   };
 
-  const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
-  const subscribe = (id: string) => echo?.private(`video.${id}`)
-    ?.listen('.video.deleted', onDelete)
-    ?.listen('.video.updated', onUpdate);
+  // const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
+  // const subscribe = (id: string) => echo?.private(`video.${id}`)
+  //   ?.listen('.video.deleted', onDelete)
+  //   ?.listen('.video.updated', onUpdate);
 
   return {
     fetch,
@@ -81,8 +80,8 @@ export const useVideo = () => {
     destroy,
     favorite,
     follow,
-    subscribe,
-    unsubscribe,
+    // subscribe,
+    // unsubscribe,
     state: readonly(state),
   };
 };

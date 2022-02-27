@@ -1,41 +1,63 @@
-import { filter } from 'lodash';
-import { all, get } from 'src/services/api';
-import { useStore } from 'src/store/videos/items';
-import { computed } from 'vue';
+import { RepositoryLinks, RepositoryMeta, VideoModel, VideosResponse, VideosState } from 'src/interfaces';
+import { api } from 'src/services/api';
+import { reactive, readonly } from 'vue';
+
+const state = reactive(<VideosState>{});
 
 export const useVideos = () => {
-  const store = useStore();
+  const update = (payload: VideosResponse | null) => {
+    state.data = { ...state.data, ...<VideoModel[]>payload?.data };
+    state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
+    state.links = { ...state.links, ...<RepositoryLinks>payload?.links };
+  };
 
   const fetchNext = async () => {
-    if (!store.isFetchable) {
+    console.log('next', state.links);
+    if (typeof state.links?.next !== 'string') {
       return;
     }
 
-    const response = await get(store.links?.next || 'videos');
+    const { error, data } = await api(state.links?.next || 'videos').get().json<VideosResponse>();
 
-    store.populate(response);
+    // On error
+    state.error = error || null;
+
+    update(data.value);
   };
 
   const fetchQuery = async () => {
-    if (!store.isQueryable) {
+    console.log('query', state.links);
+    if (typeof state.links?.first === 'string') {
       return;
     }
 
-    const response = await all('videos', store.params);
+    const { error, data } = await api('videos').get().json<VideosResponse>();
 
-    store.populate(response);
+    // On error
+    state.id = +new Date();
+    state.error = error || null;
+
+    update(data.value);
   };
 
-  const fetch = async () => {
+  const populate = async () => {
     await fetchNext();
     await fetchQuery();
   };
 
-  const filters = computed(() => filter(store.params));
+  const reset = () => {
+    state.data = undefined;
+    state.meta = undefined;
+    state.links = undefined;
+  };
+
+  // const filters = computed(() => filter(store.params));
 
   return {
-    fetch,
-    filters,
-    store,
+    populate,
+    reset,
+    state: readonly(state),
+    // filters,
+    // store,
   };
 };

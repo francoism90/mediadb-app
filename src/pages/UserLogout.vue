@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-page />
 </template>
 
@@ -22,4 +22,4 @@ export default defineComponent({
     redirect({ name: 'login' });
   },
 });
-</script>
+</script> -->

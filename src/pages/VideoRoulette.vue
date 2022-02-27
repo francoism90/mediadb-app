@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-page class="container">
     <template v-if="state.error">
       <q-banner class="container q-py-lg">
@@ -58,4 +58,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-page>
     Settings
   </q-page>
@@ -24,4 +24,4 @@ export default defineComponent({
     useMeta(() => ({ title: 'Settings' }));
   },
 });
-</script>
+</script> -->

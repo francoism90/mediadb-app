@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-card
     v-close-popup
     class="tag-item transparent"
@@ -64,4 +64,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

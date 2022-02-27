@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-toolbar>
     <template v-if="query">
       <q-btn
@@ -61,4 +61,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

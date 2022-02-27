@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <page-hero class="container q-mb-md">
     {{ title }}
 
@@ -38,4 +38,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

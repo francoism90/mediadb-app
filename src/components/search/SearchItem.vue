@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-card
     class="search-item"
     draggable="false"
@@ -86,4 +86,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div
     ref="container"
     class="player-video relative-position q-my-md"
@@ -66,4 +66,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

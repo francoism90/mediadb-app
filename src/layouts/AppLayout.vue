@@ -1,6 +1,5 @@
 <template>
   <q-layout
-    :key="sessionKey"
     view="hhh lpR fff"
   >
     <q-header
@@ -59,7 +58,7 @@
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { useSession } from 'src/composables/useSession';
-import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
+import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
 const tagsComponent = defineAsyncComponent(() => import('components/tags/TagDialog.vue'));
 const videosComponent = defineAsyncComponent(() => import('src/components/search/SearchDialog.vue'));
@@ -69,15 +68,15 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store, subscribe, unsubscribe } = useSession();
+    const { state } = useSession();
 
-    const sessionKey = computed(() => store.token || +new Date());
+    const sessionKey = computed(() => state.token || +new Date());
 
     const tagsDialog = () => $q.dialog({ component: tagsComponent });
     const videosDialog = () => $q.dialog({ component: videosComponent });
 
-    onBeforeUnmount(() => unsubscribe());
-    onMounted(() => subscribe());
+    // onBeforeUnmount(() => unsubscribe());
+    // onMounted(() => subscribe());
 
     return {
       sessionKey,

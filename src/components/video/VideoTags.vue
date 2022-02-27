@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="container q-my-md q-gutter-xs">
     <q-chip
       v-for="tag in tags"
@@ -43,4 +43,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->
