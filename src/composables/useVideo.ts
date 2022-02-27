@@ -28,7 +28,30 @@ export const useVideo = () => {
   };
 
   const save = async (id: string, payload: VideoModel) => {
-    const { error, data } = await api(`videos/${id}`).post(payload).json<VideoResponse>();
+    // Merge with current data (if any)
+    const obj = { ...state.data, ...payload };
+
+    const { error, data } = await api(`videos/${id}`).post(obj).json<VideoResponse>();
+
+    // On error
+    state.error = error || null;
+
+    // Update objects
+    update(data.value);
+  };
+
+  const favorite = async (id: string) => {
+    const { error, data } = await api(`videos/favorite/${id}`).post().json<VideoResponse>();
+
+    // On error
+    state.error = error || null;
+
+    // Update objects
+    update(data.value);
+  };
+
+  const follow = async (id: string) => {
+    const { error, data } = await api(`videos/follow/${id}`).post().json<VideoResponse>();
 
     // On error
     state.error = error || null;
@@ -45,6 +68,8 @@ export const useVideo = () => {
   return {
     initialize,
     save,
+    favorite,
+    follow,
     subscribe,
     unsubscribe,
     state,

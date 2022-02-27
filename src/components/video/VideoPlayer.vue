@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div
     ref="container"
     class="player-video relative-position q-my-md"
@@ -20,6 +20,7 @@ import { and, useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { useQuasar } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
 import { useVideo } from 'src/composables/useVideo';
+import { VideoModel } from 'src/interfaces';
 import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
@@ -37,16 +38,17 @@ export default defineComponent({
     const activeElement = useActiveElement();
     const keys = useMagicKeys();
     const { initialize, destroy, player, state } = usePlayer();
-    const { update, store } = useVideo();
+    const { save, state: video } = useVideo();
 
     const disableKeys = computed(() => activeElement.value?.tagName !== 'INPUT' && activeElement.value?.tagName !== 'TEXTAREA');
 
-    const capture = () => update(store.id, {
-      ...store.data,
-      ...{ thumbnail: state.time || store.data?.thumbnail },
-    });
+    const capture = async () => {
+      const data = <VideoModel>{ thumbnail: state.time || video.data?.thumbnail };
 
-    onMounted(() => initialize(store.data, element.value));
+      await save(video.data?.id || '', data);
+    };
+
+    onMounted(() => initialize(video.data, element.value));
     onBeforeUnmount(() => destroy(player.value));
 
     // Player events
@@ -64,4 +66,4 @@ export default defineComponent({
     };
   },
 });
-</script> -->
+</script>

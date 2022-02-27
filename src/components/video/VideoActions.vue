@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-toolbar class="q-py-sm no-wrap justify-center items-center content-center">
     <div class="q-gutter-x-none">
       <q-btn
@@ -35,7 +35,7 @@
     </div>
   </q-toolbar>
 
-  <video-tags :tags="state.data.tags" />
+  <video-tags :tags="state.data?.tags" />
 </template>
 
 <script lang="ts">
@@ -61,8 +61,8 @@ export default defineComponent({
     const following = computed(() => (state.data?.following === true ? 'watch_later' : 'o_watch_later'));
     const views = computed(() => average(state.data?.views || 0));
 
-    const toggleFavorite = async () => favorite(state.id);
-    const toggleFollow = async () => follow(state.id);
+    const toggleFavorite = async () => favorite(state.data?.id || '');
+    const toggleFollow = async () => follow(state.data?.id || '');
 
     const edit = () => $q.dialog({
       component: editComponent,
@@ -82,4 +82,4 @@ export default defineComponent({
     };
   },
 });
-</script> -->
+</script>

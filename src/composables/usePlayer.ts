@@ -37,7 +37,7 @@ export const usePlayer = () => {
     }
   };
 
-  const initialize = async (model: VideoModel, view: HTMLElement | undefined) => {
+  const initialize = async (model: VideoModel | undefined, view: HTMLElement | undefined) => {
     destroy(player.value);
 
     // Wait for reset
@@ -47,7 +47,7 @@ export const usePlayer = () => {
     const token = getToken();
 
     // Initialize player
-    player.value = create(model.dash_url || '', token, view);
+    player.value = create(model?.dash_url || '', token, view);
 
     addListeners(player.value, handler);
 
@@ -57,7 +57,7 @@ export const usePlayer = () => {
       kind: 'metadata',
       label: 'thumbnail',
       srclang: 'en',
-      src: model.sprite_url,
+      src: model?.sprite_url,
     });
 
     showTextTrack(player.value, <TextTrack>{ label: 'thumbnail' });
