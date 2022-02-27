@@ -1,6 +1,6 @@
 <template>
   <q-page class="container">
-    <!-- <video-filters /> -->
+    <video-filters />
 
     {{ state.id }}
 
@@ -11,7 +11,7 @@
       @refresh="onRefresh"
     >
       <q-infinite-scroll
-        :key="state.id"
+        :key="state.id || 0"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-lg">
@@ -20,7 +20,7 @@
             :key="index"
             class="col-xs-12 col-sm-6 video-item"
           >
-            {{ item }}
+            <video-item :item="item" />
           </q-intersection>
         </div>
 
@@ -41,14 +41,14 @@
 import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
 import { fetch } from 'src/services/auth';
-import { defineComponent } from 'vue';
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoOverview',
 
   components: {
-    // VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
-    // VideoFilters: defineAsyncComponent(() => import('components/videos/VideoFilters.vue')),
+    VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
+    VideoFilters: defineAsyncComponent(() => import('components/videos/VideoFilters.vue')),
   },
 
   async preFetch({ redirect, urlPath }) {
@@ -64,8 +64,6 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
-      console.log(state.links);
-
       try {
         await populate();
         await done(false);
@@ -75,8 +73,8 @@ export default defineComponent({
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onRefresh = (done: Function): void => {
-      reset();
+    const onRefresh = async (done: Function): Promise<void> => {
+      await reset();
       done();
     };
 

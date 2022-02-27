@@ -1,14 +1,14 @@
-<!-- <template>
+<template>
   <q-card
     class="transparent"
     draggable="false"
     flat
     square
   >
-    <router-link :to="{ name: 'video', params: { id: video.id, slug: video.slug } }">
+    <router-link :to="{ name: 'video', params: { id: item.id, slug: item.slug } }">
       <q-img
-        :alt="video.title"
-        :src="video.poster_url"
+        :alt="item.title"
+        :src="item.poster_url"
         :draggable="false"
         :ratio="16/9"
         loading="lazy"
@@ -24,7 +24,7 @@
       <div class="row no-wrap">
         <div class="col">
           <div class="video-item-title ellipsis-2-lines">
-            {{ video.title }}
+            {{ item.title }}
           </div>
 
           <div class="video-item-meta ellipsis-2-lines">
@@ -32,11 +32,11 @@
           </div>
 
           <div
-            v-if="video.tags?.length"
+            v-if="item.tags?.length"
             class="video-item-tags q-py-xs q-gutter-xs"
           >
             <q-chip
-              v-for="tag in video.tags.slice(0, 5)"
+              v-for="tag in item.tags.slice(0, 5)"
               :key="tag.id"
               :label="tag.name"
               class="video-item-tag"
@@ -48,7 +48,7 @@
               @click="filterTag(tag)"
             />
 
-            <span v-if="video.tags.length >= 6">...</span>
+            <span v-if="item.tags.length >= 6">...</span>
           </div>
         </div>
 
@@ -99,7 +99,6 @@ import { useVideo } from 'src/composables/useVideo';
 import { useVideos } from 'src/composables/useVideos';
 import { timeFormat } from 'src/helpers';
 import { TagModel, VideoModel } from 'src/interfaces';
-import { router } from 'src/router';
 import { computed, defineComponent, PropType } from 'vue';
 
 const actions = [
@@ -117,7 +116,7 @@ export default defineComponent({
   name: 'VideoCard',
 
   props: {
-    video: {
+    item: {
       type: Object as PropType<VideoModel>,
       required: true,
     },
@@ -125,28 +124,24 @@ export default defineComponent({
 
   setup(props) {
     const $q = useQuasar();
-    const { store } = useVideos();
+    const { reset } = useVideos();
     const { favorite, follow } = useVideo();
 
-    const duration = computed(() => timeFormat(props.video.duration));
+    const duration = computed(() => timeFormat(props.item.duration));
 
     const favoriteModel = async () => {
-      await favorite(props.video.id);
+      await favorite(props.item.id);
 
       $q.notify({ message: 'Added to bookmarks.', icon: 'favorite' });
     };
 
     const followModel = async () => {
-      await follow(props.video.id);
+      await follow(props.item.id);
 
       $q.notify({ message: 'Added to watchlist.', icon: 'watch_later' });
     };
 
-    const filterTag = async (tag: TagModel) => {
-      store.reset({ query: tag.name });
-
-      await router.push({ name: 'home' });
-    };
+    const filterTag = (tag: TagModel) => reset({ query: tag.name });
 
     return {
       favoriteModel,
@@ -157,4 +152,4 @@ export default defineComponent({
     };
   },
 });
-</script> -->
+</script>

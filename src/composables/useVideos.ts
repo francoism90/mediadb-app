@@ -1,4 +1,6 @@
-import { RepositoryLinks, RepositoryMeta, VideoModel, VideosResponse, VideosState } from 'src/interfaces';
+import { stringify } from 'src/helpers/string';
+import { RepositoryLinks, RepositoryMeta, VideoModel, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
+import { router } from 'src/router';
 import { api, uri } from 'src/services/api';
 import { reactive, readonly } from 'vue';
 
@@ -25,12 +27,13 @@ export const useVideos = () => {
   };
 
   const fetchQuery = async () => {
-    console.log('query', state.links);
     if (typeof state.links?.first === 'string') {
       return;
     }
 
-    const { error, data } = await api('videos').get().json<VideosResponse>();
+    const query = stringify(state.filters).toString();
+
+    const { error, data } = await api(`videos?${query}`).get().json<VideosResponse>();
 
     // On error
     state.error = error || null;
@@ -43,11 +46,15 @@ export const useVideos = () => {
     await fetchQuery();
   };
 
-  const reset = () => {
+  const reset = async (payload?: VideosFilters) => {
     state.id = +new Date();
     state.data = undefined;
     state.meta = undefined;
     state.links = undefined;
+    state.filters = { ...state.filters, ...payload };
+
+    // Make sure page is active
+    await router.push({ name: 'home' });
   };
 
   // const filters = computed(() => filter(store.params));
@@ -56,7 +63,5 @@ export const useVideos = () => {
     populate,
     reset,
     state: readonly(state),
-    // filters,
-    // store,
   };
 };
