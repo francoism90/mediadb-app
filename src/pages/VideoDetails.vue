@@ -61,12 +61,12 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { initialize, subscribe, unsubscribe, state } = useVideo();
+    const { fetch, subscribe, unsubscribe, state } = useVideo();
 
     useMeta(() => ({ title: state.data?.name || '' }));
 
     watch(() => props.id, async (value, oldValue) => {
-      await initialize(value);
+      await fetch(value);
 
       unsubscribe(oldValue || '');
       subscribe(value || '');

@@ -24,7 +24,7 @@ export default defineComponent({
   props: {
     tags: {
       type: Array as PropType<TagModel[]>,
-      default: () => <TagModel[]>[],
+      default: () => undefined,
     },
   },
 

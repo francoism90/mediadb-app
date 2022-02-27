@@ -57,8 +57,8 @@ export interface ValidationErrors {
 }
 
 export interface ValidationResponse {
-  errors: ValidationErrors,
-  message: string,
+  errors: ValidationErrors | undefined,
+  message: string | undefined,
 }
 
 export type ResponseError = AxiosError<ErrorResponse, unknown>;

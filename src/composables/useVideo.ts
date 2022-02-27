@@ -17,7 +17,7 @@ export const useVideo = () => {
     }
   };
 
-  const initialize = async (id: string) => {
+  const fetch = async (id: string) => {
     const { error, data } = await api(`videos/${id}`).get().json<VideoResponse>();
 
     // On error
@@ -32,6 +32,16 @@ export const useVideo = () => {
     const obj = { ...state.data, ...payload };
 
     const { error, data } = await api(`videos/${id}`).post(obj).json<VideoResponse>();
+
+    // On error
+    state.error = error || null;
+
+    // Update objects
+    update(data.value);
+  };
+
+  const destroy = async (id: string) => {
+    const { error, data } = await api(`videos/${id}`).delete().json<VideoResponse>();
 
     // On error
     state.error = error || null;
@@ -66,8 +76,9 @@ export const useVideo = () => {
     ?.listen('.video.updated', onUpdate);
 
   return {
-    initialize,
+    fetch,
     save,
+    destroy,
     favorite,
     follow,
     subscribe,
