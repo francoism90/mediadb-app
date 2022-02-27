@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-dialog
     ref="dialogRef"
     @hide="onDialogHide"
@@ -236,4 +236,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

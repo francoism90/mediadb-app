@@ -10,7 +10,7 @@ export const getItem = (key: string, fallback?: string | number | boolean) => Lo
 
 export const setItem = (key: string, value: string | number | boolean) => LocalStorage.set(key, value);
 
-export const getToken = () => getItem('token') ?? '';
+export const getToken = () => getItem('token') as string;
 
 export const setToken = (payload: string) => setItem('token', payload);
 
@@ -26,7 +26,7 @@ export const initialize = async (payload?: AuthRequest) => {
   // Fetch requested user using token
   const response = await api.get<AuthRequest, AxiosResponse<AuthResponse>>('user', {
     headers: {
-      Authorization: `Bearer ${<string>requestToken}`,
+      Authorization: `Bearer ${requestToken}`,
     },
   });
 

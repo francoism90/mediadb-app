@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="container">
     <h1 class="hero-secondary">
       Similar Videos
@@ -75,4 +75,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->

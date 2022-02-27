@@ -1,8 +1,7 @@
 import { Model } from 'src/interfaces';
-import { videoSimliar, videosStore, videoStore } from 'src/store/pinia';
+import { videoSimliar, videosStore } from 'src/store/pinia';
 
 export const sync = [
-  videoStore(),
   videosStore(),
   videoSimliar(),
 ];

@@ -1,6 +1,8 @@
-import { MediaModel, Model, ModelResponse, RepositoryParams, RepositoryResponse, TagModel } from 'src/interfaces';
+import { MediaModel, Model, RepositoryParams, RepositoryResponse, TagModel } from 'src/interfaces';
 
 export interface VideoModel extends Model {
+  id: string,
+  slug: string,
   'dash_url'?: string
   'production_code': string,
   'episode_number': string,
@@ -22,6 +24,18 @@ export interface VideoModel extends Model {
   views?: number,
 }
 
+export interface VideoResponse {
+  data: VideoModel | undefined,
+  meta: object | undefined,
+}
+
+export interface VideoState {
+  data: VideoModel | undefined,
+  meta: object | undefined,
+  error: unknown | undefined,
+  fetching: boolean,
+}
+
 export interface VideosParams extends RepositoryParams {
   features?: string | string[] | null,
   type?: string | string[] | null,
@@ -31,8 +45,4 @@ export interface VideosParams extends RepositoryParams {
 export interface VideosState extends RepositoryResponse {
   id: string | number,
   params: VideosParams,
-}
-
-export interface VideoState extends ModelResponse {
-  data: VideoModel,
 }

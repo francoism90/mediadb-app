@@ -1,6 +1,6 @@
 <template>
   <page-hero class="container q-mb-md">
-    {{ store.title }}
+    {{ title }}
 
     <template #meta>
       <span v-if="episode">{{ episode }}</span>
@@ -23,14 +23,15 @@ export default defineComponent({
   },
 
   setup() {
-    const { store } = useVideo();
+    const { state } = useVideo();
 
-    const episode = computed(() => store.data?.production_code);
-    const released = computed(() => dateFormat(store.data?.released_at || store.data?.created_at, 'YYYY'));
-    const duration = computed(() => timeFormat(store.data?.duration));
+    const title = computed(() => state.data?.title);
+    const episode = computed(() => state.data?.production_code);
+    const released = computed(() => dateFormat(state.data?.released_at || state.data?.created_at, 'YYYY'));
+    const duration = computed(() => timeFormat(state.data?.duration));
 
     return {
-      store,
+      title,
       episode,
       released,
       duration,

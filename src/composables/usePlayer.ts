@@ -44,7 +44,7 @@ export const usePlayer = () => {
     await nextTick();
 
     // Get token
-    const token = <string>getToken();
+    const token = getToken();
 
     // Initialize player
     player.value = create(model.dash_url || '', token, view);

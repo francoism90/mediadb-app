@@ -13,7 +13,7 @@ export interface Model {
 
 export interface ModelResponse {
   data: Model,
-  meta: null,
+  meta: object,
 }
 
 export interface RepositoryMeta {

@@ -10,17 +10,17 @@
         </template>
 
         <span class="text-body2">
-          Unable to Play Video. An error occurred. ({{ state.error?.message || '404 - Not Found' }})
+          Unable to Play Video. An error occurred. ({{ state.error || '404 - Not Found' }})
         </span>
       </q-banner>
     </template>
 
-    <template v-else-if="state.ready">
+    <template v-else-if="state.data">
       <video-hero />
-      <video-player />
-      <video-actions />
-      <video-tags />
-      <video-similar />
+      <!-- <video-player /> -->
+      <!-- <video-actions /> -->
+      <!-- <video-tags /> -->
+      <!-- <video-similar /> -->
     </template>
   </q-page>
 </template>
@@ -35,11 +35,11 @@ export default defineComponent({
   name: 'VideoDetails',
 
   components: {
-    VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
+    // VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
     VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
-    VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
-    VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
-    VideoTags: defineAsyncComponent(() => import('components/video/VideoTags.vue')),
+    // VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
+    // VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
+    // VideoTags: defineAsyncComponent(() => import('components/video/VideoTags.vue')),
   },
 
   props: {
@@ -63,9 +63,9 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { initialize, subscribe, unsubscribe, state, store } = useVideo();
+    const { initialize, subscribe, unsubscribe, state } = useVideo();
 
-    useMeta(() => ({ title: store?.title || '' }));
+    useMeta(() => ({ title: state.data?.name || '' }));
 
     watch(() => props.id, async (value, oldValue) => {
       await initialize(value);
@@ -76,7 +76,6 @@ export default defineComponent({
 
     return {
       state,
-      store,
     };
   },
 });

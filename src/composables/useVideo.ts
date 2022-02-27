@@ -1,43 +1,22 @@
-import { useLoading } from 'src/composables/useLoading';
+import { api } from 'src/boot/fetch';
 import { useSession } from 'src/composables/useSession';
 import { useStores } from 'src/composables/useStores';
-import { ResponseError, VideoModel } from 'src/interfaces';
-import { find, remove, save } from 'src/services/api';
-import { useStore } from 'src/store/videos/item';
+import { VideoResponse, VideoState } from 'src/interfaces';
+import { reactive } from 'vue';
+
+const state = reactive(<VideoState>{});
 
 export const useVideo = () => {
-  const store = useStore();
   const { onDelete, onUpdate } = useStores();
   const { echo } = useSession();
-  const { state, startLoading, stopLoading } = useLoading();
-
-  const fetch = async (id: string) => find(`videos/${id}`);
-  const destroy = async (id: string) => remove(`videos/${id}`);
-  const update = async (id: string, payload: VideoModel) => save(`videos/${id}`, payload);
-  const favorite = async (id: string, payload?: VideoModel) => save(`videos/favorite/${id}`, payload);
-  const follow = async (id: string, payload?: VideoModel) => save(`videos/follow/${id}`, payload);
 
   const initialize = async (id: string) => {
-    startLoading();
+    const { isFetching, error, data } = await api(`videos/${id}`).json<VideoResponse>();
 
-    try {
-      const response = await fetch(id);
-      store.populate(response);
-    } catch (e: unknown) {
-      const error = e as ResponseError;
-
-      // Reset video store
-      store.$reset();
-
-      if (error.response) {
-        stopLoading(error.response.data);
-        return;
-      }
-
-      throw error;
-    } finally {
-      stopLoading();
-    }
+    state.data = data.value?.data;
+    state.meta = data.value?.meta;
+    state.fetching = isFetching.value;
+    state.error = error;
   };
 
   const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
@@ -46,15 +25,9 @@ export const useVideo = () => {
     ?.listen('.video.updated', onUpdate);
 
   return {
-    state,
-    store,
     initialize,
-    fetch,
-    destroy,
-    update,
-    favorite,
-    follow,
     subscribe,
     unsubscribe,
+    state,
   };
 };

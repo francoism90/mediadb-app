@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-card
     class="transparent"
     draggable="false"
@@ -158,4 +158,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->
