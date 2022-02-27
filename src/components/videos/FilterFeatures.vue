@@ -43,10 +43,10 @@ export default defineComponent({
     const toggle = async (value: string | null) => reset({ features: isActive(value) ? null : value });
 
     return {
-      active,
-      items,
       toggle,
       isActive,
+      active,
+      items,
     };
   },
 });
