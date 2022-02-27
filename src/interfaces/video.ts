@@ -33,7 +33,6 @@ export interface VideoState {
   data: VideoModel | undefined,
   meta: object | undefined,
   error: unknown | undefined,
-  fetching: boolean,
 }
 
 export interface VideosParams extends RepositoryParams {

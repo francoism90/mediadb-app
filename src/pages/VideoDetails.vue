@@ -1,6 +1,8 @@
 <template>
   <q-page>
-    <template v-if="state.error">
+    {{ state }}
+
+    <!-- <template v-if="state.error">
       <q-banner class="container q-py-lg">
         <template #avatar>
           <q-icon
@@ -13,15 +15,11 @@
           Unable to Play Video. An error occurred. ({{ state.error || '404 - Not Found' }})
         </span>
       </q-banner>
-    </template>
+    </template> -->
 
-    <template v-else-if="state.data">
+    <!-- <template v-else-if="state.data">
       <video-hero />
-      <!-- <video-player /> -->
-      <!-- <video-actions /> -->
-      <!-- <video-tags /> -->
-      <!-- <video-similar /> -->
-    </template>
+    </template> -->
   </q-page>
 </template>
 
@@ -29,14 +27,14 @@
 import { useMeta } from 'quasar';
 import { useVideo } from 'src/composables/useVideo';
 import { check } from 'src/services/auth';
-import { defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
+import { defineComponent, PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoDetails',
 
   components: {
     // VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
-    VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
+    // VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
     // VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
     // VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
     // VideoTags: defineAsyncComponent(() => import('components/video/VideoTags.vue')),

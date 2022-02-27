@@ -35,7 +35,7 @@
     </div>
   </q-toolbar>
 
-  <video-tags :tags="store.data.tags" />
+  <video-tags :tags="state.data.tags" />
 </template>
 
 <script lang="ts">
@@ -54,31 +54,31 @@ export default defineComponent({
   },
 
   setup() {
-    const { store, favorite, follow } = useVideo();
+    const { state, favorite, follow } = useVideo();
     const $q = useQuasar();
 
-    const favorited = computed(() => (store.data?.favorite === true ? 'favorite' : 'favorite_border'));
-    const following = computed(() => (store.data?.following === true ? 'watch_later' : 'o_watch_later'));
-    const views = computed(() => average(store.data?.views || 0));
+    const favorited = computed(() => (state.data?.favorite === true ? 'favorite' : 'favorite_border'));
+    const following = computed(() => (state.data?.following === true ? 'watch_later' : 'o_watch_later'));
+    const views = computed(() => average(state.data?.views || 0));
 
-    const toggleFavorite = async () => favorite(store.id);
-    const toggleFollow = async () => follow(store.id);
+    const toggleFavorite = async () => favorite(state.id);
+    const toggleFollow = async () => follow(state.id);
 
     const edit = () => $q.dialog({
       component: editComponent,
       componentProps: {
-        id: store.id,
+        id: state.data?.id,
       },
     });
 
     return {
-      store,
-      favorited,
-      following,
-      views,
       edit,
       toggleFavorite,
       toggleFollow,
+      state,
+      favorited,
+      following,
+      views,
     };
   },
 });
