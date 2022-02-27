@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="filter-item-field">
     <h1>Sort By</h1>
     <p
@@ -32,23 +32,20 @@ export default defineComponent({
   name: 'FilterSorter',
 
   setup() {
-    const { store } = useVideos();
+    const { reset, state } = useVideos();
 
-    const active = computed(() => store.params.sort);
+    const active = computed(() => state.filters?.sort);
 
     const isActive = (value: string | null) => value === active.value;
 
-    const toggle = (value: string | null) => {
-      if (isActive(value)) store.params.sort = null;
-      else store.params.sort = value;
-    };
+    const toggle = async (value: string | null) => reset({ sort: isActive(value) ? null : value });
 
     return {
-      active,
-      items,
       toggle,
       isActive,
+      active,
+      items,
     };
   },
 });
-</script> -->
+</script>

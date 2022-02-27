@@ -36,6 +36,7 @@ export interface VideoResponse {
 }
 
 export interface VideosFilters {
+  features?: string | null,
   query?: string | null,
   sort?: string | null,
   type?: string | null,
