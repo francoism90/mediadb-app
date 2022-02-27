@@ -1,5 +1,5 @@
 import { RepositoryLinks, RepositoryMeta, VideoModel, VideosResponse, VideosState } from 'src/interfaces';
-import { api } from 'src/services/api';
+import { api, uri } from 'src/services/api';
 import { reactive, readonly } from 'vue';
 
 const state = reactive(<VideosState>{});
@@ -12,12 +12,11 @@ export const useVideos = () => {
   };
 
   const fetchNext = async () => {
-    console.log('next', state.links);
     if (typeof state.links?.next !== 'string') {
       return;
     }
 
-    const { error, data } = await api(state.links?.next || 'videos').get().json<VideosResponse>();
+    const { error, data } = await uri(state.links?.next || '').get().json<VideosResponse>();
 
     // On error
     state.error = error || null;

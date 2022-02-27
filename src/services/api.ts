@@ -7,7 +7,18 @@ export const api = createFetch({
   options: {
     beforeFetch({ options }) {
       set(options, 'headers.Authorization', `Bearer ${getToken() || ''}`);
+      return { options };
+    },
+  },
+  fetchOptions: {
+    mode: 'cors',
+  },
+});
 
+export const uri = createFetch({
+  options: {
+    beforeFetch({ options }) {
+      set(options, 'headers.Authorization', `Bearer ${getToken() || ''}`);
       return { options };
     },
   },

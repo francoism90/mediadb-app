@@ -11,6 +11,7 @@
       @refresh="onRefresh"
     >
       <q-infinite-scroll
+        :key="state.id"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-lg">
