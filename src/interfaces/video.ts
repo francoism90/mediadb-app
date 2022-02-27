@@ -38,6 +38,7 @@ export interface VideoResponse {
 export interface VideosFilters {
   query?: string | null,
   sort?: string | null,
+  type?: string | null,
 }
 
 export interface VideosState {

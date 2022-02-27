@@ -2,10 +2,6 @@
   <q-page class="container">
     <video-filters />
 
-    {{ state.id }}
-
-    {{ state.links }}
-
     <q-pull-to-refresh
       class="q-py-lg"
       @refresh="onRefresh"
