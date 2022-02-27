@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="container">
     <h1 class="hero-secondary">
       Similar Videos
@@ -45,8 +45,8 @@ export default defineComponent({
   },
 
   setup() {
-    const { store: video } = useVideo();
-    const { store: similar, fetch, initialize } = useSimilar(video.id || '');
+    const { state } = useVideo();
+    const { store: similar, fetch, initialize } = useSimilar(state.data?.id || '');
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
@@ -65,14 +65,13 @@ export default defineComponent({
     };
 
     onBeforeMount(() => initialize());
-    watch(() => video.id, () => initialize());
+    watch(() => state.data?.id, () => initialize());
 
     return {
-      similar,
-      video,
       onLoad,
       onRefresh,
+      similar,
     };
   },
 });
-</script> -->
+</script>

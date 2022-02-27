@@ -134,7 +134,7 @@ import { ValidationResponse, VideoModel } from 'src/interfaces';
 import { defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
-  name: 'VideoEditor',
+  name: 'VideoEdit',
 
   props: {
     id: {

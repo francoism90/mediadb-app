@@ -44,7 +44,7 @@ import { useVideo } from 'src/composables/useVideo';
 import { average } from 'src/helpers/number';
 import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
-const editComponent = defineAsyncComponent(() => import('components/video/VideoEditor.vue'));
+const editComponent = defineAsyncComponent(() => import('components/video/VideoEdit.vue'));
 
 export default defineComponent({
   name: 'VideoActions',

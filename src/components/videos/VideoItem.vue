@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-card
     class="transparent"
     draggable="false"
@@ -98,8 +98,7 @@ import { useQuasar } from 'quasar';
 import { useVideo } from 'src/composables/useVideo';
 import { useVideos } from 'src/composables/useVideos';
 import { timeFormat } from 'src/helpers';
-import { TagModel } from 'src/interfaces';
-import { VideoModel } from 'src/interfaces/video';
+import { TagModel, VideoModel } from 'src/interfaces';
 import { router } from 'src/router';
 import { computed, defineComponent, PropType } from 'vue';
 
@@ -132,13 +131,13 @@ export default defineComponent({
     const duration = computed(() => timeFormat(props.video.duration));
 
     const favoriteModel = async () => {
-      await favorite(props.video.id, <VideoModel>{ favorite: true });
+      await favorite(props.video.id);
 
       $q.notify({ message: 'Added to bookmarks.', icon: 'favorite' });
     };
 
     const followModel = async () => {
-      await follow(props.video.id, <VideoModel>{ following: true });
+      await follow(props.video.id);
 
       $q.notify({ message: 'Added to watchlist.', icon: 'watch_later' });
     };
@@ -150,12 +149,12 @@ export default defineComponent({
     };
 
     return {
-      actions,
-      duration,
       favoriteModel,
       followModel,
       filterTag,
+      actions,
+      duration,
     };
   },
 });
-</script> -->
+</script>
