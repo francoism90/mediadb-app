@@ -2,7 +2,7 @@ import { api } from 'src/boot/fetch';
 import { useSession } from 'src/composables/useSession';
 import { useStores } from 'src/composables/useStores';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces';
-import { reactive } from 'vue';
+import { reactive, readonly } from 'vue';
 
 const state = reactive(<VideoState>{});
 
@@ -72,6 +72,6 @@ export const useVideo = () => {
     follow,
     subscribe,
     unsubscribe,
-    state,
+    state: readonly(state),
   };
 };
