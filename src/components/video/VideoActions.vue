@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-toolbar class="q-py-sm no-wrap justify-center items-center content-center">
     <div class="q-gutter-x-none">
       <q-btn
@@ -82,4 +82,4 @@ export default defineComponent({
     };
   },
 });
-</script> -->
+</script>

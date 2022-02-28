@@ -1,18 +1,70 @@
-// import { TagModel, TagsParams } from 'src/interfaces';
-// import { all } from 'src/services/api';
-// import { readonly, ref } from 'vue';
+import { stringify } from 'src/helpers/string';
+import { RepositoryLinks, RepositoryMeta, TagsFilters, TagsResponse, TagsState } from 'src/interfaces';
+import { api, uri } from 'src/services/api';
+import { reactive, readonly } from 'vue';
 
-// const state = ref<TagModel[]>();
+const state = reactive(<TagsState>{
+  id: null,
+  data: [],
+  meta: undefined,
+  links: undefined,
+  error: undefined,
+  filters: undefined,
+});
 
-// export const useTagInput = () => {
-//   const fetch = async (params: TagsParams) => {
-//     const response = await all('tags', params);
+export const useTagInput = () => {
+  const update = (payload: TagsResponse | null) => {
+    state.data = state.data.concat(payload?.data || []);
+    state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
+    state.links = { ...state.links, ...<RepositoryLinks>payload?.links };
+  };
 
-//     state.value = <TagModel[]>response.data;
-//   };
+  const fetchNext = async () => {
+    if (typeof state.links?.next !== 'string') {
+      return;
+    }
 
-//   return {
-//     fetch,
-//     state: readonly(state),
-//   };
-// };
+    const { error, data } = await uri(state.links?.next || '').get().json<TagsResponse>();
+
+    // On error
+    state.error = error || null;
+
+    update(data.value);
+  };
+
+  const fetchQuery = async () => {
+    if (typeof state.links?.first === 'string') {
+      return;
+    }
+
+    const query = stringify(state.filters).toString();
+
+    const { error, data } = await api(`tags?${query}`).get().json<TagsResponse>();
+
+    // On error
+    state.error = error || null;
+
+    update(data.value);
+  };
+
+  const populate = async () => {
+    await fetchNext();
+    await fetchQuery();
+  };
+
+  const reset = (payload?: TagsFilters) => {
+    state.id = +new Date();
+    state.data = [];
+    state.meta = undefined;
+    state.links = undefined;
+    state.filters = { ...state.filters, ...payload };
+  };
+
+  // const filters = computed(() => filter(store.params));
+
+  return {
+    populate,
+    reset,
+    state: readonly(state),
+  };
+};

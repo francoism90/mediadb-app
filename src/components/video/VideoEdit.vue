@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-dialog
     ref="dialogRef"
     @hide="onDialogHide"
@@ -49,7 +49,7 @@
             v-model.lazy="form.tags"
             :error-message="getError('tags')?.find(Boolean)"
             :error="hasError('tags')"
-            :options="tags"
+            :options="tags.data"
             :options-dark="false"
             counter
             class="input input-text"
@@ -154,7 +154,7 @@ export default defineComponent({
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
     const { getError, hasError, resetResponse, setResponse } = useValidation();
     const { fetch, save, destroy, state } = useVideo();
-    const { state: tags, fetch: fetchTags } = useTagInput();
+    const { populate, reset, state: tags } = useTagInput();
 
     const initialize = async (id: string) => {
       // Refetch state
@@ -166,12 +166,13 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function) => {
-      await fetchTags({
+      await reset({
         query: val,
         sort: val.length < 1 ? 'items:desc' : null,
         size: 5,
       });
 
+      await populate();
       await update();
     };
 
@@ -206,4 +207,4 @@ export default defineComponent({
     };
   },
 });
-</script> -->
+</script>

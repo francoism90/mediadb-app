@@ -1,4 +1,4 @@
-import { Model, RepositoryParams, RepositoryResponse } from 'src/interfaces';
+import { Model, RepositoryLinks, RepositoryMeta } from 'src/interfaces';
 
 export interface TagModel extends Model {
   name: string,
@@ -6,11 +6,24 @@ export interface TagModel extends Model {
   items?: number,
 }
 
-export interface TagsParams extends RepositoryParams {
-  type?: string | string[] | null,
+export interface TagsFilters {
+  query?: string | null,
+  size?: number | null,
+  sort?: string | null,
+  type?: string | null,
 }
 
-export interface TagsState extends RepositoryResponse {
-  id: string | number | null,
-  params: TagsParams,
+export interface TagsState {
+  id: number | string | null,
+  data: TagModel[],
+  meta: RepositoryMeta | undefined,
+  links: RepositoryLinks | undefined,
+  error: unknown | undefined,
+  filters: TagsFilters | undefined,
+}
+
+export interface TagsResponse {
+  data: TagModel[],
+  meta: RepositoryMeta | undefined,
+  links: RepositoryLinks | undefined,
 }

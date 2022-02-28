@@ -6,16 +6,15 @@ import { reactive, readonly } from 'vue';
 
 const state = reactive(<VideosState>{
   id: null,
+  data: [],
   meta: undefined,
   links: undefined,
   error: undefined,
   filters: undefined,
-  data: [],
 });
 
 export const useVideos = () => {
   const update = (payload: VideosResponse | null) => {
-    console.log(payload?.data);
     state.data = state.data.concat(payload?.data || []);
     state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
     state.links = { ...state.links, ...<RepositoryLinks>payload?.links };
