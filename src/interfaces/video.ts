@@ -44,7 +44,7 @@ export interface VideosFilters {
 
 export interface VideosState {
   id: number | string | null,
-  data: VideoModel[] | undefined,
+  data: VideoModel[],
   meta: RepositoryMeta | undefined,
   links: RepositoryLinks | undefined,
   error: unknown | undefined,
@@ -52,7 +52,7 @@ export interface VideosState {
 }
 
 export interface VideosResponse {
-  data: VideoModel[] | undefined,
+  data: VideoModel[],
   meta: RepositoryMeta | undefined,
   links: RepositoryLinks | undefined,
 }

@@ -1,14 +1,22 @@
 import { stringify } from 'src/helpers/string';
-import { RepositoryLinks, RepositoryMeta, VideoModel, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
+import { RepositoryLinks, RepositoryMeta, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
 import { router } from 'src/router';
 import { api, uri } from 'src/services/api';
 import { reactive, readonly } from 'vue';
 
-const state = reactive(<VideosState>{});
+const state = reactive(<VideosState>{
+  id: null,
+  meta: undefined,
+  links: undefined,
+  error: undefined,
+  filters: undefined,
+  data: [],
+});
 
 export const useVideos = () => {
   const update = (payload: VideosResponse | null) => {
-    state.data = { ...state.data, ...<VideoModel[]>payload?.data };
+    console.log(payload?.data);
+    state.data = state.data.concat(payload?.data || []);
     state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
     state.links = { ...state.links, ...<RepositoryLinks>payload?.links };
   };
@@ -48,7 +56,7 @@ export const useVideos = () => {
 
   const reset = async (payload?: VideosFilters) => {
     state.id = +new Date();
-    state.data = undefined;
+    state.data = [];
     state.meta = undefined;
     state.links = undefined;
     state.filters = { ...state.filters, ...payload };

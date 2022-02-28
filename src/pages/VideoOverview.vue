@@ -37,7 +37,7 @@
 import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
 import { fetch } from 'src/services/auth';
-import { defineAsyncComponent, defineComponent } from 'vue';
+import { defineAsyncComponent, defineComponent, onBeforeMount } from 'vue';
 
 export default defineComponent({
   name: 'VideoOverview',
@@ -73,6 +73,8 @@ export default defineComponent({
       await reset();
       done();
     };
+
+    onBeforeMount(() => populate());
 
     useMeta(() => ({ title: 'Videos' }));
 
