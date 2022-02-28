@@ -37,7 +37,7 @@ export const usePlayer = () => {
     }
   };
 
-  const initialize = async (model: VideoModel | undefined, view: HTMLElement | undefined) => {
+  const initialize = async (model: Readonly<VideoModel> | undefined, view: HTMLElement | undefined) => {
     destroy(player.value);
 
     // Wait for reset

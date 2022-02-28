@@ -1,7 +1,7 @@
 // import { useSession } from 'src/composables/useSession';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces';
 import { api } from 'src/services/api';
-import { reactive, readonly } from 'vue';
+import { reactive } from 'vue';
 
 const state = reactive(<VideoState>{});
 
@@ -82,6 +82,6 @@ export const useVideo = () => {
     follow,
     // subscribe,
     // unsubscribe,
-    state: readonly(state),
+    state,
   };
 };

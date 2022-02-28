@@ -14,7 +14,7 @@ export interface VideoModel extends Model {
   title: string,
   duration: number,
   quality: string,
-  clips?: MediaModel[],
+  clips?: Readonly<MediaModel[]>,
   model?: Model,
   overview?: string,
   status?: string,
