@@ -17,7 +17,7 @@ export const authenticate = async (payload: LoginRequest) => {
   };
 };
 
-export const fetch = () => api('user').get().json<AuthResponse>();
+export const check = () => api('user').get().json<AuthResponse>();
 
 export const destroy = async () => {
   const { error, data } = await api('logout').post().json<AuthResponse>();

@@ -36,7 +36,7 @@
 <script lang="ts">
 import { useMeta } from 'quasar';
 import { useVideos } from 'src/composables/useVideos';
-import { fetch } from 'src/services/auth';
+import { check } from 'src/services/auth';
 import { defineAsyncComponent, defineComponent, onBeforeMount } from 'vue';
 
 export default defineComponent({
@@ -48,7 +48,7 @@ export default defineComponent({
   },
 
   async preFetch({ redirect, urlPath }) {
-    const { data } = await fetch();
+    const { data } = await check();
 
     if (!data.value) {
       redirect({ name: 'login', query: { redirect: urlPath } });
@@ -62,7 +62,7 @@ export default defineComponent({
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
         await populate();
-        await done(false);
+        await done(!state.links?.next);
       } catch {
         await done(true);
       }

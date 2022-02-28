@@ -1,26 +1,21 @@
-<!-- <template>
-  <page-hero class="container q-mb-md">
-    {{ title }}
-
-    <template #meta>
+<template>
+  <div class="hero container q-mb-md">
+    <h1>{{ title }}</h1>
+    <p>
       <span v-if="episode">{{ episode }}</span>
       <span>{{ duration }}</span>
       <span>{{ released }}</span>
-    </template>
-  </page-hero>
+    </p>
+  </div>
 </template>
 
 <script lang="ts">
 import { useVideo } from 'src/composables/useVideo';
 import { dateFormat, timeFormat } from 'src/helpers';
-import { computed, defineAsyncComponent, defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoHero',
-
-  components: {
-    PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
-  },
 
   setup() {
     const { state } = useVideo();
@@ -38,4 +33,4 @@ export default defineComponent({
     };
   },
 });
-</script> -->
+</script>

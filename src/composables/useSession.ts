@@ -1,7 +1,7 @@
 import { includes } from 'lodash';
 import { echoKey } from 'src/boot/echo';
 import { SessionState } from 'src/interfaces';
-import { authenticate, destroy, fetch } from 'src/services/auth';
+import { authenticate, check, destroy } from 'src/services/auth';
 import { computed, inject, reactive, readonly } from 'vue';
 
 const state = reactive(<SessionState>{});
@@ -26,7 +26,7 @@ export const useSession = () => {
     permissions: readonly(permissions),
     echo,
     authenticate,
-    fetch,
+    check,
     destroy,
     // subscribe,
     // unsubscribe,

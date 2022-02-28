@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <!-- <template v-if="state.error">
+    <template v-if="state.error">
       <q-banner class="container q-py-lg">
         <template #avatar>
           <q-icon
@@ -17,64 +17,64 @@
 
     <template v-else-if="state.data">
       <video-hero />
-      <video-player />
-      <video-actions />
-      <video-similar />
-    </template> -->
+      <!-- <video-player /> -->
+      <!-- <video-actions /> -->
+      <!-- <video-similar /> -->
+    </template>
   </q-page>
 </template>
 
 <script lang="ts">
-// import { useMeta } from 'quasar';
-// import { useVideo } from 'src/composables/useVideo';
-// import { check } from 'src/services/auth';
-// import { defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
+import { useMeta } from 'quasar';
+import { useVideo } from 'src/composables/useVideo';
+import { check } from 'src/services/auth';
+import { defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
 
-// export default defineComponent({
-//   name: 'VideoDetails',
+export default defineComponent({
+  name: 'VideoDetails',
 
-//   components: {
-//     VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
-//     VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
-//     VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
-//     VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
-//   },
+  components: {
+    // VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
+    VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
+    // VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
+    // VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
+  },
 
-//   props: {
-//     id: {
-//       type: String as PropType<string>,
-//       required: true,
-//     },
+  props: {
+    id: {
+      type: String as PropType<string>,
+      required: true,
+    },
 
-//     slug: {
-//       type: String as PropType<string>,
-//       default: null,
-//     },
-//   },
+    slug: {
+      type: String as PropType<string>,
+      default: null,
+    },
+  },
 
-//   async preFetch({ redirect, urlPath }) {
-//     const authenticated = await check({ redirectUri: urlPath });
+  async preFetch({ redirect, urlPath }) {
+    const { data } = await check();
 
-//     if (!authenticated) {
-//       redirect({ name: 'login' });
-//     }
-//   },
+    if (!data.value) {
+      redirect({ name: 'login', query: { redirect: urlPath } });
+    }
+  },
 
-//   setup(props) {
-//     const { fetch, subscribe, unsubscribe, state } = useVideo();
+  setup(props) {
+    const { fetch, state } = useVideo();
 
-//     useMeta(() => ({ title: state.data?.name || '' }));
+    useMeta(() => ({ title: state.data?.name || '' }));
 
-//     watch(() => props.id, async (value, oldValue) => {
-//       await fetch(value);
+    watch(() => props.id, async (value) => {
+      await fetch(value);
 
-//       unsubscribe(oldValue || '');
-//       subscribe(value || '');
-//     }, { immediate: true });
+      // unsubscribe(oldValue || '');
+      // subscribe(value || '');
+    }, { immediate: true });
 
-//     return {
-//       state,
-//     };
-//   },
-// });
+    return {
+      state,
+    };
+  },
+});
 </script>
