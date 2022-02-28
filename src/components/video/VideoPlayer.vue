@@ -37,6 +37,7 @@ export default defineComponent({
     const $q = useQuasar();
     const activeElement = useActiveElement();
     const keys = useMagicKeys();
+
     const { initialize, destroy, player, state } = usePlayer();
     const { save, state: video } = useVideo();
 
@@ -53,6 +54,7 @@ export default defineComponent({
 
     // Player events
     watch(() => state.fullscreen, () => $q.fullscreen.toggle(container.value));
+    watch(() => video.data, () => initialize(video.data, element.value));
 
     // Key combinations
     whenever(and(keys.left, disableKeys), () => player.value?.seek((state.time || 10) - 10));
