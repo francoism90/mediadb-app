@@ -29,28 +29,14 @@ export const useVideo = () => {
     update(data.value);
   };
 
-  const save = async (id: string, payload: VideoModel) => {
+  const save = (id: string, payload: VideoModel) => {
     // Merge with current data (if any)
     const obj = { ...state.data, ...payload };
 
-    const { error, data } = await api(`videos/${id}`).post(obj).json<VideoResponse>();
-
-    // On error
-    state.error = error || null;
-
-    // Update objects
-    update(data.value);
+    return api(`videos/${id}`).post(obj).json<VideoResponse>();
   };
 
-  const destroy = async (id: string) => {
-    const { error, data } = await api(`videos/${id}`).delete().json<VideoResponse>();
-
-    // On error
-    state.error = error || null;
-
-    // Update objects
-    update(data.value);
-  };
+  const remove = (id: string) => api(`videos/${id}`).delete().json<VideoResponse>();
 
   const favorite = async (id: string) => {
     const { error, data } = await api(`videos/favorite/${id}`).post().json<VideoResponse>();
@@ -103,7 +89,7 @@ export const useVideo = () => {
   return {
     fetch,
     save,
-    destroy,
+    remove,
     favorite,
     follow,
     subscribe,

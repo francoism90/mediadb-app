@@ -131,7 +131,7 @@ import { useDialogPluginComponent } from 'quasar';
 import { useTagInput } from 'src/composables/useTagInput';
 import { useValidation } from 'src/composables/useValidation';
 import { useVideo } from 'src/composables/useVideo';
-import { ValidationResponse, VideoModel } from 'src/interfaces';
+import { VideoModel } from 'src/interfaces';
 import { defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
@@ -154,7 +154,7 @@ export default defineComponent({
 
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
     const { getError, hasError, resetResponse, setResponse } = useValidation();
-    const { fetch, save, destroy, state } = useVideo();
+    const { fetch, save, remove, state } = useVideo();
     const { populate, reset, state: tags } = useTagInput();
 
     const initialize = async (id: string) => {
@@ -180,13 +180,17 @@ export default defineComponent({
     const onSubmit = async () => {
       resetResponse();
 
-      await save(state.data?.id || '', form.value);
+      const { error, data } = await save(state.data?.id || '', <VideoModel>form.value);
 
-      setResponse(state.error as ValidationResponse);
+      if (error.value) {
+        setResponse(data.value);
+      }
+
+      console.log(data.value);
     };
 
     const onDelete = async () => {
-      await destroy(state.data?.id || '');
+      await remove(state.data?.id || '');
     };
 
     watch(() => props.id, async (value) => initialize(value), { immediate: true });

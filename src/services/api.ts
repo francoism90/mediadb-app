@@ -19,6 +19,8 @@ export const uri = createFetch({
   options: {
     beforeFetch({ options }) {
       set(options, 'headers.Authorization', `Bearer ${getToken() || ''}`);
+      set(options, 'headers.Content-Type', 'application/json');
+      set(options, 'headers.X-Requested-With', 'XMLHttpRequest');
       return { options };
     },
   },
