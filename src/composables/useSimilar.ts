@@ -1,55 +1,70 @@
-// import { filter } from 'lodash';
-// import { VideosResponse } from 'src/interfaces';
-// import { api } from 'src/services/api';
-// import { useStore } from 'src/store/videos/similar';
-// import { computed } from 'vue';
+import { stringify } from 'src/helpers';
+import { RepositoryLinks, RepositoryMeta, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
+import { api, uri } from 'src/services/api';
+import { reactive } from 'vue';
 
-// export const useSimilar = (id: string) => {
-//   const store = useStore();
+const state = reactive(<VideosState>{
+  id: null,
+  data: [],
+  meta: undefined,
+  links: undefined,
+  error: undefined,
+  filters: undefined,
+});
 
-//   const sorters = [
-//     { label: 'Relevance', value: 'relevance' },
-//     { label: 'Trending', value: 'trending' },
-//     { label: 'Most Recent', value: '-created_at' },
-//     { label: 'Most Views', value: '-views' },
-//     { label: 'Longest', value: '-duration' },
-//     { label: 'Shortest', value: 'duration' },
-//   ];
+export const useSimilar = (id: string) => {
+  const update = (payload: VideosResponse | null) => {
+    state.data = state.data.concat(payload?.data || []);
+    state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
+    state.links = { ...state.links, ...<RepositoryLinks>payload?.links };
+  };
 
-//   const initialize = () => store.reset();
+  const fetchNext = async () => {
+    if (typeof state.links?.next !== 'string') {
+      return;
+    }
 
-//   const fetchNext = async () => {
-//     if (!store.isFetchable) {
-//       return;
-//     }
+    const { error, data } = await uri(state.links?.next || '').get().json<VideosResponse>();
 
-//     const { data } = await api(store.links?.next || 'videos').get().json<VideosResponse>();
+    // On error
+    state.error = error || null;
 
-//     store.populate(data.value);
-//   };
+    update(data.value);
+  };
 
-//   const fetchQuery = async () => {
-//     if (!store.isQueryable) {
-//       return;
-//     }
+  const fetchQuery = async () => {
+    if (typeof state.links?.first === 'string') {
+      return;
+    }
 
-//     const response = await all(`videos/similar/${id}`, store.params);
+    const query = stringify(state.filters).toString();
 
-//     store.populate(response);
-//   };
+    const { error, data } = await api(`videos/similar/${id}?${query}`).get().json<VideosResponse>();
 
-//   const fetch = async () => {
-//     await fetchNext();
-//     await fetchQuery();
-//   };
+    // On error
+    state.error = error || null;
 
-//   const filters = computed(() => filter(store.params));
+    update(data.value);
+  };
 
-//   return {
-//     initialize,
-//     fetch,
-//     filters,
-//     sorters,
-//     store,
-//   };
-// };
+  const populate = async () => {
+    await fetchNext();
+    await fetchQuery();
+  };
+
+  const reset = (payload?: VideosFilters) => {
+    state.id = +new Date();
+    state.data = [];
+    state.meta = undefined;
+    state.links = undefined;
+    state.filters = { ...state.filters, ...payload };
+  };
+
+  // const filters = computed(() => filter(store.params));
+
+  return {
+    populate,
+    reset,
+    state,
+  };
+};

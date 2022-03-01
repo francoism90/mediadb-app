@@ -19,7 +19,7 @@
       <video-hero />
       <video-player />
       <video-actions />
-      <!-- <video-similar /> -->
+      <video-similar />
     </template>
   </q-page>
 </template>
@@ -37,7 +37,7 @@ export default defineComponent({
     VideoActions: defineAsyncComponent(() => import('components/video/VideoActions.vue')),
     VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
     VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
-    // VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
+    VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
   },
 
   props: {

@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="container">
     <h1 class="hero-secondary">
       Similar Videos
@@ -6,16 +6,16 @@
 
     <q-pull-to-refresh @refresh="onRefresh">
       <q-infinite-scroll
-        :key="similar.id"
+        :key="state.id || 0"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-md">
           <q-intersection
-            v-for="(item, index) in similar.data"
+            v-for="(item, index) in state.data"
             :key="index"
             class="col-xs-12 col-sm-6 video-item"
           >
-            <item :video="item" />
+            <video-item :video="item" />
           </q-intersection>
         </div>
 
@@ -41,37 +41,40 @@ export default defineComponent({
   name: 'VideoSimilar',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
+    VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
   },
 
   setup() {
-    const { state } = useVideo();
-    const { store: similar, fetch, initialize } = useSimilar(state.data?.id || '');
+    const { state: video } = useVideo();
+    const { populate, reset, state } = useSimilar(video.data?.id || '');
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetch();
-        await done(!similar.isFetchable);
+        await populate();
+        await done(!state.links?.next);
       } catch {
         await done(true);
       }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onRefresh = (done: Function): void => {
-      similar.reset();
+    const onRefresh = async (done: Function): Promise<void> => {
+      await reset();
       done();
     };
 
-    onBeforeMount(() => initialize());
-    watch(() => state.data?.id, () => initialize());
+    onBeforeMount(() => populate());
+
+    watch(() => video.data, () => reset());
+
+    // watch(filters, () => store.reset(), { deep: true });
 
     return {
       onLoad,
       onRefresh,
-      similar,
+      state,
     };
   },
 });
-</script> -->
+</script>
