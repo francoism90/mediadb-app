@@ -60,8 +60,6 @@ export const useSimilar = (id: string) => {
     state.filters = { ...state.filters, ...payload };
   };
 
-  // const filters = computed(() => filter(store.params));
-
   return {
     populate,
     reset,

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container q-py-md">
     <h1 class="hero-secondary">
       Similar Videos
     </h1>
