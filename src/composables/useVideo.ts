@@ -1,7 +1,7 @@
 import { useQuasar } from 'quasar';
+import { useModels } from 'src/composables/useModels';
 import { useSession } from 'src/composables/useSession';
-// import { useVideos } from 'src/composables/useVideos';
-import { VideoModel, VideoResponse, VideoState } from 'src/interfaces';
+import { Model, VideoModel, VideoResponse, VideoState } from 'src/interfaces';
 import { api } from 'src/services/api';
 import { reactive } from 'vue';
 
@@ -9,8 +9,8 @@ const state = reactive(<VideoState>{});
 
 export const useVideo = () => {
   const $q = useQuasar();
+  const { replaced } = useModels();
   const { echo } = useSession();
-  // const { deleted, replaced } = useVideos();
 
   const update = (payload: VideoResponse | null) => {
     if (typeof payload?.data?.id === 'string') {
@@ -54,7 +54,7 @@ export const useVideo = () => {
     // On error
     state.error = error || null;
 
-    // Update objects
+    // Update object
     update(data.value);
   };
 
@@ -66,7 +66,11 @@ export const useVideo = () => {
       classes: 'no-shadow',
     });
 
+    // Update object
     update(payload);
+
+    // Replace states
+    replaced(<Model>payload.data);
   };
 
   const onUpdate = (payload: VideoResponse) => {
@@ -77,7 +81,11 @@ export const useVideo = () => {
       classes: 'no-shadow',
     });
 
+    // Update object
     update(payload);
+
+    // Replace states
+    replaced(<Model>payload.data);
   };
 
   const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
