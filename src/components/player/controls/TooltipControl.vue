@@ -57,10 +57,10 @@ export default defineComponent({
     const timestamp = computed(() => timeFormat(time.value || 0));
 
     const render = async (): Promise<void> => {
-      const { data } = await getTrackCueBlob(player.value, 'thumbnail', time.value);
+      const { error, data } = await getTrackCueBlob(player.value, 'thumbnail', time.value);
       const reader = new window.FileReader();
 
-      if (data.value) {
+      if (!error.value && data.value) {
         reader.readAsDataURL(data.value);
       }
 
