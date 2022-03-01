@@ -34,13 +34,6 @@
 
           <q-btn
             class="btn header-item q-pa-sm"
-            icon="casino"
-            size="14px"
-            :to="{ name: 'roulette' }"
-          />
-
-          <q-btn
-            class="btn header-item q-pa-sm"
             icon="logout"
             size="14px"
             :to="{ name: 'logout' }"
