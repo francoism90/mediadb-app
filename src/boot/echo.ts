@@ -20,16 +20,12 @@ export const echo = new Echo({
   authorizer: (channel: PusherChannel) => ({
     // eslint-disable-next-line @typescript-eslint/ban-types
     authorize: async (socketId: string, callback: Function) => {
-      try {
-        const response = await api('broadcasting/auth').post({
-          socket_id: socketId,
-          channel_name: channel.name as string,
-        }).json();
+      const { error, data } = await api('broadcasting/auth').post({
+        socket_id: socketId,
+        channel_name: channel.name as string,
+      }).json();
 
-        callback(false, response.data);
-      } catch (error) {
-        callback(true, error);
-      }
+      callback(!!error.value, data.value);
     },
   }),
 });
