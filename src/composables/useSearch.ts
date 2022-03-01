@@ -9,9 +9,7 @@ const state = reactive(<VideosState>{
   meta: undefined,
   links: undefined,
   error: undefined,
-  filters: {
-    query: '',
-  },
+  filters: undefined,
 });
 
 export const useSearch = () => {

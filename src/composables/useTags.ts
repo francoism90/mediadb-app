@@ -1,47 +1,68 @@
-// import { filter } from 'lodash';
-// import { all, get } from 'src/services/api';
-// import { useStore } from 'src/store/tag/items';
-// import { computed } from 'vue';
+import { stringify } from 'src/helpers';
+import { RepositoryLinks, RepositoryMeta, TagsFilters, TagsResponse, TagsState } from 'src/interfaces';
+import { api, uri } from 'src/services/api';
+import { reactive } from 'vue';
 
-// export const useTags = () => {
-//   const store = useStore();
+const state = reactive(<TagsState>{
+  id: null,
+  data: [],
+  meta: undefined,
+  links: undefined,
+  error: undefined,
+  filters: undefined,
+});
 
-//   const sorters = [
-//     { label: 'Default', value: null },
-//     { label: 'Items', value: 'items:desc' },
-//   ];
+export const useTags = () => {
+  const update = (payload: TagsResponse | null) => {
+    state.data = state.data.concat(payload?.data || []);
+    state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
+    state.links = { ...state.links, ...<RepositoryLinks>payload?.links };
+  };
 
-//   const fetchNext = async () => {
-//     if (!store.isFetchable) {
-//       return;
-//     }
+  const fetchNext = async () => {
+    if (typeof state.links?.next !== 'string') {
+      return;
+    }
 
-//     const response = await get(store.links?.next || 'tags');
+    const { error, data } = await uri(state.links?.next || '').get().json<TagsResponse>();
 
-//     store.populate(response);
-//   };
+    // On error
+    state.error = error || null;
 
-//   const fetchQuery = async () => {
-//     if (!store.isQueryable) {
-//       return;
-//     }
+    update(data.value);
+  };
 
-//     const response = await all('tags', store.params);
+  const fetchQuery = async () => {
+    if (typeof state.links?.first === 'string') {
+      return;
+    }
 
-//     store.populate(response);
-//   };
+    const query = stringify(state.filters).toString();
 
-//   const fetch = async () => {
-//     await fetchNext();
-//     await fetchQuery();
-//   };
+    const { error, data } = await api(`tags?${query}`).get().json<TagsResponse>();
 
-//   const filters = computed(() => filter(store.params));
+    // On error
+    state.error = error || null;
 
-//   return {
-//     fetch,
-//     filters,
-//     sorters,
-//     store,
-//   };
-// };
+    update(data.value);
+  };
+
+  const populate = async () => {
+    await fetchNext();
+    await fetchQuery();
+  };
+
+  const reset = (payload?: TagsFilters) => {
+    state.id = +new Date();
+    state.data = [];
+    state.meta = undefined;
+    state.links = undefined;
+    state.filters = { ...state.filters, ...payload };
+  };
+
+  return {
+    populate,
+    reset,
+    state,
+  };
+};

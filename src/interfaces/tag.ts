@@ -1,6 +1,8 @@
 import { Model, RepositoryLinks, RepositoryMeta } from 'src/interfaces';
 
 export interface TagModel extends Model {
+  id: string,
+  slug: string,
   name: string,
   type: string,
   items?: number,
