@@ -58,18 +58,18 @@ export const useVideo = () => {
     update(data.value);
   };
 
-  const onDelete = (e: unknown) => {
+  const onDelete = (payload: VideoResponse) => {
     $q.notify({
       type: 'positive',
-      message: 'An update has just been made.',
+      message: 'An delete has just been made.',
       caption: state.data?.name || state.data?.id || '',
       classes: 'no-shadow',
     });
 
-    console.log(e);
+    update(payload);
   };
 
-  const onUpdate = (e: unknown) => {
+  const onUpdate = (payload: VideoResponse) => {
     $q.notify({
       type: 'positive',
       message: 'An update has just been made.',
@@ -77,7 +77,7 @@ export const useVideo = () => {
       classes: 'no-shadow',
     });
 
-    console.log(e);
+    update(payload);
   };
 
   const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
