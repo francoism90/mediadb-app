@@ -2,7 +2,7 @@ import { Event, MediaPlayerClass } from 'dashjs';
 import { PlayerState, PlayerTrack, VideoModel } from 'src/interfaces';
 import { getToken } from 'src/services/auth';
 import { addListeners, appendTrack, create, destroy, showTextTrack } from 'src/services/player';
-import { nextTick, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 const player = ref<MediaPlayerClass>();
 const state = reactive(<PlayerState>{});
@@ -37,13 +37,7 @@ export const usePlayer = () => {
     }
   };
 
-  const initialize = async (model: VideoModel | undefined, view: HTMLElement | undefined) => {
-    destroy(player.value);
-    console.log(model);
-
-    // Wait for reset
-    await nextTick();
-
+  const initialize = (model: VideoModel | undefined, view: HTMLElement | undefined) => {
     // Get token
     const token = getToken();
 
@@ -64,8 +58,11 @@ export const usePlayer = () => {
     showTextTrack(player.value, <TextTrack>{ label: 'thumbnail' });
   };
 
+  const reset = (model: VideoModel | undefined) => player.value?.attachSource(model?.dash_url || '');
+
   return {
     initialize,
+    reset,
     destroy,
     player,
     state,

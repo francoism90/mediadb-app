@@ -1,5 +1,6 @@
-import { stringify } from 'src/helpers/string';
-import { RepositoryLinks, RepositoryMeta, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
+import { find, findIndex, mergeWith, remove } from 'lodash';
+import { mergeDeep, stringify } from 'src/helpers';
+import { RepositoryLinks, RepositoryMeta, VideoModel, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
 import { router } from 'src/router';
 import { api, uri } from 'src/services/api';
 import { reactive, readonly } from 'vue';
@@ -64,11 +65,28 @@ export const useVideos = () => {
     await router.push({ name: 'home' });
   };
 
+  const deleted = (payload: VideoModel) => {
+    remove(state.data, { id: payload.id });
+  };
+
+  const replaced = (payload: VideoModel) => {
+    const index = findIndex(state.data, { id: payload.id });
+
+    if (index >= 0) {
+      const model = find(state.data, { id: payload.id });
+      const object = mergeWith(model, payload, mergeDeep);
+
+      state.data.splice(index, 1, object);
+    }
+  };
+
   // const filters = computed(() => filter(store.params));
 
   return {
     populate,
     reset,
+    deleted,
+    replaced,
     state: readonly(state),
   };
 };

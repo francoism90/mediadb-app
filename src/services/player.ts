@@ -89,7 +89,7 @@ export const destroy = (player: MediaPlayerClass | undefined) => {
     player.getVideoElement()?.removeChild(child);
   });
 
-  player?.pause();
+  player?.destroy();
 };
 
 export const getTrackCueByTime = (track: TextTrack | null | undefined, time: number) => find(

@@ -1,4 +1,6 @@
-// import { useSession } from 'src/composables/useSession';
+import { useQuasar } from 'quasar';
+import { useSession } from 'src/composables/useSession';
+// import { useVideos } from 'src/composables/useVideos';
 import { VideoModel, VideoResponse, VideoState } from 'src/interfaces';
 import { api } from 'src/services/api';
 import { reactive } from 'vue';
@@ -6,8 +8,9 @@ import { reactive } from 'vue';
 const state = reactive(<VideoState>{});
 
 export const useVideo = () => {
-  // const { onDelete, onUpdate } = useStores();
-  // const { echo } = useSession();
+  const $q = useQuasar();
+  const { echo } = useSession();
+  // const { deleted, replaced } = useVideos();
 
   const update = (payload: VideoResponse | null) => {
     if (typeof payload?.data?.id === 'string') {
@@ -69,10 +72,33 @@ export const useVideo = () => {
     update(data.value);
   };
 
-  // const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
-  // const subscribe = (id: string) => echo?.private(`video.${id}`)
-  //   ?.listen('.video.deleted', onDelete)
-  //   ?.listen('.video.updated', onUpdate);
+  const onDelete = (e: unknown) => {
+    $q.notify({
+      type: 'positive',
+      message: 'An update has just been made.',
+      caption: state.data?.name || state.data?.id || '',
+      classes: 'no-shadow',
+    });
+
+    console.log(e);
+  };
+
+  const onUpdate = (e: unknown) => {
+    $q.notify({
+      type: 'positive',
+      message: 'An update has just been made.',
+      caption: state.data?.name || state.data?.id || '',
+      classes: 'no-shadow',
+    });
+
+    console.log(e);
+  };
+
+  const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
+
+  const subscribe = (id: string) => echo?.private(`video.${id}`)
+    ?.listen('.video.deleted', onDelete)
+    ?.listen('.video.updated', onUpdate);
 
   return {
     fetch,
@@ -80,8 +106,8 @@ export const useVideo = () => {
     destroy,
     favorite,
     follow,
-    // subscribe,
-    // unsubscribe,
+    subscribe,
+    unsubscribe,
     state,
   };
 };

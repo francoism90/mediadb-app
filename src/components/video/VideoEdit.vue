@@ -126,6 +126,7 @@
 </template>
 
 <script lang="ts">
+import { cloneDeep } from 'lodash';
 import { useDialogPluginComponent } from 'quasar';
 import { useTagInput } from 'src/composables/useTagInput';
 import { useValidation } from 'src/composables/useValidation';
@@ -161,7 +162,7 @@ export default defineComponent({
       await fetch(id);
 
       // Populate form
-      form.value = { ...state.data };
+      form.value = cloneDeep(state.data);
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types

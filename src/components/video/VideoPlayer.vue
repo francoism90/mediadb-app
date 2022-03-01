@@ -38,7 +38,7 @@ export default defineComponent({
     const activeElement = useActiveElement();
     const keys = useMagicKeys();
 
-    const { initialize, destroy, player, state } = usePlayer();
+    const { initialize, reset, destroy, player, state } = usePlayer();
     const { save, state: video } = useVideo();
 
     const disableKeys = computed(() => activeElement.value?.tagName !== 'INPUT' && activeElement.value?.tagName !== 'TEXTAREA');
@@ -54,7 +54,7 @@ export default defineComponent({
 
     // Player events
     watch(() => state.fullscreen, () => $q.fullscreen.toggle(container.value));
-    watch(() => video.data, () => initialize(video.data, element.value));
+    watch(() => video.data?.id, () => reset(video.data));
 
     // Key combinations
     whenever(and(keys.left, disableKeys), () => player.value?.seek((state.time || 10) - 10));
