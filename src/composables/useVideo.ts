@@ -9,7 +9,7 @@ const state = reactive(<VideoState>{});
 
 export const useVideo = () => {
   const $q = useQuasar();
-  const { replaced } = useModels();
+  const { deleted, replaced } = useModels();
   const { echo } = useSession();
 
   const update = (payload: VideoResponse | null) => {
@@ -58,7 +58,7 @@ export const useVideo = () => {
     update(data.value);
   };
 
-  const onDelete = (payload: VideoResponse) => {
+  const onDeleted = (payload: VideoResponse) => {
     $q.notify({
       type: 'positive',
       message: 'An delete has just been made.',
@@ -69,11 +69,11 @@ export const useVideo = () => {
     // Update object
     update(payload);
 
-    // Replace states
-    replaced(<Model>payload.data);
+    // Delete in states
+    deleted(<Model>payload.data);
   };
 
-  const onUpdate = (payload: VideoResponse) => {
+  const onUpdated = (payload: VideoResponse) => {
     $q.notify({
       type: 'positive',
       message: 'An update has just been made.',
@@ -84,15 +84,15 @@ export const useVideo = () => {
     // Update object
     update(payload);
 
-    // Replace states
+    // Replace in states
     replaced(<Model>payload.data);
   };
 
   const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
 
   const subscribe = (id: string) => echo?.private(`video.${id}`)
-    ?.listen('.video.deleted', onDelete)
-    ?.listen('.video.updated', onUpdate);
+    ?.listen('.video.deleted', onDeleted)
+    ?.listen('.video.updated', onUpdated);
 
   return {
     fetch,
