@@ -1,7 +1,7 @@
 import { Event, MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { find, findIndex, inRange } from 'lodash';
 import { PlayerTrack } from 'src/interfaces';
-import { api } from 'src/services/api';
+import { uri } from 'src/services/api';
 
 export const events = [
   { type: 'bufferLevelUpdated' },
@@ -103,5 +103,5 @@ export const getTrackCueBlob = (player: MediaPlayerClass | undefined, id: string
   const cue = getTrackCueByTime(track, time) as VTTCue;
   const obj = JSON.parse(cue?.text || '{}') as PlayerTrack;
 
-  return api(obj.src, { method: 'GET' }, { refetch: true }).blob();
+  return uri(obj?.src || '').get().blob();
 };

@@ -22,6 +22,7 @@
 import { clamp, debounce } from 'lodash';
 import { usePlayer } from 'src/composables/usePlayer';
 import { timeFormat } from 'src/helpers';
+import { getTrackCueBlob } from 'src/services/player';
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
 
 export default defineComponent({
@@ -45,7 +46,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { state } = usePlayer();
+    const { state, player } = usePlayer();
 
     const uri = ref<string>();
 
@@ -56,13 +57,16 @@ export default defineComponent({
     const timestamp = computed(() => timeFormat(time.value || 0));
 
     const render = async (): Promise<void> => {
-      // const { data } = await getTrackCueBlob(player.value, 'thumbnail', time.value);
-      // const reader = new window.FileReader();
+      const { data } = await getTrackCueBlob(player.value, 'thumbnail', time.value);
+      const reader = new window.FileReader();
 
-      // reader.readAsDataURL(data.value?.text);
-      // reader.onload = () => {
-      // uri.value = reader.result?.toString() || '';
-      // };
+      if (data.value) {
+        reader.readAsDataURL(data.value);
+      }
+
+      reader.onload = () => {
+        uri.value = reader.result?.toString() || '';
+      };
     };
 
     watch(percent, debounce(render, 25));
