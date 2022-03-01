@@ -15,7 +15,7 @@
             :key="index"
             class="col-xs-12 col-sm-6 video-item"
           >
-            <video-item :video="item" />
+            <video-item :item="item" />
           </q-intersection>
         </div>
 
