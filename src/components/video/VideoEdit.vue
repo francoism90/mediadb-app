@@ -3,7 +3,6 @@
     ref="dialogRef"
     @hide="onDialogHide"
   >
-    {{ state }}
     <q-card
       v-if="form?.id"
       class="q-dialog-plugin dialog"
@@ -185,8 +184,6 @@ export default defineComponent({
       if (error.value) {
         setResponse(data.value);
       }
-
-      console.log(data.value);
     };
 
     const onDelete = async () => {
