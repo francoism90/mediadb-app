@@ -35,8 +35,8 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
+import { useSession } from 'src/composables/useSession';
 import { useVideos } from 'src/composables/useVideos';
-import { check } from 'src/services/auth';
 import { defineAsyncComponent, defineComponent, onBeforeMount } from 'vue';
 
 export default defineComponent({
@@ -48,6 +48,7 @@ export default defineComponent({
   },
 
   async preFetch({ redirect, urlPath }) {
+    const { check } = useSession();
     const { error } = await check();
 
     if (error.value) {

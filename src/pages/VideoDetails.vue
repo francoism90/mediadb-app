@@ -26,8 +26,8 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
+import { useSession } from 'src/composables/useSession';
 import { useVideo } from 'src/composables/useVideo';
-import { check } from 'src/services/auth';
 import { defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
 
 export default defineComponent({
@@ -53,9 +53,10 @@ export default defineComponent({
   },
 
   async preFetch({ redirect, urlPath }) {
-    const { data } = await check();
+    const { check } = useSession();
+    const { error } = await check();
 
-    if (!data.value) {
+    if (error.value) {
       redirect({ name: 'login', query: { redirect: urlPath } });
     }
   },

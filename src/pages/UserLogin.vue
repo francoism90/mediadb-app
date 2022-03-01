@@ -77,10 +77,11 @@ export default defineComponent({
 
       if (error.value) {
         setResponse(data.value);
-      } else {
-        const path = stringify(router.currentRoute.value.query?.redirect as string);
-        await router.push({ path: path || '/' });
+        return;
       }
+
+      const path = stringify(router.currentRoute.value.query?.redirect as string);
+      await router.push({ path: path || '/' });
     };
 
     useMeta(() => ({ title: 'Log In' }));

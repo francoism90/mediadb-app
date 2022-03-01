@@ -6,6 +6,7 @@ export interface AuthResponse {
 }
 
 export interface SessionState {
+  error: unknown,
   timestamp: number,
   token: string,
   user: UserModel,
