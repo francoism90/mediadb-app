@@ -1,5 +1,5 @@
 <template>
-  <div class="container q-my-md q-gutter-xs">
+  <div class="container q-py-md q-gutter-xs">
     <q-chip
       v-for="tag in tags"
       :key="tag.id"
