@@ -6,14 +6,9 @@ export interface AuthResponse {
 }
 
 export interface SessionState {
-  redirectUri: string,
   timestamp: number,
   token: string,
   user: UserModel,
-}
-
-export interface AuthRequest {
-  redirectUri?: string,
 }
 
 export interface LoginRequest {

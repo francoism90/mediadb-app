@@ -65,10 +65,7 @@ export default defineComponent({
     };
 
     onBeforeMount(() => populate());
-
     watch(() => video.data, () => reset());
-
-    // watch(filters, () => store.reset(), { deep: true });
 
     return {
       onLoad,

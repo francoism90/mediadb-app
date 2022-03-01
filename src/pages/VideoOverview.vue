@@ -48,9 +48,9 @@ export default defineComponent({
   },
 
   async preFetch({ redirect, urlPath }) {
-    const { data } = await check();
+    const { error } = await check();
 
-    if (!data.value) {
+    if (error.value) {
       redirect({ name: 'login', query: { redirect: urlPath } });
     }
   },
@@ -75,10 +75,7 @@ export default defineComponent({
     };
 
     onBeforeMount(() => populate());
-
     useMeta(() => ({ title: 'Videos' }));
-
-    // watch(filters, () => store.reset(), { deep: true });
 
     return {
       onLoad,

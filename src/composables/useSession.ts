@@ -21,10 +21,6 @@ export const useSession = () => {
   //   ?.listen('.model.followed', updated);
 
   return {
-    state: readonly(state),
-    roles: readonly(roles),
-    permissions: readonly(permissions),
-    echo,
     authenticate,
     check,
     destroy,
@@ -32,5 +28,9 @@ export const useSession = () => {
     // unsubscribe,
     hasRole,
     hasPermission,
+    state: readonly(state),
+    roles: readonly(roles),
+    permissions: readonly(permissions),
+    echo,
   };
 };

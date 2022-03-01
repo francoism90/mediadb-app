@@ -64,8 +64,6 @@ export const useVideos = () => {
     await router.push({ name: 'home' });
   };
 
-  // const filters = computed(() => filter(store.params));
-
   return {
     populate,
     reset,
