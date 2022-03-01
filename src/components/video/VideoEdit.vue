@@ -3,7 +3,7 @@
     ref="dialogRef"
     @hide="onDialogHide"
   >
-    {{ form }}
+    {{ state }}
     <q-card
       v-if="form?.id"
       class="q-dialog-plugin dialog"
@@ -180,11 +180,9 @@ export default defineComponent({
     const onSubmit = async () => {
       resetResponse();
 
-      if (typeof form.value?.id === 'string') {
-        await save(state.data?.id || '', form.value);
+      await save(state.data?.id || '', form.value);
 
-        setResponse(state.error as ValidationResponse);
-      }
+      setResponse(state.error as ValidationResponse);
     };
 
     const onDelete = async () => {
@@ -202,6 +200,7 @@ export default defineComponent({
       onDialogHide,
       onDialogCancel,
       form,
+      state,
       tags,
       deleteDialog,
       dialogRef,
