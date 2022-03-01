@@ -1,6 +1,6 @@
-<!-- <template>
+<template>
   <q-input
-    v-model.lazy="store.params.query"
+    v-model.lazy="state.filters.query"
     :debounce="350"
     autofocus
     borderless
@@ -26,11 +26,11 @@ export default defineComponent({
   name: 'SearchFilters',
 
   setup() {
-    const { store } = useSearch();
+    const { state } = useSearch();
 
     return {
-      store,
+      state,
     };
   },
 });
-</script> -->
+</script>

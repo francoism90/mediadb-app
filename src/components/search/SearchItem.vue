@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-card
     class="search-item"
     draggable="false"
@@ -28,7 +28,7 @@
             size="0.95em"
             dense
             square
-            @click="filterTag(tag)"
+            @click="filter(tag)"
           />
 
           <span v-if="model.tags.length >= 4">...</span>
@@ -56,7 +56,6 @@
 import { useVideos } from 'src/composables/useVideos';
 import { timeFormat } from 'src/helpers';
 import { TagModel, VideoModel } from 'src/interfaces';
-import { router } from 'src/router';
 import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -70,20 +69,16 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { store } = useVideos();
+    const { reset } = useVideos();
 
     const duration = computed(() => timeFormat(props.model.duration));
 
-    const filterTag = async (tag: TagModel) => {
-      store.reset({ query: tag.name });
-
-      await router.push({ name: 'home' });
-    };
+    const filter = (tag: TagModel) => reset({ query: tag.name });
 
     return {
+      filter,
       duration,
-      filterTag,
     };
   },
 });
-</script> -->
+</script>

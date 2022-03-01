@@ -1,28 +1,25 @@
-<!-- <template>
+<template>
   <q-dialog
     ref="dialogRef"
     class="search"
     position="top"
     @hide="onDialogHide"
   >
-    <q-card
-      v-if="store?.id"
-      class="q-dialog-plugin dialog"
-    >
+    <q-card class="q-dialog-plugin dialog">
       <search-filters />
 
       <q-separator />
 
-      <template v-if="store.params.query?.length">
+      <template v-if="state.filters?.query?.length">
         <q-scroll-area class="search-scroll">
           <q-pull-to-refresh @refresh="onRefresh">
             <q-infinite-scroll
-              :key="store.id"
+              :key="state.id || 0"
               @load="onLoad"
             >
               <div class="row justify-start items-start content-start q-col-gutter-md">
                 <q-intersection
-                  v-for="(item, index) in store.data"
+                  v-for="(item, index) in state.data"
                   :key="index"
                   class="col-12 search-item"
                 >
@@ -66,8 +63,7 @@
 import { useDialogPluginComponent } from 'quasar';
 import { useSearch } from 'src/composables/useSearch';
 import { useVideos } from 'src/composables/useVideos';
-import { router } from 'src/router';
-import { defineAsyncComponent, defineComponent, watch } from 'vue';
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'SearchDialog',
@@ -83,43 +79,39 @@ export default defineComponent({
 
   setup() {
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
-    const { fetch, store, filters } = useSearch();
-    const { store: VideoStore } = useVideos();
+    const { populate, reset, state } = useSearch();
+    const { reset: query } = useVideos();
 
     const onClick = async () => {
-      VideoStore.reset({ query: store.params.query });
-
-      await router.push({ name: 'home' });
+      await query({ query: state.filters?.query || '' });
       onDialogHide();
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetch();
-        await done(!store.isFetchable);
+        await populate();
+        await done(!state.links?.next);
       } catch {
         await done(true);
       }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onRefresh = (done: Function): void => {
-      store.reset();
+    const onRefresh = async (done: Function): Promise<void> => {
+      await reset();
       done();
     };
 
-    watch(filters, () => store.reset(), { deep: true });
-
     return {
-      store,
-      dialogRef,
       onDialogHide,
       onDialogCancel,
       onClick,
       onLoad,
       onRefresh,
+      state,
+      dialogRef,
     };
   },
 });
-</script> -->
+</script>
