@@ -8,6 +8,7 @@
     >
       <q-infinite-scroll
         :key="state.id || 0"
+        :debounce="300"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-lg">
