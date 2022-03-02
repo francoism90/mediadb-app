@@ -48,9 +48,7 @@ export const useSimilar = () => {
     update(data.value);
   };
 
-  const populate = async (payload: Model | undefined) => {
-    console.log(payload?.id);
-
+  const populate = async (payload?: Model | undefined) => {
     if (payload) {
       await fetchNext();
       await fetchQuery(payload);
