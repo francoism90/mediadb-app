@@ -35,7 +35,7 @@
 <script lang="ts">
 import { useSimilar } from 'src/composables/useSimilar';
 import { useVideo } from 'src/composables/useVideo';
-import { defineAsyncComponent, defineComponent, onBeforeMount, watch } from 'vue';
+import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoSimilar',
@@ -46,12 +46,12 @@ export default defineComponent({
 
   setup() {
     const { state: video } = useVideo();
-    const { populate, reset, state } = useSimilar(video.data?.id || '');
+    const { populate, reset, state } = useSimilar();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await populate();
+        await populate(video.data);
         await done(!state.links?.next);
       } catch {
         await done(true);
@@ -64,8 +64,7 @@ export default defineComponent({
       done();
     };
 
-    onBeforeMount(() => populate());
-    watch(() => video.data, () => reset());
+    watch(() => video.data, () => reset(), { immediate: true });
 
     return {
       onLoad,

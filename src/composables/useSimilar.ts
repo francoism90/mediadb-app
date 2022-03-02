@@ -1,5 +1,5 @@
 import { stringify } from 'src/helpers';
-import { RepositoryLinks, RepositoryMeta, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
+import { Model, RepositoryLinks, RepositoryMeta, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
 import { api, uri } from 'src/services/api';
 import { reactive } from 'vue';
 
@@ -12,7 +12,7 @@ const state = reactive(<VideosState>{
   filters: undefined,
 });
 
-export const useSimilar = (id: string) => {
+export const useSimilar = () => {
   const update = (payload: VideosResponse | null) => {
     state.data = state.data.concat(payload?.data || []);
     state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
@@ -32,11 +32,12 @@ export const useSimilar = (id: string) => {
     update(data.value);
   };
 
-  const fetchQuery = async () => {
+  const fetchQuery = async (model: Model) => {
     if (typeof state.links?.first === 'string') {
       return;
     }
 
+    const id = model.id || '';
     const query = stringify(state.filters).toString();
 
     const { error, data } = await api(`videos/similar/${id}?${query}`).get().json<VideosResponse>();
@@ -47,9 +48,13 @@ export const useSimilar = (id: string) => {
     update(data.value);
   };
 
-  const populate = async () => {
-    await fetchNext();
-    await fetchQuery();
+  const populate = async (payload: Model | undefined) => {
+    console.log(payload?.id);
+
+    if (payload) {
+      await fetchNext();
+      await fetchQuery(payload);
+    }
   };
 
   const reset = (payload?: VideosFilters) => {
