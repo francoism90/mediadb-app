@@ -51,7 +51,6 @@
 import { Platform, useMeta } from 'quasar';
 import { useSession } from 'src/composables/useSession';
 import { useValidation } from 'src/composables/useValidation';
-import { stringify } from 'src/helpers';
 import { LoginRequest } from 'src/interfaces';
 import { router } from 'src/router';
 import { defineComponent, reactive } from 'vue';
@@ -80,8 +79,7 @@ export default defineComponent({
         return;
       }
 
-      const path = stringify(router.currentRoute.value.query?.redirect as string);
-      await router.push({ path: path || '/' });
+      await router.push({ name: 'home' });
     };
 
     useMeta(() => ({ title: 'Log In' }));
