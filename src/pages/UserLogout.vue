@@ -10,9 +10,7 @@ export default defineComponent({
   name: 'UserLogout',
 
   async preFetch({ redirect }) {
-    const { error } = await destroy();
-
-    console.error(error.value);
+    await destroy();
 
     redirect({ name: 'login' });
   },

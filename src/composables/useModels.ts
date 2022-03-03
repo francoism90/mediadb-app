@@ -1,13 +1,16 @@
 import { find, findIndex, mergeWith, remove } from 'lodash';
+import { useSimilar } from 'src/composables/useSimilar';
 import { useVideos } from 'src/composables/useVideos';
 import { mergeDeep } from 'src/helpers';
 import { Model } from 'src/interfaces';
 
 export const useModels = () => {
   const { state: videos } = useVideos();
+  const { state: similar } = useSimilar();
 
   const states = [
     videos,
+    similar,
   ];
 
   const deleted = (payload: Model) => {
