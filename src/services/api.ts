@@ -15,6 +15,9 @@ export const api = createFetch({
       return { options };
     },
   },
+  fetchOptions: {
+    mode: 'cors',
+  },
 });
 
 export const uri = createFetch({
