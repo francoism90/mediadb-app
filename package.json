@@ -10,7 +10,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@capacitor/core": "^3.4.2",
+    "@capacitor/core": "^3.4.1",
     "@capacitor/status-bar": "^1.0.8",
     "@pinia/plugin-debounce": "^0.0.2",
     "@quasar/extras": "^1.12.5",
