@@ -2,7 +2,7 @@ import Echo from 'laravel-echo';
 import { PusherChannel } from 'laravel-echo/dist/channel';
 import Pusher from 'pusher-js';
 import { boot } from 'quasar/wrappers';
-import { api } from 'src/boot/axios';
+import { api } from 'src/services/api';
 import { InjectionKey } from 'vue';
 
 export const echo = new Echo({
@@ -20,16 +20,12 @@ export const echo = new Echo({
   authorizer: (channel: PusherChannel) => ({
     // eslint-disable-next-line @typescript-eslint/ban-types
     authorize: async (socketId: string, callback: Function) => {
-      try {
-        const response = await api.post('broadcasting/auth', {
-          socket_id: socketId,
-          channel_name: channel.name as string,
-        });
+      const { error, data } = await api('broadcasting/auth').post({
+        socket_id: socketId,
+        channel_name: channel.name as string,
+      }).json();
 
-        callback(false, response.data);
-      } catch (error) {
-        callback(true, error);
-      }
+      callback(!!error.value, data.value);
     },
   }),
 });

@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page :key="state.data?.id">
     <template v-if="state.error">
       <q-banner class="container q-py-lg">
         <template #avatar>
@@ -10,16 +10,15 @@
         </template>
 
         <span class="text-body2">
-          Unable to Play Video. An error occurred. ({{ state.error?.message || '404 - Not Found' }})
+          Unable to Play Video. An error occurred. ({{ state.error || '404 - Not Found' }})
         </span>
       </q-banner>
     </template>
 
-    <template v-else-if="state.ready">
+    <template v-else-if="state.data">
       <video-hero />
       <video-player />
       <video-actions />
-      <video-tags />
       <video-similar />
     </template>
   </q-page>
@@ -27,8 +26,8 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
+import { useSession } from 'src/composables/useSession';
 import { useVideo } from 'src/composables/useVideo';
-import { check } from 'src/services/auth';
 import { defineAsyncComponent, defineComponent, PropType, watch } from 'vue';
 
 export default defineComponent({
@@ -39,7 +38,6 @@ export default defineComponent({
     VideoHero: defineAsyncComponent(() => import('components/video/VideoHero.vue')),
     VideoPlayer: defineAsyncComponent(() => import('components/video/VideoPlayer.vue')),
     VideoSimilar: defineAsyncComponent(() => import('components/video/VideoSimilar.vue')),
-    VideoTags: defineAsyncComponent(() => import('components/video/VideoTags.vue')),
   },
 
   props: {
@@ -55,20 +53,21 @@ export default defineComponent({
   },
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await check({ redirectUri: urlPath });
+    const { check } = useSession();
+    const { error } = await check();
 
-    if (!authenticated) {
-      redirect({ name: 'login' });
+    if (error.value) {
+      redirect({ name: 'login', query: { redirect: urlPath } });
     }
   },
 
   setup(props) {
-    const { initialize, subscribe, unsubscribe, state, store } = useVideo();
+    const { fetch, subscribe, unsubscribe, state } = useVideo();
 
-    useMeta(() => ({ title: store?.title || '' }));
+    useMeta(() => ({ title: state.data?.name || '' }));
 
     watch(() => props.id, async (value, oldValue) => {
-      await initialize(value);
+      await fetch(value);
 
       unsubscribe(oldValue || '');
       subscribe(value || '');
@@ -76,7 +75,6 @@ export default defineComponent({
 
     return {
       state,
-      store,
     };
   },
 });

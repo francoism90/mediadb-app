@@ -34,22 +34,19 @@ export default defineComponent({
   name: 'FilterList',
 
   setup() {
-    const { store } = useVideos();
+    const { reset, state } = useVideos();
 
-    const active = computed(() => store.params.features);
+    const active = computed(() => state.filters?.features);
 
     const isActive = (value: string | null) => value === active.value;
 
-    const toggle = (value: string | null) => {
-      if (isActive(value)) store.params.features = null;
-      else store.params.features = value;
-    };
+    const toggle = async (value: string | null) => reset({ features: isActive(value) ? null : value });
 
     return {
-      active,
-      items,
       toggle,
       isActive,
+      active,
+      items,
     };
   },
 });

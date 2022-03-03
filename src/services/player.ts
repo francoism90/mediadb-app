@@ -1,7 +1,7 @@
 import { Event, MediaPlayer, MediaPlayerClass } from 'dashjs';
 import { find, findIndex, inRange } from 'lodash';
 import { PlayerTrack } from 'src/interfaces';
-import { blob } from 'src/services/api';
+import { uri } from 'src/services/api';
 
 export const events = [
   { type: 'bufferLevelUpdated' },
@@ -89,7 +89,7 @@ export const destroy = (player: MediaPlayerClass | undefined) => {
     player.getVideoElement()?.removeChild(child);
   });
 
-  player?.pause();
+  player?.destroy();
 };
 
 export const getTrackCueByTime = (track: TextTrack | null | undefined, time: number) => find(
@@ -97,11 +97,11 @@ export const getTrackCueByTime = (track: TextTrack | null | undefined, time: num
   (o: VTTCue) => inRange(time, o.startTime, o.endTime),
 );
 
-export const getTrackCueBlob = async (player: MediaPlayerClass | undefined, id: string, time: number) => {
+export const getTrackCueBlob = (player: MediaPlayerClass | undefined, id: string, time: number) => {
   const track = player?.getVideoElement().textTracks.getTrackById(id);
 
   const cue = getTrackCueByTime(track, time) as VTTCue;
   const obj = JSON.parse(cue?.text || '{}') as PlayerTrack;
 
-  return blob(obj?.src || '');
+  return uri(obj?.src || '').get().blob();
 };

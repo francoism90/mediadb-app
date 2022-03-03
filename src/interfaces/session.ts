@@ -1,15 +1,15 @@
 import { UserModel } from 'src/interfaces';
 
-export interface SessionState {
-  redirectUri: string,
-  timestamp: number,
+export interface AuthResponse {
   token: string,
   user: UserModel,
 }
 
-export interface AuthRequest {
-  redirectUri?: string,
-  token?: string,
+export interface SessionState {
+  error: unknown,
+  timestamp: number,
+  token: string,
+  user: UserModel,
 }
 
 export interface LoginRequest {
@@ -17,10 +17,4 @@ export interface LoginRequest {
   email: string,
   password: string,
   remember: boolean,
-}
-
-export interface AuthResponse {
-  redirectUri: string,
-  token: string,
-  user: UserModel,
 }

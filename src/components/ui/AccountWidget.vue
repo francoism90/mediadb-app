@@ -32,7 +32,7 @@
 
           <q-item-section>
             <q-item-label class="text-weight-bold ellipsis">
-              {{ store.name }}
+              {{ state.user.name }}
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -76,10 +76,10 @@ export default defineComponent({
   name: 'AccountWidget',
 
   setup() {
-    const { store } = useSession();
+    const { state } = useSession();
 
     return {
-      store,
+      state,
     };
   },
 });

@@ -1,54 +1,71 @@
-import { filter } from 'lodash';
-import { all, get } from 'src/services/api';
-import { useStore } from 'src/store/videos/similar';
-import { computed } from 'vue';
+import { stringify } from 'src/helpers';
+import { Model, RepositoryLinks, RepositoryMeta, VideosFilters, VideosResponse, VideosState } from 'src/interfaces';
+import { api, uri } from 'src/services/api';
+import { reactive } from 'vue';
 
-export const useSimilar = (id: string) => {
-  const store = useStore();
+const state = reactive(<VideosState>{
+  id: null,
+  data: [],
+  meta: undefined,
+  links: undefined,
+  error: undefined,
+  filters: undefined,
+});
 
-  const sorters = [
-    { label: 'Relevance', value: 'relevance' },
-    { label: 'Trending', value: 'trending' },
-    { label: 'Most Recent', value: '-created_at' },
-    { label: 'Most Views', value: '-views' },
-    { label: 'Longest', value: '-duration' },
-    { label: 'Shortest', value: 'duration' },
-  ];
-
-  const initialize = () => store.reset();
+export const useSimilar = () => {
+  const update = (payload: VideosResponse | null) => {
+    state.data = state.data.concat(payload?.data || []);
+    state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
+    state.links = { ...state.links, ...<RepositoryLinks>payload?.links };
+  };
 
   const fetchNext = async () => {
-    if (!store.isFetchable) {
+    if (typeof state.links?.next !== 'string') {
       return;
     }
 
-    const response = await get(store.links?.next || 'videos');
+    const { error, data } = await uri(state.links?.next || '').get().json<VideosResponse>();
 
-    store.populate(response);
+    // On error
+    state.error = error || null;
+
+    update(data.value);
   };
 
-  const fetchQuery = async () => {
-    if (!store.isQueryable) {
+  const fetchQuery = async (model: Model) => {
+    if (typeof state.links?.first === 'string') {
       return;
     }
 
-    const response = await all(`videos/similar/${id}`, store.params);
+    const id = model.id || '';
+    const query = stringify(state.filters).toString();
 
-    store.populate(response);
+    const { error, data } = await api(`videos/similar/${id}?${query}`).get().json<VideosResponse>();
+
+    // On error
+    state.error = error || null;
+
+    update(data.value);
   };
 
-  const fetch = async () => {
-    await fetchNext();
-    await fetchQuery();
+  const populate = async (payload?: Model | undefined) => {
+    if (payload) {
+      await fetchNext();
+      await fetchQuery(payload);
+    }
   };
 
-  const filters = computed(() => filter(store.params));
+  const reset = (payload?: VideosFilters) => {
+    state.id = +new Date();
+    state.data = [];
+    state.meta = undefined;
+    state.links = undefined;
+    state.filters = { ...state.filters, ...payload };
+  };
 
   return {
-    initialize,
-    fetch,
-    filters,
-    sorters,
-    store,
+    populate,
+    reset,
+    state,
   };
 };

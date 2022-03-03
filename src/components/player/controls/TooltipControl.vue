@@ -46,7 +46,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { player, state } = usePlayer();
+    const { state, player } = usePlayer();
 
     const uri = ref<string>();
 
@@ -56,13 +56,14 @@ export default defineComponent({
     const time = computed(() => (state?.duration || 0) * (percent.value / 100));
     const timestamp = computed(() => timeFormat(time.value || 0));
 
-    const thumbnail = async (payload: number) => getTrackCueBlob(player.value, 'thumbnail', payload);
-
     const render = async (): Promise<void> => {
-      const response = await thumbnail(time.value);
+      const { error, data } = await getTrackCueBlob(player.value, 'thumbnail', time.value);
       const reader = new window.FileReader();
 
-      reader.readAsDataURL(response);
+      if (!error.value && data.value) {
+        reader.readAsDataURL(data.value);
+      }
+
       reader.onload = () => {
         uri.value = reader.result?.toString() || '';
       };

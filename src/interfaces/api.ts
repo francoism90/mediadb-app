@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 export interface Model {
   id: string,
   slug?: string,
@@ -13,7 +11,7 @@ export interface Model {
 
 export interface ModelResponse {
   data: Model,
-  meta: null,
+  meta: object,
 }
 
 export interface RepositoryMeta {
@@ -48,24 +46,11 @@ export interface RepositoryParams {
 
 export type FieldError = string
 
-export interface ErrorResponse {
-  message: string,
-}
-
 export interface ValidationErrors {
   [index: number | string]: FieldError[],
 }
 
-export interface ValidationResponse {
-  errors: ValidationErrors,
-  message: string,
-}
-
-export type ResponseError = AxiosError<ErrorResponse, unknown>;
-
-export type ValidationError = AxiosError<ValidationResponse, unknown>;
-
-export interface LoadingState {
-  ready: boolean,
-  error: ErrorResponse | undefined
+export interface ValidationState {
+  errors: ValidationErrors | undefined,
+  message: string | undefined,
 }

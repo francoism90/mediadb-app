@@ -2,11 +2,11 @@
   <q-toolbar>
     <template v-if="query">
       <q-btn
-        :label="query.slice(0, 20) + (query?.length > 20 ? '...' : '')"
+        :label="query"
         class="btn btn-bordered btn-reset"
         icon-right="close"
         no-caps
-        @click="reset"
+        @click="onClick"
       />
     </template>
 
@@ -47,17 +47,19 @@ export default defineComponent({
   },
 
   setup() {
-    const { store } = useVideos();
-
     const visible = ref<boolean>(false);
-    const query = computed(() => store.params.query);
 
-    const reset = () => { store.params.query = null; };
+    const { reset, state } = useVideos();
+
+    const query = computed(() => state.filters?.query?.slice(0, 20));
+
+    const onClick = () => reset({ query: null });
 
     return {
+      onClick,
+      state,
       query,
       visible,
-      reset,
     };
   },
 });

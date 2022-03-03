@@ -1,43 +1,36 @@
-import { AxiosResponse } from 'axios';
-import { api } from 'boot/axios';
-import { Model, ModelResponse, RepositoryParams, RepositoryResponse } from 'src/interfaces';
+import { createFetch } from '@vueuse/core';
+import { set } from 'lodash';
+import { getToken } from 'src/services/auth';
 
-export const blob = async (url: string): Promise<Blob> => {
-  const response = await api.get<Blob, AxiosResponse<Blob>>(url, {
-    responseType: 'blob',
-  });
+export const token = getToken() || '';
 
-  return response.data;
-};
+export const api = createFetch({
+  baseUrl: process.env.API_URL,
+  options: {
+    beforeFetch({ options }) {
+      set(options, 'headers.Authorization', `Bearer ${token}`);
+      set(options, 'headers.Content-Type', 'application/json');
+      set(options, 'headers.X-Requested-With', 'XMLHttpRequest');
 
-export const find = async (path: string) => {
-  const response = await api.get<string, AxiosResponse<ModelResponse>>(path);
+      return { options };
+    },
+  },
+  fetchOptions: {
+    mode: 'cors',
+  },
+});
 
-  return response.data;
-};
+export const uri = createFetch({
+  options: {
+    beforeFetch({ options }) {
+      set(options, 'headers.Authorization', `Bearer ${token}`);
+      set(options, 'headers.Content-Type', 'application/json');
+      set(options, 'headers.X-Requested-With', 'XMLHttpRequest');
 
-export const all = async (path: string, params?: RepositoryParams) => {
-  const response = await api.get<RepositoryParams, AxiosResponse<RepositoryResponse>>(path, {
-    params,
-  });
-
-  return response.data;
-};
-
-export const get = async (url: string) => {
-  const response = await api.get<string, AxiosResponse<RepositoryResponse>>(url);
-
-  return response.data;
-};
-
-export const save = async (path: string, data: Model | undefined) => {
-  const response = await api.patch<Model, AxiosResponse<RepositoryResponse>>(path, data);
-
-  return response.data;
-};
-
-export const remove = async (path: string) => {
-  const response = await api.delete<string, AxiosResponse<ModelResponse>>(path);
-
-  return response.data;
-};
+      return { options };
+    },
+  },
+  fetchOptions: {
+    mode: 'cors',
+  },
+});

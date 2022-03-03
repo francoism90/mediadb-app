@@ -1,5 +1,5 @@
 <template>
-  <div class="container q-my-md q-gutter-xs">
+  <div class="container q-py-md q-gutter-xs">
     <q-chip
       v-for="tag in tags"
       :key="tag.id"
@@ -15,7 +15,6 @@
 <script lang="ts">
 import { useVideos } from 'src/composables/useVideos';
 import { TagModel } from 'src/interfaces';
-import { router } from 'src/router';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -24,21 +23,16 @@ export default defineComponent({
   props: {
     tags: {
       type: Array as PropType<TagModel[]>,
-      default: () => <TagModel[]>[],
+      default: () => undefined,
     },
   },
 
   setup() {
-    const { store } = useVideos();
+    const { reset } = useVideos();
 
-    const onClick = async (tag: TagModel) => {
-      store.reset({ query: tag.name });
-
-      await router.push({ name: 'home' });
-    };
+    const onClick = async (tag: TagModel) => reset({ query: tag.name });
 
     return {
-      store,
       onClick,
     };
   },

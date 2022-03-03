@@ -1,6 +1,6 @@
 <template>
   <q-input
-    v-model.lazy="store.params.query"
+    :model-value="state.filters?.query"
     :debounce="350"
     autofocus
     borderless
@@ -11,6 +11,7 @@
     hide-bottom-space
     placeholder="Search Videos"
     class="input input-text search-input full-width"
+    @update:model-value="query"
   >
     <template #prepend>
       <q-icon name="search" />
@@ -26,10 +27,13 @@ export default defineComponent({
   name: 'SearchFilters',
 
   setup() {
-    const { store } = useSearch();
+    const { state, reset } = useSearch();
+
+    const query = (payload: string | number | null) => reset({ query: payload as string });
 
     return {
-      store,
+      query,
+      state,
     };
   },
 });

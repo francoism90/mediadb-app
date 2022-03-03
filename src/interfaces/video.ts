@@ -1,6 +1,8 @@
-import { MediaModel, Model, ModelResponse, RepositoryParams, RepositoryResponse, TagModel } from 'src/interfaces';
+import { MediaModel, Model, RepositoryLinks, RepositoryMeta, TagModel } from 'src/interfaces';
 
 export interface VideoModel extends Model {
+  id: string,
+  slug: string,
   'dash_url'?: string
   'production_code': string,
   'episode_number': string,
@@ -12,7 +14,7 @@ export interface VideoModel extends Model {
   title: string,
   duration: number,
   quality: string,
-  clips?: MediaModel[],
+  clips?: Readonly<MediaModel[]>,
   model?: Model,
   overview?: string,
   status?: string,
@@ -22,17 +24,35 @@ export interface VideoModel extends Model {
   views?: number,
 }
 
-export interface VideosParams extends RepositoryParams {
-  features?: string | string[] | null,
-  type?: string | string[] | null,
-  tags?: string | string[] | null,
+export interface VideoState {
+  data: VideoModel | undefined,
+  meta: object | undefined,
+  error: unknown | undefined,
 }
 
-export interface VideosState extends RepositoryResponse {
-  id: string | number,
-  params: VideosParams,
+export interface VideoResponse {
+  data: VideoModel | undefined,
+  meta: object | undefined,
 }
 
-export interface VideoState extends ModelResponse {
-  data: VideoModel,
+export interface VideosFilters {
+  features?: string | null,
+  query?: string | null,
+  sort?: string | null,
+  type?: string | null,
+}
+
+export interface VideosState {
+  id: number | string | null,
+  data: VideoModel[],
+  meta: RepositoryMeta | undefined,
+  links: RepositoryLinks | undefined,
+  error: unknown | undefined,
+  filters: VideosFilters | undefined,
+}
+
+export interface VideosResponse {
+  data: VideoModel[],
+  meta: RepositoryMeta | undefined,
+  links: RepositoryLinks | undefined,
 }

@@ -1,6 +1,6 @@
 <template>
   <q-input
-    v-model.lazy="store.params.query"
+    :model-value="state.filters?.query"
     :debounce="350"
     autofocus
     borderless
@@ -10,7 +10,8 @@
     square
     hide-bottom-space
     placeholder="Search Tags"
-    class="input input-text tag-search full-width"
+    class="input input-text search-input full-width"
+    @update:model-value="query"
   >
     <template #prepend>
       <q-icon name="search" />
@@ -26,10 +27,13 @@ export default defineComponent({
   name: 'TagFilters',
 
   setup() {
-    const { store } = useTags();
+    const { state, reset } = useTags();
+
+    const query = (payload: string | number | null) => reset({ query: payload as string });
 
     return {
-      store,
+      query,
+      state,
     };
   },
 });

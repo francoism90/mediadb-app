@@ -30,10 +30,9 @@ module.exports = configure((ctx) => ({
   // --> boot files are part of "main.js"
   // https://v2.quasar.dev/quasar-cli/boot-files
   boot: [
-    'pinia',
     'i18n',
     'intl',
-    'axios',
+    'fetch',
     'echo',
   ],
 

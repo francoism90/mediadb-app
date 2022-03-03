@@ -1,24 +1,26 @@
 import { get, has } from 'lodash';
-import { FieldError, ValidationResponse } from 'src/interfaces';
-import { computed, reactive, readonly } from 'vue';
+import { FieldError, ValidationState } from 'src/interfaces';
+import { reactive, readonly } from 'vue';
+
+const defaultState = () => <ValidationState>{
+  errors: undefined,
+  message: undefined,
+};
 
 export const useValidation = () => {
-  const state = reactive(<ValidationResponse>{});
+  const state = reactive(defaultState());
 
-  const resetResponse = () => Object.assign(state, <ValidationResponse>{});
-  const setResponse = (response: ValidationResponse) => Object.assign(state, response);
+  const resetResponse = () => Object.assign(state, defaultState());
+  const setResponse = (response: unknown) => Object.assign(state, response);
 
   const hasError = (field: string) => has(state.errors, field);
   const getError = (field: string) => get(state.errors, field, undefined) as FieldError[];
 
-  const message = computed(() => state.message || '');
-
   return {
-    state: readonly(state),
-    message,
     resetResponse,
     setResponse,
     hasError,
     getError,
+    state: readonly(state),
   };
 };

@@ -1,21 +1,22 @@
 <template>
-  <div class="container">
+  <div class="container q-py-md">
     <h1 class="hero-secondary">
       Similar Videos
     </h1>
 
     <q-pull-to-refresh @refresh="onRefresh">
       <q-infinite-scroll
-        :key="similar.id"
+        :key="state.id || 0"
+        :debounce="300"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-md">
           <q-intersection
-            v-for="(item, index) in similar.data"
+            v-for="(item, index) in state.data"
             :key="index"
-            class="col-xs-12 col-sm-6 video-item-placeholder"
+            class="col-xs-12 col-sm-6 video-item"
           >
-            <item :video="item" />
+            <video-item :item="item" />
           </q-intersection>
         </div>
 
@@ -35,43 +36,41 @@
 <script lang="ts">
 import { useSimilar } from 'src/composables/useSimilar';
 import { useVideo } from 'src/composables/useVideo';
-import { defineAsyncComponent, defineComponent, onBeforeMount, watch } from 'vue';
+import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoSimilar',
 
   components: {
-    Item: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
+    VideoItem: defineAsyncComponent(() => import('components/videos/VideoItem.vue')),
   },
 
   setup() {
-    const { store: video } = useVideo();
-    const { store: similar, fetch, initialize } = useSimilar(video.id || '');
+    const { state: video } = useVideo();
+    const { populate, reset, state } = useSimilar();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetch();
-        await done(!similar.isFetchable);
+        await populate(video.data);
+        await done(!state.links?.next);
       } catch {
         await done(true);
       }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onRefresh = (done: Function): void => {
-      similar.reset();
+    const onRefresh = async (done: Function): Promise<void> => {
+      await reset();
       done();
     };
 
-    onBeforeMount(() => initialize());
-    watch(() => video.id, () => initialize());
+    watch(() => video.data, () => reset());
 
     return {
-      similar,
-      video,
       onLoad,
       onRefresh,
+      state,
     };
   },
 });

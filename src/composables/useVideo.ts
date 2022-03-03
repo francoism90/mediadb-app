@@ -1,60 +1,107 @@
-import { useLoading } from 'src/composables/useLoading';
+import { useQuasar } from 'quasar';
+import { useModels } from 'src/composables/useModels';
 import { useSession } from 'src/composables/useSession';
-import { useStores } from 'src/composables/useStores';
-import { ResponseError, VideoModel } from 'src/interfaces';
-import { find, remove, save } from 'src/services/api';
-import { useStore } from 'src/store/videos/item';
+import { Model, VideoModel, VideoResponse, VideoState } from 'src/interfaces';
+import { api } from 'src/services/api';
+import { reactive } from 'vue';
+
+const state = reactive(<VideoState>{});
 
 export const useVideo = () => {
-  const store = useStore();
-  const { onDelete, onUpdate } = useStores();
+  const $q = useQuasar();
+  const { deleted, replaced } = useModels();
   const { echo } = useSession();
-  const { state, startLoading, stopLoading } = useLoading();
 
-  const fetch = async (id: string) => find(`videos/${id}`);
-  const destroy = async (id: string) => remove(`videos/${id}`);
-  const update = async (id: string, payload: VideoModel) => save(`videos/${id}`, payload);
-  const favorite = async (id: string, payload?: VideoModel) => save(`videos/favorite/${id}`, payload);
-  const follow = async (id: string, payload?: VideoModel) => save(`videos/follow/${id}`, payload);
-
-  const initialize = async (id: string) => {
-    startLoading();
-
-    try {
-      const response = await fetch(id);
-      store.populate(response);
-    } catch (e: unknown) {
-      const error = e as ResponseError;
-
-      // Reset video store
-      store.$reset();
-
-      if (error.response) {
-        stopLoading(error.response.data);
-        return;
-      }
-
-      throw error;
-    } finally {
-      stopLoading();
+  const update = (payload: VideoResponse | null) => {
+    if (typeof payload?.data?.id === 'string') {
+      state.data = { ...state.data, ...payload?.data };
+      state.meta = { ...state.meta, ...payload?.meta };
     }
   };
 
+  const fetch = async (id: string) => {
+    const { error, data } = await api(`videos/${id}`).get().json<VideoResponse>();
+
+    // On error
+    state.error = error || null;
+
+    // Update objects
+    update(data.value);
+  };
+
+  const save = (id: string, payload: VideoModel) => {
+    // Merge with current data (if any)
+    const obj = { ...state.data, ...payload };
+
+    return api(`videos/${id}`).post(obj).json<VideoResponse>();
+  };
+
+  const remove = (id: string) => api(`videos/${id}`).delete().json<VideoResponse>();
+
+  const favorite = async (id: string) => {
+    const { error, data } = await api(`videos/favorite/${id}`).post().json<VideoResponse>();
+
+    // On error
+    state.error = error || null;
+
+    // Update objects
+    update(data.value);
+  };
+
+  const follow = async (id: string) => {
+    const { error, data } = await api(`videos/follow/${id}`).post().json<VideoResponse>();
+
+    // On error
+    state.error = error || null;
+
+    // Update object
+    update(data.value);
+  };
+
+  const onDeleted = (payload: VideoResponse) => {
+    $q.notify({
+      type: 'positive',
+      message: 'An delete has just been made.',
+      caption: state.data?.name || state.data?.id || '',
+      classes: 'no-shadow',
+    });
+
+    // Update object
+    update(payload);
+
+    // Delete in states
+    deleted(<Model>payload.data);
+  };
+
+  const onUpdated = (payload: VideoResponse) => {
+    $q.notify({
+      type: 'positive',
+      message: 'An update has just been made.',
+      caption: state.data?.name || state.data?.id || '',
+      classes: 'no-shadow',
+    });
+
+    // Update object
+    update(payload);
+
+    // Replace in states
+    replaced(<Model>payload.data);
+  };
+
   const unsubscribe = (id: string) => echo?.leave(`video.${id}`);
+
   const subscribe = (id: string) => echo?.private(`video.${id}`)
-    ?.listen('.video.deleted', onDelete)
-    ?.listen('.video.updated', onUpdate);
+    ?.listen('.video.deleted', onDeleted)
+    ?.listen('.video.updated', onUpdated);
 
   return {
-    state,
-    store,
-    initialize,
     fetch,
-    destroy,
-    update,
+    save,
+    remove,
     favorite,
     follow,
     subscribe,
     unsubscribe,
+    state,
   };
 };

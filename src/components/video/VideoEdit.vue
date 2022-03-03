@@ -4,7 +4,7 @@
     @hide="onDialogHide"
   >
     <q-card
-      v-if="state?.id"
+      v-if="form?.id"
       class="q-dialog-plugin dialog"
     >
       <q-dialog v-model="deleteDialog">
@@ -33,7 +33,7 @@
       <q-form @submit="onSubmit">
         <q-card-section class="q-gutter-sm">
           <q-input
-            v-model.trim="state.name"
+            v-model.trim="form.name"
             :error-message="getError('name')?.find(Boolean)"
             :error="hasError('name')"
             :maxlength="255"
@@ -45,10 +45,10 @@
           />
 
           <q-select
-            v-model.lazy="state.tags"
+            v-model.lazy="form.tags"
             :error-message="getError('tags')?.find(Boolean)"
             :error="hasError('tags')"
-            :options="tags"
+            :options="tags.data"
             :options-dark="false"
             counter
             class="input input-text"
@@ -83,7 +83,7 @@
           </q-select>
 
           <q-input
-            v-model.trim="state.episode_number"
+            v-model.trim="form.episode_number"
             :error-message="getError('episode_number')?.find(Boolean)"
             :error="hasError('episode_number')"
             :maxlength="255"
@@ -94,7 +94,7 @@
           />
 
           <q-input
-            v-model.trim="state.season_number"
+            v-model.trim="form.season_number"
             :error-message="getError('season_number')?.find(Boolean)"
             :error="hasError('season_number')"
             :maxlength="255"
@@ -125,15 +125,16 @@
 </template>
 
 <script lang="ts">
+import { cloneDeep } from 'lodash';
 import { useDialogPluginComponent } from 'quasar';
 import { useTagInput } from 'src/composables/useTagInput';
 import { useValidation } from 'src/composables/useValidation';
 import { useVideo } from 'src/composables/useVideo';
-import { ValidationError, VideoModel } from 'src/interfaces';
-import { defineComponent, reactive, ref, watch } from 'vue';
+import { VideoModel } from 'src/interfaces';
+import { defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
-  name: 'VideoEditor',
+  name: 'VideoEdit',
 
   props: {
     id: {
@@ -147,85 +148,51 @@ export default defineComponent({
   ],
 
   setup(props) {
+    const form = ref<VideoModel>();
+    const deleteDialog = ref<boolean>(false);
+
     const { dialogRef, onDialogHide, onDialogCancel } = useDialogPluginComponent();
     const { getError, hasError, resetResponse, setResponse } = useValidation();
-    const { fetch, destroy, update: save } = useVideo();
-    const { state: tags, fetch: fetchTags } = useTagInput();
+    const { fetch, save, remove, state } = useVideo();
+    const { populate, reset, state: tags } = useTagInput();
 
-    const state = reactive(<VideoModel>{});
-    const deleteDialog = ref<boolean>(false);
+    const initialize = async (id: string) => {
+      // Refetch state
+      await fetch(id);
+
+      // Populate form
+      form.value = cloneDeep(state.data);
+    };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onTagsFilter = async (val: string, update: Function) => {
-      await fetchTags({
+      await reset({
         query: val,
         sort: val.length < 1 ? 'items:desc' : null,
         size: 5,
       });
 
+      await populate();
       await update();
-    };
-
-    const initialize = async (id: string) => {
-      resetResponse();
-
-      try {
-        const response = await fetch(id);
-
-        Object.assign(state, response.data);
-      } catch (e: unknown) {
-        const error = e as ValidationError;
-
-        if (error.response) {
-          setResponse(error.response.data);
-          return;
-        }
-
-        throw error;
-      }
     };
 
     const onSubmit = async () => {
       resetResponse();
 
-      try {
-        await save(state.id, state);
-      } catch (e: unknown) {
-        const error = e as ValidationError;
+      const { error, data } = await save(state.data?.id || '', <VideoModel>form.value);
 
-        if (error.response) {
-          setResponse(error.response.data);
-          return;
-        }
-
-        throw error;
+      if (error.value) {
+        setResponse(data.value);
       }
     };
 
     const onDelete = async () => {
-      resetResponse();
-
-      try {
-        await destroy(state.id);
-      } catch (e: unknown) {
-        const error = e as ValidationError;
-
-        if (error.response) {
-          setResponse(error.response.data);
-          return;
-        }
-
-        throw error;
-      }
+      await remove(state.data?.id || '');
     };
 
     watch(() => props.id, async (value) => initialize(value), { immediate: true });
 
     return {
-      state,
-      tags,
-      deleteDialog,
-      dialogRef,
       getError,
       hasError,
       onDelete,
@@ -233,6 +200,11 @@ export default defineComponent({
       onTagsFilter,
       onDialogHide,
       onDialogCancel,
+      form,
+      state,
+      tags,
+      deleteDialog,
+      dialogRef,
     };
   },
 });

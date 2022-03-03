@@ -7,16 +7,17 @@
       @refresh="onRefresh"
     >
       <q-infinite-scroll
-        :key="store.id"
+        :key="state.id || 0"
+        :debounce="300"
         @load="onLoad"
       >
         <div class="row justify-start items-start content-start q-col-gutter-lg">
           <q-intersection
-            v-for="(item, index) in store.data"
+            v-for="(item, index) in state.data"
             :key="index"
             class="col-xs-12 col-sm-6 video-item"
           >
-            <video-item :video="item" />
+            <video-item :item="item" />
           </q-intersection>
         </div>
 
@@ -35,9 +36,9 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
+import { useSession } from 'src/composables/useSession';
 import { useVideos } from 'src/composables/useVideos';
-import { check } from 'src/services/auth';
-import { defineAsyncComponent, defineComponent, watch } from 'vue';
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoOverview',
@@ -48,40 +49,39 @@ export default defineComponent({
   },
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await check({ redirectUri: urlPath });
+    const { check } = useSession();
+    const { error } = await check();
 
-    if (!authenticated) {
-      redirect({ name: 'login' });
+    if (error.value) {
+      redirect({ name: 'login', query: { redirect: urlPath } });
     }
   },
 
   setup() {
-    const { fetch, store, filters } = useVideos();
+    const { populate, reset, state } = useVideos();
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const onLoad = async (index: number, done: Function): Promise<void> => {
       try {
-        await fetch();
-        await done(!store.isFetchable);
+        await populate();
+        await done(!state.links?.next);
       } catch {
         await done(true);
       }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    const onRefresh = (done: Function): void => {
-      store.reset();
+    const onRefresh = async (done: Function): Promise<void> => {
+      await reset();
       done();
     };
 
     useMeta(() => ({ title: 'Videos' }));
 
-    watch(filters, () => store.reset(), { deep: true });
-
     return {
-      store,
       onLoad,
       onRefresh,
+      state,
     };
   },
 });

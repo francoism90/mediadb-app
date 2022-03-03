@@ -1,36 +1,32 @@
 <template>
-  <page-hero class="container q-mb-md">
-    {{ store.title }}
-
-    <template #meta>
+  <div class="hero container q-mb-md">
+    <h1>{{ title }}</h1>
+    <p>
       <span v-if="episode">{{ episode }}</span>
       <span>{{ duration }}</span>
       <span>{{ released }}</span>
-    </template>
-  </page-hero>
+    </p>
+  </div>
 </template>
 
 <script lang="ts">
 import { useVideo } from 'src/composables/useVideo';
 import { dateFormat, timeFormat } from 'src/helpers';
-import { computed, defineAsyncComponent, defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VideoHero',
 
-  components: {
-    PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
-  },
-
   setup() {
-    const { store } = useVideo();
+    const { state } = useVideo();
 
-    const episode = computed(() => store.data?.production_code);
-    const released = computed(() => dateFormat(store.data?.released_at || store.data?.created_at, 'YYYY'));
-    const duration = computed(() => timeFormat(store.data?.duration));
+    const title = computed(() => state.data?.title);
+    const episode = computed(() => state.data?.production_code);
+    const released = computed(() => dateFormat(state.data?.released_at || state.data?.created_at, 'YYYY'));
+    const duration = computed(() => timeFormat(state.data?.duration));
 
     return {
-      store,
+      title,
       episode,
       released,
       duration,

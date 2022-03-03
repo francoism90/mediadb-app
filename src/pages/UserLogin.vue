@@ -1,13 +1,12 @@
 <template>
   <q-page class="fullscreen flex flex-center">
     <div class="container auth">
-      <page-hero class="q-mb-md">
-        Sign In
-
-        <template #meta>
-          Login to your account
-        </template>
-      </page-hero>
+      <div class="hero q-mb-md">
+        <h1>Sign In</h1>
+        <p>
+          <span>Login to your account</span>
+        </p>
+      </div>
 
       <q-card class="auth-form">
         <q-form
@@ -16,7 +15,7 @@
         >
           <q-card-section class="q-gutter-sm">
             <q-input
-              v-model.trim="state.email"
+              v-model.trim="form.email"
               :error-message="getError('email')?.find(Boolean)"
               :error="hasError('email')"
               autofocus
@@ -26,7 +25,7 @@
             />
 
             <q-input
-              v-model.trim="state.password"
+              v-model.trim="form.password"
               :error-message="getError('password')?.find(Boolean)"
               :error="hasError('password')"
               class="input input-text"
@@ -52,31 +51,19 @@
 import { Platform, useMeta } from 'quasar';
 import { useSession } from 'src/composables/useSession';
 import { useValidation } from 'src/composables/useValidation';
-import { LoginRequest, ValidationError } from 'src/interfaces';
+import { stringify } from 'src/helpers';
+import { LoginRequest } from 'src/interfaces';
 import { router } from 'src/router';
-import { check } from 'src/services/auth';
-import { defineAsyncComponent, defineComponent, reactive } from 'vue';
+import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   name: 'UserLogin',
 
-  async preFetch({ redirect }) {
-    const authenticated = await check();
-
-    if (authenticated) {
-      redirect({ name: 'home' });
-    }
-  },
-
-  components: {
-    PageHero: defineAsyncComponent(() => import('components/ui/PageHero.vue')),
-  },
-
   setup() {
-    const { signIn, store } = useSession();
+    const { authenticate } = useSession();
     const { getError, hasError, resetResponse, setResponse } = useValidation();
 
-    const state = reactive<LoginRequest>({
+    const form = reactive<LoginRequest>({
       email: '',
       password: '',
       device_name: Platform.userAgent || '',
@@ -86,25 +73,21 @@ export default defineComponent({
     const onSubmit = async (): Promise<void> => {
       resetResponse();
 
-      try {
-        await signIn(state);
-        await router.replace(store.redirectUri);
-      } catch (e: unknown) {
-        const error = e as ValidationError;
+      const { error, data } = await authenticate(form);
 
-        if (error.response) {
-          setResponse(error.response.data);
-          return;
-        }
-
-        throw error;
+      if (error.value) {
+        setResponse(data.value);
+        return;
       }
+
+      const path = stringify(router.currentRoute.value.query?.redirect as string);
+      await router.push({ path: path || '/' });
     };
 
     useMeta(() => ({ title: 'Log In' }));
 
     return {
-      state,
+      form,
       onSubmit,
       getError,
       hasError,

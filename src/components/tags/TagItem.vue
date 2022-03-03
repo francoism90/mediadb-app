@@ -28,7 +28,6 @@
 <script lang="ts">
 import { useVideos } from 'src/composables/useVideos';
 import { TagModel } from 'src/interfaces/tag';
-import { router } from 'src/router';
 import { computed, defineComponent, PropType } from 'vue';
 
 const icons = [
@@ -48,15 +47,11 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { store } = useVideos();
+    const { reset } = useVideos();
 
     const icon = computed(() => icons.find((e) => e.type === props.tag.type));
 
-    const query = async () => {
-      store.reset({ query: props.tag.name });
-
-      await router.push({ name: 'home' });
-    };
+    const query = () => reset({ query: props.tag.name });
 
     return {
       icon,

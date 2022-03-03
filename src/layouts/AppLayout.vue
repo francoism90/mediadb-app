@@ -35,13 +35,6 @@
 
           <q-btn
             class="btn header-item q-pa-sm"
-            icon="casino"
-            size="14px"
-            :to="{ name: 'roulette' }"
-          />
-
-          <q-btn
-            class="btn header-item q-pa-sm"
             icon="logout"
             size="14px"
             :to="{ name: 'logout' }"
@@ -69,9 +62,9 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { store, subscribe, unsubscribe } = useSession();
+    const { subscribe, unsubscribe, state } = useSession();
 
-    const sessionKey = computed(() => store.token || +new Date());
+    const sessionKey = computed(() => state.token || +new Date());
 
     const tagsDialog = () => $q.dialog({ component: tagsComponent });
     const videosDialog = () => $q.dialog({ component: videosComponent });
