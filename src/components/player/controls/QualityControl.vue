@@ -1,9 +1,5 @@
 <template>
-  <div class="player-video-control q-gutter-x-md">
-    <template v-if="loading">
-      <q-spinner size="20px" />
-    </template>
-
+  <div class="player-video-control">
     <span class="text-weight-medium">{{ resolution?.label }}</span>
   </div>
 </template>
@@ -35,11 +31,9 @@ export default defineComponent({
       return heightMatch || widthMatch;
     };
 
-    const loading = computed(() => !state.ready || !state.buffered);
     const resolution = computed(() => getResolution(state.bitrate?.height || 0, state.bitrate?.width || 0));
 
     return {
-      loading,
       resolution,
     };
   },

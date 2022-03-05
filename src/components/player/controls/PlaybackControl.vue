@@ -1,30 +1,28 @@
 <template>
-  <div class="player-video-control absolute-center">
-    <div class="row no-wrap items-center content-center q-col-gutter-lg">
-      <q-icon
-        name="replay_10"
-        class="cursor-pointer"
-        size="36px"
-        tabindex="0"
-        @click="decreaseTime"
-      />
+  <div class="row no-wrap items-center content-center q-col-gutter-xs">
+    <q-icon
+      :name="playing"
+      class="cursor-pointer"
+      size="24px"
+      tabindex="0"
+      @click="togglePlayback"
+    />
 
-      <q-icon
-        :name="playing"
-        class="cursor-pointer"
-        size="72px"
-        tabindex="0"
-        @click="togglePlayback"
-      />
+    <q-icon
+      name="replay_10"
+      class="cursor-pointer"
+      size="24px"
+      tabindex="0"
+      @click="decreaseTime"
+    />
 
-      <q-icon
-        name="forward_10"
-        class="cursor-pointer"
-        size="36px"
-        tabindex="0"
-        @click="increaseTime"
-      />
-    </div>
+    <q-icon
+      name="forward_10"
+      class="cursor-pointer"
+      size="24px"
+      tabindex="0"
+      @click="increaseTime"
+    />
   </div>
 </template>
 

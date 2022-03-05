@@ -3,8 +3,10 @@
     <seek-control />
 
     <q-toolbar class="player-video-toolbar">
+      <playback-control />
       <duration-control />
       <q-space />
+      <loading-control />
       <quality-control />
       <fullscreen-control />
     </q-toolbar>
@@ -20,6 +22,8 @@ export default defineComponent({
   components: {
     DurationControl: defineAsyncComponent(() => import('components/player/controls/DurationControl.vue')),
     FullscreenControl: defineAsyncComponent(() => import('components/player/controls/FullscreenControl.vue')),
+    LoadingControl: defineAsyncComponent(() => import('components/player/controls/LoadingControl.vue')),
+    PlaybackControl: defineAsyncComponent(() => import('components/player/controls/PlaybackControl.vue')),
     QualityControl: defineAsyncComponent(() => import('components/player/controls/QualityControl.vue')),
     SeekControl: defineAsyncComponent(() => import('components/player/controls/SeekControl.vue')),
   },

@@ -8,12 +8,13 @@
 
   <q-slider
     ref="slider"
-    class="player-video-control player-video-seeker"
     :model-value="state.time || 0"
     :min="0.0"
     :max="state.duration || 0"
     :step="0"
     :style="{ '--buffer': `${buffered}%` }"
+    class="player-video-control player-video-seeker"
+    dense
     color="primary"
     tabindex="0"
     @mousemove="onMouseHover"

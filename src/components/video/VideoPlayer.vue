@@ -45,7 +45,6 @@ export default defineComponent({
 
     const capture = async () => {
       const data = <VideoModel>{ thumbnail: state.time || video.data?.thumbnail };
-
       await save(video.data?.id || '', data);
     };
 
