@@ -1,6 +1,6 @@
 <template>
   <div class="player-video-control q-px-sm">
-    <span class="text-caption text-weight-bold">{{ time }} / {{ duration }}</span>
+    <span class="text-caption">{{ time }} / {{ duration }}</span>
   </div>
 </template>
 
