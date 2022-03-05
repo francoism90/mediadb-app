@@ -2,9 +2,9 @@ import { Event, MediaPlayerClass } from 'dashjs';
 import { PlayerState, PlayerTrack, VideoModel } from 'src/interfaces';
 import { getToken } from 'src/services/auth';
 import { addListeners, appendTrack, create, destroy, showTextTrack } from 'src/services/player';
-import { reactive, ref } from 'vue';
+import { reactive, shallowRef } from 'vue';
 
-const player = ref<MediaPlayerClass>();
+const player = shallowRef<MediaPlayerClass>();
 const state = reactive(<PlayerState>{});
 
 export const usePlayer = () => {
