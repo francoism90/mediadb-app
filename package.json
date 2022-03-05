@@ -15,7 +15,7 @@
     "@pinia/plugin-debounce": "^0.0.2",
     "@quasar/extras": "^1.12.5",
     "@types/qs": "^6.9.7",
-    "@vueuse/core": "^7.7.0",
+    "@vueuse/core": "^7.7.1",
     "core-js": "^3.21.1",
     "dashjs": "^4.3.0",
     "dayjs": "^1.10.8",

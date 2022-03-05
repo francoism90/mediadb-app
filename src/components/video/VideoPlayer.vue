@@ -16,12 +16,12 @@
 </template>
 
 <script lang="ts">
-import { and, useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
+import { and, tryOnBeforeUnmount, tryOnMounted, useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { useQuasar } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
 import { useVideo } from 'src/composables/useVideo';
 import { VideoModel } from 'src/interfaces';
-import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoPlayer',
@@ -49,8 +49,8 @@ export default defineComponent({
       await save(video.data?.id || '', data);
     };
 
-    onMounted(() => initialize(video.data, element.value));
-    onBeforeUnmount(() => destroy(player.value));
+    tryOnMounted(() => initialize(video.data, element.value), false);
+    tryOnBeforeUnmount(() => destroy(player.value));
 
     // Player events
     watch(() => state.fullscreen, () => $q.fullscreen.toggle(container.value));
