@@ -50,9 +50,10 @@
 </template>
 
 <script lang="ts">
+import { tryOnBeforeUnmount, tryOnMounted } from '@vueuse/core';
 import { useQuasar } from 'quasar';
 import { useSession } from 'src/composables/useSession';
-import { computed, defineAsyncComponent, defineComponent, onBeforeUnmount, onMounted } from 'vue';
+import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
 const tagsComponent = defineAsyncComponent(() => import('components/tags/TagDialog.vue'));
 const videosComponent = defineAsyncComponent(() => import('src/components/search/SearchDialog.vue'));
@@ -69,8 +70,8 @@ export default defineComponent({
     const tagsDialog = () => $q.dialog({ component: tagsComponent });
     const videosDialog = () => $q.dialog({ component: videosComponent });
 
-    onBeforeUnmount(() => unsubscribe());
-    onMounted(() => subscribe());
+    tryOnBeforeUnmount(() => unsubscribe());
+    tryOnMounted(() => subscribe(), true);
 
     return {
       sessionKey,

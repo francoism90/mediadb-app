@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import { set } from '@vueuse/core';
 import { dom, QSlider } from 'quasar';
 import { usePlayer } from 'src/composables/usePlayer';
 import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
@@ -43,13 +44,8 @@ export default defineComponent({
     const seekerOffset = computed(() => dom.offset(<Element>slider.value?.$el).left);
     const seekerWidth = computed(() => dom.width(<Element>slider.value?.$el));
 
-    const onMouseHover = (event: MouseEvent) => {
-      seeker.value = event.clientX;
-    };
-
-    const onMouseLeave = () => {
-      seeker.value = undefined;
-    };
+    const onMouseHover = (event: MouseEvent) => set(seeker, event.clientX);
+    const onMouseLeave = () => set(seeker, undefined);
 
     const setCurrentTime = (payload: number | null) => player.value?.seek(payload || 0);
 

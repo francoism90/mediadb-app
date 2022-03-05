@@ -1,3 +1,4 @@
+import { set } from '@vueuse/core';
 import { Event, MediaPlayerClass } from 'dashjs';
 import { PlayerState, PlayerTrack, VideoModel } from 'src/interfaces';
 import { getToken } from 'src/services/auth';
@@ -42,7 +43,7 @@ export const usePlayer = () => {
     const token = getToken();
 
     // Initialize player
-    player.value = create(model?.dash_url || '', token || '', view);
+    set(player, create(model?.dash_url || '', token || '', view));
 
     addListeners(player.value, handler);
 

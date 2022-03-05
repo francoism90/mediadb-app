@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts">
+import { set } from '@vueuse/core';
 import { clamp, debounce } from 'lodash';
 import { usePlayer } from 'src/composables/usePlayer';
 import { timeFormat } from 'src/helpers';
@@ -64,9 +65,7 @@ export default defineComponent({
         reader.readAsDataURL(data.value);
       }
 
-      reader.onload = () => {
-        uri.value = reader.result?.toString() || '';
-      };
+      reader.onload = () => set(uri, reader.result?.toString() || '');
     };
 
     watch(percent, debounce(render, 25));
