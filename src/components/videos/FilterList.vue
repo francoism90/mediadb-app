@@ -36,7 +36,6 @@ export default defineComponent({
     const active = computed(() => state.filters?.type);
 
     const isActive = (value: string | null) => value === active.value;
-
     const toggle = async (value: string | null) => reset({ type: isActive(value) ? null : value });
 
     return {

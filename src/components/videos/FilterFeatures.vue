@@ -39,7 +39,6 @@ export default defineComponent({
     const active = computed(() => state.filters?.features);
 
     const isActive = (value: string | null) => value === active.value;
-
     const toggle = async (value: string | null) => reset({ features: isActive(value) ? null : value });
 
     return {

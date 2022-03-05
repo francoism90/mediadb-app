@@ -4,9 +4,9 @@
     font-weight: 600;
     text-transform: uppercase;
     margin: 0;
-    padding-bottom: 16px;
-    line-height: initial;
-    border-bottom: 1px solid var(--filter-item-border-color, #4a4b50);
+    padding: 16px 0;
+    line-height: 8px;
+    border-bottom: 1px solid var(--border-color);
   }
 
   p {
