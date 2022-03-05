@@ -52,6 +52,7 @@
 <script lang="ts">
 import { tryOnBeforeUnmount, tryOnMounted } from '@vueuse/core';
 import { useQuasar } from 'quasar';
+import { useModels } from 'src/composables/useModels';
 import { useSession } from 'src/composables/useSession';
 import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
@@ -63,7 +64,9 @@ export default defineComponent({
 
   setup() {
     const $q = useQuasar();
-    const { subscribe, unsubscribe, state } = useSession();
+
+    const { subscribe, unsubscribe } = useModels();
+    const { state } = useSession();
 
     const sessionKey = computed(() => state.token || +new Date());
 

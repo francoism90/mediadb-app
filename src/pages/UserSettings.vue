@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-page>
     Settings
   </q-page>
@@ -6,17 +6,18 @@
 
 <script lang="ts">
 import { useMeta } from 'quasar';
-import { check } from 'src/services/auth';
+import { useSession } from 'src/composables/useSession';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'UserSettings',
 
   async preFetch({ redirect, urlPath }) {
-    const authenticated = await check({ redirectUri: urlPath });
+    const { check } = useSession();
+    const { error } = await check();
 
-    if (!authenticated) {
-      redirect({ name: 'login' });
+    if (error.value) {
+      redirect({ name: 'login', query: { redirect: urlPath } });
     }
   },
 
@@ -24,4 +25,4 @@ export default defineComponent({
     useMeta(() => ({ title: 'Settings' }));
   },
 });
-</script> -->
+</script>

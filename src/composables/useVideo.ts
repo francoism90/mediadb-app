@@ -1,6 +1,5 @@
 import { useQuasar } from 'quasar';
 import { useModels } from 'src/composables/useModels';
-import { useSession } from 'src/composables/useSession';
 import { Model, VideoModel, VideoResponse, VideoState } from 'src/interfaces';
 import { api } from 'src/services/api';
 import { reactive } from 'vue';
@@ -9,8 +8,7 @@ const state = reactive(<VideoState>{});
 
 export const useVideo = () => {
   const $q = useQuasar();
-  const { deleted, replaced } = useModels();
-  const { echo } = useSession();
+  const { deleted, replaced, echo } = useModels();
 
   const update = (payload: VideoResponse | null) => {
     if (typeof payload?.data?.id === 'string') {
