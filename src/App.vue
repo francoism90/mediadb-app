@@ -20,7 +20,7 @@ export default defineComponent({
     const meta = useMeta(metaData);
     const { isUsable, onEnterFullScreen, onLeaveFullScreen } = useDevice();
 
-    watch(() => $q.fullscreen.isActive, async (value): Promise<void> => {
+    watch(() => $q.fullscreen.isActive, async (value) => {
       if (isUsable() && value === true) await onEnterFullScreen();
       if (isUsable() && value === false) await onLeaveFullScreen();
     });
