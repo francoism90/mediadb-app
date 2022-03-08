@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="transparent"
+    class="video-item transparent"
     draggable="false"
     flat
     square
@@ -67,10 +67,7 @@
               square
               transition-duration="0"
             >
-              <q-list
-                bordered
-                dense
-              >
+              <q-list dense>
                 <q-item
                   v-for="(action, index) in actions"
                   :key="index"

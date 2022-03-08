@@ -14,12 +14,14 @@
   }
 }
 
+.tag-block {
+  min-height: 120px;
+  min-width: 100px;
+}
+
 .tag-item {
   color: var(--text-primary);
   height: 120px;
-  min-height: 120px;
-  max-height: 120px;
-  min-width: 100px;
   text-align: center;
 
   &-meta {

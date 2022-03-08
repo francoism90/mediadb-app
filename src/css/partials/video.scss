@@ -1,6 +1,9 @@
-.video-item {
-  min-height: 380px;
+.video-block {
+  min-height: 400px;
   min-width: 200px;
+}
+
+.video-item {
   font-weight: 500;
   color: var(--text-primary);
 
@@ -15,9 +18,15 @@
   }
 
   &-img {
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
+    transition: border-color 0.3s;
     height: 100%;
     width: 100%;
+
+    &:hover {
+      border-color: var(--border-hover-color);
+    }
   }
 
   &-title {

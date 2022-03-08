@@ -22,7 +22,7 @@
                 <q-intersection
                   v-for="(item, index) in state.data"
                   :key="index"
-                  class="col-12 search-item"
+                  class="col-12 search-block"
                 >
                   <search-item :model="item" />
                 </q-intersection>

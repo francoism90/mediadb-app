@@ -24,8 +24,12 @@
   }
 }
 
-.search-item {
+.search-block {
   min-height: 140px;
+  min-width: 200px;
+}
+
+.search-item {
   height: 140px;
   font-weight: 500;
   color: var(--text-primary);
