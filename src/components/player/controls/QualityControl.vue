@@ -1,6 +1,6 @@
 <template>
   <div class="player-video-control">
-    <span class="text-weight-medium">{{ resolution?.label }}</span>
+    <span class="text-caption">{{ resolution?.label }}</span>
   </div>
 </template>
 

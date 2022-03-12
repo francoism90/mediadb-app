@@ -31,6 +31,20 @@
   &-control {
     z-index: 60;
     color: var(--text-primary);
+
+    span {
+      position: relative;
+    }
+
+    span:after {
+      content: "|";
+      color: var(--border-color);
+      padding: 0 0.5rem;
+    }
+
+    span:last-child:after {
+      content: "";
+    }
   }
 
   &-seeker {
