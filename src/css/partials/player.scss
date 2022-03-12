@@ -47,6 +47,21 @@
     }
   }
 
+  &-menu {
+    min-width: 240px;
+    max-width: 100vw;
+    background: #333;
+    border: var(--border-color);
+    border-radius: var(--border-radius);
+
+    .q-list--dense > .q-item,
+    .q-item--dense {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 8px 16px;
+    }
+  }
+
   &-seeker {
     z-index: inherit;
 

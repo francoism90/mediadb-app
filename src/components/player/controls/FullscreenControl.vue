@@ -1,12 +1,14 @@
 <template>
-  <q-icon
-    :name="icon"
-    class="player-video-control cursor-pointer"
-    size="24px"
-    right
-    tabindex="0"
-    @click="onClick"
-  />
+  <div class="player-video-control">
+    <q-icon
+      :name="icon"
+      class="cursor-pointer"
+      size="24px"
+      right
+      tabindex="0"
+      @click="onClick"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -20,7 +22,6 @@ export default defineComponent({
     const { state } = usePlayer();
 
     const icon = computed(() => (state.fullscreen ? 'fullscreen_exit' : 'fullscreen'));
-
     const onClick = () => { state.fullscreen = !state.fullscreen; };
 
     return {

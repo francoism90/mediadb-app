@@ -6,7 +6,7 @@
       <duration-control />
       <q-space />
       <loading-control />
-      <quality-control />
+      <settings-control />
       <fullscreen-control />
     </q-toolbar>
   </div>
@@ -22,8 +22,8 @@ export default defineComponent({
     DurationControl: defineAsyncComponent(() => import('components/player/controls/DurationControl.vue')),
     FullscreenControl: defineAsyncComponent(() => import('components/player/controls/FullscreenControl.vue')),
     LoadingControl: defineAsyncComponent(() => import('components/player/controls/LoadingControl.vue')),
-    QualityControl: defineAsyncComponent(() => import('components/player/controls/QualityControl.vue')),
     SeekControl: defineAsyncComponent(() => import('components/player/controls/SeekControl.vue')),
+    SettingsControl: defineAsyncComponent(() => import('src/components/player/controls/SettingsControl.vue')),
   },
 });
 </script>
