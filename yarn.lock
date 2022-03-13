@@ -1187,11 +1187,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@pinia/plugin-debounce@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@pinia/plugin-debounce/-/plugin-debounce-0.0.2.tgz#3913f536f4e02609d91f80db8af31ed2a1db8ac5"
-  integrity sha512-yz9AK90R+Xxf4S2MzasgCrAieOuX/9A6eklNV/hO5QrjFB2Dqzc+w0Twcp1wPhtG4wliMPP3ctzBGKFo3w8qtw==
-
 "@polka/url@^1.0.0-next.20":
   version "1.0.0-next.21"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
