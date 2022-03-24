@@ -36,7 +36,7 @@
 <script lang="ts">
 import { useSimilar } from 'src/composables/useSimilar';
 import { useVideo } from 'src/composables/useVideo';
-import { defineAsyncComponent, defineComponent, onBeforeMount, watch } from 'vue';
+import { defineAsyncComponent, defineComponent, watch } from 'vue';
 
 export default defineComponent({
   name: 'VideoSimilar',
@@ -65,8 +65,7 @@ export default defineComponent({
       done();
     };
 
-    onBeforeMount(() => reset());
-    watch(() => video.data, () => reset(), { deep: true });
+    watch(() => video.data, () => reset(), { deep: true, immediate: true });
 
     return {
       onLoad,

@@ -3,16 +3,16 @@ import { Model, RepositoryLinks, RepositoryMeta, VideosFilters, VideosResponse, 
 import { api, uri } from 'src/services/api';
 import { reactive } from 'vue';
 
-const state = reactive(<VideosState>{
-  id: null,
-  data: [],
-  meta: undefined,
-  links: undefined,
-  error: undefined,
-  filters: undefined,
-});
-
 export const useSimilar = () => {
+  const state = reactive(<VideosState>{
+    id: null,
+    data: [],
+    meta: undefined,
+    links: undefined,
+    error: undefined,
+    filters: undefined,
+  });
+
   const update = (payload: VideosResponse | null) => {
     state.data = state.data.concat(payload?.data || []);
     state.meta = { ...state.meta, ...<RepositoryMeta>payload?.meta };
