@@ -53,7 +53,7 @@ export default defineComponent({
 
     // Player events
     watch(() => state.fullscreen, () => $q.fullscreen.toggle(container.value));
-    watch(() => video.data?.id, () => reset(video.data), { deep: true });
+    watch(() => video.data?.id, () => reset(video.data));
 
     // Key combinations
     whenever(and(keys.left, disableKeys), () => player.value?.seek((state.time || 10) - 10));
