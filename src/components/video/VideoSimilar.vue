@@ -65,7 +65,7 @@ export default defineComponent({
       done();
     };
 
-    watch(() => video.data, () => reset());
+    watch(() => video.data, () => reset(), { deep: true });
 
     return {
       onLoad,

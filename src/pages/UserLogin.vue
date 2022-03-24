@@ -79,7 +79,7 @@ export default defineComponent({
         return;
       }
 
-      await router.push({ name: 'home' });
+      await router.replace({ name: 'home' });
     };
 
     useMeta(() => ({ title: 'Log In' }));
