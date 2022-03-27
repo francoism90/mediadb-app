@@ -15,7 +15,7 @@
           <q-intersection
             v-for="(item, index) in state.data"
             :key="index"
-            class="col-xs-12 col-sm-6 video-block"
+            class="col-xs-12 col-sm-6 video-placeholder"
           >
             <video-item :item="item" />
           </q-intersection>

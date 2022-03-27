@@ -20,7 +20,7 @@
               <q-intersection
                 v-for="(item, index) in state.data"
                 :key="index"
-                class="col-xs-6 col-sm-6 col-md-4 tag-block"
+                class="col-xs-6 col-sm-6 col-md-4 tag-placeholder"
               >
                 <tag-item :tag="item" />
               </q-intersection>
