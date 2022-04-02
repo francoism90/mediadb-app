@@ -1,10 +1,8 @@
 .btn {
-  background: var(--button-primary-bg);
-  color: var(--btn-color);
-  border-radius: var(--border-radius);
-  min-height: 32px;
+  color: var(--button-primary-color);
 
   .q-icon {
+    color: var(--button-primary-color);
     font-size: 1.5rem;
 
     &.on-left {
@@ -16,9 +14,16 @@
     }
   }
 
+  &-primary {
+    background: var(--button-primary-bg);
+    color: var(--button-primary-color);
+    border-radius: var(--border-radius);
+  }
+
   &-secondary {
     background: var(--button-secondary-bg);
     color: var(--button-secondary-color);
+    border-radius: var(--border-radius);
   }
 
   &-submit {
