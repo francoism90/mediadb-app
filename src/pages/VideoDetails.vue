@@ -52,12 +52,12 @@ export default defineComponent({
     },
   },
 
-  async preFetch({ redirect, urlPath }) {
+  async preFetch({ redirect }) {
     const { check } = useSession();
     const { error } = await check();
 
     if (error.value) {
-      redirect({ name: 'login', query: { redirect: urlPath } });
+      redirect({ name: 'login' });
     }
   },
 
